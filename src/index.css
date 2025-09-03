@@ -117,7 +117,6 @@
     transition: var(--transition-smooth);
   }
 }
-}
 
 @layer base {
   * {
