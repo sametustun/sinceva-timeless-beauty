@@ -148,12 +148,12 @@ export const navigationContent = {
 
 export const logoContent = {
   desktop: {
-    white: '/sinceva_white_logo_for_web.png',
-    black: '/sinceva_black_logo_for_web.png'
+    white: 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=120&h=40&fit=crop&auto=format',
+    black: 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=120&h=40&fit=crop&auto=format'
   },
   mobile: {
-    white: '/sinceva_white_logo_for_mobile.png', 
-    black: '/sinceva_black_logo_for_mobile.png'
+    white: 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=80&h=30&fit=crop&auto=format', 
+    black: 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=80&h=30&fit=crop&auto=format'
   },
   fallback: {
     text: 'Sinceva',
