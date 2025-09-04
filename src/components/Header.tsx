@@ -142,7 +142,9 @@ const Header: React.FC = () => {
         </div>
 
         {/* Navigation Section */}
-        <nav className="hidden md:flex justify-center items-center py-2 md:py-4 space-x-4 md:space-x-8 lg:space-x-12">
+        <nav className={`hidden md:flex justify-center items-center py-2 md:py-4 transition-all duration-300 ${
+          showSearch ? 'space-x-2 md:space-x-4 lg:space-x-6' : 'space-x-4 md:space-x-8 lg:space-x-12'
+        }`}>
           {navigation.map((item) => (
             <div key={item.name} className="relative">
               {item.hasMegaMenu ? (
@@ -175,36 +177,39 @@ const Header: React.FC = () => {
           ))}
           
           {/* Search Section */}
-          <div className="flex items-center ml-4 md:ml-8">
-            {showSearch ? (
-              <form onSubmit={handleSearchSubmit} className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-[hsl(var(--hover))]" />
-                <Input
-                  ref={searchInputRef}
-                  type="text"
-                  placeholder="Search..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className={`w-32 md:w-48 h-8 pl-10 pr-4 text-xs border-0 transition-all duration-300 rounded-full focus:outline-none focus:ring-0 focus:border-0 ${
-                    !isScrolled 
-                      ? 'bg-gray-100 text-gray-900 placeholder:text-gray-500' 
-                      : 'bg-black/20 backdrop-blur-md text-white placeholder:text-white/70'
-                  }`}
-                  autoFocus
-                />
-              </form>
-            ) : (
+          <div className={`flex items-center transition-all duration-300 ${showSearch ? 'ml-2 md:ml-4' : 'ml-4 md:ml-8'}`}>
+            <div className="relative flex items-center">
               <button
-                onClick={() => setShowSearch(true)}
+                onClick={() => setShowSearch(!showSearch)}
                 className={`p-2 transition-all duration-500 ${
-                  !isScrolled 
+                  showSearch ? 'text-[hsl(var(--hover))]' : !isScrolled 
                     ? 'text-[#191919] hover:text-[hsl(var(--hover))]' 
                     : 'text-white hover:text-[hsl(var(--hover))]'
-                }`}
+                } ${showSearch ? 'absolute left-1 top-1/2 transform -translate-y-1/2 z-10' : ''}`}
               >
                 <Search className="w-4 md:w-5 h-4 md:h-5" />
               </button>
-            )}
+              
+              <div className={`overflow-hidden transition-all duration-300 ease-out ${
+                showSearch ? 'w-32 md:w-48 ml-0' : 'w-0 ml-0'
+              }`}>
+                <form onSubmit={handleSearchSubmit} className="w-full">
+                  <Input
+                    ref={searchInputRef}
+                    type="text"
+                    placeholder="Search..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className={`w-full h-8 pl-10 pr-4 text-xs border-0 transition-all duration-300 rounded-full focus:outline-none focus:ring-0 focus:border-0 ${
+                      !isScrolled 
+                        ? 'bg-gray-100 text-gray-900 placeholder:text-gray-500' 
+                        : 'bg-black/20 backdrop-blur-md text-white placeholder:text-white/70'
+                    }`}
+                    autoFocus={showSearch}
+                  />
+                </form>
+              </div>
+            </div>
           </div>
         </nav>
 
