@@ -6,6 +6,8 @@ import SearchPanel from './SearchPanel';
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const [showMegaMenu, setShowMegaMenu] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -13,12 +15,32 @@ const Header: React.FC = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 0);
+      const currentScrollY = window.scrollY;
+      
+      // Check if we're at the top
+      const isAtTop = currentScrollY < 10;
+      
+      // Determine scroll direction
+      const scrollingDown = currentScrollY > lastScrollY;
+      const scrollingUp = currentScrollY < lastScrollY;
+      
+      setIsScrolled(!isAtTop);
+      
+      // Show/hide navbar based on scroll direction
+      if (isAtTop) {
+        setIsVisible(true);
+      } else if (scrollingDown && currentScrollY > 100) {
+        setIsVisible(false);
+      } else if (scrollingUp) {
+        setIsVisible(true);
+      }
+      
+      setLastScrollY(currentScrollY);
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [lastScrollY]);
 
   const navigation = [
     { name: 'THE ORIGIN OF BEAUTY', href: '/' },
@@ -29,15 +51,19 @@ const Header: React.FC = () => {
   ];
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-      isScrolled 
-        ? 'bg-transparent backdrop-blur-none' 
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 transform ${
+      !isVisible ? '-translate-y-full' : 'translate-y-0'
+    } ${
+      !isScrolled 
+        ? 'bg-white shadow-md' 
         : 'bg-black/20 backdrop-blur-md'
     }`}>
       <div className="container mx-auto max-w-7xl px-4">
         {/* Logo Section */}
-        <div className="flex justify-center py-6 border-b border-border/20">
-          <Link to="/" className="text-3xl font-bold tracking-wider text-white hover:opacity-80 transition-all duration-500">
+        <div className={`flex justify-center py-6 ${!isScrolled ? 'border-b border-gray-100' : ''}`}>
+          <Link to="/" className={`text-3xl font-bold tracking-wider transition-all duration-500 ${
+            !isScrolled ? 'text-[#191919] hover:opacity-80' : 'text-white hover:opacity-80'
+          }`}>
             SINCEVA
           </Link>
         </div>
@@ -50,14 +76,22 @@ const Header: React.FC = () => {
                 <button
                   onMouseEnter={() => setShowMegaMenu(true)}
                   onMouseLeave={() => setShowMegaMenu(false)}
-                  className="text-sm font-medium tracking-wide text-white hover:text-white/80 transition-all duration-500 uppercase"
+                  className={`text-sm font-medium tracking-wide transition-all duration-500 uppercase ${
+                    !isScrolled 
+                      ? 'text-[#191919] hover:text-[#191919]/80' 
+                      : 'text-white hover:text-white/80'
+                  }`}
                 >
                   {item.name}
                 </button>
               ) : (
                 <Link
                   to={item.href}
-                  className={`text-sm font-medium tracking-wide text-white hover:text-white/80 transition-all duration-500 uppercase ${
+                  className={`text-sm font-medium tracking-wide transition-all duration-500 uppercase ${
+                    !isScrolled 
+                      ? 'text-[#191919] hover:text-[#191919]/80' 
+                      : 'text-white hover:text-white/80'
+                  } ${
                     location.pathname === item.href ? 'opacity-100' : 'opacity-90'
                   }`}
                 >
@@ -70,7 +104,11 @@ const Header: React.FC = () => {
           {/* Search Icon */}
           <button
             onClick={() => setShowSearch(true)}
-            className="ml-8 p-2 text-white hover:text-white/80 transition-all duration-500"
+            className={`ml-8 p-2 transition-all duration-500 ${
+              !isScrolled 
+                ? 'text-[#191919] hover:text-[#191919]/80' 
+                : 'text-white hover:text-white/80'
+            }`}
           >
             <Search className="w-5 h-5" />
           </button>
@@ -80,14 +118,18 @@ const Header: React.FC = () => {
         <div className="md:hidden flex justify-between items-center py-4">
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="p-2 text-white transition-all duration-500"
+            className={`p-2 transition-all duration-500 ${
+              !isScrolled ? 'text-[#191919]' : 'text-white'
+            }`}
           >
             {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
           
           <button
             onClick={() => setShowSearch(true)}
-            className="p-2 text-white transition-all duration-500"
+            className={`p-2 transition-all duration-500 ${
+              !isScrolled ? 'text-[#191919]' : 'text-white'
+            }`}
           >
             <Search className="w-5 h-5" />
           </button>
@@ -95,13 +137,17 @@ const Header: React.FC = () => {
 
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-border/20">
+          <div className={`md:hidden py-4 ${!isScrolled ? 'border-t border-gray-100' : 'border-t border-border/20'}`}>
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 to={item.href === '#' ? '/shop' : item.href}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="block py-3 text-sm font-medium text-white hover:text-white/80 transition-all duration-500 uppercase"
+                className={`block py-3 text-sm font-medium transition-all duration-500 uppercase ${
+                  !isScrolled 
+                    ? 'text-[#191919] hover:text-[#191919]/80' 
+                    : 'text-white hover:text-white/80'
+                }`}
               >
                 {item.name}
               </Link>
