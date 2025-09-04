@@ -3,9 +3,8 @@ import { Link, useLocation } from 'react-router-dom';
 import { Search, Menu, X } from 'lucide-react';
 import MegaMenu from './MegaMenu';
 import SearchPanel from './SearchPanel';
-// Temporary debug - let's use simple placeholder text instead of images
-// import webLogo from '../assets/sinceva_logo_for_web.png';
-// import mobileLogo from '../assets/sinceva_logo_for_mobile.png';
+import webLogo from '../assets/sinceva_logo_for_web.png';
+import mobileLogo from '../assets/sinceva_logo_for_mobile.png';
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -67,24 +66,20 @@ const Header: React.FC = () => {
         <div className={`flex justify-center py-3 md:py-6 ${!isScrolled && lastScrollY === 0 ? 'border-b border-gray-100' : ''}`}>
           {/* Desktop Logo */}
           <Link to="/" className="hidden md:block transition-all duration-500 hover:opacity-80">
-            <div className={`text-sm sm:text-base md:text-lg lg:text-xl font-bold tracking-wide transition-all duration-500 ${
-              !isScrolled 
-                ? 'text-[#191919]' 
-                : 'text-white'
-            }`}>
-              SINCEVA
-            </div>
+            <img 
+              src={webLogo} 
+              alt="Sinceva" 
+              className="h-6 sm:h-7 md:h-8 lg:h-10 w-auto"
+            />
           </Link>
           
           {/* Mobile Logo */}
           <Link to="/" className="md:hidden transition-all duration-500 hover:opacity-80">
-            <div className={`text-xs sm:text-sm font-bold tracking-wide transition-all duration-500 ${
-              !isScrolled 
-                ? 'text-[#191919]' 
-                : 'text-white'
-            }`}>
-              SINCEVA
-            </div>
+            <img 
+              src={mobileLogo} 
+              alt="Sinceva" 
+              className="h-4 sm:h-5 w-auto"
+            />
           </Link>
         </div>
 
