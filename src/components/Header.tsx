@@ -61,19 +61,23 @@ const Header: React.FC = () => {
     }`}>
       <div className="container mx-auto max-w-7xl px-4">
         {/* Logo Section */}
-        <div className={`flex justify-center py-3 md:py-6 ${!isScrolled && lastScrollY < 10 ? 'border-b border-gray-100' : ''}`}>
+        <div className="flex justify-start py-3 md:py-6">
           {/* Desktop Logo */}
-          <Link to="/" className={`hidden md:block text-3xl font-bold tracking-wider transition-all duration-500 ${
-            !isScrolled ? 'text-[#191919] hover:opacity-80' : 'text-white hover:opacity-80'
-          }`}>
-            SINCEVA
+          <Link to="/" className="hidden md:block transition-all duration-500 hover:opacity-80">
+            <img 
+              src={!isScrolled ? "/src/assets/sinceva_black_logo_for_web.png" : "/src/assets/sinceva_white_logo_for_web.png"}
+              alt="SINCEVA Logo" 
+              className="h-8 md:h-10 w-auto"
+            />
           </Link>
           
           {/* Mobile Logo */}
-          <Link to="/" className={`md:hidden text-2xl font-bold tracking-wider transition-all duration-500 ${
-            !isScrolled ? 'text-[#191919] hover:opacity-80' : 'text-white hover:opacity-80'
-          }`}>
-            SINCEVA
+          <Link to="/" className="md:hidden transition-all duration-500 hover:opacity-80">
+            <img 
+              src={!isScrolled ? "/src/assets/sinceva_black_logo_for_mobile.png" : "/src/assets/sinceva_white_logo_for_mobile.png"}
+              alt="SINCEVA Logo" 
+              className="h-6 w-auto"
+            />
           </Link>
         </div>
 
