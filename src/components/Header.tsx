@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Search, Menu, X } from 'lucide-react';
+import { Input } from '@/components/ui/input';
 import MegaMenu from './MegaMenu';
-import SearchPanel from './SearchPanel';
 import { useLogos } from '../hooks/useLogo';
 import { logoContent } from '../data/content';
 
@@ -12,9 +12,11 @@ const Header: React.FC = () => {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [showMegaMenu, setShowMegaMenu] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
   const logos = useLogos();
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,9 +44,30 @@ const Header: React.FC = () => {
       setLastScrollY(currentScrollY);
     };
 
+    const handleClickOutside = (event: MouseEvent) => {
+      if (searchInputRef.current && !searchInputRef.current.contains(event.target as Node)) {
+        setShowSearch(false);
+        setSearchQuery('');
+      }
+    };
+
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    document.addEventListener('mousedown', handleClickOutside);
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
   }, [lastScrollY]);
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      console.log('Searching for:', searchQuery);
+      setShowSearch(false);
+      setSearchQuery('');
+    }
+  };
 
   const navigation = [
     { name: 'THE ORIGIN OF BEAUTY', href: '/' },
@@ -128,8 +151,8 @@ const Header: React.FC = () => {
                   onMouseLeave={() => setShowMegaMenu(false)}
                   className={`text-xs md:text-sm font-medium tracking-wide transition-all duration-500 uppercase whitespace-nowrap ${
                     !isScrolled 
-                      ? 'text-[#191919] hover:text-[#191919]/80' 
-                      : 'text-white hover:text-white/80'
+                      ? 'text-[#191919] hover:text-[hsl(var(--hover))]' 
+                      : 'text-white hover:text-[hsl(var(--hover))]'
                   }`}
                 >
                   {item.name}
@@ -139,8 +162,8 @@ const Header: React.FC = () => {
                   to={item.href}
                   className={`text-xs md:text-sm font-medium tracking-wide transition-all duration-500 uppercase whitespace-nowrap ${
                     !isScrolled 
-                      ? 'text-[#191919] hover:text-[#191919]/80' 
-                      : 'text-white hover:text-white/80'
+                      ? 'text-[#191919] hover:text-[hsl(var(--hover))]' 
+                      : 'text-white hover:text-[hsl(var(--hover))]'
                   } ${
                     location.pathname === item.href ? 'opacity-100' : 'opacity-90'
                   }`}
@@ -151,17 +174,39 @@ const Header: React.FC = () => {
             </div>
           ))}
           
-          {/* Search Icon */}
-          <button
-            onClick={() => setShowSearch(true)}
-            className={`ml-4 md:ml-8 p-2 transition-all duration-500 ${
-              !isScrolled 
-                ? 'text-[#191919] hover:text-[#191919]/80' 
-                : 'text-white hover:text-white/80'
-            }`}
-          >
-            <Search className="w-4 md:w-5 h-4 md:h-5" />
-          </button>
+          {/* Search Section */}
+          <div className="flex items-center ml-4 md:ml-8">
+            {showSearch ? (
+              <form onSubmit={handleSearchSubmit} className="flex items-center">
+                <Input
+                  ref={searchInputRef}
+                  type="text"
+                  placeholder="Search..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-32 md:w-48 h-8 text-xs border-border/20 focus:border-[hsl(var(--hover))] transition-all duration-300"
+                  autoFocus
+                />
+                <button
+                  type="submit"
+                  className="ml-2 p-2 transition-all duration-500 text-[hsl(var(--hover))]"
+                >
+                  <Search className="w-4 md:w-5 h-4 md:h-5" />
+                </button>
+              </form>
+            ) : (
+              <button
+                onClick={() => setShowSearch(true)}
+                className={`p-2 transition-all duration-500 ${
+                  !isScrolled 
+                    ? 'text-[#191919] hover:text-[hsl(var(--hover))]' 
+                    : 'text-white hover:text-[hsl(var(--hover))]'
+                }`}
+              >
+                <Search className="w-4 md:w-5 h-4 md:h-5" />
+              </button>
+            )}
+          </div>
         </nav>
 
         {/* Mobile Menu Toggle */}
@@ -178,7 +223,7 @@ const Header: React.FC = () => {
           <button
             onClick={() => setShowSearch(true)}
             className={`p-2 transition-all duration-500 ${
-              !isScrolled ? 'text-[#191919]' : 'text-white'
+              !isScrolled ? 'text-[#191919] hover:text-[hsl(var(--hover))]' : 'text-white hover:text-[hsl(var(--hover))]'
             }`}
           >
             <Search className="w-5 h-5" />
@@ -195,8 +240,8 @@ const Header: React.FC = () => {
                 onClick={() => setIsMobileMenuOpen(false)}
                 className={`block py-2 text-sm font-medium transition-all duration-500 uppercase ${
                   !isScrolled 
-                    ? 'text-[#191919] hover:text-[#191919]/80' 
-                    : 'text-white hover:text-white/80'
+                    ? 'text-[#191919] hover:text-[hsl(var(--hover))]' 
+                    : 'text-white hover:text-[hsl(var(--hover))]'
                 }`}
               >
                 {item.name}
@@ -214,8 +259,6 @@ const Header: React.FC = () => {
         <MegaMenu isVisible={showMegaMenu} />
       </div>
 
-      {/* Search Panel */}
-      <SearchPanel isVisible={showSearch} onClose={() => setShowSearch(false)} />
     </header>
   );
 };
