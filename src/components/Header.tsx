@@ -82,8 +82,8 @@ const Header: React.FC = () => {
       !isVisible ? '-translate-y-full opacity-0' : 'translate-y-0 opacity-100'
     } ${
       !isScrolled 
-        ? 'bg-white shadow-md' 
-        : 'bg-black/20 backdrop-blur-md'
+        ? 'bg-black/20 backdrop-blur-md' 
+        : 'bg-white shadow-md'
     }`}>
       <div className="container mx-auto max-w-7xl px-4">
         {/* Logo Section */}
@@ -91,7 +91,7 @@ const Header: React.FC = () => {
           {/* Desktop Logo */}
           <Link to="/" className="hidden md:block transition-all duration-500 hover:opacity-80">
             {(() => {
-              const desktopLogo = !isScrolled ? logos.desktop.black : logos.desktop.white;
+              const desktopLogo = !isScrolled ? logos.desktop.white : logos.desktop.black;
               
               if (desktopLogo.currentLogo) {
                 return (
@@ -106,7 +106,7 @@ const Header: React.FC = () => {
               // Fallback to text when logo is not available
               return (
                 <div className={`text-xl md:text-2xl font-bold transition-all duration-500 ${
-                  !isScrolled ? 'text-[#191919]' : 'text-white'
+                  !isScrolled ? 'text-white' : 'text-[#191919]'
                 }`}>
                   {logoContent.fallback.text}
                 </div>
@@ -117,7 +117,7 @@ const Header: React.FC = () => {
           {/* Mobile Logo */}
           <Link to="/" className="md:hidden transition-all duration-500 hover:opacity-80">
             {(() => {
-              const mobileLogo = !isScrolled ? logos.mobile.black : logos.mobile.white;
+              const mobileLogo = !isScrolled ? logos.mobile.white : logos.mobile.black;
               
               if (mobileLogo.currentLogo) {
                 return (
@@ -132,7 +132,7 @@ const Header: React.FC = () => {
               // Fallback to text when logo is not available
               return (
                 <div className={`text-lg font-bold transition-all duration-500 ${
-                  !isScrolled ? 'text-[#191919]' : 'text-white'
+                  !isScrolled ? 'text-white' : 'text-[#191919]'
                 }`}>
                   {logoContent.fallback.text}
                 </div>
@@ -153,8 +153,8 @@ const Header: React.FC = () => {
                   onMouseLeave={() => setShowMegaMenu(false)}
                   className={`text-xs md:text-sm font-medium tracking-wide transition-all duration-500 uppercase whitespace-nowrap ${
                     !isScrolled 
-                      ? 'text-[#191919] hover:text-[hsl(var(--hover))]' 
-                      : 'text-white hover:text-[hsl(var(--hover))]'
+                      ? 'text-white hover:text-[hsl(var(--hover))]' 
+                      : 'text-[#191919] hover:text-[hsl(var(--hover))]'
                   }`}
                 >
                   {item.name}
@@ -164,8 +164,8 @@ const Header: React.FC = () => {
                   to={item.href}
                   className={`text-xs md:text-sm font-medium tracking-wide transition-all duration-500 uppercase whitespace-nowrap ${
                     !isScrolled 
-                      ? 'text-[#191919] hover:text-[hsl(var(--hover))]' 
-                      : 'text-white hover:text-[hsl(var(--hover))]'
+                      ? 'text-white hover:text-[hsl(var(--hover))]' 
+                      : 'text-[#191919] hover:text-[hsl(var(--hover))]'
                   } ${
                     location.pathname === item.href ? 'opacity-100' : 'opacity-90'
                   }`}
@@ -183,8 +183,8 @@ const Header: React.FC = () => {
                 onClick={() => setShowSearch(!showSearch)}
                 className={`p-2 transition-all duration-500 ${
                   showSearch ? 'text-[hsl(var(--hover))]' : !isScrolled 
-                    ? 'text-[#191919] hover:text-[hsl(var(--hover))]' 
-                    : 'text-white hover:text-[hsl(var(--hover))]'
+                    ? 'text-white hover:text-[hsl(var(--hover))]' 
+                    : 'text-[#191919] hover:text-[hsl(var(--hover))]'
                 } ${showSearch ? 'absolute left-1 top-1/2 transform -translate-y-1/2 z-10' : ''}`}
               >
                 <Search className="w-4 md:w-5 h-4 md:h-5" />
@@ -202,8 +202,8 @@ const Header: React.FC = () => {
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className={`w-full h-8 pl-10 pr-4 text-xs !border-none !outline-none !ring-0 !ring-offset-0 !shadow-none transition-all duration-300 rounded-full focus:!outline-none focus:!ring-0 focus:!border-none focus:!shadow-none focus-visible:!outline-none focus-visible:!ring-0 focus-visible:!ring-offset-0 ${
                       !isScrolled 
-                        ? 'bg-gray-100 text-gray-900 placeholder:text-gray-500' 
-                        : 'bg-black/20 backdrop-blur-md text-white placeholder:text-white/70'
+                        ? 'bg-black/20 backdrop-blur-md text-white placeholder:text-white/70' 
+                        : 'bg-gray-100 text-gray-900 placeholder:text-gray-500'
                     }`}
                     autoFocus={showSearch}
                   />
@@ -218,7 +218,7 @@ const Header: React.FC = () => {
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className={`p-2 transition-all duration-500 ${
-              !isScrolled ? 'text-[#191919]' : 'text-white'
+              !isScrolled ? 'text-white' : 'text-[#191919]'
             }`}
           >
             {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -227,7 +227,7 @@ const Header: React.FC = () => {
           <button
             onClick={() => setShowSearch(true)}
             className={`p-2 transition-all duration-500 ${
-              !isScrolled ? 'text-[#191919] hover:text-[hsl(var(--hover))]' : 'text-white hover:text-[hsl(var(--hover))]'
+              !isScrolled ? 'text-white hover:text-[hsl(var(--hover))]' : 'text-[#191919] hover:text-[hsl(var(--hover))]'
             }`}
           >
             <Search className="w-5 h-5" />
@@ -236,7 +236,7 @@ const Header: React.FC = () => {
 
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
-          <div className={`md:hidden py-2 md:py-4 ${!isScrolled ? 'border-t border-gray-100' : 'border-t border-border/20'}`}>
+          <div className={`md:hidden py-2 md:py-4 ${!isScrolled ? 'border-t border-border/20' : 'border-t border-gray-100'}`}>
             {navigation.map((item) => (
               <Link
                 key={item.name}
@@ -244,8 +244,8 @@ const Header: React.FC = () => {
                 onClick={() => setIsMobileMenuOpen(false)}
                 className={`block py-2 text-sm font-medium transition-all duration-500 uppercase ${
                   !isScrolled 
-                    ? 'text-[#191919] hover:text-[hsl(var(--hover))]' 
-                    : 'text-white hover:text-[hsl(var(--hover))]'
+                    ? 'text-white hover:text-[hsl(var(--hover))]' 
+                    : 'text-[#191919] hover:text-[hsl(var(--hover))]'
                 }`}
               >
                 {item.name}
