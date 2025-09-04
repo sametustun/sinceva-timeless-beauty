@@ -31,13 +31,15 @@ const Header: React.FC = () => {
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
       isScrolled 
-        ? 'bg-glass-bg backdrop-blur-lg border-b border-glass-border shadow-glass' 
+        ? 'bg-white/10 backdrop-blur-lg border-b border-white/20 shadow-glass' 
         : 'bg-white'
     }`}>
       <div className="container mx-auto max-w-7xl px-4">
         {/* Logo Section */}
         <div className="flex justify-center py-6 border-b border-border/20">
-          <Link to="/" className="text-3xl font-bold tracking-wider text-primary hover:opacity-80 transition-opacity">
+          <Link to="/" className={`text-3xl font-bold tracking-wider hover:opacity-80 transition-all duration-300 ${
+            isScrolled ? 'text-[#191919]' : 'text-primary'
+          }`}>
             SINCEVA
           </Link>
         </div>
@@ -50,7 +52,11 @@ const Header: React.FC = () => {
                 <button
                   onMouseEnter={() => setShowMegaMenu(true)}
                   onMouseLeave={() => setShowMegaMenu(false)}
-                  className="text-sm font-medium tracking-wide text-foreground hover:text-primary transition-colors uppercase"
+                  className={`text-sm font-medium tracking-wide transition-colors uppercase ${
+                    isScrolled 
+                      ? 'text-[#191919] hover:text-[#191919]/80' 
+                      : 'text-foreground hover:text-primary'
+                  }`}
                 >
                   {item.name}
                 </button>
@@ -59,8 +65,8 @@ const Header: React.FC = () => {
                   to={item.href}
                   className={`text-sm font-medium tracking-wide transition-colors uppercase ${
                     location.pathname === item.href
-                      ? 'text-primary'
-                      : 'text-foreground hover:text-primary'
+                      ? (isScrolled ? 'text-[#191919]' : 'text-primary')
+                      : (isScrolled ? 'text-[#191919] hover:text-[#191919]/80' : 'text-foreground hover:text-primary')
                   }`}
                 >
                   {item.name}
@@ -72,7 +78,11 @@ const Header: React.FC = () => {
           {/* Search Icon */}
           <button
             onClick={() => setShowSearch(true)}
-            className="ml-8 p-2 text-foreground hover:text-primary transition-colors"
+            className={`ml-8 p-2 transition-colors ${
+              isScrolled 
+                ? 'text-[#191919] hover:text-[#191919]/80' 
+                : 'text-foreground hover:text-primary'
+            }`}
           >
             <Search className="w-5 h-5" />
           </button>
@@ -82,14 +92,14 @@ const Header: React.FC = () => {
         <div className="md:hidden flex justify-between items-center py-4">
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="p-2 text-foreground"
+            className={`p-2 ${isScrolled ? 'text-[#191919]' : 'text-foreground'}`}
           >
             {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
           
           <button
             onClick={() => setShowSearch(true)}
-            className="p-2 text-foreground"
+            className={`p-2 ${isScrolled ? 'text-[#191919]' : 'text-foreground'}`}
           >
             <Search className="w-5 h-5" />
           </button>
