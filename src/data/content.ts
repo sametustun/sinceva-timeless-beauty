@@ -1,6 +1,12 @@
 // Content data structure for WordPress conversion
 // This file contains all static content that will be replaced by WordPress dynamic content
 
+// Import logo assets
+import sincevaWhiteLogoWeb from '@/assets/sinceva_white_logo_for_web.png';
+import sincevaBlackLogoWeb from '@/assets/sinceva_black_logo_for_web.png';
+import sincevaWhiteLogoMobile from '@/assets/sinceva_white_logo_for_mobile.png';
+import sincevaBlackLogoMobile from '@/assets/sinceva_black_logo_for_mobile.png';
+
 export const heroContent = {
   title: {
     main: "The Origin",
@@ -148,12 +154,12 @@ export const navigationContent = {
 
 export const logoContent = {
   desktop: {
-    white: 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=120&h=40&fit=crop&auto=format',
-    black: 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=120&h=40&fit=crop&auto=format'
+    white: sincevaWhiteLogoWeb,
+    black: sincevaBlackLogoWeb
   },
   mobile: {
-    white: 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=80&h=30&fit=crop&auto=format', 
-    black: 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=80&h=30&fit=crop&auto=format'
+    white: sincevaWhiteLogoMobile, 
+    black: sincevaBlackLogoMobile
   },
   fallback: {
     text: 'Sinceva',
