@@ -67,14 +67,22 @@ const Header: React.FC = () => {
         <div className={`flex justify-center py-3 md:py-6 ${!isScrolled && lastScrollY === 0 ? 'border-b border-gray-100' : ''}`}>
           {/* Desktop Logo */}
           <Link to="/" className="hidden md:block transition-all duration-500 hover:opacity-80">
-            <div className="text-2xl font-bold text-[#191919]">
+            <div className={`text-sm sm:text-base md:text-lg lg:text-xl font-bold tracking-wide transition-all duration-500 ${
+              !isScrolled 
+                ? 'text-[#191919]' 
+                : 'text-white'
+            }`}>
               SINCEVA
             </div>
           </Link>
           
           {/* Mobile Logo */}
           <Link to="/" className="md:hidden transition-all duration-500 hover:opacity-80">
-            <div className="text-xl font-bold text-[#191919]">
+            <div className={`text-xs sm:text-sm font-bold tracking-wide transition-all duration-500 ${
+              !isScrolled 
+                ? 'text-[#191919]' 
+                : 'text-white'
+            }`}>
               SINCEVA
             </div>
           </Link>
