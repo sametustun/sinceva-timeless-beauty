@@ -135,7 +135,7 @@ const Header: React.FC = () => {
                   <img 
                     src={mobileLogo.currentLogo}
                     alt="SINCEVA Logo" 
-                    className="h-6 w-auto filter brightness-0 invert"
+                    className="h-6 w-auto"
                     onError={(e) => {
                       console.error('❌ Mobile logo failed to load:', mobileLogo.currentLogo);
                     }}
