@@ -38,7 +38,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
       </div>
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto max-w-7xl px-4 py-32">
+      <div className="relative z-10 container mx-auto max-w-7xl px-4 pt-48 pb-32">
         <div className="max-w-2xl">
           <div className="space-y-8 text-white">
             <div className="space-y-4">
