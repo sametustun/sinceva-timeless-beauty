@@ -29,16 +29,16 @@ const Header: React.FC = () => {
   ];
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
       isScrolled 
-        ? 'bg-white/10 backdrop-blur-lg border-b border-white/20 shadow-glass' 
+        ? 'bg-black/20 backdrop-blur-md border-b border-white/10' 
         : 'bg-white'
     }`}>
       <div className="container mx-auto max-w-7xl px-4">
         {/* Logo Section */}
         <div className="flex justify-center py-6 border-b border-border/20">
-          <Link to="/" className={`text-3xl font-bold tracking-wider hover:opacity-80 transition-all duration-300 ${
-            isScrolled ? 'text-[#191919]' : 'text-primary'
+          <Link to="/" className={`text-3xl font-bold tracking-wider hover:opacity-80 transition-all duration-500 ${
+            isScrolled ? 'text-white' : 'text-primary'
           }`}>
             SINCEVA
           </Link>
@@ -52,9 +52,9 @@ const Header: React.FC = () => {
                 <button
                   onMouseEnter={() => setShowMegaMenu(true)}
                   onMouseLeave={() => setShowMegaMenu(false)}
-                  className={`text-sm font-medium tracking-wide transition-colors uppercase ${
+                  className={`text-sm font-medium tracking-wide transition-all duration-500 uppercase ${
                     isScrolled 
-                      ? 'text-[#191919] hover:text-[#191919]/80' 
+                      ? 'text-white hover:text-white/80' 
                       : 'text-foreground hover:text-primary'
                   }`}
                 >
@@ -63,10 +63,10 @@ const Header: React.FC = () => {
               ) : (
                 <Link
                   to={item.href}
-                  className={`text-sm font-medium tracking-wide transition-colors uppercase ${
+                  className={`text-sm font-medium tracking-wide transition-all duration-500 uppercase ${
                     location.pathname === item.href
-                      ? (isScrolled ? 'text-[#191919]' : 'text-primary')
-                      : (isScrolled ? 'text-[#191919] hover:text-[#191919]/80' : 'text-foreground hover:text-primary')
+                      ? (isScrolled ? 'text-white' : 'text-primary')
+                      : (isScrolled ? 'text-white hover:text-white/80' : 'text-foreground hover:text-primary')
                   }`}
                 >
                   {item.name}
@@ -78,9 +78,9 @@ const Header: React.FC = () => {
           {/* Search Icon */}
           <button
             onClick={() => setShowSearch(true)}
-            className={`ml-8 p-2 transition-colors ${
+            className={`ml-8 p-2 transition-all duration-500 ${
               isScrolled 
-                ? 'text-[#191919] hover:text-[#191919]/80' 
+                ? 'text-white hover:text-white/80' 
                 : 'text-foreground hover:text-primary'
             }`}
           >
@@ -92,14 +92,14 @@ const Header: React.FC = () => {
         <div className="md:hidden flex justify-between items-center py-4">
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className={`p-2 ${isScrolled ? 'text-[#191919]' : 'text-foreground'}`}
+            className={`p-2 transition-all duration-500 ${isScrolled ? 'text-white' : 'text-foreground'}`}
           >
             {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
           
           <button
             onClick={() => setShowSearch(true)}
-            className={`p-2 ${isScrolled ? 'text-[#191919]' : 'text-foreground'}`}
+            className={`p-2 transition-all duration-500 ${isScrolled ? 'text-white' : 'text-foreground'}`}
           >
             <Search className="w-5 h-5" />
           </button>
@@ -113,7 +113,9 @@ const Header: React.FC = () => {
                 key={item.name}
                 to={item.href === '#' ? '/shop' : item.href}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="block py-3 text-sm font-medium text-foreground hover:text-primary uppercase"
+                className={`block py-3 text-sm font-medium transition-all duration-500 uppercase ${
+                  isScrolled ? 'text-white hover:text-white/80' : 'text-foreground hover:text-primary'
+                }`}
               >
                 {item.name}
               </Link>
