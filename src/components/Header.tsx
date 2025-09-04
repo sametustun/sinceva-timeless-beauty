@@ -200,7 +200,7 @@ const Header: React.FC = () => {
                     placeholder="Search..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className={`w-full h-8 pl-10 pr-4 text-xs border-none outline-none transition-all duration-300 rounded-full focus:outline-none focus:ring-0 focus:border-none focus:shadow-none ${
+                    className={`w-full h-8 pl-10 pr-4 text-xs !border-none !outline-none !ring-0 !ring-offset-0 !shadow-none transition-all duration-300 rounded-full focus:!outline-none focus:!ring-0 focus:!border-none focus:!shadow-none focus-visible:!outline-none focus-visible:!ring-0 focus-visible:!ring-offset-0 ${
                       !isScrolled 
                         ? 'bg-gray-100 text-gray-900 placeholder:text-gray-500' 
                         : 'bg-black/20 backdrop-blur-md text-white placeholder:text-white/70'
