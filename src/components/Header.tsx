@@ -52,8 +52,8 @@ const Header: React.FC = () => {
   ];
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 transform rounded-b-lg ${
-      !isVisible ? '-translate-y-full' : 'translate-y-0'
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ease-out transform rounded-b-lg ${
+      !isVisible ? '-translate-y-full opacity-0' : 'translate-y-0 opacity-100'
     } ${
       !isScrolled 
         ? 'bg-white shadow-md' 
@@ -61,8 +61,16 @@ const Header: React.FC = () => {
     }`}>
       <div className="container mx-auto max-w-7xl px-4">
         {/* Logo Section */}
-        <div className={`flex justify-center py-6 ${!isScrolled ? 'border-b border-gray-100' : ''}`}>
-          <Link to="/" className={`text-3xl font-bold tracking-wider transition-all duration-500 ${
+        <div className={`flex justify-center py-3 md:py-6 ${!isScrolled ? 'border-b border-gray-100' : ''}`}>
+          {/* Desktop Logo */}
+          <Link to="/" className={`hidden md:block text-3xl font-bold tracking-wider transition-all duration-500 ${
+            !isScrolled ? 'text-[#191919] hover:opacity-80' : 'text-white hover:opacity-80'
+          }`}>
+            SINCEVA
+          </Link>
+          
+          {/* Mobile Logo */}
+          <Link to="/" className={`md:hidden text-2xl font-bold tracking-wider transition-all duration-500 ${
             !isScrolled ? 'text-[#191919] hover:opacity-80' : 'text-white hover:opacity-80'
           }`}>
             SINCEVA
@@ -70,7 +78,7 @@ const Header: React.FC = () => {
         </div>
 
         {/* Navigation Section */}
-        <nav className="hidden md:flex justify-center items-center py-4 space-x-12">
+        <nav className="hidden md:flex justify-center items-center py-2 md:py-4 space-x-12">
           {navigation.map((item) => (
             <div key={item.name} className="relative">
               {item.hasMegaMenu ? (
@@ -116,7 +124,7 @@ const Header: React.FC = () => {
         </nav>
 
         {/* Mobile Menu Toggle */}
-        <div className="md:hidden flex justify-between items-center py-4">
+        <div className="md:hidden flex justify-between items-center py-2 md:py-4">
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className={`p-2 transition-all duration-500 ${
@@ -138,13 +146,13 @@ const Header: React.FC = () => {
 
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
-          <div className={`md:hidden py-4 ${!isScrolled ? 'border-t border-gray-100' : 'border-t border-border/20'}`}>
+          <div className={`md:hidden py-2 md:py-4 ${!isScrolled ? 'border-t border-gray-100' : 'border-t border-border/20'}`}>
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 to={item.href === '#' ? '/shop' : item.href}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className={`block py-3 text-sm font-medium transition-all duration-500 uppercase ${
+                className={`block py-2 text-sm font-medium transition-all duration-500 uppercase ${
                   !isScrolled 
                     ? 'text-[#191919] hover:text-[#191919]/80' 
                     : 'text-white hover:text-white/80'
