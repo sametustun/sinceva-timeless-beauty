@@ -185,7 +185,11 @@ const Header: React.FC = () => {
                   placeholder="Search..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-32 md:w-48 h-8 pl-10 pr-4 text-xs border-border/20 focus:border-[hsl(var(--hover))] transition-all duration-300 rounded-full"
+                  className={`w-32 md:w-48 h-8 pl-10 pr-4 text-xs border-0 transition-all duration-300 rounded-full focus:outline-none focus:ring-2 focus:ring-[hsl(var(--hover))]/20 ${
+                    !isScrolled 
+                      ? 'bg-gray-100 text-gray-900 placeholder:text-gray-500' 
+                      : 'bg-black/20 backdrop-blur-md text-white placeholder:text-white/70'
+                  }`}
                   autoFocus
                 />
               </form>
