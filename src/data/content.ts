@@ -158,7 +158,7 @@ export const logoContent = {
     black: sincevaBlackLogoWeb
   },
   mobile: {
-    white: sincevaWhiteLogoMobile || 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=80&h=30&fit=crop&auto=format', // Fallback beyaz logo
+    white: 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=80&h=30&fit=crop&auto=format&q=80', // Geçici beyaz logo
     black: sincevaBlackLogoMobile
   },
   fallback: {

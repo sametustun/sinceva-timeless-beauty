@@ -119,17 +119,29 @@ const Header: React.FC = () => {
             {(() => {
               const mobileLogo = !isScrolled ? logos.mobile.white : logos.mobile.black;
               
+              // Detailed debug
+              console.log('📱 Mobile Logo State:', {
+                isScrolled,
+                selectedLogotype: !isScrolled ? 'WHITE' : 'BLACK',
+                whiteState: logos.mobile.white,
+                blackState: logos.mobile.black,
+                selectedState: mobileLogo
+              });
+              
               if (mobileLogo.currentLogo) {
                 return (
                   <img 
                     src={mobileLogo.currentLogo}
                     alt="SINCEVA Logo" 
                     className="h-6 w-auto"
+                    onLoad={() => console.log('✅ Mobile logo loaded:', mobileLogo.currentLogo)}
+                    onError={() => console.error('❌ Mobile logo failed:', mobileLogo.currentLogo)}
                   />
                 );
               }
               
-              // Fallback to text when logo is not available
+              // Show fallback text
+              console.log('⚠️ Using fallback text for mobile logo');
               return (
                 <div className={`text-lg font-bold transition-all duration-500 ${
                   !isScrolled ? 'text-white' : 'text-[#191919]'
