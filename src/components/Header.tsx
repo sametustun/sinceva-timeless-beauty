@@ -119,29 +119,12 @@ const Header: React.FC = () => {
             {(() => {
               const mobileLogo = !isScrolled ? logos.mobile.white : logos.mobile.black;
               
-              // Debug mobile logo loading
-              console.log('🔍 Mobile Logo Debug:', {
-                isScrolled,
-                whiteLogoUrl: logos.mobile.white.currentLogo,
-                blackLogoUrl: logos.mobile.black.currentLogo,
-                whiteLogoError: logos.mobile.white.hasError,
-                blackLogoError: logos.mobile.black.hasError,
-                selectedLogo: mobileLogo.currentLogo,
-                selectedHasError: mobileLogo.hasError
-              });
-              
               if (mobileLogo.currentLogo) {
                 return (
                   <img 
                     src={mobileLogo.currentLogo}
                     alt="SINCEVA Logo" 
                     className="h-6 w-auto"
-                    onError={(e) => {
-                      console.error('❌ Mobile logo failed to load:', mobileLogo.currentLogo);
-                    }}
-                    onLoad={() => {
-                      console.log('✅ Mobile logo loaded successfully:', mobileLogo.currentLogo);
-                    }}
                   />
                 );
               }
