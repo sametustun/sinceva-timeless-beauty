@@ -177,22 +177,17 @@ const Header: React.FC = () => {
           {/* Search Section */}
           <div className="flex items-center ml-4 md:ml-8">
             {showSearch ? (
-              <form onSubmit={handleSearchSubmit} className="flex items-center">
+              <form onSubmit={handleSearchSubmit} className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-[hsl(var(--hover))]" />
                 <Input
                   ref={searchInputRef}
                   type="text"
                   placeholder="Search..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-32 md:w-48 h-8 text-xs border-border/20 focus:border-[hsl(var(--hover))] transition-all duration-300"
+                  className="w-32 md:w-48 h-8 pl-10 pr-4 text-xs border-border/20 focus:border-[hsl(var(--hover))] transition-all duration-300 rounded-full"
                   autoFocus
                 />
-                <button
-                  type="submit"
-                  className="ml-2 p-2 transition-all duration-500 text-[hsl(var(--hover))]"
-                >
-                  <Search className="w-4 md:w-5 h-4 md:h-5" />
-                </button>
               </form>
             ) : (
               <button
