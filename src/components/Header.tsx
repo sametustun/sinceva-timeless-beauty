@@ -3,6 +3,8 @@ import { Link, useLocation } from 'react-router-dom';
 import { Search, Menu, X } from 'lucide-react';
 import MegaMenu from './MegaMenu';
 import SearchPanel from './SearchPanel';
+import { useLogos } from '../hooks/useLogo';
+import { logoContent } from '../data/content';
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -12,6 +14,7 @@ const Header: React.FC = () => {
   const [showSearch, setShowSearch] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const logos = useLogos();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -64,20 +67,54 @@ const Header: React.FC = () => {
         <div className="flex justify-center py-3 md:py-6">
           {/* Desktop Logo */}
           <Link to="/" className="hidden md:block transition-all duration-500 hover:opacity-80">
-            <img 
-              src={!isScrolled ? "/src/assets/sinceva_black_logo_for_web.png" : "/src/assets/sinceva_white_logo_for_web.png"}
-              alt="SINCEVA Logo" 
-              className="h-8 md:h-10 w-auto"
-            />
+            {(() => {
+              const desktopLogo = !isScrolled ? logos.desktop.black : logos.desktop.white;
+              
+              if (desktopLogo.currentLogo) {
+                return (
+                  <img 
+                    src={desktopLogo.currentLogo}
+                    alt="SINCEVA Logo" 
+                    className="h-8 md:h-10 w-auto"
+                  />
+                );
+              }
+              
+              // Fallback to text when logo is not available
+              return (
+                <div className={`text-xl md:text-2xl font-bold transition-all duration-500 ${
+                  !isScrolled ? 'text-[#191919]' : 'text-white'
+                }`}>
+                  {logoContent.fallback.text}
+                </div>
+              );
+            })()}
           </Link>
           
           {/* Mobile Logo */}
           <Link to="/" className="md:hidden transition-all duration-500 hover:opacity-80">
-            <img 
-              src={!isScrolled ? "/src/assets/sinceva_black_logo_for_mobile.png" : "/src/assets/sinceva_white_logo_for_mobile.png"}
-              alt="SINCEVA Logo" 
-              className="h-6 w-auto"
-            />
+            {(() => {
+              const mobileLogo = !isScrolled ? logos.mobile.black : logos.mobile.white;
+              
+              if (mobileLogo.currentLogo) {
+                return (
+                  <img 
+                    src={mobileLogo.currentLogo}
+                    alt="SINCEVA Logo" 
+                    className="h-6 w-auto"
+                  />
+                );
+              }
+              
+              // Fallback to text when logo is not available
+              return (
+                <div className={`text-lg font-bold transition-all duration-500 ${
+                  !isScrolled ? 'text-[#191919]' : 'text-white'
+                }`}>
+                  {logoContent.fallback.text}
+                </div>
+              );
+            })()}
           </Link>
         </div>
 

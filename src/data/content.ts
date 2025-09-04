@@ -146,6 +146,21 @@ export const navigationContent = {
   ]
 };
 
+export const logoContent = {
+  desktop: {
+    white: '', // Admin panel yükleyecek: sinceva_white_logo_for_web.png
+    black: ''  // Admin panel yükleyecek: sinceva_black_logo_for_web.png
+  },
+  mobile: {
+    white: '', // Admin panel yükleyecek: sinceva_white_logo_for_mobile.png
+    black: ''  // Admin panel yükleyecek: sinceva_black_logo_for_mobile.png
+  },
+  fallback: {
+    text: 'Sinceva',
+    showText: true
+  }
+};
+
 export const footerContent = {
   brand: {
     name: "Sinceva",
