@@ -24,15 +24,16 @@ const Header: React.FC = () => {
       const scrollingDown = currentScrollY > lastScrollY;
       const scrollingUp = currentScrollY < lastScrollY;
       
-      setIsScrolled(!isAtTop);
-      
       // Show/hide navbar based on scroll direction
       if (isAtTop) {
         setIsVisible(true);
-      } else if (scrollingDown && currentScrollY > 100) {
+        setIsScrolled(false);
+      } else if (scrollingDown && currentScrollY > 50) {
         setIsVisible(false);
-      } else if (scrollingUp) {
+        // Don't change isScrolled when hiding
+      } else if (scrollingUp && currentScrollY > 50) {
         setIsVisible(true);
+        setIsScrolled(true);
       }
       
       setLastScrollY(currentScrollY);
@@ -51,7 +52,7 @@ const Header: React.FC = () => {
   ];
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 transform ${
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 transform rounded-b-lg ${
       !isVisible ? '-translate-y-full' : 'translate-y-0'
     } ${
       !isScrolled 
