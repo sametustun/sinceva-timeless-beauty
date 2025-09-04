@@ -61,7 +61,7 @@ const Header: React.FC = () => {
     }`}>
       <div className="container mx-auto max-w-7xl px-4">
         {/* Logo Section */}
-        <div className="flex justify-start py-3 md:py-6">
+        <div className="flex justify-center py-3 md:py-6">
           {/* Desktop Logo */}
           <Link to="/" className="hidden md:block transition-all duration-500 hover:opacity-80">
             <img 
