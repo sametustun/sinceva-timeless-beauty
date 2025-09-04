@@ -61,7 +61,7 @@ const Header: React.FC = () => {
     }`}>
       <div className="container mx-auto max-w-7xl px-4">
         {/* Logo Section */}
-        <div className={`flex justify-center py-3 md:py-6 ${!isScrolled ? 'border-b border-gray-100' : ''}`}>
+        <div className={`flex justify-center py-3 md:py-6 ${!isScrolled && lastScrollY < 10 ? 'border-b border-gray-100' : ''}`}>
           {/* Desktop Logo */}
           <Link to="/" className={`hidden md:block text-3xl font-bold tracking-wider transition-all duration-500 ${
             !isScrolled ? 'text-[#191919] hover:opacity-80' : 'text-white hover:opacity-80'
@@ -78,14 +78,14 @@ const Header: React.FC = () => {
         </div>
 
         {/* Navigation Section */}
-        <nav className="hidden md:flex justify-center items-center py-2 md:py-4 space-x-12">
+        <nav className="hidden md:flex justify-center items-center py-2 md:py-4 space-x-4 md:space-x-8 lg:space-x-12">
           {navigation.map((item) => (
             <div key={item.name} className="relative">
               {item.hasMegaMenu ? (
                 <button
                   onMouseEnter={() => setShowMegaMenu(true)}
                   onMouseLeave={() => setShowMegaMenu(false)}
-                  className={`text-sm font-medium tracking-wide transition-all duration-500 uppercase ${
+                  className={`text-xs md:text-sm font-medium tracking-wide transition-all duration-500 uppercase whitespace-nowrap ${
                     !isScrolled 
                       ? 'text-[#191919] hover:text-[#191919]/80' 
                       : 'text-white hover:text-white/80'
@@ -96,7 +96,7 @@ const Header: React.FC = () => {
               ) : (
                 <Link
                   to={item.href}
-                  className={`text-sm font-medium tracking-wide transition-all duration-500 uppercase ${
+                  className={`text-xs md:text-sm font-medium tracking-wide transition-all duration-500 uppercase whitespace-nowrap ${
                     !isScrolled 
                       ? 'text-[#191919] hover:text-[#191919]/80' 
                       : 'text-white hover:text-white/80'
@@ -113,13 +113,13 @@ const Header: React.FC = () => {
           {/* Search Icon */}
           <button
             onClick={() => setShowSearch(true)}
-            className={`ml-8 p-2 transition-all duration-500 ${
+            className={`ml-4 md:ml-8 p-2 transition-all duration-500 ${
               !isScrolled 
                 ? 'text-[#191919] hover:text-[#191919]/80' 
                 : 'text-white hover:text-white/80'
             }`}
           >
-            <Search className="w-5 h-5" />
+            <Search className="w-4 md:w-5 h-4 md:h-5" />
           </button>
         </nav>
 
