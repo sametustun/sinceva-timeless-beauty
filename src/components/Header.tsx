@@ -67,18 +67,18 @@ const Header: React.FC = () => {
           {/* Desktop Logo */}
           <Link to="/" className="hidden md:block transition-all duration-500 hover:opacity-80">
             <img 
-              src={!isScrolled ? webLogo : mobileLogo} 
+              src={webLogo} 
               alt="Sinceva" 
-              className="h-6 sm:h-7 md:h-8 lg:h-10 w-auto transition-all duration-500"
+              className="h-8 md:h-10 w-auto"
             />
           </Link>
           
           {/* Mobile Logo */}
           <Link to="/" className="md:hidden transition-all duration-500 hover:opacity-80">
             <img 
-              src={!isScrolled ? webLogo : mobileLogo} 
+              src={mobileLogo} 
               alt="Sinceva" 
-              className="h-4 sm:h-5 w-auto transition-all duration-500"
+              className="h-6 w-auto"
             />
           </Link>
         </div>
