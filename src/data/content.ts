@@ -148,12 +148,12 @@ export const navigationContent = {
 
 export const logoContent = {
   desktop: {
-    white: '/src/assets/sinceva_white_logo_for_web.png',
-    black: '/src/assets/sinceva_black_logo_for_web.png'
+    white: '/sinceva_white_logo_for_web.png',
+    black: '/sinceva_black_logo_for_web.png'
   },
   mobile: {
-    white: '/src/assets/sinceva_white_logo_for_mobile.png',
-    black: '/src/assets/sinceva_black_logo_for_mobile.png'
+    white: '/sinceva_white_logo_for_mobile.png', 
+    black: '/sinceva_black_logo_for_mobile.png'
   },
   fallback: {
     text: 'Sinceva',
