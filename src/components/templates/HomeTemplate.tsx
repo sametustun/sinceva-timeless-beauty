@@ -9,6 +9,8 @@ import CategoryShowcase from '@/components/CategoryShowcase';
  * This will map to WordPress front-page.php or index.php
  */
 const HomeTemplate: React.FC = () => {
+  console.log('HomeTemplate loading...');
+  
   return (
     <Layout>
       <Hero />

@@ -7,6 +7,8 @@ interface LayoutProps {
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
+  console.log('Layout component loading...');
+  
   return (
     <div className="min-h-screen bg-background">
       <Header />
