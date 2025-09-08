@@ -140,7 +140,7 @@ const Product: React.FC = () => {
           <Carousel className="w-full">
             <CarouselContent className="-ml-2 md:-ml-4">
               {galleryImages.map((image, index) => (
-                <CarouselItem key={index} className="pl-2 md:pl-4 basis-2/3 md:basis-1/3">
+                <CarouselItem key={index} className="pl-2 md:pl-4 basis-1/2 md:basis-1/3">
                   <div className="aspect-square overflow-hidden rounded-lg">
                     <img 
                       src={image}
