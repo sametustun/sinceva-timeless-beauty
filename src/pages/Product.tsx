@@ -106,7 +106,7 @@ const Product: React.FC = () => {
   return (
     <Layout>
       {/* Main Product Image - Banner Style */}
-      <div className="w-full aspect-[3/2] md:min-h-[500px] relative">
+      <div className="w-full aspect-[2/3] md:aspect-auto md:min-h-[500px] relative">
         <img 
           src={product.image}
           alt={product.name}
@@ -140,7 +140,7 @@ const Product: React.FC = () => {
           <Carousel className="w-full">
             <CarouselContent className="-ml-2 md:-ml-4">
               {galleryImages.map((image, index) => (
-                <CarouselItem key={index} className="pl-2 md:pl-4 basis-1/3 md:basis-1/5">
+                <CarouselItem key={index} className="pl-2 md:pl-4 basis-5/12 md:basis-1/3">
                   <div className="aspect-square overflow-hidden rounded-lg">
                     <img 
                       src={image}
