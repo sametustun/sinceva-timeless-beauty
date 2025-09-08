@@ -50,9 +50,10 @@ const CategoriesSection: React.FC<CategoriesSectionProps> = ({
               {categories.map((category) => (
                 <CarouselItem key={category.id} className="pl-2 basis-[60%]">
                   <Link to={category.href} className="group block">
-                    <Card className="h-[380px] hover:shadow-luxury transition-all duration-300 bg-white/5 border-white/20 overflow-hidden">
-                      <CardContent className="p-0 relative">
-                        <div className={`h-48 bg-gradient-to-br ${category.gradient} relative overflow-hidden`}>
+                    <Card className="h-[380px] hover:shadow-luxury transition-all duration-300 bg-transparent border-white/20 overflow-hidden">
+                      <CardContent className="p-0 relative h-full">
+                        {/* Full height background image */}
+                        <div className="absolute inset-0">
                           <img 
                             src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80"
                             alt={category.title}
@@ -60,19 +61,19 @@ const CategoriesSection: React.FC<CategoriesSectionProps> = ({
                           />
                         </div>
                         
-                        {/* Glassmorphism overlay from middle to bottom */}
-                        <div className="absolute inset-x-0 bottom-0 top-24 glass-effect rounded-b-lg">
-                          <div className="p-4 h-full flex flex-col justify-between">
-                            <div>
+                        {/* Glassmorphism overlay covering bottom half */}
+                        <div className="absolute inset-x-0 bottom-0 top-1/2 backdrop-blur-md bg-white/20 border-t border-white/30">
+                          <div className="p-4 h-full flex flex-col">
+                            <div className="flex-1">
                               <h3 className="text-lg font-semibold group-hover:text-primary transition-colors text-black mb-2">
                                 {category.title}
                               </h3>
-                              <p className="text-black/70 text-sm line-clamp-1">
+                              <p className="text-black/70 text-sm line-clamp-2 mb-4">
                                 {category.description}
                               </p>
                             </div>
                             
-                            <div className="mt-auto">
+                            <div className="mt-auto pb-2">
                               <span className="text-primary text-sm font-medium group-hover:gap-2 transition-all flex items-center">
                                 Explore Collection
                                 <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
@@ -93,9 +94,10 @@ const CategoriesSection: React.FC<CategoriesSectionProps> = ({
         <div className="hidden md:grid grid-cols-1 md:grid-cols-3 gap-8">
           {categories.map((category) => (
             <Link key={category.id} to={category.href} className="group">
-              <Card className="h-[380px] hover:shadow-luxury transition-all duration-300 bg-white/5 border-white/20 overflow-hidden">
-                <CardContent className="p-0 relative">
-                  <div className={`h-48 bg-gradient-to-br ${category.gradient} relative overflow-hidden`}>
+              <Card className="h-[380px] hover:shadow-luxury transition-all duration-300 bg-transparent border-white/20 overflow-hidden">
+                <CardContent className="p-0 relative h-full">
+                  {/* Full height background image */}
+                  <div className="absolute inset-0">
                     <img 
                       src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80"
                       alt={category.title}
@@ -103,19 +105,19 @@ const CategoriesSection: React.FC<CategoriesSectionProps> = ({
                     />
                   </div>
                   
-                  {/* Glassmorphism overlay from middle to bottom */}
-                  <div className="absolute inset-x-0 bottom-0 top-[190px] glass-effect rounded-b-lg">
-                    <div className="p-6 h-full flex flex-col justify-between">
-                      <div>
-                        <h3 className="text-xl font-semibold group-hover:text-primary transition-colors text-black mb-2">
+                  {/* Glassmorphism overlay covering bottom half */}
+                  <div className="absolute inset-x-0 bottom-0 top-1/2 backdrop-blur-md bg-white/20 border-t border-white/30">
+                    <div className="p-6 h-full flex flex-col">
+                      <div className="flex-1">
+                        <h3 className="text-xl font-semibold group-hover:text-primary transition-colors text-black mb-3">
                           {category.title}
                         </h3>
-                        <p className="text-black/70">
+                        <p className="text-black/70 text-sm line-clamp-3 mb-4">
                           {category.description}
                         </p>
                       </div>
                       
-                      <div className="mt-auto">
+                      <div className="mt-auto pb-2">
                         <span className="text-primary text-sm font-medium group-hover:gap-2 transition-all flex items-center">
                           Explore Collection
                           <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
