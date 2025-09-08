@@ -98,7 +98,7 @@ const Header: React.FC = () => {
                   <img 
                     src={desktopLogo.currentLogo}
                     alt="SINCEVA Logo" 
-                    className="h-8 md:h-10 w-auto"
+                    className="h-20 md:h-24 w-auto"
                   />
                 );
               }
@@ -125,7 +125,7 @@ const Header: React.FC = () => {
                   <img 
                     src={mobileLogo.currentLogo}
                     alt="SINCEVA Logo" 
-                    className="h-6 w-auto"
+                    className="h-9 w-auto"
                   />
                 );
               }
