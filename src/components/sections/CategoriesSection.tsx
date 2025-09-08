@@ -50,7 +50,7 @@ const CategoriesSection: React.FC<CategoriesSectionProps> = ({
               {categories.map((category) => (
                 <CarouselItem key={category.id}>
                   <Link to={category.href} className="group block">
-                    <Card className="h-full hover:shadow-luxury transition-all duration-300 hover:-translate-y-2 bg-white/5 border-white/20">
+                    <Card className="h-full hover:shadow-luxury transition-all duration-300 bg-white/5 border-white/20">
                       <CardContent className="p-0">
                         <div className={`h-48 bg-gradient-to-br ${category.gradient} relative overflow-hidden`}>
                           {category.image && (
@@ -94,7 +94,7 @@ const CategoriesSection: React.FC<CategoriesSectionProps> = ({
         <div className="hidden md:grid grid-cols-1 md:grid-cols-3 gap-8">
           {categories.map((category) => (
             <Link key={category.id} to={category.href} className="group">
-              <Card className="h-full hover:shadow-luxury transition-all duration-300 hover:-translate-y-2 bg-white/5 border-white/20">
+              <Card className="h-full hover:shadow-luxury transition-all duration-300 bg-white/5 border-white/20">
                 <CardContent className="p-0">
                   <div className={`h-48 bg-gradient-to-br ${category.gradient} relative overflow-hidden`}>
                     {category.image && (
