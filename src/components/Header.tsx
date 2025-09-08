@@ -45,9 +45,21 @@ const Header: React.FC = () => {
     };
 
     const handleClickOutside = (event: MouseEvent) => {
-      if (searchInputRef.current && !searchInputRef.current.contains(event.target as Node)) {
+      const target = event.target as Node;
+      
+      // Close search if clicking outside
+      if (searchInputRef.current && !searchInputRef.current.contains(target)) {
         setShowSearch(false);
         setSearchQuery('');
+      }
+      
+      // Close mega menu if clicking outside of navbar or mega menu
+      const navbarElement = document.querySelector('header');
+      const megaMenuElement = document.querySelector('[data-mega-menu]');
+      
+      if (showMegaMenu && navbarElement && !navbarElement.contains(target) && 
+          (!megaMenuElement || !megaMenuElement.contains(target))) {
+        setShowMegaMenu(false);
       }
     };
 
@@ -58,7 +70,7 @@ const Header: React.FC = () => {
       window.removeEventListener('scroll', handleScroll);
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [lastScrollY]);
+  }, [lastScrollY, showMegaMenu]);
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -150,8 +162,7 @@ const Header: React.FC = () => {
             <div key={item.name} className="relative">
               {item.hasMegaMenu ? (
                 <button
-                  onMouseEnter={() => setShowMegaMenu(true)}
-                  onMouseLeave={() => setShowMegaMenu(false)}
+                  onClick={() => setShowMegaMenu(!showMegaMenu)}
                   className={`text-xs md:text-sm font-medium tracking-wide transition-all duration-500 uppercase whitespace-nowrap ${
                     !isScrolled 
                       ? 'text-white hover:text-[hsl(var(--hover))]' 
@@ -284,10 +295,7 @@ const Header: React.FC = () => {
       </div>
 
       {/* Mega Menu */}
-      <div
-        onMouseEnter={() => setShowMegaMenu(true)}
-        onMouseLeave={() => setShowMegaMenu(false)}
-      >
+      <div data-mega-menu>
         <MegaMenu isVisible={showMegaMenu} />
       </div>
 
