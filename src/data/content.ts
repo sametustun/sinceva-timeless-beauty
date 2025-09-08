@@ -81,6 +81,94 @@ export const featuredProductsContent = {
   ]
 };
 
+// All products content - showing all products mixed
+export const allProductsContent = {
+  title: "All Our Products",
+  subtitle: "Discover our complete collection of premium skincare solutions, expertly crafted for every skin type and concern.",
+  products: [
+    {
+      id: 5,
+      name: 'Niacinamide Pore Minimizer',
+      price: 54.99,
+      rating: 4.6,
+      reviews: 98,
+      badge: 'New',
+      description: 'Advanced niacinamide formula that minimizes pores and controls oil for smoother skin texture.',
+      image: ''
+    },
+    {
+      id: 6,
+      name: 'Gentle Foam Cleanser',
+      price: 32.99,
+      rating: 4.4,
+      reviews: 76,
+      badge: '',
+      description: 'Mild foaming cleanser that removes impurities without stripping skin of essential moisture.',
+      image: ''
+    },
+    {
+      id: 7,
+      name: 'Peptide Eye Cream',
+      price: 79.99,
+      rating: 4.7,
+      reviews: 134,
+      badge: 'Premium',
+      description: 'Firming eye cream with peptides to reduce fine lines and brighten the delicate eye area.',
+      image: ''
+    },
+    {
+      id: 8,
+      name: 'AHA/BHA Exfoliating Toner',
+      price: 44.99,
+      rating: 4.5,
+      reviews: 87,
+      badge: '',
+      description: 'Gentle chemical exfoliant that reveals smoother, brighter skin with regular use.',
+      image: ''
+    },
+    {
+      id: 9,
+      name: 'Ceramide Barrier Repair Cream',
+      price: 67.99,
+      rating: 4.8,
+      reviews: 145,
+      badge: 'Bestseller',
+      description: 'Rich moisturizer with ceramides to restore and strengthen the skin barrier function.',
+      image: ''
+    },
+    {
+      id: 10,
+      name: 'Vitamin E Facial Oil',
+      price: 59.99,
+      rating: 4.3,
+      reviews: 92,
+      badge: '',
+      description: 'Nourishing facial oil with vitamin E to hydrate and add natural glow to all skin types.',
+      image: ''
+    },
+    {
+      id: 11,
+      name: 'Salicylic Acid Spot Treatment',
+      price: 29.99,
+      rating: 4.2,
+      reviews: 68,
+      badge: '',
+      description: 'Targeted treatment with salicylic acid to clear blemishes and prevent future breakouts.',
+      image: ''
+    },
+    {
+      id: 12,
+      name: 'Collagen Boosting Mask',
+      price: 39.99,
+      rating: 4.6,
+      reviews: 103,
+      badge: 'New',
+      description: 'Weekly treatment mask that stimulates collagen production for firmer, more youthful skin.',
+      image: ''
+    }
+  ]
+};
+
 export const categoryShowcaseContent = {
   title: "Explore Our Collections",
   subtitle: "Discover skincare solutions tailored to your unique needs and skin concerns.",
