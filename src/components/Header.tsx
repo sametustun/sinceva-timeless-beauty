@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Search, Menu, X } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import MegaMenu from './MegaMenu';
+import SearchPanel from './SearchPanel';
 import { useLogos } from '../hooks/useLogo';
 import { logoContent } from '../data/content';
 
@@ -263,6 +264,12 @@ const Header: React.FC = () => {
       >
         <MegaMenu isVisible={showMegaMenu} />
       </div>
+
+      {/* Search Panel */}
+      <SearchPanel 
+        isVisible={showSearch} 
+        onClose={() => setShowSearch(false)} 
+      />
 
     </header>
   );
