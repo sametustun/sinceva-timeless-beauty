@@ -163,7 +163,7 @@ const Header: React.FC = () => {
               {item.hasMegaMenu ? (
                 <button
                   onClick={() => setShowMegaMenu(!showMegaMenu)}
-                  className={`text-xs md:text-sm font-medium tracking-wide transition-all duration-500 uppercase whitespace-nowrap ${
+                  className={`text-xs md:text-sm font-medium tracking-wide transition-all duration-500 uppercase whitespace-nowrap inline-block ${
                     !isScrolled 
                       ? 'text-white hover:text-[hsl(var(--hover))]' 
                       : 'text-[#191919] hover:text-[hsl(var(--hover))]'
@@ -174,7 +174,7 @@ const Header: React.FC = () => {
               ) : (
                 <Link
                   to={item.href}
-                  className={`text-xs md:text-sm font-medium tracking-wide transition-all duration-500 uppercase whitespace-nowrap ${
+                  className={`text-xs md:text-sm font-medium tracking-wide transition-all duration-500 uppercase whitespace-nowrap inline-block ${
                     !isScrolled 
                       ? 'text-white hover:text-[hsl(var(--hover))]' 
                       : 'text-[#191919] hover:text-[hsl(var(--hover))]'

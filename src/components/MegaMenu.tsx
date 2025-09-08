@@ -45,7 +45,7 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ isVisible }) => {
             <div key={category.title} className="space-y-4">
               <Link
                 to={category.href}
-                className="block text-lg font-semibold text-primary hover:text-primary-dark transition-colors"
+                className="text-lg font-semibold text-primary hover:text-primary-dark transition-colors inline-block"
               >
                 {category.title}
               </Link>
@@ -54,7 +54,7 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ isVisible }) => {
                   <li key={child.name}>
                     <Link
                       to={child.href}
-                      className="text-muted-foreground hover:text-primary transition-colors text-sm"
+                      className="text-muted-foreground hover:text-primary transition-colors text-sm inline-block"
                     >
                       {child.name}
                     </Link>
