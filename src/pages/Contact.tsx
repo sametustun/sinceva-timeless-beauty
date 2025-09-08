@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Layout from '@/components/Layout';
+import PageHero from '@/components/sections/PageHero';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -77,14 +78,13 @@ const Contact: React.FC = () => {
 
   return (
     <Layout>
+      <PageHero 
+        title="Contact Us"
+        subtitle="Have questions about our products or need skincare advice? We're here to help you on your beauty journey."
+        backgroundImage="https://images.unsplash.com/photo-1556228578-8c89e6adf883?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80"
+      />
+      
       <div className="container mx-auto max-w-7xl px-4 py-16">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">Contact Us</h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Have questions about our products or need skincare advice? We're here to help you on your beauty journey.
-          </p>
-        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           {/* Contact Form */}

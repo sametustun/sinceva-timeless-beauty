@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Layout from '@/components/Layout';
+import PageHero from '@/components/sections/PageHero';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -100,14 +101,13 @@ const Shop: React.FC = () => {
 
   return (
     <Layout>
+      <PageHero 
+        title="Shop Sinceva"
+        subtitle="Discover our premium skincare collection crafted for timeless beauty."
+        backgroundImage="https://images.unsplash.com/photo-1596462502278-27bfdc403348?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80"
+      />
+      
       <div className="container mx-auto max-w-7xl px-4 py-16">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">Shop Sinceva</h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Discover our premium skincare collection crafted for timeless beauty.
-          </p>
-        </div>
 
         {/* Filters and Controls */}
         <div className="flex flex-col lg:flex-row gap-6 mb-8">

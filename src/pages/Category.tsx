@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import Layout from '@/components/Layout';
+import PageHero from '@/components/sections/PageHero';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -116,29 +117,13 @@ const Category: React.FC = () => {
 
   return (
     <Layout>
+      <PageHero 
+        title={currentCategory.title}
+        subtitle={currentCategory.description}
+        backgroundImage="https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80"
+      />
+      
       <div className="container mx-auto max-w-7xl px-4 py-16">
-        {/* Breadcrumb */}
-        <div className="flex items-center gap-2 mb-8 text-sm text-muted-foreground">
-          <Link to="/" className="hover:text-primary transition-colors">Home</Link>
-          <span>/</span>
-          <Link to="/shop" className="hover:text-primary transition-colors">Shop</Link>
-          <span>/</span>
-          <span className="text-foreground">{currentCategory.title}</span>
-        </div>
-
-        {/* Back Button */}
-        <Link to="/shop" className="inline-flex items-center gap-2 text-primary hover:text-primary-dark transition-colors mb-8">
-          <ArrowLeft className="w-4 h-4" />
-          Back to Shop
-        </Link>
-
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">{currentCategory.title}</h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            {currentCategory.description}
-          </p>
-        </div>
 
         {/* Products Grid */}
         {currentCategory.products.length > 0 ? (

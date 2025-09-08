@@ -1,5 +1,6 @@
 import React from 'react';
 import Layout from '@/components/Layout';
+import PageHero from '@/components/sections/PageHero';
 import { Leaf, Heart, Award, Globe } from 'lucide-react';
 
 const About: React.FC = () => {
@@ -28,14 +29,13 @@ const About: React.FC = () => {
 
   return (
     <Layout>
+      <PageHero 
+        title="About Sinceva"
+        subtitle="Since Eva – the name that inspired our journey toward timeless beauty and elegance."
+        backgroundImage="https://images.unsplash.com/photo-1570194071205-54f2c7f447d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80"
+      />
+      
       <div className="container mx-auto max-w-7xl px-4 py-16">
-        {/* Hero Section */}
-        <div className="text-center mb-20">
-          <h1 className="text-4xl md:text-6xl font-bold mb-8">About Sinceva</h1>
-          <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Since Eva – the name that inspired our journey toward timeless beauty and elegance.
-          </p>
-        </div>
 
         {/* Story Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-20">
