@@ -50,7 +50,7 @@ const CategoriesSection: React.FC<CategoriesSectionProps> = ({
               {categories.map((category) => (
                 <CarouselItem key={category.id} className="pl-2 basis-[60%]">
                   <Link to={category.href} className="group block">
-                    <Card className="h-full hover:shadow-luxury transition-all duration-300 bg-white/5 border-white/20">
+                    <Card className="h-[380px] hover:shadow-luxury transition-all duration-300 bg-white/5 border-white/20 overflow-hidden">
                       <CardContent className="p-0">
                         <div className={`h-48 bg-gradient-to-br ${category.gradient} relative overflow-hidden`}>
                           {category.image && (
@@ -68,11 +68,11 @@ const CategoriesSection: React.FC<CategoriesSectionProps> = ({
                           </div>
                         </div>
                         
-                        <div className="p-6 space-y-4">
-                          <h3 className="text-xl font-semibold group-hover:text-primary transition-colors text-white">
+                        <div className="p-6 space-y-4 glass-effect" style={{ color: '#191919' }}>
+                          <h3 className="text-xl font-semibold group-hover:text-primary transition-colors">
                             {category.title}
                           </h3>
-                          <p className="text-white/70">
+                          <p style={{ color: '#191919', opacity: 0.7 }}>
                             {category.description}
                           </p>
                           
@@ -94,7 +94,7 @@ const CategoriesSection: React.FC<CategoriesSectionProps> = ({
         <div className="hidden md:grid grid-cols-1 md:grid-cols-3 gap-8">
           {categories.map((category) => (
             <Link key={category.id} to={category.href} className="group">
-              <Card className="h-full hover:shadow-luxury transition-all duration-300 bg-white/5 border-white/20">
+              <Card className="h-[380px] hover:shadow-luxury transition-all duration-300 bg-white/5 border-white/20 overflow-hidden">
                 <CardContent className="p-0">
                   <div className={`h-48 bg-gradient-to-br ${category.gradient} relative overflow-hidden`}>
                     {category.image && (
@@ -112,11 +112,11 @@ const CategoriesSection: React.FC<CategoriesSectionProps> = ({
                     </div>
                   </div>
                   
-                  <div className="p-6 space-y-4">
-                    <h3 className="text-xl font-semibold group-hover:text-primary transition-colors text-white">
+                  <div className="p-6 space-y-4 glass-effect" style={{ color: '#191919' }}>
+                    <h3 className="text-xl font-semibold group-hover:text-primary transition-colors">
                       {category.title}
                     </h3>
-                    <p className="text-white/70">
+                    <p style={{ color: '#191919', opacity: 0.7 }}>
                       {category.description}
                     </p>
                     
