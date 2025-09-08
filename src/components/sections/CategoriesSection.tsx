@@ -64,16 +64,16 @@ const CategoriesSection: React.FC<CategoriesSectionProps> = ({
                         {/* Glassmorphism overlay covering bottom half */}
                         <div className="absolute inset-x-0 bottom-0 top-1/2 backdrop-blur-md bg-white/20 border-t border-white/30">
                           <div className="p-4 h-full flex flex-col">
-                            <div className="flex-1">
-                              <h3 className="text-lg font-semibold group-hover:text-primary transition-colors text-black mb-2">
+                            <div className="h-16 mb-6">
+                              <h3 className="text-lg font-semibold group-hover:text-primary transition-colors text-black mb-2 line-clamp-2">
                                 {category.title}
                               </h3>
-                              <p className="text-black/70 text-sm line-clamp-2 mb-4">
+                              <p className="text-black/70 text-sm line-clamp-1">
                                 {category.description}
                               </p>
                             </div>
                             
-                            <div className="mt-auto pb-2">
+                            <div className="absolute bottom-4 left-4 right-4">
                               <span className="text-primary text-sm font-medium group-hover:gap-2 transition-all flex items-center">
                                 Explore Collection
                                 <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
@@ -108,16 +108,16 @@ const CategoriesSection: React.FC<CategoriesSectionProps> = ({
                   {/* Glassmorphism overlay covering bottom half */}
                   <div className="absolute inset-x-0 bottom-0 top-1/2 backdrop-blur-md bg-white/20 border-t border-white/30">
                     <div className="p-6 h-full flex flex-col">
-                      <div className="flex-1">
-                        <h3 className="text-xl font-semibold group-hover:text-primary transition-colors text-black mb-3">
+                      <div className="h-20 mb-6">
+                        <h3 className="text-xl font-semibold group-hover:text-primary transition-colors text-black mb-3 line-clamp-2">
                           {category.title}
                         </h3>
-                        <p className="text-black/70 text-sm line-clamp-3 mb-4">
+                        <p className="text-black/70 text-sm line-clamp-1">
                           {category.description}
                         </p>
                       </div>
                       
-                      <div className="mt-auto pb-2">
+                      <div className="absolute bottom-6 left-6 right-6">
                         <span className="text-primary text-sm font-medium group-hover:gap-2 transition-all flex items-center">
                           Explore Collection
                           <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
