@@ -142,7 +142,7 @@ const Category: React.FC = () => {
 
         {/* Products Grid */}
         {currentCategory.products.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-start justify-center">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-center">
             {currentCategory.products.map((product: any) => (
               <Card key={product.id} className="group hover:shadow-luxury transition-shadow duration-300">
                 <CardContent className="p-0">
