@@ -52,7 +52,8 @@ const ProductsSection: React.FC<ProductsSectionProps> = ({
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12 justify-center place-items-center">
+        <div className="flex justify-center">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           {products.map((product) => (
             <Card key={product.id} className="group hover:shadow-luxury transition-shadow duration-300">
               <CardContent className="p-0">
@@ -112,6 +113,7 @@ const ProductsSection: React.FC<ProductsSectionProps> = ({
               </CardContent>
             </Card>
           ))}
+          </div>
         </div>
 
         {ctaButton && (
