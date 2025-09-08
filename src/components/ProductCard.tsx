@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Star } from 'lucide-react';
@@ -22,7 +23,8 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product, className = "" }) => {
   return (
-    <Card className={`group hover:shadow-luxury transition-all duration-300 cursor-pointer h-[480px] overflow-hidden rounded-lg ${className}`}>
+    <Link to={`/product/${product.id}`}>
+      <Card className={`group hover:shadow-luxury transition-all duration-300 cursor-pointer h-[480px] overflow-hidden rounded-lg ${className}`}>
       <CardContent className="p-0 relative h-full">
         {/* Full height product image */}
         <div className="absolute inset-0">
@@ -72,21 +74,17 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, className = "" }) =>
               </div>
             </div>
 
-            {/* Price */}
-            <div className="flex items-center gap-2 mt-auto">
-              <span className="text-xl font-semibold text-primary">
-                ${product.price}
+            {/* Buy Button */}
+            <div className="mt-auto flex items-center justify-center">
+              <span className="text-lg font-semibold text-[#191919]">
+                Buy
               </span>
-              {product.originalPrice && (
-                <span className="text-sm text-black/50 line-through">
-                  ${product.originalPrice}
-                </span>
-              )}
             </div>
           </div>
         </div>
       </CardContent>
     </Card>
+    </Link>
   );
 };
 

@@ -10,6 +10,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Shop from "./pages/Shop";
 import Category from "./pages/Category";
+import Product from "./pages/Product";
 
 console.log('App component loading...');
 
@@ -31,6 +32,7 @@ const App = () => {
             <Route path="/contact" element={<Contact />} />
             <Route path="/shop" element={<Shop />} />
             <Route path="/category/:category" element={<Category />} />
+            <Route path="/product/:id" element={<Product />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
