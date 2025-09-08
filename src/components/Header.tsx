@@ -155,7 +155,14 @@ const Header: React.FC = () => {
         </div>
 
         {/* Navigation Section */}
-        <nav className={`hidden md:flex justify-center items-center py-2 md:py-4 h-12 transition-all duration-300 ${
+        <nav 
+          onClick={(e) => {
+            // Eğer tıklama navbar'ın kendisine yapıldıysa (boş alan) mega menüyü kapat
+            if (e.target === e.currentTarget) {
+              setShowMegaMenu(false);
+            }
+          }}
+          className={`hidden md:flex justify-center items-center py-2 md:py-4 h-12 transition-all duration-300 ${
           showSearch ? 'space-x-2 md:space-x-4 lg:space-x-6' : 'space-x-4 md:space-x-8 lg:space-x-12'
         }`}>
           {navigation.map((item) => (
