@@ -29,11 +29,15 @@ const Header: React.FC = () => {
       const scrollingDown = currentScrollY > lastScrollY;
       const scrollingUp = currentScrollY < lastScrollY;
       
+      // Don't hide navbar if mega menu is open on mobile
+      const isMobile = window.innerWidth < 768;
+      const preventHide = isMobile && showMegaMenu;
+      
       // Show/hide navbar based on scroll direction
       if (isAtTop) {
         setIsVisible(true);
         setIsScrolled(false);
-      } else if (scrollingDown && currentScrollY > 50) {
+      } else if (scrollingDown && currentScrollY > 50 && !preventHide) {
         setIsVisible(false);
         // Don't change isScrolled when hiding
       } else if (scrollingUp && currentScrollY > 50) {
@@ -287,7 +291,10 @@ const Header: React.FC = () => {
               item.hasMegaMenu ? (
                 <button
                   key={item.name}
-                  onClick={() => setShowMegaMenu(!showMegaMenu)}
+                  onClick={() => {
+                    setShowMegaMenu(!showMegaMenu);
+                    setIsMobileMenuOpen(false); // Mobil menüyü kapat
+                  }}
                   className={`block py-2 text-sm font-medium transition-all duration-500 uppercase text-left w-full ${
                     !isScrolled 
                       ? 'text-white hover:text-[hsl(var(--hover))]' 
