@@ -22,7 +22,7 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product, className = "" }) => {
   return (
-    <Card className={`group hover:shadow-luxury transition-all duration-300 cursor-pointer h-[480px] overflow-hidden ${className}`}>
+    <Card className={`group hover:shadow-luxury transition-all duration-300 cursor-pointer h-[480px] overflow-hidden rounded-lg ${className}`}>
       <CardContent className="p-0 relative h-full">
         {/* Full height product image */}
         <div className="absolute inset-0">
