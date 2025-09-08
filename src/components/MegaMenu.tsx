@@ -41,7 +41,7 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ isVisible }) => {
     <div className={`absolute top-full left-0 right-0 bg-white border-b border-border shadow-elegant z-40 md:block ${
       isVisible ? 'fixed md:absolute inset-x-0 top-0 md:top-full max-h-screen md:h-auto overflow-y-auto md:overflow-visible' : ''
     }`}>
-      <div className="container mx-auto max-w-7xl px-4 py-8 pt-12 md:pt-8">
+      <div className="container mx-auto max-w-7xl px-4 py-8 pt-6 md:pt-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {categories.map((category) => (
             <div key={category.title} className="space-y-4">
