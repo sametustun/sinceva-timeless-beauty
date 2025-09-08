@@ -141,7 +141,7 @@ const Product: React.FC = () => {
             <CarouselContent className="-ml-2 md:-ml-4">
               {galleryImages.map((image, index) => (
                 <CarouselItem key={index} className="pl-2 md:pl-4 basis-1/3 md:basis-1/5">
-                  <div className="aspect-square overflow-hidden rounded-lg scale-125 md:scale-75">
+                  <div className="aspect-square overflow-hidden rounded-lg scale-125 md:scale-[1.75]">
                     <img 
                       src={image}
                       alt={`${product.name} - ${index + 1}`}
