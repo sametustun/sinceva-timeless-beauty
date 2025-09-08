@@ -119,16 +119,6 @@ const Header: React.FC = () => {
             {(() => {
               const mobileLogo = !isScrolled ? logos.mobile.white : logos.mobile.black;
               
-              // Debug current state
-              console.log('📱 Mobile Logo Current State:', {
-                isScrolled,
-                logoType: !isScrolled ? 'WHITE' : 'BLACK',
-                whiteLogoState: logos.mobile.white,
-                blackLogoState: logos.mobile.black,
-                currentLogo: mobileLogo.currentLogo,
-                hasError: mobileLogo.hasError,
-                isLoading: mobileLogo.isLoading
-              });
               
               if (mobileLogo.currentLogo) {
                 return (
@@ -141,7 +131,6 @@ const Header: React.FC = () => {
               }
               
               // Fallback to text when logo is not available
-              console.log('⚠️ Mobile: Using fallback text, logo not available');
               return (
                 <div className={`text-lg font-bold transition-all duration-500 ${
                   !isScrolled ? 'text-white' : 'text-[#191919]'
