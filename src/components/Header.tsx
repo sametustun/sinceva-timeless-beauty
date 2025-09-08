@@ -284,18 +284,32 @@ const Header: React.FC = () => {
         {isMobileMenuOpen && (
           <div className={`md:hidden py-2 md:py-4 ${!isScrolled ? 'border-t border-border/20' : 'border-t border-gray-100'}`}>
             {navigation.map((item) => (
-              <Link
-                key={item.name}
-                to={item.href === '#' ? '/shop' : item.href}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className={`block py-2 text-sm font-medium transition-all duration-500 uppercase ${
-                  !isScrolled 
-                    ? 'text-white hover:text-[hsl(var(--hover))]' 
-                    : 'text-[#191919] hover:text-[hsl(var(--hover))]'
-                }`}
-              >
-                {item.name}
-              </Link>
+              item.hasMegaMenu ? (
+                <button
+                  key={item.name}
+                  onClick={() => setShowMegaMenu(!showMegaMenu)}
+                  className={`block py-2 text-sm font-medium transition-all duration-500 uppercase text-left w-full ${
+                    !isScrolled 
+                      ? 'text-white hover:text-[hsl(var(--hover))]' 
+                      : 'text-[#191919] hover:text-[hsl(var(--hover))]'
+                  }`}
+                >
+                  {item.name}
+                </button>
+              ) : (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`block py-2 text-sm font-medium transition-all duration-500 uppercase ${
+                    !isScrolled 
+                      ? 'text-white hover:text-[hsl(var(--hover))]' 
+                      : 'text-[#191919] hover:text-[hsl(var(--hover))]'
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              )
             ))}
           </div>
         )}
