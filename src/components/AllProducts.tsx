@@ -34,7 +34,7 @@ const AllProducts: React.FC = () => {
                 </div>
 
                 {/* Glassmorphism overlay covering bottom third */}
-                <div className="absolute inset-x-0 bottom-0 top-2/3 backdrop-blur-md bg-white/90 border-t border-white/30">
+                <div className="absolute inset-x-0 bottom-0 top-2/3 backdrop-blur-md bg-white/20 border-t border-white/30">
                   <div className="p-4 h-full flex flex-col">
                     <div className="flex-1">
                       <h3 className="text-lg font-semibold mb-2 text-black group-hover:text-primary transition-colors line-clamp-2">
