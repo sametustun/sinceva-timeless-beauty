@@ -25,7 +25,7 @@ const Blog: React.FC = () => {
       category: 'anti-aging',
       date: '2024-01-15',
       author: 'Dr. Sarah Johnson',
-      image: '/placeholder-blog-1.jpg',
+      image: 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
       readTime: '5 min read'
     },
     {
@@ -35,7 +35,7 @@ const Blog: React.FC = () => {
       category: 'seasonal-care',
       date: '2024-01-10',
       author: 'Emma Wilson',
-      image: '/placeholder-blog-2.jpg',
+      image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
       readTime: '3 min read'
     },
     {
@@ -45,7 +45,7 @@ const Blog: React.FC = () => {
       category: 'ingredient-focus',
       date: '2024-01-05',
       author: 'Dr. Michael Chen',
-      image: '/placeholder-blog-3.jpg',
+      image: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
       readTime: '7 min read'
     },
     {
@@ -55,7 +55,7 @@ const Blog: React.FC = () => {
       category: 'skincare-tips',
       date: '2023-12-28',
       author: 'Lisa Rodriguez',
-      image: '/placeholder-blog-4.jpg',
+      image: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
       readTime: '4 min read'
     },
   ];
@@ -108,36 +108,46 @@ const Blog: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredPosts.map((post) => (
             <article key={post.id} className="group cursor-pointer">
-              <div className="bg-card rounded-lg overflow-hidden shadow-elegant hover:shadow-luxury transition-shadow duration-300">
-                <div className="aspect-video bg-muted relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="bg-card rounded-lg overflow-hidden shadow-elegant hover:shadow-luxury transition-shadow duration-300 h-[400px] relative">
+                {/* Full height background image */}
+                <div className="absolute inset-0">
+                  <img 
+                    src={post.image}
+                    alt={post.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
                 </div>
                 
-                <div className="p-6 space-y-4">
-                  <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                    <div className="flex items-center gap-1">
-                      <Calendar className="w-4 h-4" />
-                      {new Date(post.date).toLocaleDateString()}
+                {/* Glassmorphism overlay covering bottom half */}
+                <div className="absolute inset-x-0 bottom-0 top-1/2 backdrop-blur-md bg-white/20 border-t border-white/30">
+                  <div className="p-6 h-full flex flex-col">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-4 text-sm text-black/70 mb-3">
+                        <div className="flex items-center gap-1">
+                          <Calendar className="w-4 h-4" />
+                          {new Date(post.date).toLocaleDateString()}
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <User className="w-4 h-4" />
+                          {post.author}
+                        </div>
+                      </div>
+                      
+                      <h3 className="text-lg font-semibold group-hover:text-primary transition-colors text-black mb-2 line-clamp-2">
+                        {post.title}
+                      </h3>
+                      
+                      <p className="text-black/70 text-sm line-clamp-2 mb-3">
+                        {post.excerpt}
+                      </p>
                     </div>
-                    <div className="flex items-center gap-1">
-                      <User className="w-4 h-4" />
-                      {post.author}
-                    </div>
-                  </div>
-                  
-                  <h3 className="text-xl font-semibold group-hover:text-primary transition-colors">
-                    {post.title}
-                  </h3>
-                  
-                  <p className="text-muted-foreground line-clamp-2">
-                    {post.excerpt}
-                  </p>
-                  
-                  <div className="flex items-center justify-between pt-4">
-                    <span className="text-sm text-muted-foreground">{post.readTime}</span>
-                    <div className="flex items-center gap-1 text-primary text-sm font-medium group-hover:gap-2 transition-all">
-                      Read More
-                      <ArrowRight className="w-4 h-4" />
+                    
+                    <div className="flex items-center justify-between mt-auto">
+                      <span className="text-sm text-black/60">{post.readTime}</span>
+                      <div className="flex items-center gap-1 text-primary text-sm font-medium group-hover:gap-2 transition-all">
+                        Read More
+                        <ArrowRight className="w-4 h-4" />
+                      </div>
                     </div>
                   </div>
                 </div>
