@@ -17,61 +17,65 @@ const AllProducts: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {allProductsContent.products.map((product) => (
-            <Card key={product.id} className="group hover:shadow-luxury transition-all duration-300 cursor-pointer">
-              <CardContent className="p-0">
-                {/* Product Image */}
-                <div className="relative aspect-square mb-4 rounded-t-lg overflow-hidden">
+            <Card key={product.id} className="group hover:shadow-luxury transition-all duration-300 cursor-pointer h-[480px] overflow-hidden">
+              <CardContent className="p-0 relative h-full">
+                {/* Full height product image */}
+                <div className="absolute inset-0">
                   <img 
                     src={product.image || "https://images.unsplash.com/photo-1556228578-8c89e6adf883?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"}
                     alt={product.name}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   {product.badge && (
-                    <Badge className="absolute top-3 left-3 bg-primary text-white">
+                    <Badge className="absolute top-3 left-3 bg-primary text-white z-10">
                       {product.badge}
                     </Badge>
                   )}
                 </div>
 
-                {/* Product Info */}
-                <div className="p-6">
-                  <h3 className="text-lg font-semibold mb-2 text-[#191919] group-hover:text-primary transition-colors">
-                    {product.name}
-                  </h3>
-                  
-                  <p className="text-muted-foreground text-sm mb-3 line-clamp-2">
-                    {product.description}
-                  </p>
+                {/* Glassmorphism overlay covering bottom third */}
+                <div className="absolute inset-x-0 bottom-0 top-2/3 backdrop-blur-md bg-white/90 border-t border-white/30">
+                  <div className="p-4 h-full flex flex-col">
+                    <div className="flex-1">
+                      <h3 className="text-lg font-semibold mb-2 text-black group-hover:text-primary transition-colors line-clamp-2">
+                        {product.name}
+                      </h3>
+                      
+                      <p className="text-black/70 text-sm mb-3 line-clamp-2">
+                        {product.description}
+                      </p>
 
-                  {/* Rating */}
-                  <div className="flex items-center gap-2 mb-3">
-                    <div className="flex items-center">
-                      {[...Array(5)].map((_, i) => (
-                        <Star 
-                          key={i} 
-                          className={`w-4 h-4 ${
-                            i < Math.floor(product.rating) 
-                              ? 'text-yellow-400 fill-current' 
-                              : 'text-gray-300'
-                          }`} 
-                        />
-                      ))}
+                      {/* Rating */}
+                      <div className="flex items-center gap-1 mb-3">
+                        <div className="flex items-center">
+                          {[...Array(5)].map((_, i) => (
+                            <Star 
+                              key={i} 
+                              className={`w-3 h-3 ${
+                                i < Math.floor(product.rating) 
+                                  ? 'text-yellow-500 fill-current' 
+                                  : 'text-gray-300'
+                              }`} 
+                            />
+                          ))}
+                        </div>
+                        <span className="text-xs text-black/60">
+                          {product.rating} ({product.reviews})
+                        </span>
+                      </div>
                     </div>
-                    <span className="text-sm text-muted-foreground">
-                      {product.rating} ({product.reviews} reviews)
-                    </span>
-                  </div>
 
-                  {/* Price */}
-                  <div className="flex items-center gap-2">
-                    <span className="text-xl font-semibold text-primary">
-                      ${product.price}
-                    </span>
-                    {(product as any).originalPrice && (
-                      <span className="text-sm text-muted-foreground line-through">
-                        ${(product as any).originalPrice}
+                    {/* Price */}
+                    <div className="flex items-center gap-2 mt-auto">
+                      <span className="text-xl font-semibold text-primary">
+                        ${product.price}
                       </span>
-                    )}
+                      {(product as any).originalPrice && (
+                        <span className="text-sm text-black/50 line-through">
+                          ${(product as any).originalPrice}
+                        </span>
+                      )}
+                    </div>
                   </div>
                 </div>
               </CardContent>
