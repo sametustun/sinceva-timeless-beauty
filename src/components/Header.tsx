@@ -3,7 +3,6 @@ import { Link, useLocation } from 'react-router-dom';
 import { Search, Menu, X } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import MegaMenu from './MegaMenu';
-import SearchPanel from './SearchPanel';
 import { useLogos } from '../hooks/useLogo';
 import { logoContent } from '../data/content';
 
@@ -226,14 +225,41 @@ const Header: React.FC = () => {
             {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
           
-          <button
-            onClick={() => setShowSearch(true)}
-            className={`p-2 transition-all duration-500 ${
-              !isScrolled ? 'text-white hover:text-[hsl(var(--hover))]' : 'text-[#191919] hover:text-[hsl(var(--hover))]'
-            }`}
-          >
-            <Search className="w-5 h-5" />
-          </button>
+          {/* Mobile Search */}
+          <div className="flex items-center">
+            <div className="relative flex items-center">
+              <button
+                onClick={() => setShowSearch(!showSearch)}
+                className={`p-2 transition-all duration-500 ${
+                  showSearch ? 'text-[hsl(var(--hover))]' : !isScrolled 
+                    ? 'text-white hover:text-[hsl(var(--hover))]' 
+                    : 'text-[#191919] hover:text-[hsl(var(--hover))]'
+                } ${showSearch ? 'absolute left-1 top-1/2 transform -translate-y-1/2 z-10' : ''}`}
+              >
+                <Search className="w-5 h-5" />
+              </button>
+              
+              <div className={`overflow-hidden transition-all duration-300 ease-out ${
+                showSearch ? 'w-40 ml-0' : 'w-0 ml-0'
+              }`}>
+                <form onSubmit={handleSearchSubmit} className="w-full">
+                  <Input
+                    ref={searchInputRef}
+                    type="text"
+                    placeholder="Search..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className={`w-full h-8 pl-10 pr-4 text-xs !border-none !outline-none !ring-0 !ring-offset-0 !shadow-none transition-all duration-300 rounded-full focus:!outline-none focus:!ring-0 focus:!border-none focus:!shadow-none focus-visible:!outline-none focus-visible:!ring-0 focus-visible:!ring-offset-0 ${
+                      !isScrolled 
+                        ? 'bg-black/20 backdrop-blur-md text-white placeholder:text-white/70' 
+                        : 'bg-gray-100 text-gray-900 placeholder:text-gray-500'
+                    }`}
+                    autoFocus={showSearch}
+                  />
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Mobile Navigation */}
@@ -264,12 +290,6 @@ const Header: React.FC = () => {
       >
         <MegaMenu isVisible={showMegaMenu} />
       </div>
-
-      {/* Search Panel */}
-      <SearchPanel 
-        isVisible={showSearch} 
-        onClose={() => setShowSearch(false)} 
-      />
 
     </header>
   );
