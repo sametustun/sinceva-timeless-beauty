@@ -52,33 +52,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                 {subtitle}
               </p>
             </div>
-
-            <div className="flex flex-col sm:flex-row gap-4 pt-8">
-              {ctaButtons.map((button, index) => (
-                <Link key={index} to={button.link}>
-                  <Button 
-                    size="lg" 
-                    variant={button.variant === 'outline' ? 'outline' : 'default'}
-                    className={
-                      button.variant === 'outline' 
-                        ? "border-white text-white hover:bg-white hover:text-black px-8 py-6 text-lg font-semibold"
-                        : "group bg-primary hover:bg-primary-dark text-white px-8 py-6 text-lg font-semibold"
-                    }
-                  >
-                    {button.text}
-                    {button.variant === 'primary' && (
-                      <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                    )}
-                  </Button>
-                </Link>
-              ))}
-            </div>
           </div>
         </div>
       </div>
-
-      {/* Decorative Elements */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent z-5" />
     </section>
   );
 };
