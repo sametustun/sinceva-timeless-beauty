@@ -39,16 +39,16 @@ const CategoriesSection: React.FC<CategoriesSectionProps> = ({
         </div>
 
         {/* Mobile Carousel */}
-        <div className="block md:hidden">
+        <div className="block md:hidden px-4">
           <Carousel
             opts={{
               align: "start",
             }}
-            className="w-full max-w-sm mx-auto"
+            className="w-full"
           >
-            <CarouselContent>
+            <CarouselContent className="-ml-2">
               {categories.map((category) => (
-                <CarouselItem key={category.id}>
+                <CarouselItem key={category.id} className="pl-2 basis-[60%]">
                   <Link to={category.href} className="group block">
                     <Card className="h-full hover:shadow-luxury transition-all duration-300 bg-white/5 border-white/20">
                       <CardContent className="p-0">
