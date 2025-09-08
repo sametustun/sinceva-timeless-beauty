@@ -5,6 +5,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Star, ShoppingCart, Filter, Grid, List } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import ProductCard from '@/components/ProductCard';
 
 const Shop: React.FC = () => {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
@@ -28,7 +30,7 @@ const Shop: React.FC = () => {
       originalPrice: 109.99,
       rating: 4.8,
       reviews: 124,
-      image: '/placeholder-product-1.jpg',
+      image: 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
       badge: 'Bestseller',
       description: 'Powerful vitamin C serum for radiant, even-toned skin.'
     },
@@ -39,7 +41,7 @@ const Shop: React.FC = () => {
       price: 64.99,
       rating: 4.9,
       reviews: 89,
-      image: '/placeholder-product-2.jpg',
+      image: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
       badge: 'New',
       description: 'Deep hydration with hyaluronic acid for plump, smooth skin.'
     },
@@ -50,7 +52,7 @@ const Shop: React.FC = () => {
       price: 129.99,
       rating: 4.7,
       reviews: 156,
-      image: '/placeholder-product-3.jpg',
+      image: 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
       description: 'Advanced retinol formula to reduce signs of aging overnight.'
     },
     {
@@ -60,7 +62,7 @@ const Shop: React.FC = () => {
       price: 39.99,
       rating: 4.6,
       reviews: 203,
-      image: '/placeholder-product-4.jpg',
+      image: 'https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
       description: 'Mild yet effective cleanser for all skin types.'
     },
     {
@@ -70,7 +72,7 @@ const Shop: React.FC = () => {
       price: 94.99,
       rating: 4.8,
       reviews: 67,
-      image: '/placeholder-product-5.jpg',
+      image: 'https://images.unsplash.com/photo-1596755389378-c31d21fd1273?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
       badge: 'Premium',
       description: 'Target fine lines and dark circles around the delicate eye area.'
     },
@@ -81,7 +83,7 @@ const Shop: React.FC = () => {
       price: 49.99,
       rating: 4.5,
       reviews: 112,
-      image: '/placeholder-product-6.jpg',
+      image: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
       description: 'Broad spectrum protection with lightweight, non-greasy formula.'
     },
   ];
@@ -166,60 +168,19 @@ const Shop: React.FC = () => {
             : 'grid-cols-1'
         }`}>
           {filteredProducts.map((product) => (
-            <Card key={product.id} className="group hover:shadow-luxury transition-shadow duration-300">
-              <CardContent className="p-0">
-                {viewMode === 'grid' ? (
-                  <div>
-                    <div className="aspect-[2/3] bg-muted relative overflow-hidden">
-                      {product.badge && (
-                        <Badge 
-                          className="absolute top-3 left-3 z-10"
-                          variant={product.badge === 'Bestseller' ? 'default' : 'secondary'}
-                        >
-                          {product.badge}
-                        </Badge>
-                      )}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    </div>
-                    
-                    <div className="p-4 space-y-3">
-                      <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
-                        {product.name}
-                      </h3>
-                      
-                      <p className="text-sm text-muted-foreground line-clamp-2">
-                        {product.description}
-                      </p>
-                      
-                      <div className="flex items-center gap-1">
-                        {renderStars(product.rating)}
-                        <span className="text-sm text-muted-foreground ml-2">
-                          ({product.reviews})
-                        </span>
-                      </div>
-                      
-                      <div className="flex items-center justify-between">
-                        <div className="space-x-2">
-                          <span className="text-lg font-semibold text-primary">
-                            ${product.price}
-                          </span>
-                          {product.originalPrice && (
-                            <span className="text-sm text-muted-foreground line-through">
-                              ${product.originalPrice}
-                            </span>
-                          )}
-                        </div>
-                        
-                        <Button size="sm" className="gap-2">
-                          <ShoppingCart className="w-4 h-4" />
-                          Add to Cart
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                ) : (
+            viewMode === 'grid' ? (
+              <ProductCard key={product.id} product={product} />
+            ) : (
+              <Card key={product.id} className="group hover:shadow-luxury transition-shadow duration-300">
+                <CardContent className="p-0">
                   <div className="flex gap-4 p-4">
-                    <div className="w-24 h-24 bg-muted rounded-lg flex-shrink-0"></div>
+                    <div className="w-24 h-24 bg-muted rounded-lg flex-shrink-0 overflow-hidden">
+                      <img 
+                        src={product.image || "https://images.unsplash.com/photo-1556228578-8c89e6adf883?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"}
+                        alt={product.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
                     <div className="flex-1 space-y-2">
                       <div className="flex items-start justify-between">
                         <h3 className="font-semibold text-foreground">{product.name}</h3>
@@ -256,9 +217,9 @@ const Shop: React.FC = () => {
                       </div>
                     </div>
                   </div>
-                )}
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            )
           ))}
         </div>
       </div>

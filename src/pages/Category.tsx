@@ -7,6 +7,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Star, ShoppingCart, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import ProductCard from '@/components/ProductCard';
 
 const Category: React.FC = () => {
   const { category } = useParams<{ category: string }>();
@@ -22,7 +23,9 @@ const Category: React.FC = () => {
           price: 129.99,
           rating: 4.7,
           reviews: 156,
-          badge: 'Premium'
+          badge: 'Premium',
+          image: 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+          description: 'Advanced retinol formula to reduce signs of aging overnight.'
         },
         {
           id: 2,
@@ -30,7 +33,9 @@ const Category: React.FC = () => {
           price: 94.99,
           rating: 4.8,
           reviews: 89,
-          badge: 'Bestseller'
+          badge: 'Bestseller',
+          image: 'https://images.unsplash.com/photo-1596755389378-c31d21fd1273?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+          description: 'Intensive collagen-boosting serum for firmer, more elastic skin.'
         },
         {
           id: 3,
@@ -38,6 +43,8 @@ const Category: React.FC = () => {
           price: 79.99,
           rating: 4.6,
           reviews: 124,
+          image: 'https://images.unsplash.com/photo-1612817288484-6f916006741a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+          description: 'Target fine lines and dark circles around the delicate eye area.'
         }
       ]
     },
@@ -51,6 +58,8 @@ const Category: React.FC = () => {
           price: 39.99,
           rating: 4.6,
           reviews: 203,
+          image: 'https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+          description: 'Mild yet effective cleanser for all skin types.'
         },
         {
           id: 5,
@@ -58,7 +67,9 @@ const Category: React.FC = () => {
           price: 54.99,
           rating: 4.5,
           reviews: 97,
-          badge: 'New'
+          badge: 'New',
+          image: 'https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+          description: 'Deep cleansing clay mask that draws out impurities and excess oil.'
         },
         {
           id: 6,
@@ -66,6 +77,8 @@ const Category: React.FC = () => {
           price: 44.99,
           rating: 4.7,
           reviews: 156,
+          image: 'https://images.unsplash.com/photo-1570194065650-d99fb4bedf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+          description: 'pH-balancing toner that prepares skin for optimal product absorption.'
         }
       ]
     },
@@ -79,7 +92,9 @@ const Category: React.FC = () => {
           price: 64.99,
           rating: 4.9,
           reviews: 289,
-          badge: 'Bestseller'
+          badge: 'Bestseller',
+          image: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+          description: 'Deep hydration with hyaluronic acid for plump, smooth skin.'
         },
         {
           id: 8,
@@ -87,6 +102,8 @@ const Category: React.FC = () => {
           price: 49.99,
           rating: 4.5,
           reviews: 112,
+          image: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+          description: 'Broad spectrum protection with lightweight, non-greasy formula.'
         },
         {
           id: 9,
@@ -94,7 +111,9 @@ const Category: React.FC = () => {
           price: 74.99,
           rating: 4.8,
           reviews: 67,
-          badge: 'Premium'
+          badge: 'Premium',
+          image: 'https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+          description: 'Luxurious night oil blend for deep nourishment and repair.'
         }
       ]
     }
@@ -129,45 +148,7 @@ const Category: React.FC = () => {
         {currentCategory.products.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {currentCategory.products.map((product: any) => (
-              <Card key={product.id} className="group hover:shadow-luxury transition-shadow duration-300">
-                <CardContent className="p-0">
-                  <div className="aspect-[2/3] bg-muted relative overflow-hidden">
-                    {product.badge && (
-                      <Badge 
-                        className="absolute top-3 left-3 z-10"
-                        variant={product.badge === 'Bestseller' ? 'default' : 'secondary'}
-                      >
-                        {product.badge}
-                      </Badge>
-                    )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </div>
-                  
-                  <div className="p-4 space-y-3">
-                    <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
-                      {product.name}
-                    </h3>
-                    
-                    <div className="flex items-center gap-1">
-                      {renderStars(product.rating)}
-                      <span className="text-sm text-muted-foreground ml-2">
-                        ({product.reviews})
-                      </span>
-                    </div>
-                    
-                    <div className="flex items-center justify-between">
-                      <span className="text-lg font-semibold text-primary">
-                        ${product.price}
-                      </span>
-                      
-                      <Button size="sm" className="gap-2">
-                        <ShoppingCart className="w-4 h-4" />
-                        Add to Cart
-                      </Button>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+              <ProductCard key={product.id} product={product} />
             ))}
           </div>
         ) : (
