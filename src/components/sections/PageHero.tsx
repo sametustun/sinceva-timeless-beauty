@@ -27,24 +27,8 @@ const PageHero: React.FC<PageHeroProps> = ({
         </div>
       )}
 
-      {/* Content */}
-      <div className="relative z-10 container mx-auto max-w-7xl px-4 pt-32 pb-16 text-center">
-        <div className="max-w-4xl mx-auto space-y-6">
-          <h1 className={`text-4xl md:text-6xl font-bold leading-tight tracking-tight ${
-            backgroundImage ? 'text-white' : 'text-foreground'
-          }`}>
-            {title}
-          </h1>
-          
-          {subtitle && (
-            <p className={`text-xl md:text-2xl leading-relaxed font-light ${
-              backgroundImage ? 'text-white/90' : 'text-muted-foreground'
-            } max-w-3xl mx-auto`}>
-              {subtitle}
-            </p>
-          )}
-        </div>
-      </div>
+      {/* Empty content for banner only */}
+      <div className="relative z-10"></div>
     </section>
   );
 };
