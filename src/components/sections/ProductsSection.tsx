@@ -56,7 +56,7 @@ const ProductsSection: React.FC<ProductsSectionProps> = ({
           {products.map((product) => (
             <Card key={product.id} className="group hover:shadow-luxury transition-shadow duration-300">
               <CardContent className="p-0">
-                <div className="aspect-square bg-muted relative overflow-hidden">
+                <div className="aspect-[2/3] bg-muted relative overflow-hidden">
                   {product.badge && (
                     <Badge 
                       className="absolute top-3 left-3 z-10"

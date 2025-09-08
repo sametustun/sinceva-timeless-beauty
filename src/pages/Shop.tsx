@@ -170,7 +170,7 @@ const Shop: React.FC = () => {
               <CardContent className="p-0">
                 {viewMode === 'grid' ? (
                   <div>
-                    <div className="aspect-square bg-muted relative overflow-hidden">
+                    <div className="aspect-[2/3] bg-muted relative overflow-hidden">
                       {product.badge && (
                         <Badge 
                           className="absolute top-3 left-3 z-10"
