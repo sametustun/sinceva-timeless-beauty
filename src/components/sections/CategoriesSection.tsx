@@ -43,7 +43,6 @@ const CategoriesSection: React.FC<CategoriesSectionProps> = ({
           <Carousel
             opts={{
               align: "start",
-              loop: true,
             }}
             className="w-full max-w-sm mx-auto"
           >
