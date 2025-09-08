@@ -58,28 +58,25 @@ const CategoriesSection: React.FC<CategoriesSectionProps> = ({
                             alt={category.title}
                             className="w-full h-full object-cover"
                           />
-                          <div className="absolute inset-0 bg-black/5 group-hover:bg-black/10 transition-colors duration-300" />
-                          <div className="absolute bottom-4 right-4">
-                            <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300">
-                              <ArrowRight className="w-6 h-6 text-primary group-hover:translate-x-1 transition-transform duration-300" />
-                            </div>
-                          </div>
                         </div>
                         
-                        <div className="flex flex-col h-[132px] relative">
-                          <div className="p-4 flex-grow glass-effect">
-                            <h3 className="text-lg font-semibold group-hover:text-primary transition-colors text-black mb-2">
-                              {category.title}
-                            </h3>
-                            <p className="text-black/70 text-sm line-clamp-1">
-                              {category.description}
-                            </p>
-                          </div>
-                          
-                          <div className="p-4 pt-0">
-                            <div className="flex items-center justify-center text-primary text-sm font-medium group-hover:gap-2 transition-all bg-primary/10 rounded-lg py-2 glass-effect">
-                              Explore Collection
-                              <ArrowRight className="w-4 h-4 ml-1" />
+                        {/* Glassmorphism overlay from middle to bottom */}
+                        <div className="absolute inset-x-0 bottom-0 top-24 glass-effect rounded-b-lg">
+                          <div className="p-4 h-full flex flex-col justify-between">
+                            <div>
+                              <h3 className="text-lg font-semibold group-hover:text-primary transition-colors text-black mb-2">
+                                {category.title}
+                              </h3>
+                              <p className="text-black/70 text-sm line-clamp-1">
+                                {category.description}
+                              </p>
+                            </div>
+                            
+                            <div className="mt-auto">
+                              <span className="text-primary text-sm font-medium group-hover:gap-2 transition-all flex items-center">
+                                Explore Collection
+                                <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                              </span>
                             </div>
                           </div>
                         </div>
@@ -104,29 +101,25 @@ const CategoriesSection: React.FC<CategoriesSectionProps> = ({
                       alt={category.title}
                       className="w-full h-full object-cover"
                     />
-                    <div className="absolute inset-0 bg-black/5 group-hover:bg-black/10 transition-colors duration-300" />
-                    <div className="absolute bottom-4 right-4">
-                      <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300">
-                        <ArrowRight className="w-6 h-6 text-primary group-hover:translate-x-1 transition-transform duration-300" />
-                      </div>
-                    </div>
                   </div>
                   
                   {/* Glassmorphism overlay from middle to bottom */}
-                  <div className="absolute inset-x-0 bottom-0 top-24 glass-effect rounded-b-lg">
-                    <div className="p-6 space-y-4 h-full flex flex-col justify-between">
+                  <div className="absolute inset-x-0 bottom-0 top-[190px] glass-effect rounded-b-lg">
+                    <div className="p-6 h-full flex flex-col justify-between">
                       <div>
-                        <h3 className="text-xl font-semibold group-hover:text-primary transition-colors text-black">
+                        <h3 className="text-xl font-semibold group-hover:text-primary transition-colors text-black mb-2">
                           {category.title}
                         </h3>
-                        <p className="text-black/70 mt-2">
+                        <p className="text-black/70">
                           {category.description}
                         </p>
                       </div>
                       
-                      <div className="flex items-center text-primary text-sm font-medium group-hover:gap-2 transition-all">
-                        Explore Collection
-                        <ArrowRight className="w-4 h-4 ml-1" />
+                      <div className="mt-auto">
+                        <span className="text-primary text-sm font-medium group-hover:gap-2 transition-all flex items-center">
+                          Explore Collection
+                          <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                        </span>
                       </div>
                     </div>
                   </div>
