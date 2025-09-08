@@ -160,12 +160,11 @@ const Shop: React.FC = () => {
         </div>
 
         {/* Products Grid */}
-        <div className="flex justify-center">
-          <div className={`grid gap-6 ${
-            viewMode === 'grid' 
-              ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' 
-              : 'grid-cols-1'
-          }`}>
+        <div className={`grid gap-6 ${
+          viewMode === 'grid' 
+            ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' 
+            : 'grid-cols-1'
+        }`}>
           {filteredProducts.map((product) => (
             <Card key={product.id} className="group hover:shadow-luxury transition-shadow duration-300">
               <CardContent className="p-0">
@@ -261,7 +260,6 @@ const Shop: React.FC = () => {
               </CardContent>
             </Card>
           ))}
-          </div>
         </div>
       </div>
     </Layout>
