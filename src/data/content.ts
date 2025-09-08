@@ -29,24 +29,20 @@ export const heroContent = {
   ]
 };
 
-export const featuredProductsContent = {
-  title: "Featured Products",
-  subtitle: "Our most loved skincare essentials, carefully curated for exceptional results.",
-  ctaButton: {
-    text: "View All Products",
-    link: "/shop"
-  },
+// All products content - showing all products mixed
+export const allProductsContent = {
+  title: "All Our Products",
+  subtitle: "Discover our complete collection of premium skincare solutions, expertly crafted for every skin type and concern.",
   products: [
     {
       id: 1,
       name: 'Vitamin C Brightening Serum',
       price: 89.99,
-      originalPrice: 109.99,
       rating: 4.8,
       reviews: 124,
       badge: 'Bestseller',
       description: 'Powerful vitamin C serum for radiant, even-toned skin with natural brightening properties.',
-      image: '' // Will be populated by WordPress
+      image: 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
     },
     {
       id: 2,
@@ -56,7 +52,7 @@ export const featuredProductsContent = {
       reviews: 89,
       badge: 'New',
       description: 'Deep hydration with hyaluronic acid for plump, smooth, and supple skin all day long.',
-      image: ''
+      image: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
     },
     {
       id: 3,
@@ -66,7 +62,7 @@ export const featuredProductsContent = {
       reviews: 156,
       badge: 'Premium',
       description: 'Advanced retinol formula to reduce signs of aging and promote skin renewal overnight.',
-      image: ''
+      image: 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
     },
     {
       id: 4,
@@ -76,16 +72,8 @@ export const featuredProductsContent = {
       reviews: 112,
       badge: '',
       description: 'Broad spectrum protection with lightweight, non-greasy formula perfect for daily use.',
-      image: ''
-    }
-  ]
-};
-
-// All products content - showing all products mixed
-export const allProductsContent = {
-  title: "All Our Products",
-  subtitle: "Discover our complete collection of premium skincare solutions, expertly crafted for every skin type and concern.",
-  products: [
+      image: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+    },
     {
       id: 5,
       name: 'Niacinamide Pore Minimizer',
@@ -94,7 +82,7 @@ export const allProductsContent = {
       reviews: 98,
       badge: 'New',
       description: 'Advanced niacinamide formula that minimizes pores and controls oil for smoother skin texture.',
-      image: ''
+      image: 'https://images.unsplash.com/photo-1612817288484-6f916006741a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
     },
     {
       id: 6,
@@ -104,7 +92,7 @@ export const allProductsContent = {
       reviews: 76,
       badge: '',
       description: 'Mild foaming cleanser that removes impurities without stripping skin of essential moisture.',
-      image: ''
+      image: 'https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
     },
     {
       id: 7,
@@ -114,7 +102,7 @@ export const allProductsContent = {
       reviews: 134,
       badge: 'Premium',
       description: 'Firming eye cream with peptides to reduce fine lines and brighten the delicate eye area.',
-      image: ''
+      image: 'https://images.unsplash.com/photo-1596755389378-c31d21fd1273?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
     },
     {
       id: 8,
@@ -124,7 +112,7 @@ export const allProductsContent = {
       reviews: 87,
       badge: '',
       description: 'Gentle chemical exfoliant that reveals smoother, brighter skin with regular use.',
-      image: ''
+      image: 'https://images.unsplash.com/photo-1570194065650-d99fb4bedf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
     },
     {
       id: 9,
@@ -134,7 +122,7 @@ export const allProductsContent = {
       reviews: 145,
       badge: 'Bestseller',
       description: 'Rich moisturizer with ceramides to restore and strengthen the skin barrier function.',
-      image: ''
+      image: 'https://images.unsplash.com/photo-1585652757173-57de5e9fab42?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
     },
     {
       id: 10,
@@ -144,7 +132,7 @@ export const allProductsContent = {
       reviews: 92,
       badge: '',
       description: 'Nourishing facial oil with vitamin E to hydrate and add natural glow to all skin types.',
-      image: ''
+      image: 'https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
     },
     {
       id: 11,
@@ -154,7 +142,7 @@ export const allProductsContent = {
       reviews: 68,
       badge: '',
       description: 'Targeted treatment with salicylic acid to clear blemishes and prevent future breakouts.',
-      image: ''
+      image: 'https://images.unsplash.com/photo-1556227702-d1e4e7b5c232?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
     },
     {
       id: 12,
@@ -164,38 +152,38 @@ export const allProductsContent = {
       reviews: 103,
       badge: 'New',
       description: 'Weekly treatment mask that stimulates collagen production for firmer, more youthful skin.',
-      image: ''
+      image: 'https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
     }
   ]
 };
 
 export const categoryShowcaseContent = {
-  title: "Explore Our Collections",
-  subtitle: "Discover skincare solutions tailored to your unique needs and skin concerns.",
+  title: "Explore Our Categories",
+  subtitle: "Curated collections designed to address your unique skincare needs with precision and care.",
   categories: [
     {
-      id: 'anti-aging-care',
-      title: 'Anti-Aging Care',
-      description: 'Advanced solutions for youthful, radiant skin',
-      href: '/category/anti-aging-care',
-      gradient: 'from-primary/20 to-primary-light/10',
-      image: '' // Will be populated by WordPress
+      id: "anti-aging",
+      title: "Anti-Aging Care",
+      description: "Advanced formulas to reduce fine lines, boost collagen, and restore youthful radiance to your skin.",
+      href: "/category/anti-aging-care",
+      gradient: "from-purple-600 to-pink-600",
+      image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
     },
     {
-      id: 'face-and-skin-cleansing',
-      title: 'Face & Skin Cleansing',
-      description: 'Gentle cleansers for healthy, refreshed skin',
-      href: '/category/face-and-skin-cleansing',
-      gradient: 'from-secondary/30 to-accent/20',
-      image: ''
+      id: "cleansing",
+      title: "Face & Skin Cleansing",
+      description: "Gentle yet effective cleansers that purify your skin while maintaining its natural moisture balance.",
+      href: "/category/face-and-skin-cleansing",
+      gradient: "from-blue-600 to-teal-600",
+      image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
     },
     {
-      id: 'daily-care',
-      title: 'Daily Care',
-      description: 'Essential products for your everyday routine',
-      href: '/category/daily-care',
-      gradient: 'from-muted/50 to-background',
-      image: ''
+      id: "daily-care",
+      title: "Daily Care",
+      description: "Essential daily skincare products for healthy, protected, and nourished skin every day.",
+      href: "/category/daily-care",
+      gradient: "from-green-600 to-emerald-600",
+      image: "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
     }
   ]
 };
