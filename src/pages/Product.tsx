@@ -34,7 +34,7 @@ const Product: React.FC = () => {
     {
       id: 'trendyol',
       name: 'Trendyol',
-      logo: 'https://cdn.trendyol.com/media/images/trendyol-logo.svg',
+      logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Trendyol_online.png/960px-Trendyol_online.png',
       url: 'https://www.trendyol.com'
     },
     {
