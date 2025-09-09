@@ -40,7 +40,7 @@ export const categoryStructure = {
         products: [
           {
             id: 1,
-            name: 'Sinceva Brightening Vitamin C Serum',
+            name: 'Sinceva Brightening Vitamin C Serum 30 ml',
             price: 89.99,
             rating: 4.8,
             reviews: 124,
@@ -50,7 +50,7 @@ export const categoryStructure = {
           },
           {
             id: 2,
-            name: 'Sinceva Anti-Spot Arbutin Serum',
+            name: 'Sinceva Anti-Spot Arbutin Serum 30 ml',
             price: 79.99,
             rating: 4.7,
             reviews: 98,
@@ -65,7 +65,7 @@ export const categoryStructure = {
         products: [
           {
             id: 3,
-            name: 'Sinceva Anti-Wrinkle Eye Cream',
+            name: 'Sinceva Anti-Wrinkle Eye Cream 20 ml',
             price: 79.99,
             rating: 4.7,
             reviews: 134,
@@ -80,7 +80,7 @@ export const categoryStructure = {
         products: [
           {
             id: 4,
-            name: 'Sinceva Anti-Aging Night Cream',
+            name: 'Sinceva Anti-Aging Night Cream 50 ml',
             price: 129.99,
             rating: 4.7,
             reviews: 156,
@@ -101,7 +101,7 @@ export const categoryStructure = {
         products: [
           {
             id: 5,
-            name: 'Sinceva Skin Renewing Tonic',
+            name: 'Sinceva Skin Renewing Tonic 200 ml',
             price: 44.99,
             rating: 4.5,
             reviews: 87,
@@ -116,7 +116,7 @@ export const categoryStructure = {
         products: [
           {
             id: 6,
-            name: 'Sinceva Purifying Peeling Cream Scrub',
+            name: 'Sinceva Purifying Peeling Cream Scrub 200 ml',
             price: 54.99,
             rating: 4.6,
             reviews: 98,
@@ -126,12 +126,12 @@ export const categoryStructure = {
           }
         ]
       },
-      "cleansing-foam": {
-        title: "Cleansing Foam",
+      "foaming-cleanser": {
+        title: "Foaming Cleanser",
         products: [
           {
             id: 7,
-            name: 'Sinceva Purifying Face Cleansing Foam',
+            name: 'Sinceva Purifying Face Cleansing Foam 200 ml',
             price: 32.99,
             rating: 4.4,
             reviews: 76,
@@ -152,7 +152,7 @@ export const categoryStructure = {
         products: [
           {
             id: 8,
-            name: 'Sinceva SPF 50+ Daily SunCare Cream',
+            name: 'Sinceva SPF 50+ Daily SunCare Cream 100 ml',
             price: 49.99,
             rating: 4.5,
             reviews: 112,
@@ -167,7 +167,7 @@ export const categoryStructure = {
         products: [
           {
             id: 9,
-            name: 'Sinceva Hyaluronic Acid Moisturizing Cream',
+            name: 'Sinceva Hyaluronic Acid Moisturizing Cream 50 ml',
             price: 64.99,
             rating: 4.9,
             reviews: 89,
@@ -247,7 +247,7 @@ export const navigationContent = {
       items: [
         { name: 'Toner', href: '/category/face-and-skin-cleansing/toner' },
         { name: 'Peeling / Exfoliator', href: '/category/face-and-skin-cleansing/peeling-exfoliator' },
-        { name: 'Cleansing Foam', href: '/category/face-and-skin-cleansing/cleansing-foam' }
+        { name: 'Foaming Cleanser', href: '/category/face-and-skin-cleansing/foaming-cleanser' }
       ]
     },
     {
