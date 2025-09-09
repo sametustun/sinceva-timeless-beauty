@@ -1,0 +1,41 @@
+name: Build & Publish Dist to 'deploy'
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      # cPanel deploy için gereken .cpanel.yml dosyasını dist içine yaz
+      - name: Add .cpanel.yml into dist
+        run: |
+          cat > dist/.cpanel.yml <<'YAML'
+          ---
+          deployment:
+            tasks:
+              - /bin/rsync -a --delete ./ /home/sin66vacom/public_html/
+          YAML
+
+      # dist klasörünü 'deploy' adlı branch'e yayınla (sadece statik dosyalar)
+      - name: Publish dist to deploy branch
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          publish_dir: ./dist
+          publish_branch: deploy
+          force_orphan: true
