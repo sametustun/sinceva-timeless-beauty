@@ -241,7 +241,9 @@ const Header: React.FC = () => {
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className={`p-2 transition-all duration-500 ${
-              !isScrolled ? 'text-white' : 'text-[#191919]'
+              !isScrolled 
+                ? 'text-white hover:text-[hsl(var(--hover))]' 
+                : 'text-[#191919] hover:text-[hsl(var(--hover))]'
             }`}
           >
             {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
