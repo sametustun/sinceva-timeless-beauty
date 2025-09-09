@@ -1,5 +1,6 @@
 import React from 'react';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Star } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -35,15 +36,6 @@ const ProductRecommendations: React.FC<ProductRecommendationsProps> = ({
     .filter(product => product.id.toString() !== currentProductId.toString())
     .slice(0, 4);
 
-  const renderStars = (rating: number) => {
-    return [...Array(5)].map((_, index) => (
-      <Star 
-        key={index} 
-        className={`w-3 h-3 ${index < Math.floor(rating) ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}`} 
-      />
-    ));
-  };
-
   if (recommendedProducts.length === 0) return null;
 
   return (
@@ -60,37 +52,59 @@ const ProductRecommendations: React.FC<ProductRecommendationsProps> = ({
           <div className="md:w-3/4">
             <Carousel className="w-full">
               <CarouselContent className="-ml-4">
-                {recommendedProducts.map((product) => (
-                  <CarouselItem key={product.id} className="pl-4 basis-1/3">
-                    <Link to={`/product/${product.id}`}>
-                      <div className="group cursor-pointer">
-                        <div className="aspect-[3/2] overflow-hidden rounded-lg mb-4 relative">
-                          <img 
-                            src={product.image}
-                            alt={product.name}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                          />
-                          {product.badge && (
-                            <Badge className="absolute top-2 left-2 bg-primary text-white text-xs">
-                              {product.badge}
-                            </Badge>
-                          )}
-                        </div>
-                        <div className="space-y-2">
-                          <h3 className="font-medium text-sm text-foreground line-clamp-2 group-hover:text-primary transition-colors">
-                            {product.name}
-                          </h3>
-                          <div className="flex items-center gap-1">
-                            {renderStars(product.rating)}
-                            <span className="text-xs text-muted-foreground ml-1">
-                              ({product.reviews})
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </Link>
-                  </CarouselItem>
-                ))}
+                 {recommendedProducts.map((product) => (
+                   <CarouselItem key={product.id} className="pl-4 basis-1/3">
+                     <Link to={`/product/${product.id}`}>
+                       <Card className="group hover:shadow-luxury transition-all duration-300 cursor-pointer h-[320px] overflow-hidden rounded-xl">
+                         <CardContent className="p-0 relative h-full">
+                           {/* Full height product image */}
+                           <div className="absolute inset-0">
+                             <img 
+                               src={product.image}
+                               alt={product.name}
+                               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                             />
+                             {product.badge && (
+                               <Badge className="absolute top-3 left-3 bg-primary text-white z-10">
+                                 {product.badge}
+                               </Badge>
+                             )}
+                           </div>
+
+                           {/* Glassmorphism overlay covering bottom third */}
+                           <div className="absolute inset-x-0 bottom-0 top-2/3 backdrop-blur-md bg-white/20 border-t border-white/30">
+                             <div className="p-3 h-full flex flex-col">
+                               <div className="flex-1">
+                                 <h3 className="text-sm font-semibold mb-2 text-black group-hover:text-primary transition-colors line-clamp-2">
+                                   {product.name}
+                                 </h3>
+                                 
+                                 {/* Rating */}
+                                 <div className="flex items-center gap-1">
+                                   <div className="flex items-center">
+                                     {[...Array(5)].map((_, i) => (
+                                       <Star 
+                                         key={i} 
+                                         className={`w-3 h-3 ${
+                                           i < Math.floor(product.rating) 
+                                             ? 'text-yellow-500 fill-current' 
+                                             : 'text-gray-300'
+                                         }`} 
+                                       />
+                                     ))}
+                                   </div>
+                                   <span className="text-xs text-black/60">
+                                     ({product.reviews})
+                                   </span>
+                                 </div>
+                               </div>
+                             </div>
+                           </div>
+                         </CardContent>
+                       </Card>
+                     </Link>
+                   </CarouselItem>
+                 ))}
               </CarouselContent>
               <CarouselPrevious className="absolute -left-4 top-1/2 -translate-y-1/2" />
               <CarouselNext className="absolute -right-4 top-1/2 -translate-y-1/2" />
@@ -108,37 +122,59 @@ const ProductRecommendations: React.FC<ProductRecommendationsProps> = ({
           {/* Mobile Slider */}
           <Carousel className="w-full">
             <CarouselContent className="-ml-2">
-              {recommendedProducts.map((product) => (
-                <CarouselItem key={product.id} className="pl-2 basis-4/5">
-                  <Link to={`/product/${product.id}`}>
-                    <div className="group cursor-pointer">
-                      <div className="aspect-[3/2] overflow-hidden rounded-lg mb-3 relative">
-                        <img 
-                          src={product.image}
-                          alt={product.name}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                        {product.badge && (
-                          <Badge className="absolute top-2 left-2 bg-primary text-white text-xs">
-                            {product.badge}
-                          </Badge>
-                        )}
-                      </div>
-                      <div className="space-y-1">
-                        <h3 className="font-medium text-sm text-foreground line-clamp-2 group-hover:text-primary transition-colors">
-                          {product.name}
-                        </h3>
-                        <div className="flex items-center gap-1">
-                          {renderStars(product.rating)}
-                          <span className="text-xs text-muted-foreground ml-1">
-                            ({product.reviews})
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </Link>
-                </CarouselItem>
-              ))}
+             {recommendedProducts.map((product) => (
+               <CarouselItem key={product.id} className="pl-2 basis-4/5">
+                 <Link to={`/product/${product.id}`}>
+                   <Card className="group hover:shadow-luxury transition-all duration-300 cursor-pointer h-[260px] overflow-hidden rounded-xl">
+                     <CardContent className="p-0 relative h-full">
+                       {/* Full height product image */}
+                       <div className="absolute inset-0">
+                         <img 
+                           src={product.image}
+                           alt={product.name}
+                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                         />
+                         {product.badge && (
+                           <Badge className="absolute top-2 left-2 bg-primary text-white text-xs z-10">
+                             {product.badge}
+                           </Badge>
+                         )}
+                       </div>
+
+                       {/* Glassmorphism overlay covering bottom third */}
+                       <div className="absolute inset-x-0 bottom-0 top-2/3 backdrop-blur-md bg-white/20 border-t border-white/30">
+                         <div className="p-3 h-full flex flex-col">
+                           <div className="flex-1">
+                             <h3 className="text-sm font-semibold mb-1 text-black group-hover:text-primary transition-colors line-clamp-2">
+                               {product.name}
+                             </h3>
+                             
+                             {/* Rating */}
+                             <div className="flex items-center gap-1">
+                               <div className="flex items-center">
+                                 {[...Array(5)].map((_, i) => (
+                                   <Star 
+                                     key={i} 
+                                     className={`w-3 h-3 ${
+                                       i < Math.floor(product.rating) 
+                                         ? 'text-yellow-500 fill-current' 
+                                         : 'text-gray-300'
+                                     }`} 
+                                   />
+                                 ))}
+                               </div>
+                               <span className="text-xs text-black/60">
+                                 ({product.reviews})
+                               </span>
+                             </div>
+                           </div>
+                         </div>
+                       </div>
+                     </CardContent>
+                   </Card>
+                 </Link>
+               </CarouselItem>
+             ))}
             </CarouselContent>
           </Carousel>
         </div>
