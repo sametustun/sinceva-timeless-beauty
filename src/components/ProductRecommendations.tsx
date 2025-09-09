@@ -64,7 +64,7 @@ const ProductRecommendations: React.FC<ProductRecommendationsProps> = ({
                   <CarouselItem key={product.id} className="pl-4 basis-1/3">
                     <Link to={`/product/${product.id}`}>
                       <div className="group cursor-pointer">
-                        <div className="aspect-square overflow-hidden rounded-lg mb-4 relative">
+                        <div className="aspect-[3/2] overflow-hidden rounded-lg mb-4 relative">
                           <img 
                             src={product.image}
                             alt={product.name}
@@ -112,7 +112,7 @@ const ProductRecommendations: React.FC<ProductRecommendationsProps> = ({
                 <CarouselItem key={product.id} className="pl-2 basis-4/5">
                   <Link to={`/product/${product.id}`}>
                     <div className="group cursor-pointer">
-                      <div className="aspect-square overflow-hidden rounded-lg mb-3 relative">
+                      <div className="aspect-[3/2] overflow-hidden rounded-lg mb-3 relative">
                         <img 
                           src={product.image}
                           alt={product.name}
