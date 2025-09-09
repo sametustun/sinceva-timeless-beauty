@@ -45,6 +45,26 @@ const Product: React.FC = () => {
     }
   ];
 
+  // Mock FAQ questions
+  const faqQuestions = [
+    {
+      question: 'Is this product suitable for sensitive skin?',
+      answer: 'Yes, our products are dermatologically tested and suitable for all skin types including sensitive skin.'
+    },
+    {
+      question: 'How long until I see results?',
+      answer: 'Most customers notice improvements within 2-4 weeks of regular use. However, results may vary depending on your skin type and condition.'
+    },
+    {
+      question: 'Can I use this product with other skincare products?',
+      answer: 'Yes, this product is designed to work well with most skincare routines. However, we recommend patch testing when combining with new products.'
+    },
+    {
+      question: 'What is the shelf life of this product?',
+      answer: 'The product has a shelf life of 24 months when unopened, and 12 months after opening. Store in a cool, dry place away from direct sunlight.'
+    }
+  ];
+
   // Mock accordion content
   const accordionContent = [
     {
@@ -65,7 +85,7 @@ const Product: React.FC = () => {
     {
       value: 'faq',
       title: 'Sıkça Sorulan Sorular',
-      content: 'Q: Is this product suitable for sensitive skin? A: Yes, our products are dermatologically tested and suitable for all skin types. Q: How long until I see results? A: Most customers notice improvements within 2-4 weeks of regular use.'
+      content: null // This will be handled specially with nested accordion
     }
   ];
 
@@ -167,7 +187,22 @@ const Product: React.FC = () => {
                   {item.title}
                 </AccordionTrigger>
                 <AccordionContent className="text-gray-600">
-                  {item.content}
+                  {item.value === 'faq' ? (
+                    <Accordion type="multiple" className="w-full">
+                      {faqQuestions.map((faq, index) => (
+                        <AccordionItem key={index} value={`faq-${index}`}>
+                          <AccordionTrigger className="text-left font-medium text-sm">
+                            {faq.question}
+                          </AccordionTrigger>
+                          <AccordionContent className="text-gray-600 text-sm">
+                            {faq.answer}
+                          </AccordionContent>
+                        </AccordionItem>
+                      ))}
+                    </Accordion>
+                  ) : (
+                    item.content
+                  )}
                 </AccordionContent>
               </AccordionItem>
             ))}
@@ -178,7 +213,7 @@ const Product: React.FC = () => {
         <div className="mb-16">
           <Button 
             onClick={() => setIsStorePopupOpen(true)}
-            className="w-full py-4 text-lg font-semibold bg-[#191919] text-white hover:bg-[#191919]/90 rounded-lg"
+            className="w-full py-4 text-lg font-semibold bg-[#ef2b2d] text-white hover:bg-[#ef2b2d]/90 rounded-full"
           >
             Buy
           </Button>
@@ -191,7 +226,7 @@ const Product: React.FC = () => {
           <div className="container mx-auto max-w-7xl">
             <button
               onClick={() => setIsStorePopupOpen(true)}
-              className="w-full py-3 bg-white/20 backdrop-blur-md border border-white/30 rounded-full text-[#191919] font-semibold transition-all hover:bg-white/30"
+              className="w-full py-3 bg-[#ef2b2d] text-white font-semibold transition-all hover:bg-[#ef2b2d]/90 rounded-full"
             >
               Buy
             </button>
