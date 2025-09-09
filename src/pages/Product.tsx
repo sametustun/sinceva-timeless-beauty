@@ -128,7 +128,7 @@ const Product: React.FC = () => {
   return (
     <Layout>
       {/* Main Product Image - Banner Style */}
-      <div className="w-full aspect-[2/3] md:aspect-auto md:min-h-[60vh] relative">
+      <div className="w-full aspect-[2/3] md:aspect-auto md:h-[60vh] relative">
         <img 
           src={product.image}
           alt={product.name}
