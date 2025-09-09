@@ -29,132 +29,165 @@ export const heroContent = {
   ]
 };
 
-// All products content - showing all products mixed
+// Product Categories Structure
+export const categoryStructure = {
+  "anti-aging-care": {
+    title: "Anti-Aging Care",
+    description: "Advanced formulas to reduce fine lines, boost collagen, and restore youthful radiance to your skin.",
+    subcategories: {
+      "face-serum": {
+        title: "Face Serum",
+        products: [
+          {
+            id: 1,
+            name: 'Sinceva Brightening Vitamin C Serum',
+            price: 89.99,
+            rating: 4.8,
+            reviews: 124,
+            badge: 'Bestseller',
+            description: 'Powerful vitamin C serum for radiant, even-toned skin with natural brightening properties.',
+            image: 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+          },
+          {
+            id: 2,
+            name: 'Sinceva Anti-Spot Arbutin Serum',
+            price: 79.99,
+            rating: 4.7,
+            reviews: 98,
+            badge: 'New',
+            description: 'Advanced arbutin formula to reduce dark spots and even skin tone.',
+            image: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+          }
+        ]
+      },
+      "eye-care": {
+        title: "Eye Care",
+        products: [
+          {
+            id: 3,
+            name: 'Sinceva Anti-Wrinkle Eye Cream',
+            price: 79.99,
+            rating: 4.7,
+            reviews: 134,
+            badge: 'Premium',
+            description: 'Firming eye cream with peptides to reduce fine lines and brighten the delicate eye area.',
+            image: 'https://images.unsplash.com/photo-1596755389378-c31d21fd1273?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+          }
+        ]
+      },
+      "anti-wrinkle-care": {
+        title: "Anti-Wrinkle Care",
+        products: [
+          {
+            id: 4,
+            name: 'Sinceva Anti-Aging Night Cream',
+            price: 129.99,
+            rating: 4.7,
+            reviews: 156,
+            badge: 'Premium',
+            description: 'Advanced retinol formula to reduce signs of aging and promote skin renewal overnight.',
+            image: 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+          }
+        ]
+      }
+    }
+  },
+  "face-and-skin-cleansing": {
+    title: "Face & Skin Cleansing",
+    description: "Gentle yet effective cleansers that purify your skin while maintaining its natural moisture balance.",
+    subcategories: {
+      "toner": {
+        title: "Toner",
+        products: [
+          {
+            id: 5,
+            name: 'Sinceva Skin Renewing Tonic',
+            price: 44.99,
+            rating: 4.5,
+            reviews: 87,
+            badge: '',
+            description: 'Gentle chemical exfoliant that reveals smoother, brighter skin with regular use.',
+            image: 'https://images.unsplash.com/photo-1570194065650-d99fb4bedf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+          }
+        ]
+      },
+      "peeling-exfoliator": {
+        title: "Peeling / Exfoliator",
+        products: [
+          {
+            id: 6,
+            name: 'Sinceva Purifying Peeling Cream Scrub',
+            price: 54.99,
+            rating: 4.6,
+            reviews: 98,
+            badge: 'New',
+            description: 'Advanced exfoliating scrub that gently removes dead skin cells for smoother texture.',
+            image: 'https://images.unsplash.com/photo-1612817288484-6f916006741a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+          }
+        ]
+      },
+      "cleansing-foam": {
+        title: "Cleansing Foam",
+        products: [
+          {
+            id: 7,
+            name: 'Sinceva Purifying Face Cleansing Foam',
+            price: 32.99,
+            rating: 4.4,
+            reviews: 76,
+            badge: '',
+            description: 'Mild foaming cleanser that removes impurities without stripping skin of essential moisture.',
+            image: 'https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+          }
+        ]
+      }
+    }
+  },
+  "daily-care": {
+    title: "Daily Care",
+    description: "Essential daily skincare products for healthy, protected, and nourished skin every day.",
+    subcategories: {
+      "sunscreen": {
+        title: "Sunscreen",
+        products: [
+          {
+            id: 8,
+            name: 'Sinceva SPF 50+ Daily SunCare Cream',
+            price: 49.99,
+            rating: 4.5,
+            reviews: 112,
+            badge: '',
+            description: 'Broad spectrum protection with lightweight, non-greasy formula perfect for daily use.',
+            image: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+          }
+        ]
+      },
+      "moisturizer": {
+        title: "Moisturizer",
+        products: [
+          {
+            id: 9,
+            name: 'Sinceva Hyaluronic Acid Moisturizing Cream',
+            price: 64.99,
+            rating: 4.9,
+            reviews: 89,
+            badge: 'Bestseller',
+            description: 'Deep hydration with hyaluronic acid for plump, smooth, and supple skin all day long.',
+            image: 'https://images.unsplash.com/photo-1585652757173-57de5e9fab42?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+          }
+        ]
+      }
+    }
+  }
+};
+
+// All products content - compiled from all categories
 export const allProductsContent = {
   title: "All Our Products",
   subtitle: "Discover our complete collection of premium skincare solutions, expertly crafted for every skin type and concern.",
-  products: [
-    {
-      id: 1,
-      name: 'Vitamin C Brightening Serum',
-      price: 89.99,
-      rating: 4.8,
-      reviews: 124,
-      badge: 'Bestseller',
-      description: 'Powerful vitamin C serum for radiant, even-toned skin with natural brightening properties.',
-      image: 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
-    },
-    {
-      id: 2,
-      name: 'Hyaluronic Acid Moisturizer',
-      price: 64.99,
-      rating: 4.9,
-      reviews: 89,
-      badge: 'New',
-      description: 'Deep hydration with hyaluronic acid for plump, smooth, and supple skin all day long.',
-      image: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
-    },
-    {
-      id: 3,
-      name: 'Retinol Anti-Aging Night Cream',
-      price: 129.99,
-      rating: 4.7,
-      reviews: 156,
-      badge: 'Premium',
-      description: 'Advanced retinol formula to reduce signs of aging and promote skin renewal overnight.',
-      image: 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
-    },
-    {
-      id: 4,
-      name: 'Daily SPF 50 Sunscreen',
-      price: 49.99,
-      rating: 4.5,
-      reviews: 112,
-      badge: '',
-      description: 'Broad spectrum protection with lightweight, non-greasy formula perfect for daily use.',
-      image: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
-    },
-    {
-      id: 5,
-      name: 'Niacinamide Pore Minimizer',
-      price: 54.99,
-      rating: 4.6,
-      reviews: 98,
-      badge: 'New',
-      description: 'Advanced niacinamide formula that minimizes pores and controls oil for smoother skin texture.',
-      image: 'https://images.unsplash.com/photo-1612817288484-6f916006741a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
-    },
-    {
-      id: 6,
-      name: 'Gentle Foam Cleanser',
-      price: 32.99,
-      rating: 4.4,
-      reviews: 76,
-      badge: '',
-      description: 'Mild foaming cleanser that removes impurities without stripping skin of essential moisture.',
-      image: 'https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
-    },
-    {
-      id: 7,
-      name: 'Peptide Eye Cream',
-      price: 79.99,
-      rating: 4.7,
-      reviews: 134,
-      badge: 'Premium',
-      description: 'Firming eye cream with peptides to reduce fine lines and brighten the delicate eye area.',
-      image: 'https://images.unsplash.com/photo-1596755389378-c31d21fd1273?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
-    },
-    {
-      id: 8,
-      name: 'AHA/BHA Exfoliating Toner',
-      price: 44.99,
-      rating: 4.5,
-      reviews: 87,
-      badge: '',
-      description: 'Gentle chemical exfoliant that reveals smoother, brighter skin with regular use.',
-      image: 'https://images.unsplash.com/photo-1570194065650-d99fb4bedf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
-    },
-    {
-      id: 9,
-      name: 'Ceramide Barrier Repair Cream',
-      price: 67.99,
-      rating: 4.8,
-      reviews: 145,
-      badge: 'Bestseller',
-      description: 'Rich moisturizer with ceramides to restore and strengthen the skin barrier function.',
-      image: 'https://images.unsplash.com/photo-1585652757173-57de5e9fab42?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
-    },
-    {
-      id: 10,
-      name: 'Vitamin E Facial Oil',
-      price: 59.99,
-      rating: 4.3,
-      reviews: 92,
-      badge: '',
-      description: 'Nourishing facial oil with vitamin E to hydrate and add natural glow to all skin types.',
-      image: 'https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
-    },
-    {
-      id: 11,
-      name: 'Salicylic Acid Spot Treatment',
-      price: 29.99,
-      rating: 4.2,
-      reviews: 68,
-      badge: '',
-      description: 'Targeted treatment with salicylic acid to clear blemishes and prevent future breakouts.',
-      image: 'https://images.unsplash.com/photo-1556227702-d1e4e7b5c232?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
-    },
-    {
-      id: 12,
-      name: 'Collagen Boosting Mask',
-      price: 39.99,
-      rating: 4.6,
-      reviews: 103,
-      badge: 'New',
-      description: 'Weekly treatment mask that stimulates collagen production for firmer, more youthful skin.',
-      image: 'https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
-    }
-  ]
+  products: Object.values(categoryStructure).flatMap(category => 
+    Object.values(category.subcategories).flatMap(subcategory => subcategory.products)
+  )
 };
 
 export const categoryShowcaseContent = {
@@ -204,25 +237,24 @@ export const navigationContent = {
     {
       category: 'Anti-Aging Care',
       items: [
-        { name: 'Serums & Treatments', href: '/category/anti-aging-care?type=serums' },
-        { name: 'Night Creams', href: '/category/anti-aging-care?type=night-creams' },
-        { name: 'Eye Care', href: '/category/anti-aging-care?type=eye-care' }
+        { name: 'Face Serum', href: '/category/anti-aging-care/face-serum' },
+        { name: 'Eye Care', href: '/category/anti-aging-care/eye-care' },
+        { name: 'Anti-Wrinkle Care', href: '/category/anti-aging-care/anti-wrinkle-care' }
       ]
     },
     {
       category: 'Face & Skin Cleansing',
       items: [
-        { name: 'Cleansers', href: '/category/face-and-skin-cleansing?type=cleansers' },
-        { name: 'Exfoliants', href: '/category/face-and-skin-cleansing?type=exfoliants' },
-        { name: 'Toners', href: '/category/face-and-skin-cleansing?type=toners' }
+        { name: 'Toner', href: '/category/face-and-skin-cleansing/toner' },
+        { name: 'Peeling / Exfoliator', href: '/category/face-and-skin-cleansing/peeling-exfoliator' },
+        { name: 'Cleansing Foam', href: '/category/face-and-skin-cleansing/cleansing-foam' }
       ]
     },
     {
       category: 'Daily Care',
       items: [
-        { name: 'Moisturizers', href: '/category/daily-care?type=moisturizers' },
-        { name: 'Sunscreens', href: '/category/daily-care?type=sunscreens' },
-        { name: 'Masks', href: '/category/daily-care?type=masks' }
+        { name: 'Sunscreen', href: '/category/daily-care/sunscreen' },
+        { name: 'Moisturizer', href: '/category/daily-care/moisturizer' }
       ]
     }
   ]

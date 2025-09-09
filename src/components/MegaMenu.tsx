@@ -1,40 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { navigationContent } from '@/data/content';
 
 interface MegaMenuProps {
   isVisible: boolean;
 }
 
 const MegaMenu: React.FC<MegaMenuProps> = ({ isVisible }) => {
-  const categories = [
-    {
-      title: 'Anti-Aging Care',
-      href: '/category/anti-aging-care',
-      children: [
-        { name: 'Face Serum', href: '/category/face-serum' },
-        { name: 'Eye Care', href: '/category/eye-care' },
-        { name: 'Anti-Wrinkle Care', href: '/category/anti-wrinkle-care' },
-      ]
-    },
-    {
-      title: 'Face & Skin Cleansing',
-      href: '/category/face-and-skin-cleansing',
-      children: [
-        { name: 'Foaming Cleanser', href: '/category/foaming-cleanser' },
-        { name: 'Toner', href: '/category/toner' },
-        { name: 'Anti-Wrinkle Care', href: '/category/anti-wrinkle-care' },
-      ]
-    },
-    {
-      title: 'Daily Care',
-      href: '/category/daily-care',
-      children: [
-        { name: 'Sunscreen', href: '/category/sunscreen' },
-        { name: 'Moisturizer', href: '/category/moisturizer' },
-      ]
-    },
-  ];
-
   if (!isVisible) return null;
 
   return (
@@ -43,22 +15,22 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ isVisible }) => {
     }`}>
       <div className="container mx-auto max-w-7xl px-4 py-8 pt-6 md:pt-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {categories.map((category) => (
-            <div key={category.title} className="space-y-4">
+          {navigationContent.megaMenuCategories.map((category) => (
+            <div key={category.category} className="space-y-4">
               <Link
-                to={category.href}
+                to={`/category/${category.category.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and')}`}
                 className="text-lg font-semibold text-primary hover:text-primary-dark transition-colors inline-block"
               >
-                {category.title}
+                {category.category}
               </Link>
               <ul className="space-y-2">
-                {category.children.map((child) => (
-                  <li key={child.name}>
+                {category.items.map((item) => (
+                  <li key={item.name}>
                     <Link
-                      to={child.href}
+                      to={item.href}
                       className="text-muted-foreground hover:text-primary transition-colors text-sm inline-block"
                     >
-                      {child.name}
+                      {item.name}
                     </Link>
                   </li>
                 ))}
