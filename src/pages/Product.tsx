@@ -6,7 +6,9 @@ import { Button } from '@/components/ui/button';
 import { Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import { Separator } from '@/components/ui/separator';
 import StorePopup from '@/components/StorePopup';
+import ProductRecommendations from '@/components/ProductRecommendations';
 import { allProductsContent } from '@/data/content';
 import { useIsMobile } from '@/hooks/use-mobile';
 
@@ -210,7 +212,7 @@ const Product: React.FC = () => {
         </div>
 
         {/* Static Buy Button */}
-        <div className="mb-16">
+        <div className="mb-8">
           <Button 
             onClick={() => setIsStorePopupOpen(true)}
             className="w-full py-4 text-lg font-semibold bg-[#ef2b2d] text-white hover:bg-[#ef2b2d]/90 rounded-full"
@@ -218,7 +220,17 @@ const Product: React.FC = () => {
             Buy
           </Button>
         </div>
+
+        {/* Separator */}
+        <Separator className="mb-8" />
       </div>
+
+      {/* Recommendations Section */}
+      <ProductRecommendations 
+        currentProductId={product.id}
+        products={allProductsContent.products}
+        title="Discover Sinceva Products"
+      />
 
       {/* Floating Buy Button */}
       {showFloatingButton && (
