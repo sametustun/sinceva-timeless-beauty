@@ -5,7 +5,7 @@ import PageHero from '@/components/sections/PageHero';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Star, ShoppingCart, ArrowRight } from 'lucide-react';
+import { ShoppingCart, ArrowRight } from 'lucide-react';
 import ProductCard from '@/components/ProductCard';
 import { categoryStructure } from '@/data/content';
 
@@ -13,8 +13,6 @@ interface Product {
   id: number;
   name: string;
   price: number;
-  rating: number;
-  reviews: number;
   badge?: string;
   description: string;
   image: string;
