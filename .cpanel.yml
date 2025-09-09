@@ -1,4 +1,8 @@
 ---
 deployment:
   tasks:
-    - /bin/rsync -a --delete --exclude ".git" --exclude ".cpanel.yml" ./ /home/sin66vacom/public_html/
+    # public_html'ı temizle (SSL doğrulaması için .well-known'u koruyoruz)
+    - /bin/find /home/sin66vacom/public_html -mindepth 1 -maxdepth 1 ! -name ".well-known" -exec /bin/rm -rf {} \;
+    # public klasörünü ve index.html'i kopyala
+    - /bin/cp -R public/* /home/sin66vacom/public_html/
+    - /bin/cp index.html /home/sin66vacom/public_html/
