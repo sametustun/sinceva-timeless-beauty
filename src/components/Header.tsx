@@ -102,10 +102,10 @@ const Header: React.FC = () => {
         : 'bg-white shadow-md'
     }`}>
       <div className="container mx-auto max-w-7xl px-4">
-        {/* Logo Section */}
-        <div className="flex justify-center py-3 md:py-6">
-          {/* Desktop Logo */}
-          <Link to="/" className="hidden md:block transition-all duration-500 hover:opacity-80">
+        {/* Desktop and Mobile Layout Restructure */}
+        {/* Desktop Logo Section */}
+        <div className="hidden md:flex justify-center py-3 md:py-6">
+          <Link to="/" className="transition-all duration-500 hover:opacity-80">
             {(() => {
               const desktopLogo = !isScrolled ? logos.desktop.white : logos.desktop.black;
               
@@ -129,12 +129,13 @@ const Header: React.FC = () => {
               );
             })()}
           </Link>
-          
-          {/* Mobile Logo */}
-          <Link to="/" className="md:hidden transition-all duration-500 hover:opacity-80">
+        </div>
+
+        {/* Mobile Logo Section - Centered vertically between top and hamburger */}
+        <div className="md:hidden flex justify-center pt-6 pb-3">
+          <Link to="/" className="transition-all duration-500 hover:opacity-80">
             {(() => {
               const mobileLogo = !isScrolled ? logos.mobile.white : logos.mobile.black;
-              
               
               if (mobileLogo.currentLogo) {
                 return (
