@@ -132,7 +132,7 @@ const Header: React.FC = () => {
         </div>
 
         {/* Mobile Logo Section - Centered vertically between top and hamburger */}
-        <div className="md:hidden flex justify-center pt-6 pb-3">
+        <div className="md:hidden flex justify-center pt-5 pb-2">
           <Link to="/" className="transition-all duration-500 hover:opacity-80">
             {(() => {
               const mobileLogo = !isScrolled ? logos.mobile.white : logos.mobile.black;
