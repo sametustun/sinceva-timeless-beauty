@@ -55,7 +55,7 @@ const ProductRecommendations: React.FC<ProductRecommendationsProps> = ({
                  {recommendedProducts.map((product) => (
                    <CarouselItem key={product.id} className="pl-4 basis-1/3">
                      <Link to={`/product/${product.id}`}>
-                       <Card className="group hover:shadow-luxury transition-all duration-300 cursor-pointer aspect-[3/2] overflow-hidden rounded-xl">
+                       <Card className="group hover:shadow-luxury transition-all duration-300 cursor-pointer aspect-[2/3] overflow-hidden rounded-xl">
                          <CardContent className="p-0 relative h-full">
                            {/* Full height product image */}
                            <div className="absolute inset-0">
@@ -125,7 +125,7 @@ const ProductRecommendations: React.FC<ProductRecommendationsProps> = ({
              {recommendedProducts.map((product) => (
                <CarouselItem key={product.id} className="pl-2 basis-4/5">
                  <Link to={`/product/${product.id}`}>
-                   <Card className="group hover:shadow-luxury transition-all duration-300 cursor-pointer aspect-[3/2] overflow-hidden rounded-xl">
+                   <Card className="group hover:shadow-luxury transition-all duration-300 cursor-pointer aspect-[2/3] overflow-hidden rounded-xl">
                      <CardContent className="p-0 relative h-full">
                        {/* Full height product image */}
                        <div className="absolute inset-0">
