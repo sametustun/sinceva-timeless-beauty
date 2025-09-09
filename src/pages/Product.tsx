@@ -226,7 +226,7 @@ const Product: React.FC = () => {
           <div className="container mx-auto max-w-7xl">
             <button
               onClick={() => setIsStorePopupOpen(true)}
-              className="w-full py-3 bg-[#ef2b2d]/20 backdrop-blur-md border border-[#ef2b2d]/30 text-[#ef2b2d] font-semibold transition-all hover:bg-[#ef2b2d]/30 rounded-full"
+              className="w-full py-3 bg-white/20 backdrop-blur-md border border-white/30 rounded-full text-[#191919] font-semibold transition-all hover:bg-white/30"
             >
               Buy
             </button>
