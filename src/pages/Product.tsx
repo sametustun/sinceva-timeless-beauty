@@ -132,6 +132,17 @@ const Product: React.FC = () => {
             {product.badge}
           </Badge>
         )}
+        
+        {/* Static Buy Button - Overlaid on hero image */}
+        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-10">
+          <Button 
+            onClick={() => setIsStorePopupOpen(true)}
+            className="py-4 text-lg font-semibold bg-[#ef2b2d] text-white hover:bg-[#ef2b2d]/90 rounded-full h-16 md:h-19 w-auto px-8"
+            style={{ width: 'clamp(200px, 20vw, 300px)' }}
+          >
+            Buy
+          </Button>
+        </div>
       </div>
 
       <div className="container mx-auto max-w-7xl px-4 py-8">
@@ -162,17 +173,6 @@ const Product: React.FC = () => {
               <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2" />
             </div>
           </Carousel>
-        </div>
-
-        {/* Static Buy Button - Centered with logo width */}
-        <div className="mb-8 flex justify-center">
-          <Button 
-            onClick={() => setIsStorePopupOpen(true)}
-            className="py-4 text-lg font-semibold bg-[#ef2b2d] text-white hover:bg-[#ef2b2d]/90 rounded-full h-16 md:h-19 w-auto px-8"
-            style={{ width: 'clamp(200px, 20vw, 300px)' }}
-          >
-            Buy
-          </Button>
         </div>
 
         {/* Accordion Menu */}
