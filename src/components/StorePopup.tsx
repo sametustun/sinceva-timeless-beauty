@@ -69,7 +69,7 @@ const StorePopup: React.FC<StorePopupProps> = ({
               <button
                 key={store.id}
                 onClick={() => handleStoreClick(store.url)}
-                className="w-full flex items-center justify-center p-4 border border-white/20 rounded-lg hover:bg-white/10 transition-colors bg-white/5"
+                className="w-full flex items-center justify-center p-4 hover:bg-white/10 transition-colors rounded-lg"
               >
                 <img 
                   src={store.logo} 
