@@ -2,7 +2,6 @@ import React from 'react';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Star } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Link } from 'react-router-dom';
 
@@ -11,8 +10,6 @@ interface Product {
   name: string;
   price: number;
   originalPrice?: number;
-  rating: number;
-  reviews: number;
   badge?: string;
   description: string;
   image?: string;
@@ -79,24 +76,6 @@ const ProductRecommendations: React.FC<ProductRecommendationsProps> = ({
                                    {product.name}
                                  </h3>
                                  
-                                 {/* Rating */}
-                                 <div className="flex items-center gap-1">
-                                   <div className="flex items-center">
-                                     {[...Array(5)].map((_, i) => (
-                                       <Star 
-                                         key={i} 
-                                         className={`w-3 h-3 ${
-                                           i < Math.floor(product.rating) 
-                                             ? 'text-yellow-500 fill-current' 
-                                             : 'text-gray-300'
-                                         }`} 
-                                       />
-                                     ))}
-                                   </div>
-                                   <span className="text-xs text-black/60">
-                                     ({product.reviews})
-                                   </span>
-                                 </div>
                                </div>
                              </div>
                            </div>
@@ -149,24 +128,6 @@ const ProductRecommendations: React.FC<ProductRecommendationsProps> = ({
                                {product.name}
                              </h3>
                              
-                             {/* Rating */}
-                             <div className="flex items-center gap-1">
-                               <div className="flex items-center">
-                                 {[...Array(5)].map((_, i) => (
-                                   <Star 
-                                     key={i} 
-                                     className={`w-3 h-3 ${
-                                       i < Math.floor(product.rating) 
-                                         ? 'text-yellow-500 fill-current' 
-                                         : 'text-gray-300'
-                                     }`} 
-                                   />
-                                 ))}
-                               </div>
-                               <span className="text-xs text-black/60">
-                                 ({product.reviews})
-                               </span>
-                             </div>
                            </div>
                          </div>
                        </div>

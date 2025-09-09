@@ -3,12 +3,13 @@ import { useParams } from 'react-router-dom';
 import Layout from '@/components/Layout';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Star, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Home } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { Separator } from '@/components/ui/separator';
 import StorePopup from '@/components/StorePopup';
 import ProductRecommendations from '@/components/ProductRecommendations';
+import Breadcrumb from '@/components/Breadcrumb';
 import { allProductsContent } from '@/data/content';
 import { useIsMobile } from '@/hooks/use-mobile';
 
@@ -116,14 +117,6 @@ const Product: React.FC = () => {
     );
   }
 
-  const renderStars = (rating: number) => {
-    return [...Array(5)].map((_, index) => (
-      <Star 
-        key={index} 
-        className={`w-4 h-4 ${index < Math.floor(rating) ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}`} 
-      />
-    ));
-  };
 
   return (
     <Layout>
@@ -146,15 +139,6 @@ const Product: React.FC = () => {
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-[#191919] mb-4">{product.name}</h1>
           
-          {/* Rating */}
-          <div className="flex items-center gap-2 mb-4">
-            <div className="flex items-center">
-              {renderStars(product.rating)}
-            </div>
-            <span className="text-sm text-gray-500">
-              {product.rating} ({product.reviews} reviews)
-            </span>
-          </div>
         </div>
 
         {/* Photo Gallery */}
@@ -211,11 +195,12 @@ const Product: React.FC = () => {
           </Accordion>
         </div>
 
-        {/* Static Buy Button */}
-        <div className="mb-8">
+        {/* Static Buy Button - Centered with logo width */}
+        <div className="mb-8 flex justify-center">
           <Button 
             onClick={() => setIsStorePopupOpen(true)}
-            className="w-full py-4 text-lg font-semibold bg-[#ef2b2d] text-white hover:bg-[#ef2b2d]/90 rounded-full"
+            className="py-4 text-lg font-semibold bg-[#ef2b2d] text-white hover:bg-[#ef2b2d]/90 rounded-full h-16 md:h-19 w-auto px-8"
+            style={{ width: 'clamp(200px, 20vw, 300px)' }}
           >
             Buy
           </Button>
@@ -245,6 +230,9 @@ const Product: React.FC = () => {
           </div>
         </div>
       )}
+
+      {/* Breadcrumb */}
+      <Breadcrumb productId={product.id} />
 
       {/* Footer Reference for Intersection Observer */}
       <div ref={footerRef} className="h-1" />

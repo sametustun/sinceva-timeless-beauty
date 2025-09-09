@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Instagram, Facebook, Twitter, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { logoContent } from '@/data/content';
 
 const Footer: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -17,12 +18,19 @@ const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="bg-foreground text-background">
+    <footer className="text-background" style={{ backgroundColor: '#191919' }}>
       <div className="container mx-auto max-w-7xl px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand Section */}
           <div className="space-y-4">
-            <h3 className="text-2xl font-bold tracking-wider">SINCEVA</h3>
+            <div className="hidden md:block">
+              <img 
+                src={logoContent.desktop.white}
+                alt="SINCEVA Logo" 
+                className="h-16 w-auto"
+              />
+            </div>
+            <h3 className="md:hidden text-2xl font-bold tracking-wider">SINCEVA</h3>
             <p className="text-background/80 text-sm">
               The Origin of Beauty - Premium skincare for timeless elegance.
             </p>
@@ -62,18 +70,18 @@ const Footer: React.FC = () => {
           <div className="space-y-4">
             <h4 className="font-semibold text-background">Policies</h4>
             <nav className="space-y-2">
-              <a href="#" className="block text-background/80 hover:text-primary transition-colors text-sm">
-                Returns & Delivery
-              </a>
-              <a href="#" className="block text-background/80 hover:text-primary transition-colors text-sm">
-                Privacy Policy
-              </a>
-              <a href="#" className="block text-background/80 hover:text-primary transition-colors text-sm">
-                Terms of Service
-              </a>
-              <a href="#" className="block text-background/80 hover:text-primary transition-colors text-sm">
-                Shipping Info
-              </a>
+              <Link to="/privacy" className="block text-background/80 hover:text-primary transition-colors text-sm">
+                Kişisel Verilerin Korunması
+              </Link>
+              <Link to="/cookie-policy" className="block text-background/80 hover:text-primary transition-colors text-sm">
+                Çerez Politikası
+              </Link>
+              <Link to="/terms" className="block text-background/80 hover:text-primary transition-colors text-sm">
+                Kural ve Koşullar
+              </Link>
+              <Link to="/consumer-ratings" className="block text-background/80 hover:text-primary transition-colors text-sm">
+                Tüketici Değerlendirme Kuralları
+              </Link>
             </nav>
           </div>
 

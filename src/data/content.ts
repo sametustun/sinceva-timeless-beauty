@@ -42,8 +42,6 @@ export const categoryStructure = {
             id: 1,
             name: 'Sinceva Brightening Vitamin C Serum 30 ml',
             price: 89.99,
-            rating: 4.8,
-            reviews: 124,
             badge: 'Bestseller',
             description: 'Powerful vitamin C serum for radiant, even-toned skin with natural brightening properties.',
             image: 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
@@ -52,8 +50,6 @@ export const categoryStructure = {
             id: 2,
             name: 'Sinceva Anti-Spot Arbutin Serum 30 ml',
             price: 79.99,
-            rating: 4.7,
-            reviews: 98,
             badge: 'New',
             description: 'Advanced arbutin formula to reduce dark spots and even skin tone.',
             image: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
@@ -67,8 +63,6 @@ export const categoryStructure = {
             id: 3,
             name: 'Sinceva Anti-Wrinkle Eye Cream 20 ml',
             price: 79.99,
-            rating: 4.7,
-            reviews: 134,
             badge: 'Premium',
             description: 'Firming eye cream with peptides to reduce fine lines and brighten the delicate eye area.',
             image: 'https://images.unsplash.com/photo-1596755389378-c31d21fd1273?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
@@ -82,8 +76,6 @@ export const categoryStructure = {
             id: 4,
             name: 'Sinceva Anti-Aging Night Cream 50 ml',
             price: 129.99,
-            rating: 4.7,
-            reviews: 156,
             badge: 'Premium',
             description: 'Advanced retinol formula to reduce signs of aging and promote skin renewal overnight.',
             image: 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
@@ -103,8 +95,6 @@ export const categoryStructure = {
             id: 5,
             name: 'Sinceva Skin Renewing Tonic 200 ml',
             price: 44.99,
-            rating: 4.5,
-            reviews: 87,
             badge: '',
             description: 'Gentle chemical exfoliant that reveals smoother, brighter skin with regular use.',
             image: 'https://images.unsplash.com/photo-1570194065650-d99fb4bedf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
@@ -118,8 +108,6 @@ export const categoryStructure = {
             id: 6,
             name: 'Sinceva Purifying Peeling Cream Scrub 200 ml',
             price: 54.99,
-            rating: 4.6,
-            reviews: 98,
             badge: 'New',
             description: 'Advanced exfoliating scrub that gently removes dead skin cells for smoother texture.',
             image: 'https://images.unsplash.com/photo-1612817288484-6f916006741a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
@@ -133,8 +121,6 @@ export const categoryStructure = {
             id: 7,
             name: 'Sinceva Purifying Face Cleansing Foam 200 ml',
             price: 32.99,
-            rating: 4.4,
-            reviews: 76,
             badge: '',
             description: 'Mild foaming cleanser that removes impurities without stripping skin of essential moisture.',
             image: 'https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
@@ -154,8 +140,6 @@ export const categoryStructure = {
             id: 8,
             name: 'Sinceva SPF 50+ Daily SunCare Cream 100 ml',
             price: 49.99,
-            rating: 4.5,
-            reviews: 112,
             badge: '',
             description: 'Broad spectrum protection with lightweight, non-greasy formula perfect for daily use.',
             image: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
@@ -169,8 +153,6 @@ export const categoryStructure = {
             id: 9,
             name: 'Sinceva Hyaluronic Acid Moisturizing Cream 50 ml',
             price: 64.99,
-            rating: 4.9,
-            reviews: 89,
             badge: 'Bestseller',
             description: 'Deep hydration with hyaluronic acid for plump, smooth, and supple skin all day long.',
             image: 'https://images.unsplash.com/photo-1585652757173-57de5e9fab42?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'

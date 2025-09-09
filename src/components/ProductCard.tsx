@@ -2,15 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Star } from 'lucide-react';
 
 interface Product {
   id: string | number;
   name: string;
   price: number;
   originalPrice?: number;
-  rating: number;
-  reviews: number;
   badge?: string;
   description?: string;
   image?: string;
@@ -54,24 +51,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, className = "" }) =>
                 </p>
               )}
 
-              {/* Rating */}
-              <div className="flex items-center gap-1 mb-3">
-                <div className="flex items-center">
-                  {[...Array(5)].map((_, i) => (
-                    <Star 
-                      key={i} 
-                      className={`w-3 h-3 ${
-                        i < Math.floor(product.rating) 
-                          ? 'text-yellow-500 fill-current' 
-                          : 'text-gray-300'
-                      }`} 
-                    />
-                  ))}
-                </div>
-                <span className="text-xs text-black/60">
-                  {product.rating} ({product.reviews})
-                </span>
-              </div>
             </div>
 
             {/* Buy Button */}

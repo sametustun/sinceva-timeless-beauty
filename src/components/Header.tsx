@@ -104,7 +104,7 @@ const Header: React.FC = () => {
       <div className="container mx-auto max-w-7xl px-4">
         {/* Desktop and Mobile Layout Restructure */}
         {/* Desktop Logo Section */}
-        <div className="hidden md:flex justify-center py-3 md:py-6">
+        <div className="hidden md:flex justify-center py-2 md:py-5">
           <Link to="/" className="transition-all duration-500 hover:opacity-80">
             {(() => {
               const desktopLogo = !isScrolled ? logos.desktop.white : logos.desktop.black;
@@ -114,7 +114,7 @@ const Header: React.FC = () => {
                   <img 
                     src={desktopLogo.currentLogo}
                     alt="SINCEVA Logo" 
-                    className="h-20 md:h-24 w-auto"
+                    className="h-16 md:h-19 w-auto"
                   />
                 );
               }
@@ -167,7 +167,7 @@ const Header: React.FC = () => {
               setShowMegaMenu(false);
             }
           }}
-          className={`hidden md:flex justify-center items-center py-2 md:py-4 h-12 transition-all duration-300 ${
+          className={`hidden md:flex justify-center items-center py-1.5 md:py-3 h-10 transition-all duration-300 ${
           showSearch ? 'space-x-2 md:space-x-4 lg:space-x-6' : 'space-x-4 md:space-x-8 lg:space-x-12'
         }`}>
           {navigation.map((item) => (
