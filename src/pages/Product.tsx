@@ -137,8 +137,8 @@ const Product: React.FC = () => {
         <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-10">
           <Button 
             onClick={() => setIsStorePopupOpen(true)}
-            className="py-4 text-lg font-semibold bg-[#ef2b2d] text-white hover:bg-[#ef2b2d]/90 rounded-full h-16 md:h-19 w-auto px-8"
-            style={{ width: 'clamp(200px, 20vw, 300px)' }}
+            className="py-2 text-lg font-semibold bg-[#ef2b2d] text-white hover:bg-[#ef2b2d]/90 rounded-full px-6"
+            style={{ width: 'clamp(150px, 15vw, 200px)' }}
           >
             Buy
           </Button>
