@@ -107,7 +107,7 @@ const Footer: React.FC = () => {
         <div className="border-t border-background/20 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-background/60 text-sm">
-              © {new Date().getFullYear()} Sinceva. All rights reserved.
+              © {new Date().getFullYear()} SAFİ COSMETİC LIMITED COMPANY. All rights reserved.
             </p>
             <p className="text-background/60 text-sm">
               Crafted for timeless beauty and elegance.
