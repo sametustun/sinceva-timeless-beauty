@@ -132,7 +132,7 @@ const Header: React.FC = () => {
         </div>
 
         {/* Mobile Logo Section - Centered vertically between top and hamburger */}
-        <div className="md:hidden flex justify-center pt-4 pb-1 mt-1">
+        <div className="md:hidden flex justify-center pt-3 pb-1 mt-1">
           <Link to="/" className="transition-all duration-500 hover:opacity-80">
             {(() => {
               const mobileLogo = !isScrolled ? logos.mobile.white : logos.mobile.black;
@@ -238,7 +238,7 @@ const Header: React.FC = () => {
         </nav>
 
         {/* Mobile Menu Toggle */}
-        <div className="md:hidden flex justify-between items-center py-2 md:py-4">
+        <div className="md:hidden flex justify-between items-center py-1.5 md:py-4">
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className={`p-2 transition-all duration-500 ${
@@ -289,7 +289,7 @@ const Header: React.FC = () => {
 
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
-          <div className={`md:hidden py-2 md:py-4 ${!isScrolled ? 'border-t border-border/20' : 'border-t border-gray-100'}`}>
+          <div className={`md:hidden py-1.5 md:py-4 ${!isScrolled ? 'border-t border-border/20' : 'border-t border-gray-100'}`}>
             {navigation.map((item) => (
               item.hasMegaMenu ? (
                 <button
