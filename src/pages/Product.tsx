@@ -164,6 +164,17 @@ const Product: React.FC = () => {
           </Carousel>
         </div>
 
+        {/* Static Buy Button - Centered with logo width */}
+        <div className="mb-8 flex justify-center">
+          <Button 
+            onClick={() => setIsStorePopupOpen(true)}
+            className="py-4 text-lg font-semibold bg-[#ef2b2d] text-white hover:bg-[#ef2b2d]/90 rounded-full h-16 md:h-19 w-auto px-8"
+            style={{ width: 'clamp(200px, 20vw, 300px)' }}
+          >
+            Buy
+          </Button>
+        </div>
+
         {/* Accordion Menu */}
         <div className="mb-8">
           <Accordion type="single" defaultValue="details" collapsible className="w-full">
@@ -193,17 +204,6 @@ const Product: React.FC = () => {
               </AccordionItem>
             ))}
           </Accordion>
-        </div>
-
-        {/* Static Buy Button - Centered with logo width */}
-        <div className="mb-8 flex justify-center">
-          <Button 
-            onClick={() => setIsStorePopupOpen(true)}
-            className="py-4 text-lg font-semibold bg-[#ef2b2d] text-white hover:bg-[#ef2b2d]/90 rounded-full h-16 md:h-19 w-auto px-8"
-            style={{ width: 'clamp(200px, 20vw, 300px)' }}
-          >
-            Buy
-          </Button>
         </div>
 
         {/* Separator */}
