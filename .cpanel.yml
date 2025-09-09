@@ -1,5 +1,4 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/sin66vacom/public_html/
-    - /bin/cp -R * $DEPLOYPATH
+    - /bin/rsync -a --delete --exclude ".git" --exclude ".cpanel.yml" ./ /home/sin66vacom/public_html/
