@@ -13,12 +13,10 @@ import arbutinImage from '@/assets/arbutin-01.png';
 import gozImage from '@/assets/göz-01.png';
 import gunesImage from '@/assets/güneş-01.png';
 import nemlendiriciImage from '@/assets/nemlendirici-01.png';
-
-// Placeholder URLs for images not yet synced from GitHub
-const nightCreamImage = 'https://images.unsplash.com/photo-1556228724-f12d6cffd645?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80';
-const tonikImage = 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80';
-const peelingImage = 'https://images.unsplash.com/photo-1556228994-f12d6cffd645?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80';
-const yuzImage = 'https://images.unsplash.com/photo-1556228579-0d5d59c2b17b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80';
+import nightCreamImage from '@/assets/night_cream-01.png';
+import tonikImage from '@/assets/tonik-01.png';
+import peelingImage from '@/assets/peeling-01.png';
+import yuzImage from '@/assets/yüz-01.png';
 
 export const heroContent = {
   title: {
