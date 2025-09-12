@@ -29,8 +29,17 @@ const StorePopup: React.FC<StorePopupProps> = ({
     window.open(url, '_blank', 'noopener,noreferrer');
   };
 
+  const handleBackdropClick = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
   return (
-    <div className="fixed inset-x-0 bottom-0 z-50">
+    <div 
+      className="fixed inset-0 z-50 flex items-end justify-center"
+      onClick={handleBackdropClick}
+    >
       <Card className="relative bg-[#191919] backdrop-blur-md border-t border-white/20 rounded-t-lg w-full h-[33vh]">
         <CardContent className="p-6 text-center">
           {/* Close button */}
