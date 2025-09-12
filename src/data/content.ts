@@ -7,6 +7,17 @@ import sincevaBlackLogoWeb from '@/assets/sinceva_black_logo_for_web.png';
 import sincevaWhiteLogoMobile from '@/assets/sinceva_white_logo_for_mobile.png';
 import sincevaBlackLogoMobile from '@/assets/sinceva_black_logo_for_mobile.png';
 
+// Import product images
+import cvitImage from '@/assets/cvit-01.png';
+import arbutinImage from '@/assets/arbutin-01.png';
+import gozImage from '@/assets/göz-01.png';
+import nightCreamImage from '@/assets/night_cream-01.png';
+import tonikImage from '@/assets/tonik-01.png';
+import peelingImage from '@/assets/peeling-01.png';
+import yuzImage from '@/assets/yüz-01.png';
+import gunesImage from '@/assets/güneş-01.png';
+import nemlendiriciImage from '@/assets/nemlendirici-01.png';
+
 export const heroContent = {
   title: {
     main: "The Origin",
@@ -44,7 +55,7 @@ export const categoryStructure = {
             price: 89.99,
             badge: 'Bestseller',
             description: 'Powerful vitamin C serum for radiant, even-toned skin with natural brightening properties.',
-            image: 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+            image: cvitImage
           },
           {
             id: 2,
@@ -52,7 +63,7 @@ export const categoryStructure = {
             price: 79.99,
             badge: 'New',
             description: 'Advanced arbutin formula to reduce dark spots and even skin tone.',
-            image: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+            image: arbutinImage
           }
         ]
       },
@@ -65,7 +76,7 @@ export const categoryStructure = {
             price: 79.99,
             badge: 'Premium',
             description: 'Firming eye cream with peptides to reduce fine lines and brighten the delicate eye area.',
-            image: 'https://images.unsplash.com/photo-1596755389378-c31d21fd1273?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+            image: gozImage
           }
         ]
       },
@@ -78,7 +89,7 @@ export const categoryStructure = {
             price: 129.99,
             badge: 'Premium',
             description: 'Advanced retinol formula to reduce signs of aging and promote skin renewal overnight.',
-            image: 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+            image: nightCreamImage
           }
         ]
       }
@@ -97,7 +108,7 @@ export const categoryStructure = {
             price: 44.99,
             badge: '',
             description: 'Gentle chemical exfoliant that reveals smoother, brighter skin with regular use.',
-            image: 'https://images.unsplash.com/photo-1570194065650-d99fb4bedf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+            image: tonikImage
           }
         ]
       },
@@ -110,7 +121,7 @@ export const categoryStructure = {
             price: 54.99,
             badge: 'New',
             description: 'Advanced exfoliating scrub that gently removes dead skin cells for smoother texture.',
-            image: 'https://images.unsplash.com/photo-1612817288484-6f916006741a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+            image: peelingImage
           }
         ]
       },
@@ -123,7 +134,7 @@ export const categoryStructure = {
             price: 32.99,
             badge: '',
             description: 'Mild foaming cleanser that removes impurities without stripping skin of essential moisture.',
-            image: 'https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+            image: yuzImage
           }
         ]
       }
@@ -142,7 +153,7 @@ export const categoryStructure = {
             price: 49.99,
             badge: '',
             description: 'Broad spectrum protection with lightweight, non-greasy formula perfect for daily use.',
-            image: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+            image: gunesImage
           }
         ]
       },
@@ -155,7 +166,7 @@ export const categoryStructure = {
             price: 64.99,
             badge: 'Bestseller',
             description: 'Deep hydration with hyaluronic acid for plump, smooth, and supple skin all day long.',
-            image: 'https://images.unsplash.com/photo-1585652757173-57de5e9fab42?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+            image: nemlendiriciImage
           }
         ]
       }
