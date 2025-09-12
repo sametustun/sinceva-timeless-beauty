@@ -21,31 +21,17 @@ const StorePopup: React.FC<StorePopupProps> = ({
   isOpen, 
   onClose, 
   productName, 
-  stores, 
-  isMobile = false 
+  stores
 }) => {
   if (!isOpen) return null;
-
-  const handleBackdropClick = (e: React.MouseEvent) => {
-    if (e.target === e.currentTarget) {
-      onClose();
-    }
-  };
 
   const handleStoreClick = (url: string) => {
     window.open(url, '_blank', 'noopener,noreferrer');
   };
 
   return (
-    <div 
-      className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
-      onClick={handleBackdropClick}
-    >
-      <Card className={`
-        relative bg-[#191919] backdrop-blur-md border border-white/20 rounded-lg
-        ${isMobile ? 'w-full max-w-sm' : 'w-full max-w-md ml-auto mr-8'}
-        ${!isMobile && 'self-start mt-20'}
-      `}>
+    <div className="fixed inset-x-0 bottom-0 z-50">
+      <Card className="relative bg-[#191919] backdrop-blur-md border-t border-white/20 rounded-t-lg w-full h-[33vh]">
         <CardContent className="p-6 text-center">
           {/* Close button */}
           <button
