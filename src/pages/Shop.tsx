@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Star, ShoppingCart, Filter, Grid, List } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import ProductCard from '@/components/ProductCard';
+import { allProductsContent } from '@/data/content';
 
 const Shop: React.FC = () => {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
@@ -21,72 +22,22 @@ const Shop: React.FC = () => {
     { id: 'serums', name: 'Serums' },
   ];
 
-  const products = [
-    {
-      id: 1,
-      name: 'Vitamin C Brightening Serum',
-      category: 'serums',
-      price: 89.99,
-      originalPrice: 109.99,
-      rating: 4.8,
-      reviews: 124,
-      image: 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
-      badge: 'Bestseller',
-      description: 'Powerful vitamin C serum for radiant, even-toned skin.'
-    },
-    {
-      id: 2,
-      name: 'Hyaluronic Acid Moisturizer',
-      category: 'daily-care',
-      price: 64.99,
-      rating: 4.9,
-      reviews: 89,
-      image: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
-      badge: 'New',
-      description: 'Deep hydration with hyaluronic acid for plump, smooth skin.'
-    },
-    {
-      id: 3,
-      name: 'Retinol Anti-Aging Night Cream',
-      category: 'anti-aging',
-      price: 129.99,
-      rating: 4.7,
-      reviews: 156,
-      image: 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
-      description: 'Advanced retinol formula to reduce signs of aging overnight.'
-    },
-    {
-      id: 4,
-      name: 'Gentle Foaming Cleanser',
-      category: 'cleansing',
-      price: 39.99,
-      rating: 4.6,
-      reviews: 203,
-      image: 'https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
-      description: 'Mild yet effective cleanser for all skin types.'
-    },
-    {
-      id: 5,
-      name: 'Eye Contour Renewal Serum',
-      category: 'anti-aging',
-      price: 94.99,
-      rating: 4.8,
-      reviews: 67,
-      image: 'https://images.unsplash.com/photo-1596755389378-c31d21fd1273?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
-      badge: 'Premium',
-      description: 'Target fine lines and dark circles around the delicate eye area.'
-    },
-    {
-      id: 6,
-      name: 'Daily SPF 50 Sunscreen',
-      category: 'daily-care',
-      price: 49.99,
-      rating: 4.5,
-      reviews: 112,
-      image: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
-      description: 'Broad spectrum protection with lightweight, non-greasy formula.'
-    },
-  ];
+  // Map content data to shop format with categories
+  const products = allProductsContent.products.map(product => ({
+    ...product,
+    rating: 4.7 + Math.random() * 0.3, // Generate ratings between 4.7-5.0
+    reviews: Math.floor(50 + Math.random() * 150), // Generate review counts 50-200
+    category: getCategoryFromId(product.id),
+    originalPrice: product.id === 1 ? 109.99 : undefined // Only first product has original price
+  }));
+
+  function getCategoryFromId(id: number) {
+    if ([1, 2].includes(id)) return 'serums';
+    if ([3, 4, 5].includes(id)) return 'anti-aging';
+    if ([6, 7].includes(id)) return 'cleansing';
+    if ([8, 9].includes(id)) return 'daily-care';
+    return 'all';
+  }
 
   const filteredProducts = products.filter(product => 
     selectedCategory === 'all' || product.category === selectedCategory
