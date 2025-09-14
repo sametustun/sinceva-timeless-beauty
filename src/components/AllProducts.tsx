@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Star } from 'lucide-react';
@@ -6,6 +6,15 @@ import { allProductsContent } from '@/data/content';
 import ProductCard from './ProductCard';
 
 const AllProducts: React.FC = () => {
+  const [visibleProducts, setVisibleProducts] = useState(6);
+  
+  const loadMoreProducts = () => {
+    setVisibleProducts(prev => prev + 6);
+  };
+
+  const displayedProducts = allProductsContent.products.slice(0, visibleProducts);
+  const hasMoreProducts = visibleProducts < allProductsContent.products.length;
+
   return (
     <section className="py-20 bg-gray-50">
       <div className="container mx-auto max-w-7xl px-4">
@@ -17,17 +26,22 @@ const AllProducts: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {allProductsContent.products.map((product) => (
+          {displayedProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
 
-        {/* View More Button */}
-        <div className="text-center mt-12">
-          <button className="bg-primary text-white px-8 py-3 rounded-full font-medium hover:bg-primary/90 transition-colors">
-            Load More Products
-          </button>
-        </div>
+        {/* Load More Button - Only show if there are more products */}
+        {hasMoreProducts && (
+          <div className="text-center mt-12">
+            <button 
+              onClick={loadMoreProducts}
+              className="bg-primary text-white px-8 py-3 rounded-full font-medium hover:bg-primary/90 transition-colors"
+            >
+              Load More Products
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );
