@@ -62,11 +62,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, className = "" }) =>
                   alt={product.name}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                {product.badge && (
-                  <Badge className="absolute top-3 left-3 bg-primary text-white z-10">
-                    {product.badge}
-                  </Badge>
-                )}
 
                 {/* Glassmorphism overlay covering bottom third */}
                 <div className="absolute inset-x-0 bottom-0 top-2/3 backdrop-blur-md bg-white/20 border-t border-white/30">

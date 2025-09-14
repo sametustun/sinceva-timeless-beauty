@@ -135,11 +135,6 @@ const Shop: React.FC = () => {
                     <div className="flex-1 space-y-2">
                       <div className="flex items-start justify-between">
                         <h3 className="font-semibold text-foreground">{product.name}</h3>
-                        {product.badge && (
-                          <Badge variant={product.badge === 'Bestseller' ? 'default' : 'secondary'}>
-                            {product.badge}
-                          </Badge>
-                        )}
                       </div>
                       
                       <p className="text-sm text-muted-foreground">{product.description}</p>

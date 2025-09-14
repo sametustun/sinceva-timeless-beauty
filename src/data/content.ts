@@ -53,7 +53,6 @@ export const categoryStructure = {
             id: 1,
             name: 'Sinceva Brightening Vitamin C Serum 30 ml',
             price: 89.99,
-            badge: 'Bestseller',
             description: 'Powerful vitamin C serum for radiant, even-toned skin with natural brightening properties.',
             image: cvitImage
           },
@@ -61,7 +60,6 @@ export const categoryStructure = {
             id: 2,
             name: 'Sinceva Anti-Spot Arbutin Serum 30 ml',
             price: 79.99,
-            badge: 'New',
             description: 'Advanced arbutin formula to reduce dark spots and even skin tone.',
             image: arbutinImage
           }
@@ -74,7 +72,6 @@ export const categoryStructure = {
             id: 3,
             name: 'Sinceva Anti-Wrinkle Eye Cream 20 ml',
             price: 79.99,
-            badge: 'Premium',
             description: 'Firming eye cream with peptides to reduce fine lines and brighten the delicate eye area.',
             image: gozImage
           }
@@ -87,7 +84,6 @@ export const categoryStructure = {
             id: 4,
             name: 'Sinceva Anti-Aging Night Cream 50 ml',
             price: 129.99,
-            badge: 'Premium',
             description: 'Advanced retinol formula to reduce signs of aging and promote skin renewal overnight.',
             image: nightCreamImage
           }
@@ -106,7 +102,6 @@ export const categoryStructure = {
             id: 5,
             name: 'Sinceva Skin Renewing Tonic 200 ml',
             price: 44.99,
-            badge: '',
             description: 'Gentle chemical exfoliant that reveals smoother, brighter skin with regular use.',
             image: tonikImage
           }
@@ -119,7 +114,6 @@ export const categoryStructure = {
             id: 6,
             name: 'Sinceva Purifying Peeling Cream Scrub 200 ml',
             price: 54.99,
-            badge: 'New',
             description: 'Advanced exfoliating scrub that gently removes dead skin cells for smoother texture.',
             image: peelingImage
           }
@@ -132,7 +126,6 @@ export const categoryStructure = {
             id: 7,
             name: 'Sinceva Purifying Face Cleansing Foam 200 ml',
             price: 32.99,
-            badge: '',
             description: 'Mild foaming cleanser that removes impurities without stripping skin of essential moisture.',
             image: yuzImage
           }
@@ -151,7 +144,6 @@ export const categoryStructure = {
             id: 8,
             name: 'Sinceva SPF 50+ Daily SunCare Cream 100 ml',
             price: 49.99,
-            badge: '',
             description: 'Broad spectrum protection with lightweight, non-greasy formula perfect for daily use.',
             image: gunesImage
           }
@@ -164,7 +156,6 @@ export const categoryStructure = {
             id: 9,
             name: 'Sinceva Hyaluronic Acid Moisturizing Cream 50 ml',
             price: 64.99,
-            badge: 'Bestseller',
             description: 'Deep hydration with hyaluronic acid for plump, smooth, and supple skin all day long.',
             image: nemlendiriciImage
           }

@@ -167,11 +167,6 @@ const Product: React.FC = () => {
               alt={product.name}
               className="w-full h-full object-cover"
             />
-            {product.badge && (
-              <Badge className="absolute top-4 left-4 bg-primary text-white z-10">
-                {product.badge}
-              </Badge>
-            )}
             
             {/* Static Buy Button - Overlaid on hero image */}
             <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-10">
