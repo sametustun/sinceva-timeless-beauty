@@ -7,16 +7,16 @@ import sincevaBlackLogoWeb from '@/assets/sinceva_black_logo_for_web.png';
 import sincevaWhiteLogoMobile from '@/assets/sinceva_white_logo_for_mobile.png';
 import sincevaBlackLogoMobile from '@/assets/sinceva_black_logo_for_mobile.png';
 
-// Import product images - using available assets and placeholders for missing ones
-import cvitImage from '@/assets/cvit-01.png';
-import arbutinImage from '@/assets/arbutin-01.png';
-import gozImage from '@/assets/göz-01.png';
-import gunesImage from '@/assets/güneş-01.png';
-import nemlendiriciImage from '@/assets/nemlendirici-01.png';
-import nightCreamImage from '@/assets/night_cream-01.png';
-import tonikImage from '@/assets/tonik-01.png';
-import peelingImage from '@/assets/peeling-01.png';
-import yuzImage from '@/assets/yüz-01.png';
+// Import product images - using uploaded div images
+import cvitImage from '@/assets/cvit_div.png';
+import arbutinImage from '@/assets/arbutin_div.png';
+import gozImage from '@/assets/göz_div.png';
+import gunesImage from '@/assets/güneş_div.png';
+import nemlendiriciImage from '@/assets/nemlendirici_div.png';
+import nightCreamImage from '@/assets/gece_div.png';
+import tonikImage from '@/assets/tonik_div.png';
+import peelingImage from '@/assets/peeling_div.png';
+import yuzImage from '@/assets/yüz_div.png';
 
 export const heroContent = {
   title: {
