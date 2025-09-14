@@ -12,7 +12,6 @@ import { categoryStructure } from '@/data/content';
 interface Product {
   id: number;
   name: string;
-  price: number;
   badge?: string;
   description: string;
   image: string;
@@ -166,7 +165,6 @@ const Category: React.FC = () => {
                       />
                       <div className="flex-1">
                         <p className="text-sm font-medium line-clamp-1">{subcategoryData.products[0].name}</p>
-                        <p className="text-sm text-muted-foreground">${subcategoryData.products[0].price}</p>
                       </div>
                     </div>
                   )}

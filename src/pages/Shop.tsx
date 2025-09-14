@@ -27,8 +27,7 @@ const Shop: React.FC = () => {
     ...product,
     rating: 4.7 + Math.random() * 0.3, // Generate ratings between 4.7-5.0
     reviews: Math.floor(50 + Math.random() * 150), // Generate review counts 50-200
-    category: getCategoryFromId(product.id),
-    originalPrice: product.id === 1 ? 109.99 : undefined // Only first product has original price
+    category: getCategoryFromId(product.id)
   }));
 
   function getCategoryFromId(id: number) {
@@ -86,8 +85,6 @@ const Shop: React.FC = () => {
               className="px-4 py-2 border border-border rounded-md bg-background"
             >
               <option value="featured">Featured</option>
-              <option value="price-low">Price: Low to High</option>
-              <option value="price-high">Price: High to Low</option>
               <option value="rating">Highest Rated</option>
             </select>
 
@@ -147,18 +144,9 @@ const Shop: React.FC = () => {
                       </div>
                       
                       <div className="flex items-center justify-between">
-                        <div className="space-x-2">
-                          <span className="text-lg font-semibold text-primary">${product.price}</span>
-                          {product.originalPrice && (
-                            <span className="text-sm text-muted-foreground line-through">
-                              ${product.originalPrice}
-                            </span>
-                          )}
-                        </div>
-                        
                         <Button size="sm" className="gap-2">
                           <ShoppingCart className="w-4 h-4" />
-                          Add to Cart
+                          Buy Now
                         </Button>
                       </div>
                     </div>

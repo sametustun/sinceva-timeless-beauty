@@ -9,8 +9,6 @@ import StorePopup from './StorePopup';
 interface Product {
   id: string | number;
   name: string;
-  price: number;
-  originalPrice?: number;
   badge?: string;
   description?: string;
   image?: string;
