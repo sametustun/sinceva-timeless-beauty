@@ -24,7 +24,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, className = "" }) =>
     <Link to={`/product/${product.id}`}>
       <Card className={`group hover:shadow-luxury transition-all duration-300 cursor-pointer overflow-hidden rounded-lg ${className}`}>
         <CardContent className="p-0">
-          <AspectRatio ratio={3/2}>
+          <AspectRatio ratio={2/3}>
             <div className="relative w-full h-full">
               <img 
                 src={product.image || "https://images.unsplash.com/photo-1556228578-8c89e6adf883?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"}

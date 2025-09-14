@@ -55,7 +55,7 @@ const ProductRecommendations: React.FC<ProductRecommendationsProps> = ({
                       <Link to={`/product/${product.id}`}>
                         <Card className="group hover:shadow-luxury transition-all duration-300 cursor-pointer overflow-hidden rounded-xl">
                           <CardContent className="p-0">
-                            <AspectRatio ratio={3/2}>
+                             <AspectRatio ratio={2/3}>
                               <div className="relative w-full h-full">
                                 <img 
                                   src={product.image}
@@ -107,7 +107,7 @@ const ProductRecommendations: React.FC<ProductRecommendationsProps> = ({
                   <Link to={`/product/${product.id}`}>
                     <Card className="group hover:shadow-luxury transition-all duration-300 cursor-pointer overflow-hidden rounded-xl">
                       <CardContent className="p-0">
-                        <AspectRatio ratio={3/2}>
+                        <AspectRatio ratio={2/3}>
                           <div className="relative w-full h-full">
                             <img 
                               src={product.image}

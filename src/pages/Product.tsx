@@ -133,7 +133,7 @@ const Product: React.FC = () => {
     <Layout>
       {/* Main Product Image - Banner Style */}
       <div className="w-full">
-        <AspectRatio ratio={3/2}>
+        <AspectRatio ratio={2/3}>
           <div className="relative w-full h-full">
             <img 
               src={product.image}
@@ -174,7 +174,7 @@ const Product: React.FC = () => {
               {galleryImages.map((image, index) => (
                 <CarouselItem key={index} className="pl-2 md:pl-4 basis-3/4 md:basis-1/3">
                   <div className="overflow-hidden rounded-lg">
-                    <AspectRatio ratio={3/2}>
+                    <AspectRatio ratio={2/3}>
                       <img 
                         src={image}
                         alt={`${product.name} - ${index + 1}`}
