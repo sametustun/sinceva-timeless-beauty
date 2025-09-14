@@ -12,7 +12,7 @@ import heroSkincare from '@/assets/hero-skincare.jpg';
 
 // Import product images - using uploaded div images
 import cvitImage from '@/assets/cvit_div.png';
-import arbutinImage from '@/assets/arbutin_div.png';
+import arbutinImage from '@/assets/arbutin-01.png';
 import gozImage from '@/assets/göz_div.png';
 import gunesImage from '@/assets/güneş_div.png';
 import nemlendiriciImage from '@/assets/nemlendirici_div.png';
