@@ -50,9 +50,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, className = "" }) =>
                   {/* Buy Button */}
                   <div className="mt-auto flex items-center justify-center">
                     <Button 
-                      variant="default"
+                      variant="ghost"
                       size="sm"
-                      className="w-full bg-primary hover:bg-primary-foreground hover:text-primary border hover:border-primary transition-all duration-200 hover:scale-105"
+                      className="w-full bg-transparent text-black hover:bg-transparent hover:text-[#ef2b2d] transition-all duration-200 hover:scale-105 font-semibold"
                       onClick={(e) => {
                         e.preventDefault();
                         e.stopPropagation();
