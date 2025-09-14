@@ -38,7 +38,7 @@ const Product: React.FC = () => {
   // Product-specific hero images
   const heroImages: { [key: string]: string } = {
     'Sinceva Brightening Vitamin C Serum 30 ml': cvitHero,
-    'Sinceva Anti Spot Arbutin Serum 30 ml': arbutinHero,
+    'Sinceva Anti-Spot Arbutin Serum 30 ml': arbutinHero,
     'Sinceva Anti-Wrinkle Eye Cream 20 ml': gozHero,
     'Sinceva Anti-Aging Night Cream 50 ml': nightCreamHero,
     'Sinceva Skin Renewing Tonic 200 ml': tonikHero,
