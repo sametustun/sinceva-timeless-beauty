@@ -57,7 +57,7 @@ const CategoriesSection: React.FC<CategoriesSectionProps> = ({
                           <img 
                             src={category.image}
                             alt={category.title}
-                            className="w-full h-full object-cover"
+                            className="w-full h-full object-cover object-center"
                           />
                         </div>
                         
@@ -101,7 +101,7 @@ const CategoriesSection: React.FC<CategoriesSectionProps> = ({
                     <img 
                       src={category.image}
                       alt={category.title}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover object-center"
                     />
                   </div>
                   

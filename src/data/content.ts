@@ -21,6 +21,16 @@ import tonikImage from '@/assets/tonik_div.png';
 import peelingImage from '@/assets/peeling_div.png';
 import yuzImage from '@/assets/yüz_div.png';
 
+// Import category images
+import antiAgingCart from '@/assets/antiagingcart.png';
+import cleansingCart from '@/assets/cleansingcart.png';
+import dailyCareCart from '@/assets/dailycarecart.png';
+
+// Import category banner images
+import antiAgingBanner from '@/assets/anti aging kategori.jpg';
+import cleansingBanner from '@/assets/cleansing kategori.jpg';
+import dailyCareBanner from '@/assets/daily kategori.jpg';
+
 export const heroContent = {
   title: {
     main: "The Origin",
@@ -187,7 +197,7 @@ export const categoryShowcaseContent = {
       description: "Advanced formulas to reduce fine lines, boost collagen, and restore youthful radiance to your skin.",
       href: "/category/anti-aging-care",
       gradient: "from-purple-600 to-pink-600",
-      image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+      image: antiAgingCart
     },
     {
       id: "cleansing",
@@ -195,7 +205,7 @@ export const categoryShowcaseContent = {
       description: "Gentle yet effective cleansers that purify your skin while maintaining its natural moisture balance.",
       href: "/category/face-and-skin-cleansing",
       gradient: "from-blue-600 to-teal-600",
-      image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+      image: cleansingCart
     },
     {
       id: "daily-care",
@@ -203,7 +213,7 @@ export const categoryShowcaseContent = {
       description: "Essential daily skincare products for healthy, protected, and nourished skin every day.",
       href: "/category/daily-care",
       gradient: "from-green-600 to-emerald-600",
-      image: "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+      image: dailyCareCart
     }
   ]
 };
