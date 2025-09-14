@@ -66,7 +66,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
 
       <div className="hidden md:block">
         <AspectRatio ratio={3/1}>
-          <div className="relative w-full h-full min-h-[70vh] flex items-center justify-center">
+          <div className="relative w-full h-full flex items-center justify-center">
             {/* Background Image */}
             <div className="absolute inset-0 z-0">
               <img 
