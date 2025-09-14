@@ -14,6 +14,17 @@ import Breadcrumb from '@/components/Breadcrumb';
 import { allProductsContent } from '@/data/content';
 import { useIsMobile } from '@/hooks/use-mobile';
 
+// Import hero images
+import cvitHero from '@/assets/cvit-01.png';
+import arbutinHero from '@/assets/arbutin-01.png';
+import gozHero from '@/assets/göz-01.png';
+import nightCreamHero from '@/assets/night_cream-01.png';
+import tonikHero from '@/assets/tonik-01.png';
+import peelingHero from '@/assets/peeling-01.png';
+import yuzHero from '@/assets/yüz-01.png';
+import gunesHero from '@/assets/güneş-01.png';
+import nemlendiriciHero from '@/assets/nemlendirici-01.png';
+
 const Product: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [isStorePopupOpen, setIsStorePopupOpen] = useState(false);
@@ -24,9 +35,25 @@ const Product: React.FC = () => {
   // Find product by id
   const product = allProductsContent.products.find(p => p.id.toString() === id);
 
+  // Product-specific hero images
+  const heroImages: { [key: string]: string } = {
+    'Sinceva Brightening Vitamin C Serum 30 ml': cvitHero,
+    'Sinceva Anti Spot Arbutin Serum 30 ml': arbutinHero,
+    'Sinceva Anti-Wrinkle Eye Cream 20 ml': gozHero,
+    'Sinceva Anti-Aging Night Cream 50 ml': nightCreamHero,
+    'Sinceva Skin Renewing Tonic 200 ml': tonikHero,
+    'Sinceva Purifying Peeling Cream Scrub 200 ml': peelingHero,
+    'Sinceva Purifying Face Cleansing Foam 200 ml': yuzHero,
+    'Sinceva SPF 50+ Daily SunCare Cream 100 ml': gunesHero,
+    'Sinceva Hyaluronic Acid Moisturizing Cream 50 ml': nemlendiriciHero
+  };
+
+  // Get product-specific hero image
+  const heroImage = product ? (heroImages[product.name] || product.image) : '';
+
   // Mock gallery images
   const galleryImages = [
-    product?.image || '',
+    heroImage,
     'https://images.unsplash.com/photo-1556228578-8c89e6adf883?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
@@ -47,7 +74,7 @@ const Product: React.FC = () => {
   };
 
   // Get product-specific Trendyol URL
-  const trendyolUrl = productUrls[product.name] || 'https://www.trendyol.com';
+  const trendyolUrl = productUrls[product?.name || ''] || 'https://www.trendyol.com';
 
   // Stores data (only Trendyol)
   const stores = [
@@ -136,7 +163,7 @@ const Product: React.FC = () => {
         <AspectRatio ratio={2/3}>
           <div className="relative w-full h-full">
             <img 
-              src={product.image}
+              src={heroImage}
               alt={product.name}
               className="w-full h-full object-cover"
             />
