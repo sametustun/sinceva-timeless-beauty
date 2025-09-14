@@ -44,12 +44,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, className = "" }) =>
                     <h3 className="text-lg font-semibold mb-2 text-black group-hover:text-primary transition-colors line-clamp-2">
                       {product.name}
                     </h3>
-                    
-                    {product.description && (
-                      <p className="text-black/70 text-sm mb-3 line-clamp-2">
-                        {product.description}
-                      </p>
-                    )}
                   </div>
 
                   {/* Buy Button */}
