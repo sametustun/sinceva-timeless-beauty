@@ -7,6 +7,7 @@ import { ChevronLeft, ChevronRight, Home } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { Separator } from '@/components/ui/separator';
+import { AspectRatio } from '@/components/ui/aspect-ratio';
 import StorePopup from '@/components/StorePopup';
 import ProductRecommendations from '@/components/ProductRecommendations';
 import Breadcrumb from '@/components/Breadcrumb';
@@ -131,28 +132,32 @@ const Product: React.FC = () => {
   return (
     <Layout>
       {/* Main Product Image - Banner Style */}
-      <div className="w-full aspect-[2/3] md:aspect-auto md:h-[60vh] relative">
-        <img 
-          src={product.image}
-          alt={product.name}
-          className="w-full h-full object-cover"
-        />
-        {product.badge && (
-          <Badge className="absolute top-4 left-4 bg-primary text-white z-10">
-            {product.badge}
-          </Badge>
-        )}
-        
-        {/* Static Buy Button - Overlaid on hero image */}
-        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-10">
-          <Button 
-            onClick={() => setIsStorePopupOpen(true)}
-            className="py-2 text-lg font-semibold bg-[#ef2b2d] text-white hover:bg-[#ef2b2d]/90 rounded-full px-6"
-            style={{ width: 'clamp(150px, 15vw, 200px)' }}
-          >
-            Buy
-          </Button>
-        </div>
+      <div className="w-full">
+        <AspectRatio ratio={3/2}>
+          <div className="relative w-full h-full">
+            <img 
+              src={product.image}
+              alt={product.name}
+              className="w-full h-full object-cover"
+            />
+            {product.badge && (
+              <Badge className="absolute top-4 left-4 bg-primary text-white z-10">
+                {product.badge}
+              </Badge>
+            )}
+            
+            {/* Static Buy Button - Overlaid on hero image */}
+            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-10">
+              <Button 
+                onClick={() => setIsStorePopupOpen(true)}
+                className="py-2 text-lg font-semibold bg-[#ef2b2d] text-white hover:bg-[#ef2b2d]/90 rounded-full px-6"
+                style={{ width: 'clamp(150px, 15vw, 200px)' }}
+              >
+                Buy
+              </Button>
+            </div>
+          </div>
+        </AspectRatio>
       </div>
 
       <div className="container mx-auto max-w-7xl px-4 py-8">
@@ -168,12 +173,14 @@ const Product: React.FC = () => {
             <CarouselContent className="-ml-2 md:-ml-4">
               {galleryImages.map((image, index) => (
                 <CarouselItem key={index} className="pl-2 md:pl-4 basis-3/4 md:basis-1/3">
-                  <div className="aspect-square overflow-hidden rounded-lg">
-                    <img 
-                      src={image}
-                      alt={`${product.name} - ${index + 1}`}
-                      className="w-full h-full object-cover"
-                    />
+                  <div className="overflow-hidden rounded-lg">
+                    <AspectRatio ratio={3/2}>
+                      <img 
+                        src={image}
+                        alt={`${product.name} - ${index + 1}`}
+                        className="w-full h-full object-cover"
+                      />
+                    </AspectRatio>
                   </div>
                 </CarouselItem>
               ))}

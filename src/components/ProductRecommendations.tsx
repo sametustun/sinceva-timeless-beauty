@@ -2,6 +2,7 @@ import React from 'react';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Link } from 'react-router-dom';
 
@@ -49,41 +50,41 @@ const ProductRecommendations: React.FC<ProductRecommendationsProps> = ({
           <div className="md:w-3/4">
             <Carousel className="w-full">
               <CarouselContent className="-ml-4">
-                 {recommendedProducts.map((product) => (
-                   <CarouselItem key={product.id} className="pl-4 basis-1/3">
-                     <Link to={`/product/${product.id}`}>
-                       <Card className="group hover:shadow-luxury transition-all duration-300 cursor-pointer aspect-[2/3] overflow-hidden rounded-xl">
-                         <CardContent className="p-0 relative h-full">
-                           {/* Full height product image */}
-                           <div className="absolute inset-0">
-                             <img 
-                               src={product.image}
-                               alt={product.name}
-                               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                             />
-                             {product.badge && (
-                               <Badge className="absolute top-3 left-3 bg-primary text-white z-10">
-                                 {product.badge}
-                               </Badge>
-                             )}
-                           </div>
+                  {recommendedProducts.map((product) => (
+                    <CarouselItem key={product.id} className="pl-4 basis-1/3">
+                      <Link to={`/product/${product.id}`}>
+                        <Card className="group hover:shadow-luxury transition-all duration-300 cursor-pointer overflow-hidden rounded-xl">
+                          <CardContent className="p-0">
+                            <AspectRatio ratio={3/2}>
+                              <div className="relative w-full h-full">
+                                <img 
+                                  src={product.image}
+                                  alt={product.name}
+                                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                />
+                                {product.badge && (
+                                  <Badge className="absolute top-3 left-3 bg-primary text-white z-10">
+                                    {product.badge}
+                                  </Badge>
+                                )}
 
-                           {/* Glassmorphism overlay covering bottom third */}
-                           <div className="absolute inset-x-0 bottom-0 top-2/3 backdrop-blur-md bg-white/20 border-t border-white/30">
-                             <div className="p-3 h-full flex flex-col">
-                               <div className="flex-1">
-                                 <h3 className="text-sm font-semibold mb-2 text-black group-hover:text-primary transition-colors line-clamp-2">
-                                   {product.name}
-                                 </h3>
-                                 
-                               </div>
-                             </div>
-                           </div>
-                         </CardContent>
-                       </Card>
-                     </Link>
-                   </CarouselItem>
-                 ))}
+                                {/* Glassmorphism overlay covering bottom third */}
+                                <div className="absolute inset-x-0 bottom-0 top-2/3 backdrop-blur-md bg-white/20 border-t border-white/30">
+                                  <div className="p-3 h-full flex flex-col">
+                                    <div className="flex-1">
+                                      <h3 className="text-sm font-semibold mb-2 text-black group-hover:text-primary transition-colors line-clamp-2">
+                                        {product.name}
+                                      </h3>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </AspectRatio>
+                          </CardContent>
+                        </Card>
+                      </Link>
+                    </CarouselItem>
+                  ))}
               </CarouselContent>
               <CarouselPrevious className="absolute -left-4 top-1/2 -translate-y-1/2" />
               <CarouselNext className="absolute -right-4 top-1/2 -translate-y-1/2" />
@@ -102,40 +103,40 @@ const ProductRecommendations: React.FC<ProductRecommendationsProps> = ({
           <Carousel className="w-full">
             <CarouselContent className="-ml-2">
              {recommendedProducts.map((product) => (
-               <CarouselItem key={product.id} className="pl-2 basis-4/5">
-                 <Link to={`/product/${product.id}`}>
-                   <Card className="group hover:shadow-luxury transition-all duration-300 cursor-pointer aspect-[2/3] overflow-hidden rounded-xl">
-                     <CardContent className="p-0 relative h-full">
-                       {/* Full height product image */}
-                       <div className="absolute inset-0">
-                         <img 
-                           src={product.image}
-                           alt={product.name}
-                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                         />
-                         {product.badge && (
-                           <Badge className="absolute top-2 left-2 bg-primary text-white text-xs z-10">
-                             {product.badge}
-                           </Badge>
-                         )}
-                       </div>
+                <CarouselItem key={product.id} className="pl-2 basis-4/5">
+                  <Link to={`/product/${product.id}`}>
+                    <Card className="group hover:shadow-luxury transition-all duration-300 cursor-pointer overflow-hidden rounded-xl">
+                      <CardContent className="p-0">
+                        <AspectRatio ratio={3/2}>
+                          <div className="relative w-full h-full">
+                            <img 
+                              src={product.image}
+                              alt={product.name}
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            />
+                            {product.badge && (
+                              <Badge className="absolute top-2 left-2 bg-primary text-white text-xs z-10">
+                                {product.badge}
+                              </Badge>
+                            )}
 
-                       {/* Glassmorphism overlay covering bottom third */}
-                       <div className="absolute inset-x-0 bottom-0 top-2/3 backdrop-blur-md bg-white/20 border-t border-white/30">
-                         <div className="p-3 h-full flex flex-col">
-                           <div className="flex-1">
-                             <h3 className="text-sm font-semibold mb-1 text-black group-hover:text-primary transition-colors line-clamp-2">
-                               {product.name}
-                             </h3>
-                             
-                           </div>
-                         </div>
-                       </div>
-                     </CardContent>
-                   </Card>
-                 </Link>
-               </CarouselItem>
-             ))}
+                            {/* Glassmorphism overlay covering bottom third */}
+                            <div className="absolute inset-x-0 bottom-0 top-2/3 backdrop-blur-md bg-white/20 border-t border-white/30">
+                              <div className="p-3 h-full flex flex-col">
+                                <div className="flex-1">
+                                  <h3 className="text-sm font-semibold mb-1 text-black group-hover:text-primary transition-colors line-clamp-2">
+                                    {product.name}
+                                  </h3>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </AspectRatio>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                </CarouselItem>
+              ))}
             </CarouselContent>
           </Carousel>
         </div>
