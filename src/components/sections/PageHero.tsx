@@ -39,7 +39,7 @@ const PageHero: React.FC<PageHeroProps> = ({
 
       <div className="hidden md:block">
         <AspectRatio ratio={3/1}>
-          <div className={`relative w-full h-full flex items-center justify-center ${backgroundClass}`}>
+          <div className={`relative w-full h-full min-h-[50vh] flex items-center justify-center ${backgroundClass}`}>
             {/* Background Image */}
             {backgroundImage && (
               <div className="absolute inset-0 z-0">
