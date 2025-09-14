@@ -7,6 +7,9 @@ import sincevaBlackLogoWeb from '@/assets/sinceva_black_logo_for_web.png';
 import sincevaWhiteLogoMobile from '@/assets/sinceva_white_logo_for_mobile.png';
 import sincevaBlackLogoMobile from '@/assets/sinceva_black_logo_for_mobile.png';
 
+// Import hero image
+import heroSkincare from '@/assets/hero-skincare.jpg';
+
 // Import product images - using uploaded div images
 import cvitImage from '@/assets/cvit_div.png';
 import arbutinImage from '@/assets/arbutin_div.png';
@@ -24,7 +27,7 @@ export const heroContent = {
     accent: "of Beauty"
   },
   subtitle: "Since Eva, we've been dedicated to creating premium skincare solutions that celebrate your natural radiance and timeless elegance.",
-  backgroundImage: "/src/assets/hero-skincare.jpg",
+  backgroundImage: heroSkincare,
   backgroundAlt: "Sinceva skincare products",
   ctaButtons: [
     {
