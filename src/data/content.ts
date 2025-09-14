@@ -58,6 +58,7 @@ export const categoryStructure = {
   "anti-aging-care": {
     title: "Anti-Aging Care",
     description: "Advanced formulas to reduce fine lines, boost collagen, and restore youthful radiance to your skin.",
+    bannerImage: antiAgingBanner,
     subcategories: {
       "face-serum": {
         title: "Face Serum",
@@ -107,6 +108,7 @@ export const categoryStructure = {
   "face-and-skin-cleansing": {
     title: "Face & Skin Cleansing",
     description: "Gentle yet effective cleansers that purify your skin while maintaining its natural moisture balance.",
+    bannerImage: cleansingBanner,
     subcategories: {
       "toner": {
         title: "Toner",
@@ -149,6 +151,7 @@ export const categoryStructure = {
   "daily-care": {
     title: "Daily Care",
     description: "Essential daily skincare products for healthy, protected, and nourished skin every day.",
+    bannerImage: dailyCareBanner,
     subcategories: {
       "sunscreen": {
         title: "Sunscreen",

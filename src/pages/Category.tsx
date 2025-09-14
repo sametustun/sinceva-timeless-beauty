@@ -26,6 +26,7 @@ interface Subcategory {
 interface CategoryData {
   title: string;
   description: string;
+  bannerImage: string;
   subcategories: Record<string, Subcategory>;
 }
 
@@ -88,7 +89,7 @@ const Category: React.FC = () => {
         <PageHero 
           title={subcategoryData.title}
           subtitle={`${currentCategoryData.title} - ${subcategoryData.title}`}
-          backgroundImage="https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80"
+          backgroundImage={currentCategoryData.bannerImage}
         />
         
         <div className="container mx-auto max-w-7xl px-4 py-16">
@@ -129,7 +130,7 @@ const Category: React.FC = () => {
       <PageHero 
         title={currentCategoryData.title}
         subtitle={currentCategoryData.description}
-        backgroundImage="https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80"
+        backgroundImage={currentCategoryData.bannerImage}
       />
       
       <div className="container mx-auto max-w-7xl px-4 py-16">
