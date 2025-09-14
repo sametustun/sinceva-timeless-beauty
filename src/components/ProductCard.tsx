@@ -4,7 +4,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
-import PurchasePopup from './PurchasePopup';
+import StorePopup from './StorePopup';
 
 interface Product {
   id: string | number;
@@ -22,7 +22,33 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product, className = "" }) => {
-  const [isPurchasePopupOpen, setIsPurchasePopupOpen] = React.useState(false);
+  const [isStorePopupOpen, setIsStorePopupOpen] = React.useState(false);
+
+  // Product-specific Trendyol URLs
+  const productUrls: { [key: string]: string } = {
+    'Sinceva Brightening Vitamin C Serum 30 ml': 'https://www.trendyol.com/pd/sinceva/vitamin-c-serum-5-c-vitamini-aloe-vera-elma-ozlu-ton-esitleyici-aydinlatici-30ml-p-985597681?merchantId=1083214&filterOverPriceListings=false',
+    'Sinceva Anti Spot Arbutin Serum 30 ml': 'https://www.trendyol.com/pd/sinceva/arbutin-serum-2-alfa-arbutin-niasinamid-elma-ozlu-leke-karsiti-ton-esitleyici-30ml-p-985597018?merchantId=1083214&filterOverPriceListings=false',
+    'Sinceva Anti-Wrinkle Eye Cream 20 ml': 'https://www.trendyol.com/pd/sinceva/goz-cevresi-kremi-proxylane-kolajen-elma-ozlu-kirisiklik-ve-morluk-karsiti-20ml-p-985597222?merchantId=1083214&filterOverPriceListings=false',
+    'Sinceva Anti-Aging Night Cream 50 ml': 'https://www.trendyol.com/pd/sinceva/gece-kremi-retinol-niasinamid-elma-ozlu-ince-cizgi-kirisiklik-karsiti-50ml-p-985597313?merchantId=1083214&filterOverPriceListings=false',
+    'Sinceva Skin Renewing Tonic 200 ml': 'https://www.trendyol.com/pd/sinceva/cilt-yenileyici-tonik-5-glikolik-asit-elma-ozlu-gozenek-sikilastirici-sebum-dengesi-200ml-p-985596983?merchantId=1083214&filterOverPriceListings=false',
+    'Sinceva Purifying Peeling Cream Scrub 200 ml': 'https://www.trendyol.com/pd/sinceva/peeling-scrub-krem-kayisi-cekirdegi-partikullu-elma-ozlu-olu-deri-gozenek-arindirici-200ml-p-985597046?merchantId=1083214&filterOverPriceListings=false',
+    'Sinceva Purifying Face Cleansing Foam 200 ml': 'https://www.trendyol.com/pd/sinceva/yuz-temizleme-kopugu-aloe-vera-elma-ozlu-nazik-temizleyici-arindirici-200ml-p-985596926?merchantId=1083214&filterOverPriceListings=false',
+    'Sinceva SPF 50+ Daily SunCare Cream 100 ml': 'https://www.trendyol.com/pd/sinceva/gunes-kremi-spf-50-aloe-vera-panthenol-elma-ozlu-genis-spektrumlu-uva-uvb-koruma-100ml-p-985596960?merchantId=1083214&filterOverPriceListings=false',
+    'Sinceva Hyaluronic Acid Moisturizing Cream 50 ml': 'https://www.trendyol.com/pd/sinceva/hyaluronik-asit-gunluk-nemlendirici-krem-panthenol-elma-ozlu-yogun-nem-bariyer-onarici-50ml-p-985596967?merchantId=1083214&filterOverPriceListings=false'
+  };
+
+  // Get product-specific Trendyol URL
+  const trendyolUrl = productUrls[product.name] || 'https://www.trendyol.com';
+
+  // Stores data (only Trendyol)
+  const stores = [
+    {
+      id: 'trendyol',
+      name: 'Trendyol',
+      logo: '/lovable-uploads/081fc38c-4560-45a6-983f-80febd33d0e4.png',
+      url: trendyolUrl
+    }
+  ];
 
   return (
     <>
@@ -60,7 +86,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, className = "" }) =>
                         onClick={(e) => {
                           e.preventDefault();
                           e.stopPropagation();
-                          setIsPurchasePopupOpen(true);
+                          setIsStorePopupOpen(true);
                         }}
                       >
                         Buy Now
@@ -74,11 +100,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, className = "" }) =>
         </Card>
       </Link>
 
-      {/* Purchase Popup */}
-      <PurchasePopup
-        product={product}
-        isOpen={isPurchasePopupOpen}
-        onClose={() => setIsPurchasePopupOpen(false)}
+      {/* Store Popup */}
+      <StorePopup
+        isOpen={isStorePopupOpen}
+        onClose={() => setIsStorePopupOpen(false)}
+        productName={product.name}
+        stores={stores}
       />
     </>
   );
