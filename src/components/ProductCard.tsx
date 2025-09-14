@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 
 interface Product {
@@ -48,9 +49,18 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, className = "" }) =>
 
                   {/* Buy Button */}
                   <div className="mt-auto flex items-center justify-center">
-                    <span className="text-lg font-semibold text-[#191919]">
-                      Buy
-                    </span>
+                    <Button 
+                      variant="default"
+                      size="sm"
+                      className="w-full bg-primary hover:bg-primary-foreground hover:text-primary border hover:border-primary transition-all duration-200 hover:scale-105"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        // Add to cart logic here
+                      }}
+                    >
+                      Buy Now
+                    </Button>
                   </div>
                 </div>
               </div>
