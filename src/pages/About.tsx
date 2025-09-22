@@ -42,20 +42,17 @@ const About: React.FC = () => {
           <div className="space-y-6">
             <h2 className="text-3xl md:text-4xl font-bold">Our Story</h2>
             <div className="space-y-4 text-muted-foreground text-lg leading-relaxed">
+            <h3 font-bold">The First Touch of Beauty</h3>
               <p>
-                Sinceva was born from a simple yet profound belief: beauty is timeless, and everyone deserves 
-                to feel confident in their own skin. Our name, "Since Eva," pays homage to the very essence 
-                of femininity and the eternal pursuit of beauty that has captivated humanity since the beginning of time.
+                Sinceva was born from an ancient symbol: the apple. From the moment Eve reached out her hand, the apple has stood for beginnings curiosity, transformation, and the essence of beauty itself. For us, it is not only the fruit of a story; it is the root of our philosophy. Just as beauty began at that timeless moment, we believe true beauty begins with the first touch of skincare.
               </p>
+            <h3 font-bold">A Timeless Heritage</h3>
               <p>
-                Founded with a passion for excellence and innovation, Sinceva combines cutting-edge skincare 
-                science with the finest natural ingredients. We understand that true beauty comes from within, 
-                but the right skincare routine can enhance and celebrate your natural radiance.
+                We see the apple as more than nature’s gift it is a bridge between past and present. Its purity, vitality, and renewing power are woven into each formula, blending ancestral wisdom with modern cosmetic science. With Sinceva, skincare is not just a routine but a heritage of self-care, echoing the eternal journey of beauty through time.
               </p>
+            <h3 font-bold">Guided by Our Mission</h3>
               <p>
-                Every product in our collection is carefully formulated to address specific skin concerns while 
-                maintaining the delicate balance that healthy skin requires. From our anti-aging serums to our 
-                gentle cleansers, each formula is a testament to our commitment to quality and effectiveness.
+                Our motto, “The Origin of Beauty,” carries a double truth. It honors humanity’s first story Since Eva and it reminds every woman that beauty starts not with makeup, but with the skin beneath. With every product, we reaffirm our mission: to protect, renew, and illuminate, so that beauty always begins at the right place, Since Eva, since the very first touch.
               </p>
             </div>
           </div>
@@ -64,18 +61,6 @@ const About: React.FC = () => {
             <div className="aspect-square bg-gradient-to-br from-primary/20 to-primary/5 rounded-2xl">
               <div className="absolute inset-8 bg-muted rounded-xl shadow-elegant" />
             </div>
-          </div>
-        </div>
-
-        {/* Mission Section */}
-        <div className="text-center mb-20">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold mb-8">Our Mission</h2>
-            <p className="text-xl text-muted-foreground leading-relaxed">
-              To empower individuals on their journey to beautiful, healthy skin through innovative, 
-              sustainable, and effective skincare solutions. We believe that skincare is not just about 
-              appearance – it's about self-care, confidence, and embracing your authentic beauty.
-            </p>
           </div>
         </div>
 
