@@ -288,7 +288,7 @@ export const footerContent = {
     ]
   },
   quickLinks: [
-    { name: 'About Us', href: '/about' },
+    { name: 'The Origin Of Beauty', href: '/about' },
     { name: 'Shop', href: '/shop' },
     { name: 'Blog', href: '/blog' },
     { name: 'Contact', href: '/contact' }
