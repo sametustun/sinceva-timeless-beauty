@@ -5,6 +5,7 @@ import Layout from '../components/Layout';
 import useSearch, { SearchResult } from '../hooks/useSearch';
 import { Input } from '../components/ui/input';
 import PageHero from '../components/sections/PageHero';
+import searchHeroImage from '../assets/search-hero.jpg';
 
 const Search: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -32,6 +33,7 @@ const Search: React.FC = () => {
       <PageHero
         title="Search Results"
         subtitle={query ? `Results for "${query}"` : 'Search our products and blog posts'}
+        backgroundImage={searchHeroImage}
       />
       
       <div className="container mx-auto px-4 py-4">

@@ -270,14 +270,18 @@ const Header: React.FC = () => {
               
               {/* Search Dropdown */}
               {showSearch && (
-                <div className="relative">
-                  <SearchDropdown
-                    results={searchSuggestions}
-                    isVisible={showSearchDropdown}
-                    isLoading={isLoading}
-                    error={error}
-                    onResultClick={handleSearchResultClick}
-                  />
+                <div className="fixed left-0 right-0 top-20 z-[100] px-4">
+                  <div className="max-w-7xl mx-auto flex justify-end">
+                    <div className="w-80 md:w-96">
+                      <SearchDropdown
+                        results={searchSuggestions}
+                        isVisible={showSearchDropdown}
+                        isLoading={isLoading}
+                        error={error}
+                        onResultClick={handleSearchResultClick}
+                      />
+                    </div>
+                  </div>
                 </div>
               )}
             </div>
@@ -333,14 +337,18 @@ const Header: React.FC = () => {
               
               {/* Mobile Search Dropdown */}
               {showSearch && (
-                <div className="relative">
-                  <SearchDropdown
-                    results={searchSuggestions}
-                    isVisible={showSearchDropdown}
-                    isLoading={isLoading}
-                    error={error}
-                    onResultClick={handleSearchResultClick}
-                  />
+                <div className="fixed left-0 right-0 top-20 z-[100] px-4">
+                  <div className="max-w-7xl mx-auto flex justify-end">
+                    <div className="w-80">
+                      <SearchDropdown
+                        results={searchSuggestions}
+                        isVisible={showSearchDropdown}
+                        isLoading={isLoading}
+                        error={error}
+                        onResultClick={handleSearchResultClick}
+                      />
+                    </div>
+                  </div>
                 </div>
               )}
             </div>
