@@ -1,41 +1,38 @@
-import { useState, useMemo, useCallback } from 'react';
-import { allProductsContent } from '@/data/content';
+import { useState, useEffect, useCallback, useRef } from 'react';
 
-// Blog posts data (sample - same as in Blog.tsx)
-const blogPosts = [
-  {
-    id: 1,
-    title: 'The Ultimate Guide to Anti-Aging Skincare Routine',
-    description: 'Discover the secrets to maintaining youthful, radiant skin with our comprehensive anti-aging guide.',
-    url: '/blog/anti-aging-skincare-routine',
-    category: 'anti-aging',
-    type: 'blog' as const
-  },
-  {
-    id: 2,
-    title: 'Winter Skincare: Protecting Your Skin in Cold Weather',
-    description: 'Learn how to adapt your skincare routine for winter months and protect your skin from harsh weather.',
-    url: '/blog/winter-skincare-guide',
-    category: 'seasonal-care',
-    type: 'blog' as const
-  },
-  {
-    id: 3,
-    title: 'Vitamin C vs Retinol: Which is Right for Your Skin?',
-    description: 'Compare these powerful skincare ingredients and discover which one suits your skin type best.',
-    url: '/blog/vitamin-c-vs-retinol',
-    category: 'ingredient-focus',
-    type: 'blog' as const
-  },
-  {
-    id: 4,
-    title: '5 Morning Skincare Habits for Glowing Skin',
-    description: 'Transform your morning routine with these simple yet effective skincare habits for radiant skin.',
-    url: '/blog/morning-skincare-habits',
-    category: 'skincare-tips',
-    type: 'blog' as const
-  },
-];
+// Levenshtein distance for fuzzy search (max distance = 1)
+const levenshteinDistance = (str1: string, str2: string): number => {
+  const matrix = [];
+  
+  if (str1.length === 0) return str2.length;
+  if (str2.length === 0) return str1.length;
+  
+  // Create matrix
+  for (let i = 0; i <= str2.length; i++) {
+    matrix[i] = [i];
+  }
+  
+  for (let j = 0; j <= str1.length; j++) {
+    matrix[0][j] = j;
+  }
+  
+  // Fill matrix
+  for (let i = 1; i <= str2.length; i++) {
+    for (let j = 1; j <= str1.length; j++) {
+      if (str2.charAt(i - 1) === str1.charAt(j - 1)) {
+        matrix[i][j] = matrix[i - 1][j - 1];
+      } else {
+        matrix[i][j] = Math.min(
+          matrix[i - 1][j - 1] + 1, // substitution
+          matrix[i][j - 1] + 1,     // insertion
+          matrix[i - 1][j] + 1      // deletion
+        );
+      }
+    }
+  }
+  
+  return matrix[str2.length][str1.length];
+};
 
 export interface SearchItem {
   id: string | number;
@@ -53,39 +50,37 @@ export interface UseSearchReturn {
 }
 
 export const useSearch = (): UseSearchReturn => {
-  const [isIndexAvailable] = useState(true); // For now always available
+  const [searchItems, setSearchItems] = useState<SearchItem[]>([]);
+  const [isIndexAvailable, setIsIndexAvailable] = useState(false);
+  const debounceRef = useRef<NodeJS.Timeout>();
 
-  // Create search index
-  const searchItems = useMemo((): SearchItem[] => {
-    try {
-      // Products
-      const products: SearchItem[] = allProductsContent.products.map(product => ({
-        id: product.id,
-        title: product.name,
-        description: product.description,
-        url: `/product/${product.id}`,
-        type: 'product' as const,
-        category: 'skincare'
-      }));
+  // Load search index from JSON file
+  useEffect(() => {
+    const loadSearchIndex = async () => {
+      try {
+        const response = await fetch('/search-index.json');
+        if (!response.ok) {
+          throw new Error('Failed to load search index');
+        }
+        
+        const data = await response.json();
+        const allItems: SearchItem[] = [
+          ...data.products,
+          ...data.blogs
+        ];
+        
+        setSearchItems(allItems);
+        setIsIndexAvailable(true);
+      } catch (error) {
+        console.error('Error loading search index:', error);
+        setIsIndexAvailable(false);
+      }
+    };
 
-      // Blog posts
-      const blogs: SearchItem[] = blogPosts.map(post => ({
-        id: `blog-${post.id}`,
-        title: post.title,
-        description: post.description,
-        url: post.url,
-        type: 'blog' as const,
-        category: post.category
-      }));
-
-      return [...products, ...blogs];
-    } catch (error) {
-      console.error('Error creating search index:', error);
-      return [];
-    }
+    loadSearchIndex();
   }, []);
 
-  // Search function with fuzzy matching
+  // Search function with fuzzy matching and 200ms debounce
   const searchSuggestions = useCallback((query: string): SearchItem[] => {
     if (!query.trim() || query.length < 2) {
       return [];
@@ -94,20 +89,32 @@ export const useSearch = (): UseSearchReturn => {
     const normalizedQuery = query.toLowerCase().trim();
     
     const results = searchItems.filter(item => {
-      const titleMatch = item.title.toLowerCase().includes(normalizedQuery);
-      const descriptionMatch = item.description.toLowerCase().includes(normalizedQuery);
+      const titleLower = item.title.toLowerCase();
+      const descriptionLower = item.description.toLowerCase();
+      
+      // Exact matches
+      const titleMatch = titleLower.includes(normalizedQuery);
+      const descriptionMatch = descriptionLower.includes(normalizedQuery);
       
       // Prefix matching (words that start with the query)
-      const titleWords = item.title.toLowerCase().split(' ');
-      const descriptionWords = item.description.toLowerCase().split(' ');
+      const titleWords = titleLower.split(' ');
+      const descriptionWords = descriptionLower.split(' ');
       const prefixMatch = [...titleWords, ...descriptionWords].some(word => 
         word.startsWith(normalizedQuery)
       );
+      
+      // Basic fuzzy search with Levenshtein distance = 1
+      const fuzzyMatch = [...titleWords, ...descriptionWords].some(word => {
+        if (word.length >= normalizedQuery.length - 1 && word.length <= normalizedQuery.length + 1) {
+          return levenshteinDistance(word, normalizedQuery) <= 1;
+        }
+        return false;
+      });
 
-      return titleMatch || descriptionMatch || prefixMatch;
+      return titleMatch || descriptionMatch || prefixMatch || fuzzyMatch;
     });
 
-    // Sort by relevance (title matches first, then description matches)
+    // Sort by relevance (title matches first, then description matches, then fuzzy)
     return results.sort((a, b) => {
       const aTitle = a.title.toLowerCase();
       const bTitle = b.title.toLowerCase();
