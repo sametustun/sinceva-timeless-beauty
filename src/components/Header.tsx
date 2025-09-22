@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Search, Menu, X } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import MegaMenu from './MegaMenu';
+import SearchDropdown from './SearchDropdown';
 import { useLogos } from '../hooks/useLogo';
 import { logoContent } from '../data/content';
+import useSearch from '../hooks/useSearch';
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -14,9 +16,13 @@ const Header: React.FC = () => {
   const [showSearch, setShowSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showSearchDropdown, setShowSearchDropdown] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
   const logos = useLogos();
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const { searchResults, isLoading, error } = useSearch();
+  const [searchSuggestions, setSearchSuggestions] = useState<any[]>([]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -54,7 +60,7 @@ const Header: React.FC = () => {
       // Close search if clicking outside
       if (searchInputRef.current && !searchInputRef.current.contains(target)) {
         setShowSearch(false);
-        setSearchQuery('');
+        setShowSearchDropdown(false);
       }
       
       // Close mega menu if clicking outside of navbar or mega menu
@@ -79,10 +85,30 @@ const Header: React.FC = () => {
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      console.log('Searching for:', searchQuery);
+      navigate(`/search?query=${encodeURIComponent(searchQuery.trim())}`);
       setShowSearch(false);
-      setSearchQuery('');
+      setShowSearchDropdown(false);
     }
+  };
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSearchQuery(value);
+    
+    if (value.length >= 2) {
+      const results = searchResults(value, 6);
+      setSearchSuggestions(results);
+      setShowSearchDropdown(true);
+    } else {
+      setShowSearchDropdown(false);
+      setSearchSuggestions([]);
+    }
+  };
+
+  const handleSearchResultClick = () => {
+    setShowSearch(false);
+    setShowSearchDropdown(false);
+    setSearchQuery('');
   };
 
   const navigation = [
@@ -221,9 +247,9 @@ const Header: React.FC = () => {
                   <Input
                     ref={searchInputRef}
                     type="text"
-                    placeholder="Search..."
+                    placeholder="Search products and blogs..."
                     value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onChange={handleSearchChange}
                     className={`w-full h-8 pl-10 pr-4 text-xs !border-none !outline-none !ring-0 !ring-offset-0 !shadow-none transition-all duration-300 rounded-full focus:!outline-none focus:!ring-0 focus:!border-none focus:!shadow-none focus-visible:!outline-none focus-visible:!ring-0 focus-visible:!ring-offset-0 ${
                       !isScrolled 
                         ? 'bg-black/20 backdrop-blur-md text-white placeholder:text-white/70' 
@@ -233,6 +259,19 @@ const Header: React.FC = () => {
                   />
                 </form>
               </div>
+              
+              {/* Search Dropdown */}
+              {showSearch && (
+                <div className="relative">
+                  <SearchDropdown
+                    results={searchSuggestions}
+                    isVisible={showSearchDropdown}
+                    isLoading={isLoading}
+                    error={error}
+                    onResultClick={handleSearchResultClick}
+                  />
+                </div>
+              )}
             </div>
           </div>
         </nav>
@@ -271,9 +310,9 @@ const Header: React.FC = () => {
                   <Input
                     ref={searchInputRef}
                     type="text"
-                    placeholder="Search..."
+                    placeholder="Search products and blogs..."
                     value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onChange={handleSearchChange}
                     className={`w-full h-8 pl-10 pr-4 text-xs !border-none !outline-none !ring-0 !ring-offset-0 !shadow-none transition-all duration-300 rounded-full focus:!outline-none focus:!ring-0 focus:!border-none focus:!shadow-none focus-visible:!outline-none focus-visible:!ring-0 focus-visible:!ring-offset-0 ${
                       !isScrolled 
                         ? 'bg-black/20 backdrop-blur-md text-white placeholder:text-white/70' 
@@ -283,6 +322,19 @@ const Header: React.FC = () => {
                   />
                 </form>
               </div>
+              
+              {/* Mobile Search Dropdown */}
+              {showSearch && (
+                <div className="relative">
+                  <SearchDropdown
+                    results={searchSuggestions}
+                    isVisible={showSearchDropdown}
+                    isLoading={isLoading}
+                    error={error}
+                    onResultClick={handleSearchResultClick}
+                  />
+                </div>
+              )}
             </div>
           </div>
         </div>
