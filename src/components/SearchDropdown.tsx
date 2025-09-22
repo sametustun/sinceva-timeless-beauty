@@ -20,21 +20,21 @@ const SearchDropdown: React.FC<SearchDropdownProps> = ({
   if (!isVisible) return null;
 
   return (
-    <div className="absolute top-full left-0 right-0 mt-1 bg-background border border-border rounded-lg shadow-lg z-50 overflow-hidden">
+    <div className="absolute top-full left-0 w-80 md:w-96 mt-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-xl z-[100] overflow-hidden">
       {isLoading && (
-        <div className="p-4 text-center text-muted-foreground">
+        <div className="p-4 text-center text-gray-600 dark:text-gray-400">
           Searching...
         </div>
       )}
       
       {error && (
-        <div className="p-4 text-center text-muted-foreground">
+        <div className="p-4 text-center text-gray-600 dark:text-gray-400">
           {error}
         </div>
       )}
       
       {!isLoading && !error && results.length === 0 && (
-        <div className="p-4 text-center text-muted-foreground">
+        <div className="p-4 text-center text-gray-600 dark:text-gray-400">
           No products or blog posts found.
         </div>
       )}
@@ -46,9 +46,9 @@ const SearchDropdown: React.FC<SearchDropdownProps> = ({
               key={result.id}
               to={result.url}
               onClick={onResultClick}
-              className="flex items-center p-3 hover:bg-muted/50 transition-colors border-b border-border last:border-b-0"
+              className="flex items-center p-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors border-b border-gray-100 dark:border-gray-600 last:border-b-0"
             >
-              <div className="w-12 h-12 flex-shrink-0 mr-3 bg-muted rounded overflow-hidden">
+              <div className="w-12 h-12 flex-shrink-0 mr-3 bg-gray-100 dark:bg-gray-600 rounded overflow-hidden">
                 {result.image ? (
                   <img
                     src={result.image}
@@ -60,23 +60,23 @@ const SearchDropdown: React.FC<SearchDropdownProps> = ({
                     }}
                   />
                 ) : (
-                  <div className="w-full h-full bg-muted flex items-center justify-center text-muted-foreground text-xs">
+                  <div className="w-full h-full bg-gray-200 dark:bg-gray-600 flex items-center justify-center text-gray-500 dark:text-gray-400 text-xs font-medium">
                     {result.type === 'product' ? 'P' : 'B'}
                   </div>
                 )}
               </div>
               <div className="flex-1 min-w-0">
-                <div className="font-medium text-foreground truncate">
+                <div className="font-medium text-gray-900 dark:text-white truncate">
                   {result.title}
                 </div>
-                <div className="text-sm text-muted-foreground line-clamp-2 mt-1">
+                <div className="text-sm text-gray-600 dark:text-gray-300 line-clamp-2 mt-1">
                   {result.description}
                 </div>
-                <div className="text-xs text-muted-foreground mt-1">
-                  <span className={`inline-block px-2 py-0.5 rounded text-xs ${
+                <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                  <span className={`inline-block px-2 py-0.5 rounded text-xs font-medium ${
                     result.type === 'product' 
-                      ? 'bg-primary/10 text-primary' 
-                      : 'bg-secondary/10 text-secondary-foreground'
+                      ? 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200' 
+                      : 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
                   }`}>
                     {result.type === 'product' ? 'Product' : 'Blog'}
                   </span>
