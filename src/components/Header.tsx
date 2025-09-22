@@ -98,7 +98,7 @@ const Header: React.FC = () => {
       !isVisible ? '-translate-y-full opacity-0' : 'translate-y-0 opacity-100'
     } ${
       !isScrolled 
-        ? 'bg-black/10 backdrop-blur-sm' 
+        ? 'bg-black/5 backdrop-blur-[2px]' 
         : 'bg-white shadow-md'
     }`}>
       <div className="container mx-auto max-w-7xl px-4">
