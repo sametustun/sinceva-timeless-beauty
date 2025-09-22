@@ -87,8 +87,8 @@ const PrivacyPolicy: React.FC = () => {
               please contact us at:
             </p>
             <ul className="list-disc list-inside">
-              <li>Email: privacy@sinceva.com</li>
-              <li>Phone: +90 (212) 123 45 67</li>
+              <li>Email: info@sinceva.com</li>
+              <li>Phone: +90 (545) 378 21 30</li>
             </ul>
           </section>
 
