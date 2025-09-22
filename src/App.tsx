@@ -12,11 +12,10 @@ import Contact from "./pages/Contact";
 import Shop from "./pages/Shop";
 import Category from "./pages/Category";
 import Product from "./pages/Product";
-import CookiePolicy from "./pages/CookiePolicy";
-import Privacy from "./pages/Privacy";
-import Terms from "./pages/Terms";
-import KVKK from "./pages/KVKK";
-import ConsumerRatings from "./pages/ConsumerRatings";
+import CookiePolicyPage from "./pages/CookiePolicyPage";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsAndConditions from "./pages/TermsAndConditions";
+import ConsumerReviewRules from "./pages/ConsumerReviewRules";
 
 console.log('App component loading...');
 
@@ -41,11 +40,10 @@ const App = () => {
             <Route path="/category/:category" element={<Category />} />
             <Route path="/category/:category/:subcategory" element={<Category />} />
             <Route path="/product/:id" element={<Product />} />
-            <Route path="/cookie-policy" element={<CookiePolicy />} />
-            <Route path="/privacy" element={<Privacy />} />
-            <Route path="/terms" element={<Terms />} />
-            <Route path="/kvkk" element={<KVKK />} />
-            <Route path="/consumer-ratings" element={<ConsumerRatings />} />
+            <Route path="/cookie-policy" element={<CookiePolicyPage />} />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
+            <Route path="/terms" element={<TermsAndConditions />} />
+            <Route path="/consumer-ratings" element={<ConsumerReviewRules />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

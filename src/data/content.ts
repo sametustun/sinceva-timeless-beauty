@@ -295,9 +295,9 @@ export const footerContent = {
   ],
   policies: [
     { name: 'Privacy Policy', href: '/privacy' },
-    { name: 'Terms of Service', href: '/terms' },
-    { name: 'Return Policy', href: '/returns' },
-    { name: 'Shipping Info', href: '/shipping' }
+    { name: 'Cookie Policy', href: '/cookie-policy' },
+    { name: 'Terms and Conditions', href: '/terms' },
+    { name: 'Consumer Review Rules', href: '/consumer-ratings' }
   ],
   newsletter: {
     title: "Stay Beautiful",
