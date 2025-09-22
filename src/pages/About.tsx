@@ -42,15 +42,15 @@ const About: React.FC = () => {
           <div className="space-y-6">
             <h2 className="text-3xl md:text-4xl font-bold">Our Story</h2>
             <div className="space-y-4 text-muted-foreground text-lg leading-relaxed">
-            <h3 font-bold">The First Touch of Beauty</h3>
+            <h3 className="font-bold">The First Touch of Beauty</h3>
               <p>
                 Sinceva was born from an ancient symbol: the apple. From the moment Eve reached out her hand, the apple has stood for beginnings curiosity, transformation, and the essence of beauty itself. For us, it is not only the fruit of a story; it is the root of our philosophy. Just as beauty began at that timeless moment, we believe true beauty begins with the first touch of skincare.
               </p>
-            <h3 font-bold">A Timeless Heritage</h3>
+            <h3 className="font-bold">A Timeless Heritage</h3>
               <p>
                 We see the apple as more than nature’s gift it is a bridge between past and present. Its purity, vitality, and renewing power are woven into each formula, blending ancestral wisdom with modern cosmetic science. With Sinceva, skincare is not just a routine but a heritage of self-care, echoing the eternal journey of beauty through time.
               </p>
-            <h3 font-bold">Guided by Our Mission</h3>
+            <h3 className="font-bold">Guided by Our Mission</h3>
               <p>
                 Our motto, “The Origin of Beauty,” carries a double truth. It honors humanity’s first story Since Eva and it reminds every woman that beauty starts not with makeup, but with the skin beneath. With every product, we reaffirm our mission: to protect, renew, and illuminate, so that beauty always begins at the right place, Since Eva, since the very first touch.
               </p>
