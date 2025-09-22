@@ -11,6 +11,7 @@ import { AspectRatio } from '@/components/ui/aspect-ratio';
 import StorePopup from '@/components/StorePopup';
 import ProductRecommendations from '@/components/ProductRecommendations';
 import Breadcrumb from '@/components/Breadcrumb';
+import ImageZoom from '@/components/ImageZoom';
 import { allProductsContent } from '@/data/content';
 import { useIsMobile } from '@/hooks/use-mobile';
 
@@ -25,10 +26,50 @@ import yuzHero from '@/assets/yüz-01.png';
 import gunesHero from '@/assets/güneş-01.png';
 import nemlendiriciHero from '@/assets/nemlendirici-01.png';
 
+// Import product gallery images
+import vitcUrun2 from '@/assets/VİTCÜRÜN2.png';
+import vitcUrun3 from '@/assets/VİTCÜRÜN3.png';
+import vitcUrun5 from '@/assets/VİTCÜRÜN5.png';
+import vitcUrun6 from '@/assets/VİTCÜRÜN6.png';
+import arbutinUrun2 from '@/assets/ARBUTİNÜRÜN2.png';
+import arbutinUrun3 from '@/assets/ARBUTİNÜRÜN3.png';
+import arbutinUrun5 from '@/assets/ARBUTİNÜRÜN5.png';
+import arbutinUrun6 from '@/assets/ARBUTİNÜRÜN6.png';
+import gozUrun2 from '@/assets/GÖZÜRÜN2.png';
+import gozUrun3 from '@/assets/GÖZÜRÜN3.png';
+import gozUrun5 from '@/assets/GÖZÜRÜN5.png';
+import gozUrun6 from '@/assets/GÖZÜRÜN6.png';
+import geceUrun2 from '@/assets/GECEÜRÜN2.png';
+import geceUrun3 from '@/assets/GECEÜRÜN3.png';
+import geceUrun5 from '@/assets/GECEÜRÜN5.png';
+import geceUrun6 from '@/assets/GECEÜRÜN6.png';
+import tonikUrun2 from '@/assets/TONİKÜRÜN2.png';
+import tonikUrun3 from '@/assets/TONİKÜRÜN3.png';
+import tonikUrun5 from '@/assets/TONİKÜRÜN5.png';
+import tonikUrun6 from '@/assets/TONİKÜRÜN6.png';
+import peelingUrun2 from '@/assets/PEELINGÜRÜN2.png';
+import peelingUrun3 from '@/assets/PEELINGÜRÜN3.png';
+import peelingUrun5 from '@/assets/PEELINGÜRÜN5.png';
+import peelingUrun6 from '@/assets/PEELINGÜRÜN6.png';
+import yuzUrun2 from '@/assets/YÜZÜRÜN2.png';
+import yuzUrun3 from '@/assets/YÜZÜRÜN3.png';
+import yuzUrun5 from '@/assets/YÜZÜRÜN5.png';
+import yuzUrun6 from '@/assets/YÜZÜRÜN6.png';
+import gunesUrun2 from '@/assets/GÜNEŞÜRÜN2.png';
+import gunesUrun3 from '@/assets/GÜNEŞÜRÜN3.png';
+import gunesUrun5 from '@/assets/GÜNEŞÜRÜN5.png';
+import gunesUrun6 from '@/assets/GÜNEŞÜRÜN6.png';
+import nemlendiriciUrun2 from '@/assets/NEMLENDİRİCİÜRÜN2.png';
+import nemlendiriciUrun3 from '@/assets/NEMLENDİRİCİÜRÜN3.png';
+import nemlendiriciUrun5 from '@/assets/NEMLENDİRİCİÜRÜN5.png';
+import nemlendiriciUrun6 from '@/assets/NEMLENDİRİCİÜRÜN6.png';
+import zherUrun4 from '@/assets/ZHERÜRÜN4.png';
+
 const Product: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [isStorePopupOpen, setIsStorePopupOpen] = useState(false);
   const [showFloatingButton, setShowFloatingButton] = useState(true);
+  const [zoomImageIndex, setZoomImageIndex] = useState<number | null>(null);
   const footerRef = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile();
 
@@ -51,14 +92,84 @@ const Product: React.FC = () => {
   // Get product-specific hero image
   const heroImage = product ? (heroImages[product.name] || product.image) : '';
 
-  // Mock gallery images
-  const galleryImages = [
-    heroImage,
-    'https://images.unsplash.com/photo-1556228578-8c89e6adf883?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'
-  ].filter(Boolean);
+  // Product-specific gallery images
+  const productGalleries: { [key: string]: string[] } = {
+    'Sinceva Brightening Vitamin C Serum 30 ml': [
+      heroImage,
+      vitcUrun2,
+      vitcUrun3,
+      zherUrun4,
+      vitcUrun5,
+      vitcUrun6
+    ],
+    'Sinceva Anti Spot Arbutin Serum 30 ml': [
+      heroImage,
+      arbutinUrun2,
+      arbutinUrun3,
+      zherUrun4,
+      arbutinUrun5,
+      arbutinUrun6
+    ],
+    'Sinceva Anti-Wrinkle Eye Cream 20 ml': [
+      heroImage,
+      gozUrun2,
+      gozUrun3,
+      zherUrun4,
+      gozUrun5,
+      gozUrun6
+    ],
+    'Sinceva Anti-Aging Night Cream 50 ml': [
+      heroImage,
+      geceUrun2,
+      geceUrun3,
+      zherUrun4,
+      geceUrun5,
+      geceUrun6
+    ],
+    'Sinceva Skin Renewing Tonic 200 ml': [
+      heroImage,
+      tonikUrun2,
+      tonikUrun3,
+      zherUrun4,
+      tonikUrun5,
+      tonikUrun6
+    ],
+    'Sinceva Purifying Peeling Cream Scrub 200 ml': [
+      heroImage,
+      peelingUrun2,
+      peelingUrun3,
+      zherUrun4,
+      peelingUrun5,
+      peelingUrun6
+    ],
+    'Sinceva Purifying Face Cleansing Foam 200 ml': [
+      heroImage,
+      yuzUrun2,
+      yuzUrun3,
+      zherUrun4,
+      yuzUrun5,
+      yuzUrun6
+    ],
+    'Sinceva SPF 50+ Daily SunCare Cream 100 ml': [
+      heroImage,
+      gunesUrun2,
+      gunesUrun3,
+      zherUrun4,
+      gunesUrun5,
+      gunesUrun6
+    ],
+    'Sinceva Hyaluronic Acid Moisturizing Cream 50 ml': [
+      heroImage,
+      nemlendiriciUrun2,
+      nemlendiriciUrun3,
+      zherUrun4,
+      nemlendiriciUrun5,
+      nemlendiriciUrun6
+    ]
+  };
+
+  // Get gallery images for current product
+  const galleryImages = product ? (productGalleries[product.name] || [heroImage]) : [];
 
   // Product-specific Trendyol URLs
   const productUrls: { [key: string]: string } = {
@@ -195,12 +306,15 @@ const Product: React.FC = () => {
             <CarouselContent className="-ml-2 md:-ml-4">
               {galleryImages.map((image, index) => (
                 <CarouselItem key={index} className="pl-2 md:pl-4 basis-3/4 md:basis-1/3">
-                  <div className="overflow-hidden rounded-lg">
+                  <div 
+                    className="overflow-hidden rounded-lg cursor-pointer"
+                    onClick={() => setZoomImageIndex(index)}
+                  >
                     <AspectRatio ratio={2/3}>
                       <img 
                         src={image}
                         alt={`${product.name} - ${index + 1}`}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-200"
                       />
                     </AspectRatio>
                   </div>
@@ -282,6 +396,14 @@ const Product: React.FC = () => {
         onClose={() => setIsStorePopupOpen(false)}
         productName={product.name}
         stores={stores}
+      />
+
+      {/* Image Zoom */}
+      <ImageZoom
+        images={galleryImages}
+        currentIndex={zoomImageIndex}
+        onClose={() => setZoomImageIndex(null)}
+        onNavigate={setZoomImageIndex}
       />
     </Layout>
   );
