@@ -12,7 +12,6 @@ import Contact from "./pages/Contact";
 import Shop from "./pages/Shop";
 import Category from "./pages/Category";
 import Product from "./pages/Product";
-import SearchResults from "./pages/SearchResults";
 import CookiePolicyPage from "./pages/CookiePolicyPage";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsAndConditions from "./pages/TermsAndConditions";
@@ -38,7 +37,6 @@ const App = () => {
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/shop" element={<Shop />} />
-            <Route path="/search" element={<SearchResults />} />
             <Route path="/category/:category" element={<Category />} />
             <Route path="/category/:category/:subcategory" element={<Category />} />
             <Route path="/product/:id" element={<Product />} />

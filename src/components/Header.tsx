@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Search, Menu, X } from 'lucide-react';
+import { Input } from '@/components/ui/input';
 import MegaMenu from './MegaMenu';
-import SearchAutocomplete from './SearchAutocomplete';
 import { useLogos } from '../hooks/useLogo';
 import { logoContent } from '../data/content';
 
@@ -12,10 +12,11 @@ const Header: React.FC = () => {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [showMegaMenu, setShowMegaMenu] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
   const logos = useLogos();
-  const searchRef = useRef<HTMLDivElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -51,8 +52,9 @@ const Header: React.FC = () => {
       const target = event.target as Node;
       
       // Close search if clicking outside
-      if (searchRef.current && !searchRef.current.contains(target)) {
+      if (searchInputRef.current && !searchInputRef.current.contains(target)) {
         setShowSearch(false);
+        setSearchQuery('');
       }
       
       // Close mega menu if clicking outside of navbar or mega menu
@@ -74,8 +76,13 @@ const Header: React.FC = () => {
     };
   }, [lastScrollY, showMegaMenu]);
 
-  const handleSearchClose = () => {
-    setShowSearch(false);
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      console.log('Searching for:', searchQuery);
+      setShowSearch(false);
+      setSearchQuery('');
+    }
   };
 
   const navigation = [
@@ -195,7 +202,7 @@ const Header: React.FC = () => {
           
           {/* Search Section */}
           <div className={`flex items-center transition-all duration-300 ${showSearch ? 'ml-2 md:ml-4' : 'ml-4 md:ml-8'}`}>
-            <div ref={searchRef} className="relative flex items-center">
+            <div className="relative flex items-center">
               <button
                 onClick={() => setShowSearch(!showSearch)}
                 className={`p-2 transition-all duration-500 ${
@@ -210,12 +217,21 @@ const Header: React.FC = () => {
               <div className={`overflow-hidden transition-all duration-300 ease-out ${
                 showSearch ? 'w-32 md:w-48 ml-0' : 'w-0 ml-0'
               }`}>
-                <SearchAutocomplete 
-                  isScrolled={isScrolled}
-                  showSearch={showSearch}
-                  onClose={handleSearchClose}
-                  className="w-full"
-                />
+                <form onSubmit={handleSearchSubmit} className="w-full">
+                  <Input
+                    ref={searchInputRef}
+                    type="text"
+                    placeholder="Search..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className={`w-full h-8 pl-10 pr-4 text-xs !border-none !outline-none !ring-0 !ring-offset-0 !shadow-none transition-all duration-300 rounded-full focus:!outline-none focus:!ring-0 focus:!border-none focus:!shadow-none focus-visible:!outline-none focus-visible:!ring-0 focus-visible:!ring-offset-0 ${
+                      !isScrolled 
+                        ? 'bg-black/20 backdrop-blur-md text-white placeholder:text-white/70' 
+                        : 'bg-gray-100 text-gray-900 placeholder:text-gray-500'
+                    }`}
+                    autoFocus={showSearch}
+                  />
+                </form>
               </div>
             </div>
           </div>
@@ -236,7 +252,7 @@ const Header: React.FC = () => {
           
           {/* Mobile Search */}
           <div className="flex items-center">
-            <div ref={searchRef} className="relative flex items-center">
+            <div className="relative flex items-center">
               <button
                 onClick={() => setShowSearch(!showSearch)}
                 className={`p-2 transition-all duration-500 ${
@@ -251,12 +267,21 @@ const Header: React.FC = () => {
               <div className={`overflow-hidden transition-all duration-300 ease-out ${
                 showSearch ? 'w-40 ml-0' : 'w-0 ml-0'
               }`}>
-                <SearchAutocomplete 
-                  isScrolled={isScrolled}
-                  showSearch={showSearch}
-                  onClose={handleSearchClose}
-                  className="w-full"
-                />
+                <form onSubmit={handleSearchSubmit} className="w-full">
+                  <Input
+                    ref={searchInputRef}
+                    type="text"
+                    placeholder="Search..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className={`w-full h-8 pl-10 pr-4 text-xs !border-none !outline-none !ring-0 !ring-offset-0 !shadow-none transition-all duration-300 rounded-full focus:!outline-none focus:!ring-0 focus:!border-none focus:!shadow-none focus-visible:!outline-none focus-visible:!ring-0 focus-visible:!ring-offset-0 ${
+                      !isScrolled 
+                        ? 'bg-black/20 backdrop-blur-md text-white placeholder:text-white/70' 
+                        : 'bg-gray-100 text-gray-900 placeholder:text-gray-500'
+                    }`}
+                    autoFocus={showSearch}
+                  />
+                </form>
               </div>
             </div>
           </div>
