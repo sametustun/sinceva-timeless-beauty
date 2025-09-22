@@ -86,10 +86,10 @@ const Header: React.FC = () => {
   };
 
   const navigation = [
-    { name: 'THE ORIGIN OF BEAUTY', href: '/' },
+    { name: 'ANCIENT SHINE', href: '/' },
     { name: 'SKINCARE', href: '#', hasMegaMenu: true },
     { name: 'TRENDS & TIPS', href: '/blog' },
-    { name: 'ABOUT US', href: '/about' },
+    { name: 'THE ORIGIN OF BEAUTY', href: '/about' },
     { name: 'CONTACT', href: '/contact' },
   ];
 
