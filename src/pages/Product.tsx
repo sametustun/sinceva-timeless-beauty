@@ -92,84 +92,33 @@ const Product: React.FC = () => {
   // Get product-specific hero image
   const heroImage = product ? (heroImages[product.name] || product.image) : '';
 
-  // Product-specific gallery images
-  const productGalleries: { [key: string]: string[] } = {
-    'Sinceva Brightening Vitamin C Serum 30 ml': [
-      heroImage,
-      vitcUrun2,
-      vitcUrun3,
-      zherUrun4,
-      vitcUrun5,
-      vitcUrun6
-    ],
-    'Sinceva Anti Spot Arbutin Serum 30 ml': [
-      heroImage,
-      arbutinUrun2,
-      arbutinUrun3,
-      zherUrun4,
-      arbutinUrun5,
-      arbutinUrun6
-    ],
-    'Sinceva Anti-Wrinkle Eye Cream 20 ml': [
-      heroImage,
-      gozUrun2,
-      gozUrun3,
-      zherUrun4,
-      gozUrun5,
-      gozUrun6
-    ],
-    'Sinceva Anti-Aging Night Cream 50 ml': [
-      heroImage,
-      geceUrun2,
-      geceUrun3,
-      zherUrun4,
-      geceUrun5,
-      geceUrun6
-    ],
-    'Sinceva Skin Renewing Tonic 200 ml': [
-      heroImage,
-      tonikUrun2,
-      tonikUrun3,
-      zherUrun4,
-      tonikUrun5,
-      tonikUrun6
-    ],
-    'Sinceva Purifying Peeling Cream Scrub 200 ml': [
-      heroImage,
-      peelingUrun2,
-      peelingUrun3,
-      zherUrun4,
-      peelingUrun5,
-      peelingUrun6
-    ],
-    'Sinceva Purifying Face Cleansing Foam 200 ml': [
-      heroImage,
-      yuzUrun2,
-      yuzUrun3,
-      zherUrun4,
-      yuzUrun5,
-      yuzUrun6
-    ],
-    'Sinceva SPF 50+ Daily SunCare Cream 100 ml': [
-      heroImage,
-      gunesUrun2,
-      gunesUrun3,
-      zherUrun4,
-      gunesUrun5,
-      gunesUrun6
-    ],
-    'Sinceva Hyaluronic Acid Moisturizing Cream 50 ml': [
-      heroImage,
-      nemlendiriciUrun2,
-      nemlendiriciUrun3,
-      zherUrun4,
-      nemlendiriciUrun5,
-      nemlendiriciUrun6
-    ]
+  // Get gallery images for current product
+  const getProductGallery = (productName: string, heroImg: string): string[] => {
+    switch (productName) {
+      case 'Sinceva Brightening Vitamin C Serum 30 ml':
+        return [heroImg, vitcUrun2, vitcUrun3, zherUrun4, vitcUrun5, vitcUrun6];
+      case 'Sinceva Anti Spot Arbutin Serum 30 ml':
+        return [heroImg, arbutinUrun2, arbutinUrun3, zherUrun4, arbutinUrun5, arbutinUrun6];
+      case 'Sinceva Anti-Wrinkle Eye Cream 20 ml':
+        return [heroImg, gozUrun2, gozUrun3, zherUrun4, gozUrun5, gozUrun6];
+      case 'Sinceva Anti-Aging Night Cream 50 ml':
+        return [heroImg, geceUrun2, geceUrun3, zherUrun4, geceUrun5, geceUrun6];
+      case 'Sinceva Skin Renewing Tonic 200 ml':
+        return [heroImg, tonikUrun2, tonikUrun3, zherUrun4, tonikUrun5, tonikUrun6];
+      case 'Sinceva Purifying Peeling Cream Scrub 200 ml':
+        return [heroImg, peelingUrun2, peelingUrun3, zherUrun4, peelingUrun5, peelingUrun6];
+      case 'Sinceva Purifying Face Cleansing Foam 200 ml':
+        return [heroImg, yuzUrun2, yuzUrun3, zherUrun4, yuzUrun5, yuzUrun6];
+      case 'Sinceva SPF 50+ Daily SunCare Cream 100 ml':
+        return [heroImg, gunesUrun2, gunesUrun3, zherUrun4, gunesUrun5, gunesUrun6];
+      case 'Sinceva Hyaluronic Acid Moisturizing Cream 50 ml':
+        return [heroImg, nemlendiriciUrun2, nemlendiriciUrun3, zherUrun4, nemlendiriciUrun5, nemlendiriciUrun6];
+      default:
+        return [heroImg];
+    }
   };
 
-  // Get gallery images for current product
-  const galleryImages = product ? (productGalleries[product.name] || [heroImage]) : [];
+  const galleryImages = product && heroImage ? getProductGallery(product.name, heroImage) : [];
 
   // Product-specific Trendyol URLs
   const productUrls: { [key: string]: string } = {
