@@ -1,0 +1,97 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "url": "/product/1",
+      "title": "Sinceva Brightening Vitamin C Serum 30 ml",
+      "description": "Powerful vitamin C serum for radiant, even-toned skin with natural brightening properties.",
+      "type": "product"
+    },
+    {
+      "id": "2", 
+      "url": "/product/2",
+      "title": "Sinceva Anti-Spot Arbutin Serum 30 ml",
+      "description": "Advanced arbutin formula to reduce dark spots and even skin tone.",
+      "type": "product"
+    },
+    {
+      "id": "3",
+      "url": "/product/3", 
+      "title": "Sinceva Anti-Wrinkle Eye Cream 20 ml",
+      "description": "Firming eye cream with peptides to reduce fine lines and brighten the delicate eye area.",
+      "type": "product"
+    },
+    {
+      "id": "4",
+      "url": "/product/4",
+      "title": "Sinceva Anti-Aging Night Cream 50 ml", 
+      "description": "Intensive night cream with retinol and peptides for youthful, rejuvenated skin.",
+      "type": "product"
+    },
+    {
+      "id": "5",
+      "url": "/product/5",
+      "title": "Sinceva Balancing Facial Toner 200 ml",
+      "description": "Alcohol-free toner that balances pH and prepares skin for optimal skincare absorption.",
+      "type": "product"
+    },
+    {
+      "id": "6", 
+      "url": "/product/6",
+      "title": "Sinceva Gentle Exfoliating Peeling Gel 75 ml",
+      "description": "Mild exfoliant with natural enzymes to reveal smooth, glowing skin without irritation.",
+      "type": "product"
+    },
+    {
+      "id": "7",
+      "url": "/product/7",
+      "title": "Sinceva Deep Cleansing Face Wash 150 ml", 
+      "description": "Gentle foaming cleanser that removes impurities while maintaining skin's natural moisture barrier.",
+      "type": "product"
+    },
+    {
+      "id": "8",
+      "url": "/product/8",
+      "title": "Sinceva SPF 50+ Daily SunCare Cream 100 ml",
+      "description": "Broad spectrum protection with lightweight, non-greasy formula perfect for daily use.",
+      "type": "product"
+    },
+    {
+      "id": "9",
+      "url": "/product/9", 
+      "title": "Sinceva Hyaluronic Acid Moisturizing Cream 50 ml",
+      "description": "Deep hydration with hyaluronic acid for plump, smooth, and supple skin all day long.",
+      "type": "product"
+    }
+  ],
+  "blogs": [
+    {
+      "id": "blog-1",
+      "url": "/blog/anti-aging-skincare-routine",
+      "title": "The Ultimate Guide to Anti-Aging Skincare Routine",
+      "description": "Discover the secrets to maintaining youthful, radiant skin with our comprehensive anti-aging guide.",
+      "type": "blog"
+    },
+    {
+      "id": "blog-2", 
+      "url": "/blog/winter-skincare-guide",
+      "title": "Winter Skincare: Protecting Your Skin in Cold Weather",
+      "description": "Learn how to adapt your skincare routine for winter months and protect your skin from harsh weather.",
+      "type": "blog"
+    },
+    {
+      "id": "blog-3",
+      "url": "/blog/vitamin-c-vs-retinol", 
+      "title": "Vitamin C vs Retinol: Which is Right for Your Skin?",
+      "description": "Compare these powerful skincare ingredients and discover which one suits your skin type best.",
+      "type": "blog"
+    },
+    {
+      "id": "blog-4",
+      "url": "/blog/morning-skincare-habits",
+      "title": "5 Morning Skincare Habits for Glowing Skin", 
+      "description": "Transform your morning routine with these simple yet effective skincare habits for radiant skin.",
+      "type": "blog"
+    }
+  ]
+}
