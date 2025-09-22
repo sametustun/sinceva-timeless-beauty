@@ -116,8 +116,8 @@ const ConsumerReviewRules: React.FC = () => {
               If you have questions about our review policies, please contact us:
             </p>
             <ul className="list-disc list-inside mt-2">
-              <li>Email: reviews@sinceva.com</li>
-              <li>Phone: +90 (212) 123 45 67</li>
+              <li>Email: info@sinceva.com</li>
+              <li>Phone: +90 (545) 378 21 30</li>
             </ul>
           </section>
 
