@@ -270,7 +270,7 @@ const Header: React.FC = () => {
               
               {/* Search Dropdown */}
               {showSearch && (
-                <div className="fixed left-0 right-0 top-32 z-[100] px-4">
+                <div className="fixed left-0 right-0 top-40 z-[100] px-4">
                   <div className="max-w-7xl mx-auto flex justify-end">
                     <div className="w-80 md:w-96">
                       <SearchDropdown
@@ -337,7 +337,7 @@ const Header: React.FC = () => {
               
               {/* Mobile Search Dropdown */}
               {showSearch && (
-                <div className="fixed left-0 right-0 top-32 z-[100] px-4">
+                <div className="fixed left-0 right-0 top-40 z-[100] px-4">
                   <div className="max-w-7xl mx-auto flex justify-end">
                     <div className="w-80">
                       <SearchDropdown
