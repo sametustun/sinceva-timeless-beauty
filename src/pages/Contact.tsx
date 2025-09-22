@@ -6,6 +6,8 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { MapPin, Phone, Mail, Clock } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import contactBanner from '@/assets/contact_banner.jpg';
+import contactBannerMobile from '@/assets/contact_banner_mobile.jpg';
 
 const Contact: React.FC = () => {
   const { toast } = useToast();
@@ -81,7 +83,8 @@ const Contact: React.FC = () => {
       <PageHero 
         title="Contact Us"
         subtitle="Have questions about our products or need skincare advice? We're here to help you on your beauty journey."
-        backgroundImage="https://images.unsplash.com/photo-1556228578-8c89e6adf883?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80"
+        backgroundImage={contactBanner}
+        backgroundImageMobile={contactBannerMobile}
       />
       
       <div className="container mx-auto max-w-7xl px-4 py-16">

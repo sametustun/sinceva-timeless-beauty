@@ -2,6 +2,8 @@ import React from 'react';
 import Layout from '@/components/Layout';
 import PageHero from '@/components/sections/PageHero';
 import { Leaf, Heart, Award, Globe } from 'lucide-react';
+import toobBanner from '@/assets/toob_banner.jpg';
+import toobBannerMobile from '@/assets/toob_banner_mobile.jpg';
 
 const About: React.FC = () => {
   const values = [
@@ -32,7 +34,8 @@ const About: React.FC = () => {
       <PageHero 
         title="About Sinceva"
         subtitle="Since Eva – the name that inspired our journey toward timeless beauty and elegance."
-        backgroundImage="https://images.unsplash.com/photo-1570194071205-54f2c7f447d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80"
+        backgroundImage={toobBanner}
+        backgroundImageMobile={toobBannerMobile}
       />
       
       <div className="container mx-auto max-w-7xl px-4 py-16">

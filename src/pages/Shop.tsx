@@ -8,6 +8,8 @@ import { Star, ShoppingCart, Filter, Grid, List } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import ProductCard from '@/components/ProductCard';
 import { allProductsContent } from '@/data/content';
+import shopBanner from '@/assets/shop_banner.jpg';
+import shopBannerMobile from '@/assets/shop_banner_mobile.jpg';
 
 const Shop: React.FC = () => {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
@@ -56,7 +58,8 @@ const Shop: React.FC = () => {
       <PageHero 
         title="Shop Sinceva"
         subtitle="Discover our premium skincare collection crafted for timeless beauty."
-        backgroundImage="https://images.unsplash.com/photo-1596462502278-27bfdc403348?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80"
+        backgroundImage={shopBanner}
+        backgroundImageMobile={shopBannerMobile}
       />
       
       <div className="container mx-auto max-w-7xl px-4 py-16">

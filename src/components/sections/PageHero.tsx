@@ -5,6 +5,7 @@ interface PageHeroProps {
   title: string;
   subtitle?: string;
   backgroundImage?: string;
+  backgroundImageMobile?: string;
   backgroundClass?: string;
 }
 
@@ -12,6 +13,7 @@ const PageHero: React.FC<PageHeroProps> = ({
   title,
   subtitle,
   backgroundImage,
+  backgroundImageMobile,
   backgroundClass = "bg-gradient-to-br from-primary/10 via-background to-secondary/20"
 }) => {
   return (
@@ -21,10 +23,10 @@ const PageHero: React.FC<PageHeroProps> = ({
         <AspectRatio ratio={2/3}>
           <div className={`relative w-full h-full flex items-center justify-center ${backgroundClass}`}>
             {/* Background Image */}
-            {backgroundImage && (
+            {(backgroundImageMobile || backgroundImage) && (
               <div className="absolute inset-0 z-0">
                 <img 
-                  src={backgroundImage} 
+                  src={backgroundImageMobile || backgroundImage} 
                   alt={title} 
                   className="w-full h-full object-cover"
                 />

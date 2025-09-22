@@ -4,6 +4,8 @@ import PageHero from '@/components/sections/PageHero';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Search, Calendar, User, ArrowRight } from 'lucide-react';
+import tipsBanner from '@/assets/tips_banner.jpg';
+import tipsBannerMobile from '@/assets/tips_banner_mobile.jpg';
 
 const Blog: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -72,7 +74,8 @@ const Blog: React.FC = () => {
       <PageHero 
         title="Trends & Tips"
         subtitle="Discover the latest in skincare trends, expert tips, and beauty insights to enhance your daily routine."
-        backgroundImage="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80"
+        backgroundImage={tipsBanner}
+        backgroundImageMobile={tipsBannerMobile}
       />
       
       <div className="container mx-auto max-w-7xl px-4 py-16">
