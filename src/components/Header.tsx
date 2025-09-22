@@ -57,8 +57,16 @@ const Header: React.FC = () => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as Node;
       
-      // Close search if clicking outside
-      if (searchInputRef.current && !searchInputRef.current.contains(target)) {
+      // Close search if clicking outside the search container
+      const searchContainers = document.querySelectorAll('.search-container');
+      let clickedInsideSearch = false;
+      searchContainers.forEach(container => {
+        if (container.contains(target)) {
+          clickedInsideSearch = true;
+        }
+      });
+      
+      if (!clickedInsideSearch) {
         setShowSearch(false);
         setShowSearchDropdown(false);
       }
@@ -228,7 +236,7 @@ const Header: React.FC = () => {
           
           {/* Search Section */}
           <div className={`flex items-center transition-all duration-300 ${showSearch ? 'ml-2 md:ml-4' : 'ml-4 md:ml-8'}`}>
-            <div className="relative flex items-center">
+            <div className="search-container relative flex items-center">
               <button
                 onClick={() => setShowSearch(!showSearch)}
                 className={`p-2 transition-all duration-500 ${
@@ -291,7 +299,7 @@ const Header: React.FC = () => {
           
           {/* Mobile Search */}
           <div className="flex items-center">
-            <div className="relative flex items-center">
+            <div className="search-container relative flex items-center">
               <button
                 onClick={() => setShowSearch(!showSearch)}
                 className={`p-2 transition-all duration-500 ${
