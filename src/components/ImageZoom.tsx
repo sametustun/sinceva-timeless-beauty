@@ -28,32 +28,25 @@ const ImageZoom: React.FC<ImageZoomProps> = ({ images, currentIndex, onClose, on
   }, [currentIndex, images.length, onNavigate]);
 
   const handleTouchStart = (e: React.TouchEvent) => {
-    console.log('Touch start:', e.targetTouches[0].clientX);
     setTouchEnd(0);
     setTouchStart(e.targetTouches[0].clientX);
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
-    console.log('Touch move:', e.targetTouches[0].clientX);
     setTouchEnd(e.targetTouches[0].clientX);
   };
 
   const handleTouchEnd = (e: React.TouchEvent) => {
-    console.log('Touch end - start:', touchStart, 'end:', touchEnd);
     if (!touchStart || !touchEnd) return;
 
     const distance = touchStart - touchEnd;
     const isLeftSwipe = distance > minSwipeDistance;
     const isRightSwipe = distance < -minSwipeDistance;
 
-    console.log('Distance:', distance, 'Left swipe:', isLeftSwipe, 'Right swipe:', isRightSwipe);
-
     if (isLeftSwipe && currentIndex !== null && currentIndex < images.length - 1) {
-      console.log('Moving to next image');
       handleNext();
     }
     if (isRightSwipe && currentIndex !== null && currentIndex > 0) {
-      console.log('Moving to previous image');
       handlePrevious();
     }
 

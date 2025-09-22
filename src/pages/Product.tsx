@@ -97,7 +97,7 @@ const Product: React.FC = () => {
     switch (productName) {
       case 'Sinceva Brightening Vitamin C Serum 30 ml':
         return [heroImg, vitcUrun2, vitcUrun3, zherUrun4, vitcUrun5, vitcUrun6];
-      case 'Sinceva Anti Spot Arbutin Serum 30 ml':
+      case 'Sinceva Anti-Spot Arbutin Serum 30 ml':
         return [heroImg, arbutinUrun2, arbutinUrun3, zherUrun4, arbutinUrun5, arbutinUrun6];
       case 'Sinceva Anti-Wrinkle Eye Cream 20 ml':
         return [heroImg, gozUrun2, gozUrun3, zherUrun4, gozUrun5, gozUrun6];
