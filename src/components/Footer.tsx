@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Instagram, Facebook, Twitter, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { logoContent } from '@/data/content';
+import { logoContent, footerContent } from '@/data/content';
 
 const Footer: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -70,18 +70,15 @@ const Footer: React.FC = () => {
           <div className="space-y-4">
             <h4 className="font-semibold text-background">Policies</h4>
             <nav className="space-y-2">
-              <Link to="/privacy" className="block text-background/80 hover:text-primary transition-colors text-sm">
-                Kişisel Verilerin Korunması
-              </Link>
-              <Link to="/cookie-policy" className="block text-background/80 hover:text-primary transition-colors text-sm">
-                Çerez Politikası
-              </Link>
-              <Link to="/terms" className="block text-background/80 hover:text-primary transition-colors text-sm">
-                Kural ve Koşullar
-              </Link>
-              <Link to="/consumer-ratings" className="block text-background/80 hover:text-primary transition-colors text-sm">
-                Tüketici Değerlendirme Kuralları
-              </Link>
+              {footerContent.policies.map((policy) => (
+                <Link 
+                  key={policy.href}
+                  to={policy.href} 
+                  className="block text-background/80 hover:text-primary transition-colors text-sm"
+                >
+                  {policy.name}
+                </Link>
+              ))}
             </nav>
           </div>
 
