@@ -5,12 +5,7 @@ import { Separator } from '@/components/ui/separator';
 const TermsAndConditions: React.FC = () => {
   return (
     <Layout>
-      <div className="w-full h-[40vh] bg-gradient-to-r from-gray-900 to-gray-800 flex items-center justify-center">
-        <div className="text-center text-white">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Terms and Conditions</h1>
-          <p className="text-xl opacity-90">Terms of use for our website and services</p>
-        </div>
-      </div>
+      <div className="w-full h-[40vh] bg-gradient-to-r from-gray-900 to-gray-800"></div>
 
       <div className="container mx-auto max-w-4xl px-4 py-16">
         <div className="prose prose-lg max-w-none">
