@@ -50,12 +50,12 @@ const CookieConsent: React.FC = () => {
             <div className="flex items-start gap-3 flex-1">
               <Cookie className="w-6 h-6 text-[#ef2b2d] mt-1 flex-shrink-0" />
               <div>
-                <h3 className="font-semibold text-gray-900 mb-1">Çerez Kullanımı</h3>
+                <h3 className="font-semibold text-gray-900 mb-1">We Use Cookies</h3>
                 <p className="text-sm text-gray-600">
-                  Web sitemizde deneyiminizi geliştirmek için çerezler kullanıyoruz. 
-                  Zorunlu olmayan çerezler için onayınıza ihtiyacımız var.{' '}
+                  We use cookies to improve your browsing experience, personalize content, and analyze our traffic. 
+                  By continuing to use our site, you consent to our use of cookies.{' '}
                   <Link to="/cookie-policy" className="text-[#ef2b2d] hover:underline">
-                    Detaylı bilgi
+                    Learn more
                   </Link>
                 </p>
               </div>
@@ -67,7 +67,7 @@ const CookieConsent: React.FC = () => {
                 size="sm"
                 className="text-gray-600 border-gray-300"
               >
-                Ayarlar
+                Preferences
               </Button>
               <Button
                 onClick={handleReject}
@@ -75,14 +75,14 @@ const CookieConsent: React.FC = () => {
                 size="sm"
                 className="text-gray-600 border-gray-300"
               >
-                Reddet
+                Reject
               </Button>
               <Button
                 onClick={handleAccept}
                 size="sm"
                 className="bg-[#ef2b2d] hover:bg-[#ef2b2d]/90"
               >
-                Kabul Et
+                Accept All
               </Button>
             </div>
           </div>
@@ -92,7 +92,7 @@ const CookieConsent: React.FC = () => {
             <div className="flex items-center justify-between">
               <h3 className="font-semibold text-gray-900 flex items-center gap-2">
                 <Shield className="w-5 h-5 text-[#ef2b2d]" />
-                Çerez Tercihleri
+                Cookie Preferences
               </h3>
               <button
                 onClick={() => setShowDetails(false)}
@@ -105,24 +105,24 @@ const CookieConsent: React.FC = () => {
             <div className="grid gap-3">
               <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                 <div>
-                  <h4 className="font-medium text-gray-900">Zorunlu Çerezler</h4>
-                  <p className="text-sm text-gray-600">Site işlevselliği için gerekli</p>
+                  <h4 className="font-medium text-gray-900">Necessary Cookies</h4>
+                  <p className="text-sm text-gray-600">Required for site functionality</p>
                 </div>
-                <div className="text-sm text-gray-500">Her zaman aktif</div>
+                <div className="text-sm text-gray-500">Always active</div>
               </div>
               
               <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                 <div>
-                  <h4 className="font-medium text-gray-900">Analitik Çerezler</h4>
-                  <p className="text-sm text-gray-600">Site kullanımını analiz eder</p>
+                  <h4 className="font-medium text-gray-900">Analytics Cookies</h4>
+                  <p className="text-sm text-gray-600">Analyze site usage</p>
                 </div>
                 <input type="checkbox" className="h-4 w-4 text-[#ef2b2d]" />
               </div>
               
               <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                 <div>
-                  <h4 className="font-medium text-gray-900">Pazarlama Çerezler</h4>
-                  <p className="text-sm text-gray-600">Kişiselleştirilmiş reklamlar</p>
+                  <h4 className="font-medium text-gray-900">Marketing Cookies</h4>
+                  <p className="text-sm text-gray-600">Personalized advertisements</p>
                 </div>
                 <input type="checkbox" className="h-4 w-4 text-[#ef2b2d]" />
               </div>
@@ -134,14 +134,14 @@ const CookieConsent: React.FC = () => {
                 variant="outline"
                 size="sm"
               >
-                Yalnızca Zorunlu
+                Essential Only
               </Button>
               <Button
                 onClick={handleAccept}
                 size="sm"
                 className="bg-[#ef2b2d] hover:bg-[#ef2b2d]/90"
               >
-                Tümünü Kabul Et
+                Accept All
               </Button>
             </div>
           </div>
