@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 
 // Import hero images
@@ -13,6 +13,11 @@ interface HeroSliderProps {
 const HeroSlider: React.FC<HeroSliderProps> = ({ className = '' }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [currentX, setCurrentX] = useState(0);
+  const [slideOffset, setSlideOffset] = useState(0);
+  const sliderRef = useRef<HTMLDivElement>(null);
 
   // Hero slide images - using existing assets
   const slides = [
@@ -35,14 +40,14 @@ const HeroSlider: React.FC<HeroSliderProps> = ({ className = '' }) => {
 
   // Auto-advance slides every 5 seconds
   useEffect(() => {
-    if (isPaused) return;
+    if (isPaused || isDragging) return;
 
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [isPaused, slides.length]);
+  }, [isPaused, isDragging, slides.length]);
 
   const goToSlide = useCallback((index: number) => {
     setCurrentSlide(index);
@@ -54,23 +59,121 @@ const HeroSlider: React.FC<HeroSliderProps> = ({ className = '' }) => {
     }, 10000);
   }, []);
 
+  const handleSwipe = useCallback((direction: 'left' | 'right') => {
+    if (direction === 'left') {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    } else {
+      setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+    }
+    setIsPaused(true);
+    setTimeout(() => setIsPaused(false), 10000);
+  }, [slides.length]);
+
+  // Touch Events
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setIsDragging(true);
+    setStartX(e.touches[0].clientX);
+    setCurrentX(e.touches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isDragging) return;
+    setCurrentX(e.touches[0].clientX);
+    const diff = e.touches[0].clientX - startX;
+    setSlideOffset(diff);
+  };
+
+  const handleTouchEnd = () => {
+    if (!isDragging) return;
+    
+    const diff = currentX - startX;
+    const threshold = 50; // Minimum swipe distance
+    
+    if (Math.abs(diff) > threshold) {
+      if (diff > 0) {
+        handleSwipe('right');
+      } else {
+        handleSwipe('left');
+      }
+    }
+    
+    setIsDragging(false);
+    setSlideOffset(0);
+  };
+
+  // Mouse Events
+  const handleMouseDown = (e: React.MouseEvent) => {
+    setIsDragging(true);
+    setStartX(e.clientX);
+    setCurrentX(e.clientX);
+    e.preventDefault();
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging) return;
+    setCurrentX(e.clientX);
+    const diff = e.clientX - startX;
+    setSlideOffset(diff);
+  };
+
+  const handleMouseUp = () => {
+    if (!isDragging) return;
+    
+    const diff = currentX - startX;
+    const threshold = 50;
+    
+    if (Math.abs(diff) > threshold) {
+      if (diff > 0) {
+        handleSwipe('right');
+      } else {
+        handleSwipe('left');
+      }
+    }
+    
+    setIsDragging(false);
+    setSlideOffset(0);
+  };
+
+  const handleMouseLeave = () => {
+    if (isDragging) {
+      setIsDragging(false);
+      setSlideOffset(0);
+    }
+  };
+
   return (
     <section className={`sinceva-hero relative overflow-hidden ${className}`}>
       {/* Mobile Hero */}
       <div className="md:hidden">
         <AspectRatio ratio={2/3}>
-          <div className="sinceva-hero__container relative w-full h-full">
+          <div 
+            ref={sliderRef}
+            className="sinceva-hero__container relative w-full h-full cursor-grab active:cursor-grabbing select-none"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseLeave}
+          >
             {slides.map((slide, index) => (
               <div
                 key={slide.id}
-                className={`sinceva-hero__slide absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+                className={`sinceva-hero__slide absolute inset-0 transition-all duration-300 ease-out ${
                   index === currentSlide ? 'opacity-100' : 'opacity-0'
                 }`}
+                style={{
+                  transform: index === currentSlide && isDragging 
+                    ? `translateX(${slideOffset}px)` 
+                    : 'translateX(0)',
+                }}
               >
                 <img 
                   src={slide.image} 
                   alt={slide.alt} 
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover pointer-events-none"
+                  draggable={false}
                 />
                 <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-black/20 to-transparent" />
               </div>
@@ -82,18 +185,34 @@ const HeroSlider: React.FC<HeroSliderProps> = ({ className = '' }) => {
       {/* Desktop Hero */}
       <div className="hidden md:block">
         <AspectRatio ratio={3/1}>
-          <div className="sinceva-hero__container relative w-full h-full">
+          <div 
+            ref={sliderRef}
+            className="sinceva-hero__container relative w-full h-full cursor-grab active:cursor-grabbing select-none"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseLeave}
+          >
             {slides.map((slide, index) => (
               <div
                 key={slide.id}
-                className={`sinceva-hero__slide absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+                className={`sinceva-hero__slide absolute inset-0 transition-all duration-300 ease-out ${
                   index === currentSlide ? 'opacity-100' : 'opacity-0'
                 }`}
+                style={{
+                  transform: index === currentSlide && isDragging 
+                    ? `translateX(${slideOffset}px)` 
+                    : 'translateX(0)',
+                }}
               >
                 <img 
                   src={slide.image} 
                   alt={slide.alt} 
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover pointer-events-none"
+                  draggable={false}
                 />
                 <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-black/20 to-transparent" />
               </div>
