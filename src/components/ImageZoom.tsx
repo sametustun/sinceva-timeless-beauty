@@ -28,28 +28,32 @@ const ImageZoom: React.FC<ImageZoomProps> = ({ images, currentIndex, onClose, on
   }, [currentIndex, images.length, onNavigate]);
 
   const handleTouchStart = (e: React.TouchEvent) => {
-    e.preventDefault();
+    console.log('Touch start:', e.targetTouches[0].clientX);
     setTouchEnd(0);
     setTouchStart(e.targetTouches[0].clientX);
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
-    e.preventDefault();
+    console.log('Touch move:', e.targetTouches[0].clientX);
     setTouchEnd(e.targetTouches[0].clientX);
   };
 
   const handleTouchEnd = (e: React.TouchEvent) => {
-    e.preventDefault();
+    console.log('Touch end - start:', touchStart, 'end:', touchEnd);
     if (!touchStart || !touchEnd) return;
 
     const distance = touchStart - touchEnd;
     const isLeftSwipe = distance > minSwipeDistance;
     const isRightSwipe = distance < -minSwipeDistance;
 
+    console.log('Distance:', distance, 'Left swipe:', isLeftSwipe, 'Right swipe:', isRightSwipe);
+
     if (isLeftSwipe && currentIndex !== null && currentIndex < images.length - 1) {
+      console.log('Moving to next image');
       handleNext();
     }
     if (isRightSwipe && currentIndex !== null && currentIndex > 0) {
+      console.log('Moving to previous image');
       handlePrevious();
     }
 
@@ -97,7 +101,10 @@ const ImageZoom: React.FC<ImageZoomProps> = ({ images, currentIndex, onClose, on
     >
       {/* Close Button */}
       <button
-        onClick={onClose}
+        onClick={(e) => {
+          e.stopPropagation();
+          onClose();
+        }}
         className="absolute top-4 right-4 z-10 p-2 text-white hover:text-white/70 transition-colors"
       >
         <X size={32} />
@@ -137,49 +144,6 @@ const ImageZoom: React.FC<ImageZoomProps> = ({ images, currentIndex, onClose, on
         onClick={(e) => e.stopPropagation()}
         draggable={false}
       />
-
-      {/* Touch/Click Areas */}
-      <div className="absolute inset-0 flex" style={{ pointerEvents: 'none' }}>
-        {/* Left area */}
-        <div
-          className="w-1/3 h-full cursor-pointer"
-          style={{ pointerEvents: 'auto' }}
-          onClick={(e) => {
-            e.stopPropagation();
-            if (canGoPrevious) {
-              handlePrevious();
-            }
-          }}
-          onTouchStart={(e) => e.stopPropagation()}
-          onTouchMove={(e) => e.stopPropagation()}
-          onTouchEnd={(e) => e.stopPropagation()}
-        />
-        
-        {/* Center area - close on click */}
-        <div
-          className="flex-1 h-full cursor-pointer"
-          style={{ pointerEvents: 'auto' }}
-          onClick={onClose}
-          onTouchStart={(e) => e.stopPropagation()}
-          onTouchMove={(e) => e.stopPropagation()}
-          onTouchEnd={(e) => e.stopPropagation()}
-        />
-        
-        {/* Right area */}
-        <div
-          className="w-1/3 h-full cursor-pointer"
-          style={{ pointerEvents: 'auto' }}
-          onClick={(e) => {
-            e.stopPropagation();
-            if (canGoNext) {
-              handleNext();
-            }
-          }}
-          onTouchStart={(e) => e.stopPropagation()}
-          onTouchMove={(e) => e.stopPropagation()}
-          onTouchEnd={(e) => e.stopPropagation()}
-        />
-      </div>
     </div>
   );
 };
