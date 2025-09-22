@@ -52,7 +52,7 @@ const Footer: React.FC = () => {
             <h4 className="font-semibold text-background">Quick Links</h4>
             <nav className="space-y-2">
               <Link to="/about" className="block text-background/80 hover:text-primary transition-colors text-sm">
-                About Us
+                The Origin Of Beauty
               </Link>
               <Link to="/blog" className="block text-background/80 hover:text-primary transition-colors text-sm">
                 Trends & Tips
