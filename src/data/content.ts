@@ -223,13 +223,13 @@ export const categoryShowcaseContent = {
 
 export const navigationContent = {
   brand: {
-    name: "Ancient Shine",
+    name: "Sinceva",
     tagline: "Beauty redefined"
   },
   mainNavigation: [
     { name: 'Home', href: '/' },
     { name: 'Shop', href: '/shop', hasMegaMenu: true },
-    { name: 'The Origin of Beauty', href: '/about' },
+    { name: 'About', href: '/about' },
     { name: 'Blog', href: '/blog' },
     { name: 'Contact', href: '/contact' }
   ],
