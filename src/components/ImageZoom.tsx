@@ -28,15 +28,18 @@ const ImageZoom: React.FC<ImageZoomProps> = ({ images, currentIndex, onClose, on
   }, [currentIndex, images.length, onNavigate]);
 
   const handleTouchStart = (e: React.TouchEvent) => {
+    e.preventDefault();
     setTouchEnd(0);
     setTouchStart(e.targetTouches[0].clientX);
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
+    e.preventDefault();
     setTouchEnd(e.targetTouches[0].clientX);
   };
 
-  const handleTouchEnd = () => {
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    e.preventDefault();
     if (!touchStart || !touchEnd) return;
 
     const distance = touchStart - touchEnd;
@@ -49,6 +52,10 @@ const ImageZoom: React.FC<ImageZoomProps> = ({ images, currentIndex, onClose, on
     if (isRightSwipe && currentIndex !== null && currentIndex > 0) {
       handlePrevious();
     }
+
+    // Reset touch values
+    setTouchStart(0);
+    setTouchEnd(0);
   };
 
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
@@ -132,33 +139,45 @@ const ImageZoom: React.FC<ImageZoomProps> = ({ images, currentIndex, onClose, on
       />
 
       {/* Touch/Click Areas */}
-      <div className="absolute inset-0 flex">
+      <div className="absolute inset-0 flex" style={{ pointerEvents: 'none' }}>
         {/* Left area */}
         <div
           className="w-1/3 h-full cursor-pointer"
+          style={{ pointerEvents: 'auto' }}
           onClick={(e) => {
             e.stopPropagation();
             if (canGoPrevious) {
               handlePrevious();
             }
           }}
+          onTouchStart={(e) => e.stopPropagation()}
+          onTouchMove={(e) => e.stopPropagation()}
+          onTouchEnd={(e) => e.stopPropagation()}
         />
         
         {/* Center area - close on click */}
         <div
           className="flex-1 h-full cursor-pointer"
+          style={{ pointerEvents: 'auto' }}
           onClick={onClose}
+          onTouchStart={(e) => e.stopPropagation()}
+          onTouchMove={(e) => e.stopPropagation()}
+          onTouchEnd={(e) => e.stopPropagation()}
         />
         
         {/* Right area */}
         <div
           className="w-1/3 h-full cursor-pointer"
+          style={{ pointerEvents: 'auto' }}
           onClick={(e) => {
             e.stopPropagation();
             if (canGoNext) {
               handleNext();
             }
           }}
+          onTouchStart={(e) => e.stopPropagation()}
+          onTouchMove={(e) => e.stopPropagation()}
+          onTouchEnd={(e) => e.stopPropagation()}
         />
       </div>
     </div>
