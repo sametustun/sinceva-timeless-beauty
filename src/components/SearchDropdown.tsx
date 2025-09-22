@@ -20,7 +20,7 @@ const SearchDropdown: React.FC<SearchDropdownProps> = ({
   if (!isVisible) return null;
 
   return (
-    <div className="absolute top-full right-0 w-80 md:w-96 mt-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-xl z-[100] overflow-hidden">
+    <div className="absolute top-full right-0 w-80 md:w-96 mt-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-xl z-[100] overflow-hidden">
       {isLoading && (
         <div className="p-4 text-center text-gray-600 dark:text-gray-400">
           Searching...

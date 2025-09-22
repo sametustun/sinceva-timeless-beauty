@@ -34,9 +34,9 @@ const Search: React.FC = () => {
         subtitle={query ? `Results for "${query}"` : 'Search our products and blog posts'}
       />
       
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-4">
         {/* Search Form */}
-        <div className="max-w-2xl mx-auto mb-8">
+        <div className="max-w-2xl mx-auto mb-6">
           <form onSubmit={handleSearch} className="relative">
             <Input
               type="text"
@@ -57,7 +57,7 @@ const Search: React.FC = () => {
         {/* Results */}
         <div className="max-w-4xl mx-auto">
           {query && (
-            <div className="mb-6">
+            <div className="mb-4">
               <h2 className="text-lg font-semibold text-foreground">
                 {isLoading ? 'Searching...' : `${results.length} results found for "${query}"`}
               </h2>
@@ -77,12 +77,12 @@ const Search: React.FC = () => {
           )}
 
           {!isLoading && !error && results.length > 0 && (
-            <div className="space-y-6">
+            <div className="space-y-4">
               {results.map((result) => (
                 <Link
                   key={result.id}
                   to={result.url}
-                  className="block bg-card border border-border rounded-lg p-6 hover:shadow-md transition-shadow"
+                  className="block bg-card border border-border rounded-lg p-4 hover:shadow-md transition-shadow"
                 >
                   <div className="flex items-start space-x-4">
                     <div className="w-16 h-16 flex-shrink-0 bg-muted rounded-lg overflow-hidden">
