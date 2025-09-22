@@ -94,8 +94,8 @@ const CookiePolicyPage: React.FC = () => {
               If you have any questions about our Cookie Policy, please contact us:
             </p>
             <ul className="list-disc list-inside mt-2">
-              <li>Email: privacy@sinceva.com</li>
-              <li>Phone: +90 (212) 123 45 67</li>
+              <li>Email: info@sinceva.com</li>
+              <li>Phone: +90 (545) 378 21 30</li>
             </ul>
           </section>
 
