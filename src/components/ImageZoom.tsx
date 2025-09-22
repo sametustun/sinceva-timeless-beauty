@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useState, useRef } from 'react';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface ImageZoomProps {
@@ -9,6 +9,12 @@ interface ImageZoomProps {
 }
 
 const ImageZoom: React.FC<ImageZoomProps> = ({ images, currentIndex, onClose, onNavigate }) => {
+  const [touchStart, setTouchStart] = useState<number>(0);
+  const [touchEnd, setTouchEnd] = useState<number>(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const minSwipeDistance = 50;
+
   const handlePrevious = useCallback(() => {
     if (currentIndex !== null && currentIndex > 0) {
       onNavigate(currentIndex - 1);
@@ -20,6 +26,30 @@ const ImageZoom: React.FC<ImageZoomProps> = ({ images, currentIndex, onClose, on
       onNavigate(currentIndex + 1);
     }
   }, [currentIndex, images.length, onNavigate]);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(0);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe && currentIndex !== null && currentIndex < images.length - 1) {
+      handleNext();
+    }
+    if (isRightSwipe && currentIndex !== null && currentIndex > 0) {
+      handlePrevious();
+    }
+  };
 
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
     if (e.key === 'Escape') {
@@ -51,8 +81,12 @@ const ImageZoom: React.FC<ImageZoomProps> = ({ images, currentIndex, onClose, on
 
   return (
     <div 
+      ref={containerRef}
       className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center"
       onClick={onClose}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
     >
       {/* Close Button */}
       <button
@@ -94,20 +128,21 @@ const ImageZoom: React.FC<ImageZoomProps> = ({ images, currentIndex, onClose, on
         alt={`Product image ${currentIndex + 1}`}
         className="max-w-[90vw] max-h-[90vh] object-contain"
         onClick={(e) => e.stopPropagation()}
+        draggable={false}
       />
 
-      {/* Touch/Swipe Areas for Mobile */}
+      {/* Touch/Click Areas */}
       <div className="absolute inset-0 flex">
-        {/* Left touch area */}
-        {canGoPrevious && (
-          <div
-            className="w-1/3 h-full cursor-pointer"
-            onClick={(e) => {
-              e.stopPropagation();
+        {/* Left area */}
+        <div
+          className="w-1/3 h-full cursor-pointer"
+          onClick={(e) => {
+            e.stopPropagation();
+            if (canGoPrevious) {
               handlePrevious();
-            }}
-          />
-        )}
+            }
+          }}
+        />
         
         {/* Center area - close on click */}
         <div
@@ -115,16 +150,16 @@ const ImageZoom: React.FC<ImageZoomProps> = ({ images, currentIndex, onClose, on
           onClick={onClose}
         />
         
-        {/* Right touch area */}
-        {canGoNext && (
-          <div
-            className="w-1/3 h-full cursor-pointer"
-            onClick={(e) => {
-              e.stopPropagation();
+        {/* Right area */}
+        <div
+          className="w-1/3 h-full cursor-pointer"
+          onClick={(e) => {
+            e.stopPropagation();
+            if (canGoNext) {
               handleNext();
-            }}
-          />
-        )}
+            }
+          }}
+        />
       </div>
     </div>
   );
