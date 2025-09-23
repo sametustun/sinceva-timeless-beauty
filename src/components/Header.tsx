@@ -28,6 +28,14 @@ const Header: React.FC = () => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       
+      // Close glass effect menus immediately when scrolling 2px or more
+      if (currentScrollY >= 2) {
+        setShowMegaMenu(false);
+        setShowSearch(false);
+        setShowSearchDropdown(false);
+        setIsMobileMenuOpen(false);
+      }
+      
       // Check if we're at the top
       const isAtTop = currentScrollY < 10;
       
