@@ -5,6 +5,8 @@ import { AspectRatio } from '@/components/ui/aspect-ratio';
 import heroSkincare from '@/assets/hero-skincare.jpg';
 import antiAgingBanner from '@/assets/anti aging kategori.jpg';
 import cleansingBanner from '@/assets/cleansing kategori.jpg';
+import gozKremiBanner from '@/assets/göz_kremi_banner.jpg';
+import gozKremiBannerMobile from '@/assets/göz_kremi_banner_mobile.jpg';
 
 interface HeroSliderProps {
   className?: string;
@@ -19,21 +21,24 @@ const HeroSlider: React.FC<HeroSliderProps> = ({ className = '' }) => {
   const [slideOffset, setSlideOffset] = useState(0);
   const sliderRef = useRef<HTMLDivElement>(null);
 
-  // Hero slide images - using existing assets
+  // Hero slide images - support desktop and mobile versions
   const slides = [
     {
       id: 1,
-      image: heroSkincare,
-      alt: "Sinceva Premium Skincare Collection"
+      image: gozKremiBanner,
+      imageMobile: gozKremiBannerMobile,
+      alt: "Göz Kremi - Eye Cream Collection"
     },
     {
       id: 2,
       image: antiAgingBanner,
+      imageMobile: antiAgingBanner,
       alt: "Anti-Aging Skincare Solutions"
     },
     {
       id: 3,
       image: cleansingBanner,
+      imageMobile: cleansingBanner,
       alt: "Face & Skin Cleansing Products"
     }
   ];
@@ -170,7 +175,7 @@ const HeroSlider: React.FC<HeroSliderProps> = ({ className = '' }) => {
                 }}
               >
                 <img 
-                  src={slide.image} 
+                  src={slide.imageMobile} 
                   alt={slide.alt} 
                   className="w-full h-full object-cover pointer-events-none"
                   draggable={false}
