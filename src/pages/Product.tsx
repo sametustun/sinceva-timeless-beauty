@@ -96,23 +96,23 @@ const Product: React.FC = () => {
   const getProductGallery = (productName: string, heroImg: string): string[] => {
     switch (productName) {
       case 'Sinceva Brightening Vitamin C Serum 30 ml':
-        return [heroImg, vitcUrun2, vitcUrun3, zherUrun4, vitcUrun5, vitcUrun6];
+        return [vitcUrun2, vitcUrun3, zherUrun4, vitcUrun5, vitcUrun6];
       case 'Sinceva Anti-Spot Arbutin Serum 30 ml':
-        return [heroImg, arbutinUrun2, arbutinUrun3, zherUrun4, arbutinUrun5, arbutinUrun6];
+        return [arbutinUrun2, arbutinUrun3, zherUrun4, arbutinUrun5, arbutinUrun6];
       case 'Sinceva Anti-Wrinkle Eye Cream 20 ml':
-        return [heroImg, gozUrun2, gozUrun3, zherUrun4, gozUrun5, gozUrun6];
+        return [gozUrun2, gozUrun3, zherUrun4, gozUrun5, gozUrun6];
       case 'Sinceva Anti-Aging Night Cream 50 ml':
-        return [heroImg, geceUrun2, geceUrun3, zherUrun4, geceUrun5, geceUrun6];
+        return [geceUrun2, geceUrun3, zherUrun4, geceUrun5, geceUrun6];
       case 'Sinceva Skin Renewing Tonic 200 ml':
-        return [heroImg, tonikUrun2, tonikUrun3, zherUrun4, tonikUrun5, tonikUrun6];
+        return [tonikUrun2, tonikUrun3, zherUrun4, tonikUrun5, tonikUrun6];
       case 'Sinceva Purifying Peeling Cream Scrub 200 ml':
-        return [heroImg, peelingUrun2, peelingUrun3, zherUrun4, peelingUrun5, peelingUrun6];
+        return [peelingUrun2, peelingUrun3, zherUrun4, peelingUrun5, peelingUrun6];
       case 'Sinceva Purifying Face Cleansing Foam 200 ml':
-        return [heroImg, yuzUrun2, yuzUrun3, zherUrun4, yuzUrun5, yuzUrun6];
+        return [yuzUrun2, yuzUrun3, zherUrun4, yuzUrun5, yuzUrun6];
       case 'Sinceva SPF 50+ Daily SunCare Cream 100 ml':
-        return [heroImg, gunesUrun2, gunesUrun3, zherUrun4, gunesUrun5, gunesUrun6];
+        return [gunesUrun2, gunesUrun3, zherUrun4, gunesUrun5, gunesUrun6];
       case 'Sinceva Hyaluronic Acid Moisturizing Cream 50 ml':
-        return [heroImg, nemlendiriciUrun2, nemlendiriciUrun3, zherUrun4, nemlendiriciUrun5, nemlendiriciUrun6];
+        return [nemlendiriciUrun2, nemlendiriciUrun3, zherUrun4, nemlendiriciUrun5, nemlendiriciUrun6];
       default:
         return [heroImg];
     }
