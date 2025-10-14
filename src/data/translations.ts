@@ -8,6 +8,17 @@ export const translations = {
     discoverProducts: 'Discover Sinceva Products',
     productNotFound: 'Product Not Found',
     productNotFoundDesc: 'The requested product could not be found.',
+    productNames: {
+      1: 'Sinceva Brightening Vitamin C Serum 30 ml',
+      2: 'Sinceva Anti-Spot Arbutin Serum 30 ml',
+      3: 'Sinceva Anti-Wrinkle Eye Cream 20 ml',
+      4: 'Sinceva Anti-Aging Night Cream 50 ml',
+      5: 'Sinceva Skin Renewing Tonic 200 ml',
+      6: 'Sinceva Purifying Peeling Cream Scrub 200 ml',
+      7: 'Sinceva Purifying Face Cleansing Foam 200 ml',
+      8: 'Sinceva SPF 50+ Daily SunCare Cream 100 ml',
+      9: 'Sinceva Hyaluronic Acid Moisturizing Cream 50 ml',
+    }
   },
   tr: {
     productDetails: 'Ürün Detayları',
@@ -18,6 +29,17 @@ export const translations = {
     discoverProducts: 'Sinceva Ürünlerini Keşfedin',
     productNotFound: 'Ürün Bulunamadı',
     productNotFoundDesc: 'İstenen ürün bulunamadı.',
+    productNames: {
+      1: 'Sinceva Aydınlatıcı Vitamin C Serum 30 ml',
+      2: 'Sinceva Leke Karşıtı Arbutin Serum 30 ml',
+      3: 'Sinceva Kırışıklık Karşıtı Göz Kremi 20 ml',
+      4: 'Sinceva Yaşlanma Karşıtı Gece Kremi 50 ml',
+      5: 'Sinceva Cilt Yenileyici Tonik 200 ml',
+      6: 'Sinceva Arındırıcı Peeling Krem Scrub 200 ml',
+      7: 'Sinceva Arındırıcı Yüz Temizleme Köpüğü 200 ml',
+      8: 'Sinceva SPF 50+ Günlük Güneş Koruyucu Krem 100 ml',
+      9: 'Sinceva Hyaluronik Asit Nemlendirici Krem 50 ml',
+    }
   },
   ar: {
     productDetails: 'تفاصيل المنتج',
@@ -28,5 +50,16 @@ export const translations = {
     discoverProducts: 'اكتشف منتجات سينسإيفا',
     productNotFound: 'المنتج غير موجود',
     productNotFoundDesc: 'المنتج المطلوب غير موجود.',
+    productNames: {
+      1: 'سيروم سينسإيفا المشرق بفيتامين سي 30 مل',
+      2: 'سيروم سينسإيفا المضاد للبقع بالأربوتين 30 مل',
+      3: 'كريم سينسإيفا المضاد للتجاعيد لمحيط العين 20 مل',
+      4: 'كريم سينسإيفا الليلي المضاد لعلامات التقدم بالعمر 50 مل',
+      5: 'تونر سينسإيفا لتجديد البشرة 200 مل',
+      6: 'سكراب كريم سينسإيفا المنقي للبشرة 200 مل',
+      7: 'رغوة سينسإيفا المنقية لتنظيف الوجه 200 مل',
+      8: 'كريم سينسإيفا للحماية اليومية من الشمس SPF 50+ 100 مل',
+      9: 'كريم سينسإيفا المرطب بحمض الهيالورونيك 50 مل',
+    }
   },
 };

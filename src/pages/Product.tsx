@@ -255,7 +255,9 @@ const Product: React.FC = () => {
       <div className="container mx-auto max-w-7xl px-4 py-8">
         {/* Product Header Info */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-[#191919] mb-4">{product.name}</h1>
+          <h1 className="text-3xl font-bold text-[#191919] mb-4">
+            {t.productNames?.[product.id as keyof typeof t.productNames] || product.name}
+          </h1>
           
         </div>
 
