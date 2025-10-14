@@ -145,6 +145,30 @@ export const productDetailsEN: ProductDetailsMap = {
       }
     ]
   },
+  7: {
+    productId: 7,
+    details: `SincEva Facial Cleansing Foam gently cleanses the skin without drying it out, leaving it fresh and revitalized. Its rich foam texture effectively removes dirt, excess oil, and makeup residues from pores. Aloe Vera soothes the skin, while Apple Fruit Extract (Pyrus Malus), rich in malic acid and natural antioxidants, promotes skin renewal, balances tone, and enhances radiance. With daily use, the skin feels clean, soft, and refreshed.`,
+    ingredients: `Aqua, Cocamidopropyl Betaine, Sodium Cocoyl Isethionate, Glycerin, Phenoxyethanol, Sodium Lauroyl Sarcosinate, Ethylhexylglycerin, Panthenol, Citric Acid, PEG-7 Glyceryl Cocoate, Coco-Glucoside, Glyceryl Oleate, Lactobacillus Lysate, Pyrus Malus (Apple) Fruit Extract, Aloe Barbadensis Leaf Juice, Ananas Sativus (Pineapple) Fruit Extract, Citrus Aurantifolia (Lime) Fruit Extract, Passiflora Edulis (Passion Fruit) Fruit Extract, Sodium Benzoate, Potassium Sorbate, Benzyl Alcohol, Benzoic Acid, Dehydroacetic Acid.`,
+    howToUse: `Apply an adequate amount to wet skin, lather, and gently massage in circular motions. Rinse thoroughly with lukewarm water. Use twice daily, morning and evening.`,
+    faqs: [
+      {
+        question: 'Does it dry the skin?',
+        answer: "No, its gentle formula cleanses without stripping moisture and helps maintain the skin's balance."
+      },
+      {
+        question: 'What is the role of Apple Extract?',
+        answer: 'It rejuvenates the skin surface with malic acid and antioxidants, enhancing radiance and vitality.'
+      },
+      {
+        question: 'Can it be used around the eyes?',
+        answer: 'Avoid direct contact with the eyes; can be used gently near the eye area.'
+      },
+      {
+        question: 'What skin types is it suitable for?',
+        answer: 'Suitable for all skin types, especially refreshing for combination and oily skin.'
+      }
+    ]
+  },
   8: {
     productId: 8,
     details: `SincEva SPF 50 Sunscreen provides broad-spectrum protection against harmful UVA and UVB rays with its advanced lightweight formula. It absorbs easily without leaving a greasy residue, offering a soft and smooth finish. Aloe Vera soothes the skin, Panthenol strengthens the moisture barrier, and Apple Fruit Extract (Pyrus Malus) — rich in malic acid and antioxidants — helps rejuvenate and protect the skin from environmental stress. With regular use, it leaves the skin hydrated, healthy, and perfectly protected from the sun.`,
