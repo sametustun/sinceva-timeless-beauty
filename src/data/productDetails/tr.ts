@@ -72,5 +72,29 @@ export const productDetailsTR: ProductDetailsMap = {
         answer: 'Hassas ciltlerde ilk kullanımda hafif karıncalanma veya kızarıklık olabilir; bu durum cildin alışma sürecidir.'
       }
     ]
+  },
+  9: {
+    productId: 9,
+    details: `SincEva Hyaluronik Asit Nemlendirici Krem, cildi derinlemesine nemlendirir ve anında pürüzsüz bir görünüm kazandırır. Hyaluronik Asit, cilt tabakalarının her birinde suyu tutarak uzun süreli nem sağlar. Pantenol, cilt bariyerini güçlendirirken kuruluk kaynaklı gerginlik hissini azaltır. Formüldeki Elma Özü (Pyrus Malus Fruit Extract), malik asit ve doğal antioksidanlar sayesinde cildin yenilenmesini destekler, cildin tazelik ve ışıltısını artırır. Hafif dokusu ile hızla emilen krem, yağlı his bırakmaz ve günlük bakım için idealdir.`,
+    ingredients: `Aqua, Isopropyl Myristate, Glycerin, Propylene Glycol, Sodium Acrylates Copolymer, Phenoxyethanol, Lecithin, Sodium Hyaluronate, Lactobacillus Lysate, Panthenol, Ethylhexylglycerin, Ananas Sativus (Pineapple) Fruit Extract, Pyrus Malus (Apple) Fruit Extract, Citrus Aurantifolia (Lime) Fruit Extract, Passiflora Edulis (Passion Fruit) Fruit Extract, Aroma, Benzyl Alcohol, Benzoic Acid, Dehydroacetic Acid.`,
+    howToUse: `Temiz ve kuru cildinize sabah ve akşam olmak üzere günde iki kez yeterli miktarda kremi dairesel hareketlerle masaj yaparak uygulayınız. Durulama gerektirmez.`,
+    faqs: [
+      {
+        question: 'Hyaluronik asit ne işe yarar?',
+        answer: 'Cildin nem tutma kapasitesini artırır, dolgun ve pürüzsüz bir görünüm sağlar.'
+      },
+      {
+        question: 'Elma özünün etkisi nedir?',
+        answer: 'Malik asit içeriğiyle cilt yenilenmesini destekler ve antioksidanlar sayesinde cildi çevresel etkenlere karşı korur.'
+      },
+      {
+        question: 'Gündüz mü gece mi kullanılmalı?',
+        answer: 'Günlük bakım için hem sabah hem gece kullanıma uygundur.'
+      },
+      {
+        question: 'Hangi cilt tipleri için uygundur?',
+        answer: 'Tüm cilt tipleri için uygundur, özellikle kuru ve nemsiz ciltler için idealdir.'
+      }
+    ]
   }
 };

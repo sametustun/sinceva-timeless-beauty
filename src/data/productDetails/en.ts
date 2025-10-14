@@ -72,5 +72,29 @@ export const productDetailsEN: ProductDetailsMap = {
         answer: 'Mild tingling or redness may occur initially, which is normal as the skin adapts.'
       }
     ]
+  },
+  9: {
+    productId: 9,
+    details: `SincEva Hyaluronic Acid Moisturizing Cream deeply hydrates the skin and provides an instantly smoother appearance. Hyaluronic Acid locks in moisture across all skin layers, ensuring long-lasting hydration. Panthenol reinforces the skin barrier and soothes dryness-induced tightness. Apple Fruit Extract (Pyrus Malus), rich in malic acid and natural antioxidants, supports skin renewal, leaving it fresh and radiant. Its lightweight texture absorbs quickly without greasiness, making it perfect for daily use.`,
+    ingredients: `Aqua, Isopropyl Myristate, Glycerin, Propylene Glycol, Sodium Acrylates Copolymer, Phenoxyethanol, Lecithin, Sodium Hyaluronate, Lactobacillus Lysate, Panthenol, Ethylhexylglycerin, Ananas Sativus (Pineapple) Fruit Extract, Pyrus Malus (Apple) Fruit Extract, Citrus Aurantifolia (Lime) Fruit Extract, Passiflora Edulis (Passion Fruit) Fruit Extract, Aroma, Benzyl Alcohol, Benzoic Acid, Dehydroacetic Acid.`,
+    howToUse: `Apply twice daily, morning and evening, to clean and dry skin. Gently massage in circular motions until fully absorbed. No rinsing required.`,
+    faqs: [
+      {
+        question: 'What does Hyaluronic Acid do?',
+        answer: "It boosts the skin's ability to retain moisture, leaving it plump and smooth."
+      },
+      {
+        question: 'What is the benefit of Apple Extract?',
+        answer: 'It promotes cell renewal and provides antioxidant protection against environmental stress.'
+      },
+      {
+        question: 'When should it be used?',
+        answer: 'Suitable for daily use, both morning and night.'
+      },
+      {
+        question: 'Is it suitable for all skin types?',
+        answer: 'Yes, especially effective for dry or dehydrated skin.'
+      }
+    ]
   }
 };
