@@ -8,8 +8,12 @@ import { MapPin, Phone, Mail, Clock } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import contactBanner from '@/assets/contact_banner.jpg';
 import contactBannerMobile from '@/assets/contact_banner_mobile.jpg';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { translations } from '@/data/translations';
 
 const Contact: React.FC = () => {
+  const { language } = useLanguage();
+  const t = translations[language];
   const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: '',
@@ -35,8 +39,8 @@ const Contact: React.FC = () => {
       console.log('Form submitted:', formData);
       
       toast({
-        title: "Message Sent Successfully",
-        description: "We'll get back to you within 24 hours.",
+        title: t.messageSentSuccess,
+        description: t.messageSentDesc,
       });
 
       // Reset form
@@ -58,31 +62,31 @@ const Contact: React.FC = () => {
   const contactInfo = [
     {
       icon: MapPin,
-      title: 'Address',
-      content: 'Beauty District, Cosmetics Avenue\nSkincare Plaza, 12345'
+      title: t.address,
+      content: t.addressContent
     },
     {
       icon: Phone,
-      title: 'Phone',
-      content: '+1 (555) 123-4567'
+      title: t.phone,
+      content: t.phoneContent
     },
     {
       icon: Mail,
-      title: 'Email',
-      content: 'info@sinceva.com'
+      title: t.email,
+      content: t.emailContent
     },
     {
       icon: Clock,
-      title: 'Business Hours',
-      content: 'Mon - Fri: 9:00 AM - 6:00 PM\nSat - Sun: 10:00 AM - 4:00 PM'
+      title: t.businessHours,
+      content: t.hoursContent
     },
   ];
 
   return (
     <Layout>
       <PageHero 
-        title="Contact Us"
-        subtitle="Have questions about our products or need skincare advice? We're here to help you on your beauty journey."
+        title={t.contactUs}
+        subtitle={t.contactSubtitle}
         backgroundImage={contactBanner}
         backgroundImageMobile={contactBannerMobile}
       />
@@ -92,12 +96,12 @@ const Contact: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           {/* Contact Form */}
           <div>
-            <h2 className="text-2xl font-semibold mb-8">Send us a Message</h2>
+            <h2 className="text-2xl font-semibold mb-8">{t.sendMessage}</h2>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium mb-2">
-                    Full Name *
+                    {t.fullName} *
                   </label>
                   <Input
                     id="name"
@@ -106,13 +110,13 @@ const Contact: React.FC = () => {
                     value={formData.name}
                     onChange={handleInputChange}
                     required
-                    placeholder="Enter your full name"
+                    placeholder={t.enterFullName}
                   />
                 </div>
                 
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium mb-2">
-                    Email Address *
+                    {t.emailAddress} *
                   </label>
                   <Input
                     id="email"
@@ -121,14 +125,14 @@ const Contact: React.FC = () => {
                     value={formData.email}
                     onChange={handleInputChange}
                     required
-                    placeholder="Enter your email"
+                    placeholder={t.enterEmailPlaceholder}
                   />
                 </div>
               </div>
 
               <div>
                 <label htmlFor="subject" className="block text-sm font-medium mb-2">
-                  Subject *
+                  {t.subject} *
                 </label>
                 <Input
                   id="subject"
@@ -137,13 +141,13 @@ const Contact: React.FC = () => {
                   value={formData.subject}
                   onChange={handleInputChange}
                   required
-                  placeholder="What is your message about?"
+                  placeholder={t.subjectPlaceholder}
                 />
               </div>
 
               <div>
                 <label htmlFor="message" className="block text-sm font-medium mb-2">
-                  Message *
+                  {t.message} *
                 </label>
                 <Textarea
                   id="message"
@@ -151,20 +155,20 @@ const Contact: React.FC = () => {
                   value={formData.message}
                   onChange={handleInputChange}
                   required
-                  placeholder="Tell us how we can help you..."
+                  placeholder={t.messagePlaceholder}
                   className="min-h-[120px]"
                 />
               </div>
 
               <Button type="submit" className="w-full">
-                Send Message
+                {t.sendMessageBtn}
               </Button>
             </form>
           </div>
 
           {/* Contact Information */}
           <div className="space-y-8">
-            <h2 className="text-2xl font-semibold">Get in Touch</h2>
+            <h2 className="text-2xl font-semibold">{t.getInTouch}</h2>
             
             <div className="space-y-6">
               {contactInfo.map((info, index) => {
@@ -185,12 +189,12 @@ const Contact: React.FC = () => {
 
             {/* Map Placeholder */}
             <div className="mt-8">
-              <h3 className="text-lg font-semibold mb-4">Visit Our Store</h3>
+              <h3 className="text-lg font-semibold mb-4">{t.visitStore}</h3>
               <div className="aspect-video bg-muted rounded-lg flex items-center justify-center">
                 <div className="text-center text-muted-foreground">
                   <MapPin className="w-12 h-12 mx-auto mb-2" />
-                  <p>Interactive Map</p>
-                  <p className="text-sm">Google Maps integration would go here</p>
+                  <p>{t.interactiveMap}</p>
+                  <p className="text-sm">{t.mapIntegration}</p>
                 </div>
               </div>
             </div>

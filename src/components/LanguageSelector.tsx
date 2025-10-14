@@ -34,19 +34,19 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({ isScrolled }) => {
           }`}
           aria-label="Select Language"
         >
-          <span className="text-lg font-medium">
+          <span className="text-2xl">
             {currentLanguage?.flag}
           </span>
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-40">
+      <DropdownMenuContent align="end" className="w-40 bg-white z-50">
         {languages.map((lang) => (
           <DropdownMenuItem
             key={lang.code}
             onClick={() => setLanguage(lang.code)}
             className={`cursor-pointer ${language === lang.code ? 'bg-accent' : ''}`}
           >
-            <span className="mr-2">{lang.flag}</span>
+            <span className="mr-2 text-lg">{lang.flag}</span>
             {lang.label}
           </DropdownMenuItem>
         ))}

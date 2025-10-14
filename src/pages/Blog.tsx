@@ -6,17 +6,21 @@ import { Input } from '@/components/ui/input';
 import { Search, Calendar, User, ArrowRight } from 'lucide-react';
 import tipsBanner from '@/assets/tips_banner.jpg';
 import tipsBannerMobile from '@/assets/tips_banner_mobile.jpg';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { translations } from '@/data/translations';
 
 const Blog: React.FC = () => {
+  const { language } = useLanguage();
+  const t = translations[language];
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
 
   const categories = [
-    { id: 'all', name: 'All Posts' },
-    { id: 'skincare-tips', name: 'Skincare Tips' },
-    { id: 'anti-aging', name: 'Anti-Aging' },
-    { id: 'seasonal-care', name: 'Seasonal Care' },
-    { id: 'ingredient-focus', name: 'Ingredient Focus' },
+    { id: 'all', name: t.allPosts },
+    { id: 'skincare-tips', name: t.skincareTips },
+    { id: 'anti-aging', name: t.antiAging },
+    { id: 'seasonal-care', name: t.seasonalCare },
+    { id: 'ingredient-focus', name: t.ingredientFocus },
   ];
 
   const blogPosts = [
@@ -72,8 +76,8 @@ const Blog: React.FC = () => {
   return (
     <Layout>
       <PageHero 
-        title="Trends & Tips"
-        subtitle="Discover the latest in skincare trends, expert tips, and beauty insights to enhance your daily routine."
+        title={t.blogTitle}
+        subtitle={t.blogSubtitle}
         backgroundImage={tipsBanner}
         backgroundImageMobile={tipsBannerMobile}
       />
@@ -86,7 +90,7 @@ const Blog: React.FC = () => {
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
             <Input
               type="text"
-              placeholder="Search articles..."
+              placeholder={t.searchArticles}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -148,7 +152,7 @@ const Blog: React.FC = () => {
                     <div className="flex items-center justify-between mt-auto">
                       <span className="text-sm text-black/60">{post.readTime}</span>
                       <div className="flex items-center gap-1 text-primary text-sm font-medium group-hover:gap-2 transition-all">
-                        Read More
+                        {t.readMore}
                         <ArrowRight className="w-4 h-4" />
                       </div>
                     </div>
@@ -162,7 +166,7 @@ const Blog: React.FC = () => {
         {filteredPosts.length === 0 && (
           <div className="text-center py-16">
             <p className="text-muted-foreground text-lg">
-              No articles found matching your search criteria.
+              {t.noArticles}
             </p>
           </div>
         )}

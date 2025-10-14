@@ -1,12 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { navigationContent } from '@/data/content';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { translations } from '@/data/translations';
 
 interface MegaMenuProps {
   isVisible: boolean;
 }
 
 const MegaMenu: React.FC<MegaMenuProps> = ({ isVisible }) => {
+  const { language } = useLanguage();
+  const t = translations[language];
+  
   if (!isVisible) return null;
 
   return (

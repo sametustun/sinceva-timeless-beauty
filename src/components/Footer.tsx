@@ -4,8 +4,12 @@ import { Instagram, Facebook, Twitter, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { logoContent, footerContent } from '@/data/content';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { translations } from '@/data/translations';
 
 const Footer: React.FC = () => {
+  const { language } = useLanguage();
+  const t = translations[language];
   const [email, setEmail] = useState('');
 
   const handleNewsletterSubmit = (e: React.FormEvent) => {
@@ -32,7 +36,7 @@ const Footer: React.FC = () => {
             </div>
             <h3 className="md:hidden text-2xl font-bold tracking-wider">SINCEVA</h3>
             <p className="text-background/80 text-sm">
-              The Origin of Beauty - Premium skincare for timeless elegance.
+              {t.theOriginOfBeauty} - Premium skincare for timeless elegance.
             </p>
             <div className="flex space-x-4">
               <a href="#" className="text-background/60 hover:text-primary transition-colors">
@@ -49,49 +53,52 @@ const Footer: React.FC = () => {
 
           {/* Quick Links */}
           <div className="space-y-4">
-            <h4 className="font-semibold text-background">Quick Links</h4>
+            <h4 className="font-semibold text-background">{t.quickLinks}</h4>
             <nav className="space-y-2">
               <Link to="/about" className="block text-background/80 hover:text-primary transition-colors text-sm">
-                The Origin Of Beauty
+                {t.theOriginOfBeauty}
               </Link>
               <Link to="/blog" className="block text-background/80 hover:text-primary transition-colors text-sm">
-                Trends & Tips
+                {t.trendsAndTips}
               </Link>
               <Link to="/contact" className="block text-background/80 hover:text-primary transition-colors text-sm">
-                Contact
+                {t.contact}
               </Link>
               <Link to="/shop" className="block text-background/80 hover:text-primary transition-colors text-sm">
-                Shop
+                {t.shop}
               </Link>
             </nav>
           </div>
 
           {/* Policies */}
           <div className="space-y-4">
-            <h4 className="font-semibold text-background">Policies</h4>
+            <h4 className="font-semibold text-background">{t.policies}</h4>
             <nav className="space-y-2">
-              {footerContent.policies.map((policy) => (
-                <Link 
-                  key={policy.href}
-                  to={policy.href} 
-                  className="block text-background/80 hover:text-primary transition-colors text-sm"
-                >
-                  {policy.name}
-                </Link>
-              ))}
+              <Link to="/privacy" className="block text-background/80 hover:text-primary transition-colors text-sm">
+                {t.privacyPolicy}
+              </Link>
+              <Link to="/cookie-policy" className="block text-background/80 hover:text-primary transition-colors text-sm">
+                {t.cookiePolicy}
+              </Link>
+              <Link to="/terms" className="block text-background/80 hover:text-primary transition-colors text-sm">
+                {t.termsAndConditions}
+              </Link>
+              <Link to="/consumer-ratings" className="block text-background/80 hover:text-primary transition-colors text-sm">
+                {t.consumerReviewRules}
+              </Link>
             </nav>
           </div>
 
           {/* Newsletter */}
           <div className="space-y-4">
-            <h4 className="font-semibold text-background">Stay Connected</h4>
+            <h4 className="font-semibold text-background">{t.stayConnected}</h4>
             <p className="text-background/80 text-sm">
-              Subscribe to get beauty tips and exclusive offers.
+              {t.newsletterDesc}
             </p>
             <form onSubmit={handleNewsletterSubmit} className="space-y-3">
               <Input
                 type="email"
-                placeholder="Enter your email"
+                placeholder={t.enterEmail}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="bg-background/10 border-background/20 text-background placeholder:text-background/60"
@@ -103,7 +110,7 @@ const Footer: React.FC = () => {
                 className="w-full bg-primary hover:bg-primary-dark"
               >
                 <Mail className="w-4 h-4 mr-2" />
-                Subscribe
+                {t.subscribe}
               </Button>
             </form>
           </div>
@@ -112,10 +119,10 @@ const Footer: React.FC = () => {
         <div className="border-t border-background/20 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-background/60 text-sm">
-              © {new Date().getFullYear()} SAFI COSMETIC LIMITED COMPANY. All rights reserved.
+              © {new Date().getFullYear()} SAFI COSMETIC LIMITED COMPANY. {t.allRightsReserved}
             </p>
             <p className="text-background/60 text-sm">
-              Crafted for timeless beauty and elegance.
+              {t.craftedFor}
             </p>
           </div>
         </div>
