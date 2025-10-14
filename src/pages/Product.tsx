@@ -14,6 +14,7 @@ import Breadcrumb from '@/components/Breadcrumb';
 import ImageZoom from '@/components/ImageZoom';
 import { allProductsContent } from '@/data/content';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { productDetails } from '@/data/productDetails';
 
 // Import hero images
 import cvitHero from '@/assets/cvit-01.png';
@@ -146,8 +147,14 @@ const Product: React.FC = () => {
     }
   ];
 
-  // Mock FAQ questions
-  const faqQuestions = [
+  // Get current language (default to 'en' for now, will be dynamic later)
+  const currentLanguage = 'en';
+  
+  // Get product-specific content
+  const productContent = product ? productDetails[currentLanguage][product.id] : null;
+  
+  // FAQ questions - use product-specific or fallback
+  const faqQuestions = productContent?.faqs || [
     {
       question: 'Is this product suitable for sensitive skin?',
       answer: 'Yes, our products are dermatologically tested and suitable for all skin types including sensitive skin.'
@@ -166,22 +173,22 @@ const Product: React.FC = () => {
     }
   ];
 
-  // Mock accordion content
+  // Accordion content - use product-specific or fallback
   const accordionContent = [
     {
       value: 'details',
       title: 'Product Details',
-      content: product?.description + ' This premium product is formulated with the finest ingredients to deliver exceptional results. Our advanced formula is designed to meet your specific skincare needs while being gentle on all skin types.'
+      content: productContent?.details || (product?.description + ' This premium product is formulated with the finest ingredients to deliver exceptional results. Our advanced formula is designed to meet your specific skincare needs while being gentle on all skin types.')
     },
     {
       value: 'ingredients',
       title: 'Ingredients',
-      content: 'Aqua, Glycerin, Sodium Hyaluronate, Vitamin C, Niacinamide, Ceramides, Peptides, Botanical Extracts. All ingredients are carefully selected and tested for purity and effectiveness.'
+      content: productContent?.ingredients || 'Aqua, Glycerin, Sodium Hyaluronate, Vitamin C, Niacinamide, Ceramides, Peptides, Botanical Extracts. All ingredients are carefully selected and tested for purity and effectiveness.'
     },
     {
       value: 'howto',
       title: 'How To Use',
-      content: 'Apply a small amount to clean, dry skin. Gently massage in circular motions until fully absorbed. Use twice daily for best results. Always apply sunscreen during the day when using this product.'
+      content: productContent?.howToUse || 'Apply a small amount to clean, dry skin. Gently massage in circular motions until fully absorbed. Use twice daily for best results. Always apply sunscreen during the day when using this product.'
     },
     {
       value: 'faq',
