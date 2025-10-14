@@ -97,6 +97,30 @@ export const productDetailsTR: ProductDetailsMap = {
       }
     ]
   },
+  5: {
+    productId: 5,
+    details: `SincEva Cilt Yenileyici Tonik, cildi derinlemesine temizleyip arındırırken gözenek görünümünün azalmasına ve sebum dengesinin korunmasına yardımcı olur. Formülündeki %5 Glikolik Asit ve AHA kompleksi (Glikolik, Malik, Laktik, Tartarik, Sitrik Asit), cilt yüzeyindeki ölü hücreleri nazikçe uzaklaştırarak yenilenmiş, canlı bir cilt dokusu oluşturur. Elma Özü (Pyrus Malus Fruit Extract) içeriği sayesinde malik asit ve antioksidan bakımından zengin doğal bir peeling etkisi sağlar, ciltteki donuk görünümü giderir ve doğal parlaklığı geri kazandırır. Düzenli kullanımda cilt daha pürüzsüz, dengeli ve taze bir görünüme kavuşur.`,
+    ingredients: `Aqua, Glycolic Acid, Propylene Glycol, Triethanolamine, Phenoxyethanol, Glucose, Urea, Panthenol, 3-O-Ethyl Ascorbic Acid, Lactobacillus Lysate, Fructose, Hydrogenated Starch Hydrolysate, Sodium PCA, PEG-40 Hydrogenated Castor Oil, Glycine, Hydrolyzed Wheat Protein, Sodium Glutamate, Ethylhexylglycerin, Glycerin, Tetrasodium EDTA, Ananas Sativus (Pineapple) Fruit Extract, Pyrus Malus (Apple) Fruit Extract, Aroma, Sodium Benzoate, Citric Acid, Lactic Acid, Lysine, Malic Acid, Potassium Hydroxide, Potassium Sorbate, Sodium Hydroxide, Tartaric Acid, Citrus Aurantifolia (Lime) Fruit Extract, Passiflora Edulis (Passion Fruit) Fruit Extract, Benzyl Alcohol, Benzoic Acid, Dehydroacetic Acid, CI 17200.`,
+    howToUse: `Cildinizi temizledikten sonra, yeterli miktarda toniği bir pamuk yardımıyla kuru cildinize uygulayınız. Uygulama sonrası durulama gerektirmez. Gündüz kullanımlarında, mutlaka güneş koruyucu ile birlikte kullanılması tavsiye edilir.`,
+    faqs: [
+      {
+        question: 'Bu tonik hangi cilt tipleri için uygundur?',
+        answer: 'Yağlı, karma ve normal ciltler için uygundur. Hassas ciltlerde haftada 2-3 kez kullanılması önerilir.'
+      },
+      {
+        question: 'Elma özü ne işe yarar?',
+        answer: 'Elma özü, malik asit ve antioksidanlar açısından zengindir; cilt yenilenmesini destekler ve ciltteki donukluğu giderir.'
+      },
+      {
+        question: 'Ciltte yanma yapar mı?',
+        answer: 'Hafif karıncalanma normaldir; aşırı yanma veya kızarıklık hissederseniz kullanımı durdurunuz.'
+      },
+      {
+        question: 'Gündüz kullanılabilir mi?',
+        answer: 'Evet, ancak güneş koruyucu ile birlikte kullanılmalıdır.'
+      }
+    ]
+  },
   6: {
     productId: 6,
     details: `SincEva Peeling Scrub Cream, cildi nazikçe arındırarak ölü deri hücrelerini uzaklaştırır ve daha pürüzsüz, aydınlık bir görünüm kazandırır. Formülündeki doğal AHA kaynakları olan Elma Özü (Pyrus Malus Fruit Extract), Lime ve Ananas Ekstraktları, cilt yüzeyindeki kir, fazla yağ ve makyaj kalıntılarını etkili biçimde temizler. Malik asit, askorbik asit ve glikolik asit içeriğiyle gözeneklerin sıkılaşmasına, cildin daha canlı ve taze bir görünüme kavuşmasına yardımcı olur. Düzenli kullanımda cilt dokusu yenilenir, cilt tonu dengelenir ve ışıltılı bir parlaklık kazanır.`,

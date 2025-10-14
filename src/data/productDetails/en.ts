@@ -97,6 +97,30 @@ export const productDetailsEN: ProductDetailsMap = {
       }
     ]
   },
+  5: {
+    productId: 5,
+    details: `SincEva Skin Corrector Toner deeply cleanses the skin while helping reduce the appearance of pores and balance sebum levels. Its formula enriched with 5% Glycolic Acid and an AHA complex (Glycolic, Malic, Lactic, Tartaric, Citric Acids) gently removes dead skin cells, leaving a refreshed, radiant complexion. The Apple Fruit Extract (Pyrus Malus) provides a natural source of malic acid and antioxidants, offering a gentle peeling effect that brightens dull skin and restores natural glow. With regular use, the skin appears smoother, balanced, and visibly renewed.`,
+    ingredients: `Aqua, Glycolic Acid, Propylene Glycol, Triethanolamine, Phenoxyethanol, Glucose, Urea, Panthenol, 3-O-Ethyl Ascorbic Acid, Lactobacillus Lysate, Fructose, Hydrogenated Starch Hydrolysate, Sodium PCA, PEG-40 Hydrogenated Castor Oil, Glycine, Hydrolyzed Wheat Protein, Sodium Glutamate, Ethylhexylglycerin, Glycerin, Tetrasodium EDTA, Ananas Sativus (Pineapple) Fruit Extract, Pyrus Malus (Apple) Fruit Extract, Aroma, Sodium Benzoate, Citric Acid, Lactic Acid, Lysine, Malic Acid, Potassium Hydroxide, Potassium Sorbate, Sodium Hydroxide, Tartaric Acid, Citrus Aurantifolia (Lime) Fruit Extract, Passiflora Edulis (Passion Fruit) Fruit Extract, Benzyl Alcohol, Benzoic Acid, Dehydroacetic Acid, CI 17200.`,
+    howToUse: `After cleansing, apply a sufficient amount of toner to dry skin using a cotton pad. No rinsing required. For daytime use, always follow with sunscreen.`,
+    faqs: [
+      {
+        question: 'Which skin types is this toner suitable for?',
+        answer: 'Suitable for oily, combination, and normal skin. For sensitive skin, use 2–3 times per week.'
+      },
+      {
+        question: 'What does Apple Extract do?',
+        answer: 'Apple Extract is rich in malic acid and antioxidants, supporting skin renewal and reducing dullness.'
+      },
+      {
+        question: 'Does it cause a burning sensation?',
+        answer: 'A mild tingling is normal; if burning or redness occurs, discontinue use.'
+      },
+      {
+        question: 'Can it be used during the day?',
+        answer: 'Yes, but always with sunscreen.'
+      }
+    ]
+  },
   6: {
     productId: 6,
     details: `SincEva Peeling Scrub Cream gently exfoliates the skin, removing dead cells for a smoother and brighter complexion. Enriched with natural AHA sources such as Apple Fruit Extract (Pyrus Malus), Lime, and Pineapple Extracts, it effectively purifies the skin from dirt, excess oil, and impurities. With malic acid, ascorbic acid, and glycolic acid, it helps tighten pores and revitalize the skin's surface. Regular use promotes cell renewal, evens out skin tone, and enhances natural radiance.`,
