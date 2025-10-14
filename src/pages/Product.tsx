@@ -185,7 +185,7 @@ const Product: React.FC = () => {
     },
     {
       value: 'faq',
-      title: 'Sıkça Sorulan Sorular',
+      title: 'Frequently Asked Questions',
       content: null // This will be handled specially with nested accordion
     }
   ];
