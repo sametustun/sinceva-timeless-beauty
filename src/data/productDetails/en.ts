@@ -97,6 +97,30 @@ export const productDetailsEN: ProductDetailsMap = {
       }
     ]
   },
+  6: {
+    productId: 6,
+    details: `SincEva Peeling Scrub Cream gently exfoliates the skin, removing dead cells for a smoother and brighter complexion. Enriched with natural AHA sources such as Apple Fruit Extract (Pyrus Malus), Lime, and Pineapple Extracts, it effectively purifies the skin from dirt, excess oil, and impurities. With malic acid, ascorbic acid, and glycolic acid, it helps tighten pores and revitalize the skin's surface. Regular use promotes cell renewal, evens out skin tone, and enhances natural radiance.`,
+    ingredients: `Aqua, Cetearyl Alcohol, Glycerin, Glycolic Acid, Ascorbic Acid, Malic Acid, Propylene Glycol, Stearic Acid, Ceteareth-20, Ananas Sativus (Pineapple) Fruit Extract, Pyrus Malus (Apple) Fruit Extract, Citrus Aurantifolia (Lime) Fruit Extract, Passiflora Edulis (Passion Fruit) Fruit Extract, Phenoxyethanol, Ethylhexylglycerin, Sodium Benzoate, Potassium Sorbate, Benzyl Alcohol, Benzoic Acid, Dehydroacetic Acid.`,
+    howToUse: `Take a small amount into your palm and gently massage onto damp skin in circular motions. Rinse thoroughly with warm water. Use 2–3 times per week for best results.`,
+    faqs: [
+      {
+        question: 'Does this scrub irritate the skin?',
+        answer: "No, it's formulated with natural AHA sources that gently exfoliate without irritation."
+      },
+      {
+        question: 'What does Apple Extract do?',
+        answer: 'Rich in malic acid and antioxidants, it smooths and brightens the skin for a refreshed look.'
+      },
+      {
+        question: 'How often should I use it?',
+        answer: '2–3 times weekly for normal skin; once weekly for sensitive skin.'
+      },
+      {
+        question: 'When should it be applied?',
+        answer: 'Best used in the evening. Follow with moisturizer and sunscreen during the day.'
+      }
+    ]
+  },
   8: {
     productId: 8,
     details: `SincEva SPF 50 Sunscreen provides broad-spectrum protection against harmful UVA and UVB rays with its advanced lightweight formula. It absorbs easily without leaving a greasy residue, offering a soft and smooth finish. Aloe Vera soothes the skin, Panthenol strengthens the moisture barrier, and Apple Fruit Extract (Pyrus Malus) — rich in malic acid and antioxidants — helps rejuvenate and protect the skin from environmental stress. With regular use, it leaves the skin hydrated, healthy, and perfectly protected from the sun.`,
