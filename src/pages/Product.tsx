@@ -15,6 +15,8 @@ import ImageZoom from '@/components/ImageZoom';
 import { allProductsContent } from '@/data/content';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { productDetails } from '@/data/productDetails';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { translations } from '@/data/translations';
 
 // Import hero images
 import cvitHero from '@/assets/cvit-01.png';
@@ -147,11 +149,12 @@ const Product: React.FC = () => {
     }
   ];
 
-  // Get current language (default to 'en' for now, will be dynamic later)
-  const currentLanguage = 'en';
+  // Get current language from context
+  const { language } = useLanguage();
+  const t = translations[language];
   
   // Get product-specific content
-  const productContent = product ? productDetails[currentLanguage][product.id] : null;
+  const productContent = product ? productDetails[language][product.id] : null;
   
   // FAQ questions - use product-specific or fallback
   const faqQuestions = productContent?.faqs || [
@@ -177,22 +180,22 @@ const Product: React.FC = () => {
   const accordionContent = [
     {
       value: 'details',
-      title: 'Product Details',
+      title: t.productDetails,
       content: productContent?.details || (product?.description + ' This premium product is formulated with the finest ingredients to deliver exceptional results. Our advanced formula is designed to meet your specific skincare needs while being gentle on all skin types.')
     },
     {
       value: 'ingredients',
-      title: 'Ingredients',
+      title: t.ingredients,
       content: productContent?.ingredients || 'Aqua, Glycerin, Sodium Hyaluronate, Vitamin C, Niacinamide, Ceramides, Peptides, Botanical Extracts. All ingredients are carefully selected and tested for purity and effectiveness.'
     },
     {
       value: 'howto',
-      title: 'How To Use',
+      title: t.howToUse,
       content: productContent?.howToUse || 'Apply a small amount to clean, dry skin. Gently massage in circular motions until fully absorbed. Use twice daily for best results. Always apply sunscreen during the day when using this product.'
     },
     {
       value: 'faq',
-      title: 'Frequently Asked Questions',
+      title: t.faq,
       content: null // This will be handled specially with nested accordion
     }
   ];
@@ -215,8 +218,8 @@ const Product: React.FC = () => {
     return (
       <Layout>
         <div className="container mx-auto max-w-7xl px-4 py-16 text-center">
-          <h1 className="text-2xl font-bold mb-4">Product Not Found</h1>
-          <p className="text-muted-foreground">The requested product could not be found.</p>
+          <h1 className="text-2xl font-bold mb-4">{t.productNotFound}</h1>
+          <p className="text-muted-foreground">{t.productNotFoundDesc}</p>
         </div>
       </Layout>
     );
@@ -242,7 +245,7 @@ const Product: React.FC = () => {
                 className="py-2 text-lg font-semibold bg-[#ef2b2d] text-white hover:bg-[#ef2b2d]/90 rounded-full px-6"
                 style={{ width: 'clamp(150px, 15vw, 200px)' }}
               >
-                Buy
+                {t.buy}
               </Button>
             </div>
           </div>
@@ -323,7 +326,7 @@ const Product: React.FC = () => {
       <ProductRecommendations 
         currentProductId={product.id}
         products={allProductsContent.products}
-        title="Discover Sinceva Products"
+        title={t.discoverProducts}
       />
 
       {/* Floating Buy Button */}
@@ -334,7 +337,7 @@ const Product: React.FC = () => {
               onClick={() => setIsStorePopupOpen(true)}
               className="w-full py-2 bg-white/20 backdrop-blur-md border border-white/30 rounded-full text-[#191919] text-lg font-semibold transition-all hover:bg-white/30"
             >
-              Buy
+              {t.buy}
             </button>
           </div>
         </div>

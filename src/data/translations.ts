@@ -1,0 +1,32 @@
+export const translations = {
+  en: {
+    productDetails: 'Product Details',
+    ingredients: 'Ingredients',
+    howToUse: 'How To Use',
+    faq: 'Frequently Asked Questions',
+    buy: 'Buy',
+    discoverProducts: 'Discover Sinceva Products',
+    productNotFound: 'Product Not Found',
+    productNotFoundDesc: 'The requested product could not be found.',
+  },
+  tr: {
+    productDetails: 'Ürün Detayları',
+    ingredients: 'İçindekiler',
+    howToUse: 'Nasıl Kullanılır',
+    faq: 'Sıkça Sorulan Sorular',
+    buy: 'Satın Al',
+    discoverProducts: 'Sinceva Ürünlerini Keşfedin',
+    productNotFound: 'Ürün Bulunamadı',
+    productNotFoundDesc: 'İstenen ürün bulunamadı.',
+  },
+  ar: {
+    productDetails: 'تفاصيل المنتج',
+    ingredients: 'المكونات',
+    howToUse: 'طريقة الاستخدام',
+    faq: 'الأسئلة الشائعة',
+    buy: 'شراء',
+    discoverProducts: 'اكتشف منتجات سينسإيفا',
+    productNotFound: 'المنتج غير موجود',
+    productNotFoundDesc: 'المنتج المطلوب غير موجود.',
+  },
+};

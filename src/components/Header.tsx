@@ -4,6 +4,7 @@ import { Search, Menu, X } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import MegaMenu from './MegaMenu';
 import SearchDropdown from './SearchDropdown';
+import LanguageSelector from './LanguageSelector';
 import { useLogos } from '../hooks/useLogo';
 import { logoContent } from '../data/content';
 import useSearch from '../hooks/useSearch';
@@ -244,6 +245,9 @@ const Header: React.FC = () => {
           
           {/* Search Section */}
           <div className={`flex items-center transition-all duration-300 ${showSearch ? 'ml-2 md:ml-4' : 'ml-4 md:ml-8'}`}>
+            {/* Language Selector */}
+            <LanguageSelector isScrolled={isScrolled} />
+            
             <div className="search-container relative flex items-center">
               <button
                 onClick={() => setShowSearch(!showSearch)}
