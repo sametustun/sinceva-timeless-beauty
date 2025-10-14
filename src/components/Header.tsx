@@ -8,8 +8,12 @@ import LanguageSelector from './LanguageSelector';
 import { useLogos } from '../hooks/useLogo';
 import { logoContent } from '../data/content';
 import useSearch from '../hooks/useSearch';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { translations } from '@/data/translations';
 
 const Header: React.FC = () => {
+  const { language } = useLanguage();
+  const t = translations[language];
   const [isScrolled, setIsScrolled] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -129,11 +133,11 @@ const Header: React.FC = () => {
   };
 
   const navigation = [
-    { name: 'ANCIENT SHINE', href: '/' },
-    { name: 'SKINCARE', href: '#', hasMegaMenu: true },
-    { name: 'TRENDS & TIPS', href: '/blog' },
+    { name: (language === 'en' ? 'HOME' : language === 'ar' ? t.home?.toUpperCase() : 'ANA SAYFA'), href: '/' },
+    { name: (language === 'en' ? 'SKINCARE' : language === 'ar' ? (t.shop || 'SKINCARE').toUpperCase() : 'CİLT BAKIMI'), href: '#', hasMegaMenu: true },
+    { name: (language === 'en' ? 'TRENDS & TIPS' : language === 'ar' ? (t.blogTitle || 'TRENDS & TIPS') : 'TRENDLER VE İPUÇLARI'), href: '/blog' },
     { name: 'THE ORIGIN OF BEAUTY', href: '/about' },
-    { name: 'CONTACT', href: '/contact' },
+    { name: (language === 'en' ? 'CONTACT' : language === 'ar' ? (t.contact || 'CONTACT').toUpperCase() : 'İLETİŞİM'), href: '/contact' },
   ];
 
   return (
@@ -269,11 +273,11 @@ const Header: React.FC = () => {
                   <Input
                     ref={searchInputRef}
                     type="text"
-                    placeholder="Search products and blogs..."
+                    placeholder={t.searchPlaceholder || "Search products..."}
                     value={searchQuery}
                     onChange={handleSearchChange}
                     className={`w-full h-8 pl-10 pr-4 text-xs !border-none !outline-none !ring-0 !ring-offset-0 !shadow-none transition-all duration-300 rounded-full focus:!outline-none focus:!ring-0 focus:!border-none focus:!shadow-none focus-visible:!outline-none focus-visible:!ring-0 focus-visible:!ring-offset-0 ${
-                      !isScrolled 
+                      !isScrolled
                         ? 'bg-black/20 backdrop-blur-md text-white placeholder:text-white/70' 
                         : 'bg-gray-100 text-gray-900 placeholder:text-gray-500'
                     }`}
@@ -336,11 +340,11 @@ const Header: React.FC = () => {
                   <Input
                     ref={searchInputRef}
                     type="text"
-                    placeholder="Search products and blogs..."
+                    placeholder={t.searchPlaceholder || "Search products..."}
                     value={searchQuery}
                     onChange={handleSearchChange}
                     className={`w-full h-8 pl-10 pr-4 text-xs !border-none !outline-none !ring-0 !ring-offset-0 !shadow-none transition-all duration-300 rounded-full focus:!outline-none focus:!ring-0 focus:!border-none focus:!shadow-none focus-visible:!outline-none focus-visible:!ring-0 focus-visible:!ring-offset-0 ${
-                      !isScrolled 
+                      !isScrolled
                         ? 'bg-black/20 backdrop-blur-md text-white placeholder:text-white/70' 
                         : 'bg-gray-100 text-gray-900 placeholder:text-gray-500'
                     }`}
