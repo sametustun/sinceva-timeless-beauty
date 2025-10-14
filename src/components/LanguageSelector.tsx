@@ -34,7 +34,7 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({ isScrolled }) => {
           }`}
           aria-label="Select Language"
         >
-          <span className="text-2xl">
+          <span className="text-base">
             {currentLanguage?.flag}
           </span>
         </button>

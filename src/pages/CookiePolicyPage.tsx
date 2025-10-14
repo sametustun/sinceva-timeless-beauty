@@ -1,8 +1,13 @@
 import React from 'react';
 import Layout from '@/components/Layout';
 import { Separator } from '@/components/ui/separator';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { translations } from '@/data/translations';
 
 const CookiePolicyPage: React.FC = () => {
+  const { language } = useLanguage();
+  const t = translations[language];
+
   return (
     <Layout>
       <div className="w-full h-[40vh] bg-gradient-to-r from-gray-900 to-gray-800"></div>
@@ -10,88 +15,74 @@ const CookiePolicyPage: React.FC = () => {
       <div className="container mx-auto max-w-4xl px-4 py-16">
         <div className="prose prose-lg max-w-none">
           <section className="mb-8">
-            <h2 className="text-2xl font-bold mb-4">What Are Cookies?</h2>
+            <h2 className="text-2xl font-bold mb-4">{t.whatAreCookies}</h2>
             <p className="mb-4">
-              Cookies are small data files that are placed on your computer or mobile device 
-              when you visit a website. Cookies are widely used by website owners to make 
-              their websites work more efficiently and to provide reporting information.
+              {t.cookiesDefinition}
             </p>
           </section>
 
           <Separator className="my-8" />
 
           <section className="mb-8">
-            <h2 className="text-2xl font-bold mb-4">Types of Cookies We Use</h2>
+            <h2 className="text-2xl font-bold mb-4">{t.typesOfCookies}</h2>
             
-            <h3 className="text-xl font-semibold mb-3">Necessary Cookies</h3>
+            <h3 className="text-xl font-semibold mb-3">{t.necessaryCookies}</h3>
             <p className="mb-4">
-              These cookies are essential for the website to function properly. They enable 
-              basic functions like page navigation and access to secure areas of the website. 
-              The website cannot function properly without these cookies.
+              {t.necessaryText}
             </p>
 
-            <h3 className="text-xl font-semibold mb-3">Analytics Cookies</h3>
+            <h3 className="text-xl font-semibold mb-3">{t.analyticsCookies}</h3>
             <p className="mb-4">
-              These cookies help us understand how visitors interact with our website by 
-              collecting and reporting information anonymously. This data helps us improve 
-              our website's performance and user experience.
+              {t.analyticsText}
             </p>
 
-            <h3 className="text-xl font-semibold mb-3">Marketing Cookies</h3>
+            <h3 className="text-xl font-semibold mb-3">{t.marketingCookies}</h3>
             <p className="mb-4">
-              These cookies are used to track visitors across websites. The intention is 
-              to display ads that are relevant and engaging for the individual user and 
-              thereby more valuable for publishers and third-party advertisers.
+              {t.marketingText}
             </p>
           </section>
 
           <Separator className="my-8" />
 
           <section className="mb-8">
-            <h2 className="text-2xl font-bold mb-4">How We Use Cookies</h2>
-            <p className="mb-4">We use cookies for the following purposes:</p>
+            <h2 className="text-2xl font-bold mb-4">{t.howWeUseCookies}</h2>
+            <p className="mb-4">{t.cookieUsageText}</p>
             <ul className="list-disc list-inside mb-4">
-              <li>To ensure our website functions properly</li>
-              <li>To remember your preferences and settings</li>
-              <li>To analyze website traffic and usage patterns</li>
-              <li>To provide personalized content and advertisements</li>
-              <li>To improve our website's security and performance</li>
+              <li>{t.ensureFunction}</li>
+              <li>{t.rememberPreferences}</li>
+              <li>{t.analyzeTraffic}</li>
+              <li>{t.personalizedContent}</li>
+              <li>{t.improveSecurity}</li>
             </ul>
           </section>
 
           <Separator className="my-8" />
 
           <section className="mb-8">
-            <h2 className="text-2xl font-bold mb-4">Managing Your Cookie Preferences</h2>
+            <h2 className="text-2xl font-bold mb-4">{t.managingCookies}</h2>
             <p className="mb-4">
-              You can control and manage cookies in various ways. Most web browsers 
-              automatically accept cookies, but you can modify your browser settings 
-              to decline cookies if you prefer. Please note that disabling cookies 
-              may affect the functionality of our website.
+              {t.managingText}
             </p>
             <p className="mb-4">
-              You can also manage your cookie preferences through our cookie consent 
-              banner that appears when you first visit our website.
+              {t.cookieBanner}
             </p>
           </section>
 
           <Separator className="my-8" />
 
           <section className="mb-8">
-            <h2 className="text-2xl font-bold mb-4">Third-Party Cookies</h2>
+            <h2 className="text-2xl font-bold mb-4">{t.thirdPartyCookies}</h2>
             <p className="mb-4">
-              Some cookies on our website are placed by third-party services. We have 
-              no control over these cookies and they are governed by the privacy policies 
-              of the respective third parties.
+              {t.thirdPartyText}
             </p>
           </section>
 
           <Separator className="my-8" />
 
           <section className="mb-8">
-            <h2 className="text-2xl font-bold mb-4">Contact Us</h2>
+            <h2 className="text-2xl font-bold mb-4">{t.contactUsPolicy}</h2>
             <p>
-              If you have any questions about our Cookie Policy, please contact us:
+              {t.contactPolicyText}
             </p>
             <ul className="list-disc list-inside mt-2">
               <li>Email: info@sinceva.com</li>
@@ -100,7 +91,7 @@ const CookiePolicyPage: React.FC = () => {
           </section>
 
           <div className="text-sm text-gray-600 mt-8">
-            <p>Last updated: {new Date().toLocaleDateString('en-US')}</p>
+            <p>{t.lastUpdated} {new Date().toLocaleDateString(language === 'ar' ? 'ar-SA' : language === 'tr' ? 'tr-TR' : 'en-US')}</p>
           </div>
         </div>
       </div>

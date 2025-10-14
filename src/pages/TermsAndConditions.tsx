@@ -1,8 +1,13 @@
 import React from 'react';
 import Layout from '@/components/Layout';
 import { Separator } from '@/components/ui/separator';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { translations } from '@/data/translations';
 
 const TermsAndConditions: React.FC = () => {
+  const { language } = useLanguage();
+  const t = translations[language];
+
   return (
     <Layout>
       <div className="w-full h-[40vh] bg-gradient-to-r from-gray-900 to-gray-800"></div>
@@ -10,88 +15,76 @@ const TermsAndConditions: React.FC = () => {
       <div className="container mx-auto max-w-4xl px-4 py-16">
         <div className="prose prose-lg max-w-none">
           <section className="mb-8">
-            <h2 className="text-2xl font-bold mb-4">Acceptance of Terms</h2>
+            <h2 className="text-2xl font-bold mb-4">{t.acceptanceOfTerms}</h2>
             <p className="mb-4">
-              By accessing and using this website, you accept and agree to be bound by the terms 
-              and provision of this agreement. If you do not agree to abide by the above, 
-              please do not use this service.
+              {t.acceptanceText}
             </p>
           </section>
 
           <Separator className="my-8" />
 
           <section className="mb-8">
-            <h2 className="text-2xl font-bold mb-4">Use License</h2>
-            <p className="mb-4">Permission is granted to temporarily download one copy of the materials on our website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:</p>
+            <h2 className="text-2xl font-bold mb-4">{t.useLicense}</h2>
+            <p className="mb-4">{t.useLicenseText}</p>
             <ul className="list-disc list-inside mb-4">
-              <li>Modify or copy the materials</li>
-              <li>Use the materials for any commercial purpose or for any public display</li>
-              <li>Attempt to reverse engineer any software contained on our website</li>
-              <li>Remove any copyright or other proprietary notations from the materials</li>
+              <li>{t.modifyMaterials}</li>
+              <li>{t.commercialUse}</li>
+              <li>{t.reverseEngineer}</li>
+              <li>{t.removeCopyright}</li>
             </ul>
           </section>
 
           <Separator className="my-8" />
 
           <section className="mb-8">
-            <h2 className="text-2xl font-bold mb-4">Product Information</h2>
+            <h2 className="text-2xl font-bold mb-4">{t.productInformation}</h2>
             <p className="mb-4">
-              We strive to provide accurate product information on our website. However, 
-              we do not warrant that product descriptions, pricing, or other content is 
-              accurate, complete, reliable, current, or error-free.
+              {t.productInfoText}
             </p>
           </section>
 
           <Separator className="my-8" />
 
           <section className="mb-8">
-            <h2 className="text-2xl font-bold mb-4">Orders and Payment</h2>
-            <p className="mb-4">The following terms apply to orders and payments:</p>
+            <h2 className="text-2xl font-bold mb-4">{t.ordersPayment}</h2>
+            <p className="mb-4">{t.ordersPaymentText}</p>
             <ul className="list-disc list-inside mb-4">
-              <li>All orders are subject to acceptance and availability</li>
-              <li>We reserve the right to refuse or cancel any order</li>
-              <li>Payment must be received before order processing</li>
-              <li>Prices are subject to change without notice</li>
+              <li>{t.ordersSubject}</li>
+              <li>{t.reserveRight}</li>
+              <li>{t.paymentRequired}</li>
+              <li>{t.pricesSubject}</li>
             </ul>
           </section>
 
           <Separator className="my-8" />
 
           <section className="mb-8">
-            <h2 className="text-2xl font-bold mb-4">Returns and Refunds</h2>
+            <h2 className="text-2xl font-bold mb-4">{t.returnsRefunds}</h2>
             <p className="mb-4">
-              We offer a 14-day return policy for unopened products in their original packaging. 
-              Return shipping costs are the responsibility of the customer unless the return 
-              is due to our error.
+              {t.returnsText}
             </p>
           </section>
 
           <Separator className="my-8" />
 
           <section className="mb-8">
-            <h2 className="text-2xl font-bold mb-4">Limitation of Liability</h2>
+            <h2 className="text-2xl font-bold mb-4">{t.limitationLiability}</h2>
             <p className="mb-4">
-              In no event shall Sinceva or its suppliers be liable for any damages 
-              (including, without limitation, damages for loss of data or profit, or due to 
-              business interruption) arising out of the use or inability to use our website 
-              or products, even if we have been notified orally or in writing of the 
-              possibility of such damage.
+              {t.limitationText}
             </p>
           </section>
 
           <Separator className="my-8" />
 
           <section className="mb-8">
-            <h2 className="text-2xl font-bold mb-4">Governing Law</h2>
+            <h2 className="text-2xl font-bold mb-4">{t.governingLaw}</h2>
             <p className="mb-4">
-              These terms and conditions are governed by and construed in accordance with 
-              the laws of Turkey, and you irrevocably submit to the exclusive jurisdiction 
-              of the courts in that state or location.
+              {t.governingText}
             </p>
           </section>
 
           <div className="text-sm text-gray-600 mt-8">
-            <p>Last updated: {new Date().toLocaleDateString('en-US')}</p>
+            <p>{t.lastUpdated} {new Date().toLocaleDateString(language === 'ar' ? 'ar-SA' : language === 'tr' ? 'tr-TR' : 'en-US')}</p>
           </div>
         </div>
       </div>
