@@ -319,8 +319,9 @@ const Header: React.FC = () => {
             {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
           
-          {/* Mobile Search */}
-          <div className="flex items-center">
+          {/* Mobile Language Selector and Search */}
+          <div className="flex items-center gap-1">
+            <LanguageSelector isScrolled={isScrolled} />
             <div className="search-container relative flex items-center">
               <button
                 onClick={() => setShowSearch(!showSearch)}
