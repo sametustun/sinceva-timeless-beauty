@@ -16,11 +16,11 @@ const Blog: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
 
   const categories = [
-    { id: 'all', name: t.allPosts },
-    { id: 'skincare-tips', name: t.skincareTips },
-    { id: 'anti-aging', name: t.antiAging },
-    { id: 'seasonal-care', name: t.seasonalCare },
-    { id: 'ingredient-focus', name: t.ingredientFocus },
+    { id: 'all', name: t.blog.categories.all },
+    { id: 'skincare-tips', name: t.blog.categories.trends },
+    { id: 'anti-aging', name: t.blog.categories.skincare },
+    { id: 'seasonal-care', name: t.blog.categories.ingredients },
+    { id: 'ingredient-focus', name: t.blog.categories.routine },
   ];
 
   const blogPosts = [
@@ -166,7 +166,7 @@ const Blog: React.FC = () => {
         {filteredPosts.length === 0 && (
           <div className="text-center py-16">
             <p className="text-muted-foreground text-lg">
-              {t.noArticles}
+              No articles found
             </p>
           </div>
         )}

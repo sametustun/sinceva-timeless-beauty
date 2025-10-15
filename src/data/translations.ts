@@ -14,7 +14,7 @@ export const translations = {
     home: 'Home',
     shop: 'Shop',
     about: 'About',
-    blog: 'Blog',
+    blogNav: 'Blog',
     contact: 'Contact',
     searchPlaceholder: 'Search products...',
     
@@ -264,7 +264,7 @@ export const translations = {
     home: 'Ana Sayfa',
     shop: 'Mağaza',
     about: 'Hakkımızda',
-    blog: 'Blog',
+    blogNav: 'Blog',
     contact: 'İletişim',
     searchPlaceholder: 'Ürün ara...',
     
@@ -514,7 +514,7 @@ export const translations = {
     home: 'الرئيسية',
     shop: 'المتجر',
     about: 'من نحن',
-    blog: 'المدونة',
+    blogNav: 'المدونة',
     contact: 'اتصل بنا',
     searchPlaceholder: 'البحث عن المنتجات...',
     
