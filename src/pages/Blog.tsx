@@ -8,6 +8,8 @@ import tipsBanner from '@/assets/tips_banner.jpg';
 import tipsBannerMobile from '@/assets/tips_banner_mobile.jpg';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { translations } from '@/data/translations';
+import { blogPosts } from '@/data/blogPosts';
+import { getBlogContent } from '@/data/blogContent';
 
 const Blog: React.FC = () => {
   const { language } = useLanguage();
@@ -17,56 +19,24 @@ const Blog: React.FC = () => {
 
   const categories = [
     { id: 'all', name: t.blog.categories.all },
-    { id: 'skincare-tips', name: t.blog.categories.trends },
-    { id: 'anti-aging', name: t.blog.categories.skincare },
-    { id: 'seasonal-care', name: t.blog.categories.ingredients },
-    { id: 'ingredient-focus', name: t.blog.categories.routine },
+    { id: 'daily-care', name: t.blog.categories.trends || 'Daily Care' },
+    { id: 'ingredients', name: t.blog.categories.skincare || 'Ingredients' },
+    { id: 'sun-care', name: 'Sun Care' },
+    { id: 'anti-aging', name: 'Anti-Aging' },
+    { id: 'treatments', name: t.blog.categories.routine || 'Treatments' },
   ];
 
-  const blogPosts = [
-    {
-      id: 1,
-      title: 'The Ultimate Guide to Anti-Aging Skincare Routine',
-      excerpt: 'Discover the secrets to maintaining youthful, radiant skin with our comprehensive anti-aging guide.',
-      category: 'anti-aging',
-      date: '2024-01-15',
-      author: 'Dr. Sarah Johnson',
-      image: 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      readTime: '5 min read'
-    },
-    {
-      id: 2,
-      title: 'Winter Skincare: Protecting Your Skin in Cold Weather',
-      excerpt: 'Learn how to adapt your skincare routine for winter months and protect your skin from harsh weather.',
-      category: 'seasonal-care',
-      date: '2024-01-10',
-      author: 'Emma Wilson',
-      image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      readTime: '3 min read'
-    },
-    {
-      id: 3,
-      title: 'Vitamin C vs Retinol: Which is Right for Your Skin?',
-      excerpt: 'Compare these powerful skincare ingredients and discover which one suits your skin type best.',
-      category: 'ingredient-focus',
-      date: '2024-01-05',
-      author: 'Dr. Michael Chen',
-      image: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      readTime: '7 min read'
-    },
-    {
-      id: 4,
-      title: '5 Morning Skincare Habits for Glowing Skin',
-      excerpt: 'Transform your morning routine with these simple yet effective skincare habits for radiant skin.',
-      category: 'skincare-tips',
-      date: '2023-12-28',
-      author: 'Lisa Rodriguez',
-      image: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      readTime: '4 min read'
-    },
-  ];
+  // Get blog content for current language
+  const postsWithContent = blogPosts.map(post => {
+    const content = getBlogContent(language, post.id);
+    return {
+      ...post,
+      title: content?.title || post.id,
+      excerpt: content?.excerpt || '',
+    };
+  });
 
-  const filteredPosts = blogPosts.filter(post => {
+  const filteredPosts = postsWithContent.filter(post => {
     const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesCategory = selectedCategory === 'all' || post.category === selectedCategory;
@@ -132,7 +102,9 @@ const Blog: React.FC = () => {
                       <div className="flex items-center gap-4 text-sm text-black/70 mb-3">
                         <div className="flex items-center gap-1">
                           <Calendar className="w-4 h-4" />
-                          {new Date(post.date).toLocaleDateString()}
+                          {new Date(post.date).toLocaleDateString(
+                            language === 'tr' ? 'tr-TR' : language === 'ar' ? 'ar-SA' : 'en-US'
+                          )}
                         </div>
                         <div className="flex items-center gap-1">
                           <User className="w-4 h-4" />
@@ -150,7 +122,9 @@ const Blog: React.FC = () => {
                     </div>
                     
                     <div className="flex items-center justify-between mt-auto">
-                      <span className="text-sm text-black/60">{post.readTime}</span>
+                      <span className="text-sm text-black/60">
+                        {post.readTime} {language === 'tr' ? 'dk' : language === 'ar' ? 'دقيقة' : 'min'}
+                      </span>
                       <div className="flex items-center gap-1 text-primary text-sm font-medium group-hover:gap-2 transition-all">
                         {t.blog.readMore}
                         <ArrowRight className="w-4 h-4" />
