@@ -137,7 +137,7 @@ const Header: React.FC = () => {
     { name: (language === 'en' ? 'SKINCARE' : language === 'ar' ? (t.shop || 'SKINCARE').toUpperCase() : 'CİLT BAKIMI'), href: '#', hasMegaMenu: true },
     { name: (language === 'en' ? 'TRENDS & TIPS' : language === 'ar' ? (t.blog?.title || 'TRENDS & TIPS') : 'TRENDLER VE İPUÇLARI'), href: '/blog' },
     { name: 'THE ORIGIN OF BEAUTY', href: '/about' },
-    { name: t.contact?.toUpperCase(), href: '/contact' },
+    { name: t.contactNav?.toUpperCase(), href: '/contact' },
   ];
 
   return (

@@ -15,7 +15,8 @@ export const translations = {
     shop: 'Shop',
     about: 'About',
     blogNav: 'Blog',
-    contact: 'TOUCH TO BEAUTY',
+    contact: 'Contact',
+    contactNav: 'TOUCH TO BEAUTY',
     searchPlaceholder: 'Search products...',
     
     // Footer
@@ -287,7 +288,8 @@ export const translations = {
     shop: 'Mağaza',
     about: 'Hakkımızda',
     blogNav: 'Blog',
-    contact: 'GÜZELLİĞE DOKUNUN',
+    contact: 'İletişim',
+    contactNav: 'GÜZELLİĞE DOKUNUN',
     searchPlaceholder: 'Ürün ara...',
     
     // Footer
@@ -559,7 +561,8 @@ export const translations = {
     shop: 'المتجر',
     about: 'من نحن',
     blogNav: 'المدونة',
-    contact: 'لمسة الجمال',
+    contact: 'اتصل بنا',
+    contactNav: 'لمسة الجمال',
     searchPlaceholder: 'البحث عن المنتجات...',
     
     // Footer
