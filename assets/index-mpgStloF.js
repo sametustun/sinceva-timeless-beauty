@@ -1,0 +1,3389 @@
+var Wm=e=>{throw TypeError(e)};var Qs=(e,t,n)=>t.has(e)||Wm("Cannot "+n);var j=(e,t,n)=>(Qs(e,t,"read from private field"),n?n.call(e):t.get(e)),le=(e,t,n)=>t.has(e)?Wm("Cannot add the same private member more than once"):t instanceof WeakSet?t.add(e):t.set(e,n),X=(e,t,n,r)=>(Qs(e,t,"write to private field"),r?r.call(e,n):t.set(e,n),n),Ge=(e,t,n)=>(Qs(e,t,"access private method"),n);var Tl=(e,t,n,r)=>({set _(i){X(e,t,i,n)},get _(){return j(e,t,r)}});function l0(e,t){for(var n=0;n<t.length;n++){const r=t[n];if(typeof r!="string"&&!Array.isArray(r)){for(const i in r)if(i!=="default"&&!(i in e)){const a=Object.getOwnPropertyDescriptor(r,i);a&&Object.defineProperty(e,i,a.get?a:{enumerable:!0,get:()=>r[i]})}}}return Object.freeze(Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}))}(function(){const t=document.createElement("link").relList;if(t&&t.supports&&t.supports("modulepreload"))return;for(const i of document.querySelectorAll('link[rel="modulepreload"]'))r(i);new MutationObserver(i=>{for(const a of i)if(a.type==="childList")for(const l of a.addedNodes)l.tagName==="LINK"&&l.rel==="modulepreload"&&r(l)}).observe(document,{childList:!0,subtree:!0});function n(i){const a={};return i.integrity&&(a.integrity=i.integrity),i.referrerPolicy&&(a.referrerPolicy=i.referrerPolicy),i.crossOrigin==="use-credentials"?a.credentials="include":i.crossOrigin==="anonymous"?a.credentials="omit":a.credentials="same-origin",a}function r(i){if(i.ep)return;i.ep=!0;const a=n(i);fetch(i.href,a)}})();function vh(e){return e&&e.__esModule&&Object.prototype.hasOwnProperty.call(e,"default")?e.default:e}var xh={exports:{}},ls={},bh={exports:{}},J={};/**
+ * @license React
+ * react.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */var fl=Symbol.for("react.element"),o0=Symbol.for("react.portal"),s0=Symbol.for("react.fragment"),u0=Symbol.for("react.strict_mode"),c0=Symbol.for("react.profiler"),d0=Symbol.for("react.provider"),m0=Symbol.for("react.context"),f0=Symbol.for("react.forward_ref"),p0=Symbol.for("react.suspense"),h0=Symbol.for("react.memo"),y0=Symbol.for("react.lazy"),Qm=Symbol.iterator;function g0(e){return e===null||typeof e!="object"?null:(e=Qm&&e[Qm]||e["@@iterator"],typeof e=="function"?e:null)}var wh={isMounted:function(){return!1},enqueueForceUpdate:function(){},enqueueReplaceState:function(){},enqueueSetState:function(){}},Sh=Object.assign,zh={};function $i(e,t,n){this.props=e,this.context=t,this.refs=zh,this.updater=n||wh}$i.prototype.isReactComponent={};$i.prototype.setState=function(e,t){if(typeof e!="object"&&typeof e!="function"&&e!=null)throw Error("setState(...): takes an object of state variables to update or a function which returns an object of state variables.");this.updater.enqueueSetState(this,e,t,"setState")};$i.prototype.forceUpdate=function(e){this.updater.enqueueForceUpdate(this,e,"forceUpdate")};function Ch(){}Ch.prototype=$i.prototype;function od(e,t,n){this.props=e,this.context=t,this.refs=zh,this.updater=n||wh}var sd=od.prototype=new Ch;sd.constructor=od;Sh(sd,$i.prototype);sd.isPureReactComponent=!0;var Xm=Array.isArray,Eh=Object.prototype.hasOwnProperty,ud={current:null},Nh={key:!0,ref:!0,__self:!0,__source:!0};function Ph(e,t,n){var r,i={},a=null,l=null;if(t!=null)for(r in t.ref!==void 0&&(l=t.ref),t.key!==void 0&&(a=""+t.key),t)Eh.call(t,r)&&!Nh.hasOwnProperty(r)&&(i[r]=t[r]);var s=arguments.length-2;if(s===1)i.children=n;else if(1<s){for(var u=Array(s),c=0;c<s;c++)u[c]=arguments[c+2];i.children=u}if(e&&e.defaultProps)for(r in s=e.defaultProps,s)i[r]===void 0&&(i[r]=s[r]);return{$$typeof:fl,type:e,key:a,ref:l,props:i,_owner:ud.current}}function k0(e,t){return{$$typeof:fl,type:e.type,key:t,ref:e.ref,props:e.props,_owner:e._owner}}function cd(e){return typeof e=="object"&&e!==null&&e.$$typeof===fl}function v0(e){var t={"=":"=0",":":"=2"};return"$"+e.replace(/[=:]/g,function(n){return t[n]})}var Zm=/\/+/g;function Xs(e,t){return typeof e=="object"&&e!==null&&e.key!=null?v0(""+e.key):t.toString(36)}function ao(e,t,n,r,i){var a=typeof e;(a==="undefined"||a==="boolean")&&(e=null);var l=!1;if(e===null)l=!0;else switch(a){case"string":case"number":l=!0;break;case"object":switch(e.$$typeof){case fl:case o0:l=!0}}if(l)return l=e,i=i(l),e=r===""?"."+Xs(l,0):r,Xm(i)?(n="",e!=null&&(n=e.replace(Zm,"$&/")+"/"),ao(i,t,n,"",function(c){return c})):i!=null&&(cd(i)&&(i=k0(i,n+(!i.key||l&&l.key===i.key?"":(""+i.key).replace(Zm,"$&/")+"/")+e)),t.push(i)),1;if(l=0,r=r===""?".":r+":",Xm(e))for(var s=0;s<e.length;s++){a=e[s];var u=r+Xs(a,s);l+=ao(a,t,n,u,i)}else if(u=g0(e),typeof u=="function")for(e=u.call(e),s=0;!(a=e.next()).done;)a=a.value,u=r+Xs(a,s++),l+=ao(a,t,n,u,i);else if(a==="object")throw t=String(e),Error("Objects are not valid as a React child (found: "+(t==="[object Object]"?"object with keys {"+Object.keys(e).join(", ")+"}":t)+"). If you meant to render a collection of children, use an array instead.");return l}function Ml(e,t,n){if(e==null)return e;var r=[],i=0;return ao(e,r,"","",function(a){return t.call(n,a,i++)}),r}function x0(e){if(e._status===-1){var t=e._result;t=t(),t.then(function(n){(e._status===0||e._status===-1)&&(e._status=1,e._result=n)},function(n){(e._status===0||e._status===-1)&&(e._status=2,e._result=n)}),e._status===-1&&(e._status=0,e._result=t)}if(e._status===1)return e._result.default;throw e._result}var rt={current:null},lo={transition:null},b0={ReactCurrentDispatcher:rt,ReactCurrentBatchConfig:lo,ReactCurrentOwner:ud};function Ah(){throw Error("act(...) is not supported in production builds of React.")}J.Children={map:Ml,forEach:function(e,t,n){Ml(e,function(){t.apply(this,arguments)},n)},count:function(e){var t=0;return Ml(e,function(){t++}),t},toArray:function(e){return Ml(e,function(t){return t})||[]},only:function(e){if(!cd(e))throw Error("React.Children.only expected to receive a single React element child.");return e}};J.Component=$i;J.Fragment=s0;J.Profiler=c0;J.PureComponent=od;J.StrictMode=u0;J.Suspense=p0;J.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED=b0;J.act=Ah;J.cloneElement=function(e,t,n){if(e==null)throw Error("React.cloneElement(...): The argument must be a React element, but you passed "+e+".");var r=Sh({},e.props),i=e.key,a=e.ref,l=e._owner;if(t!=null){if(t.ref!==void 0&&(a=t.ref,l=ud.current),t.key!==void 0&&(i=""+t.key),e.type&&e.type.defaultProps)var s=e.type.defaultProps;for(u in t)Eh.call(t,u)&&!Nh.hasOwnProperty(u)&&(r[u]=t[u]===void 0&&s!==void 0?s[u]:t[u])}var u=arguments.length-2;if(u===1)r.children=n;else if(1<u){s=Array(u);for(var c=0;c<u;c++)s[c]=arguments[c+2];r.children=s}return{$$typeof:fl,type:e.type,key:i,ref:a,props:r,_owner:l}};J.createContext=function(e){return e={$$typeof:m0,_currentValue:e,_currentValue2:e,_threadCount:0,Provider:null,Consumer:null,_defaultValue:null,_globalName:null},e.Provider={$$typeof:d0,_context:e},e.Consumer=e};J.createElement=Ph;J.createFactory=function(e){var t=Ph.bind(null,e);return t.type=e,t};J.createRef=function(){return{current:null}};J.forwardRef=function(e){return{$$typeof:f0,render:e}};J.isValidElement=cd;J.lazy=function(e){return{$$typeof:y0,_payload:{_status:-1,_result:e},_init:x0}};J.memo=function(e,t){return{$$typeof:h0,type:e,compare:t===void 0?null:t}};J.startTransition=function(e){var t=lo.transition;lo.transition={};try{e()}finally{lo.transition=t}};J.unstable_act=Ah;J.useCallback=function(e,t){return rt.current.useCallback(e,t)};J.useContext=function(e){return rt.current.useContext(e)};J.useDebugValue=function(){};J.useDeferredValue=function(e){return rt.current.useDeferredValue(e)};J.useEffect=function(e,t){return rt.current.useEffect(e,t)};J.useId=function(){return rt.current.useId()};J.useImperativeHandle=function(e,t,n){return rt.current.useImperativeHandle(e,t,n)};J.useInsertionEffect=function(e,t){return rt.current.useInsertionEffect(e,t)};J.useLayoutEffect=function(e,t){return rt.current.useLayoutEffect(e,t)};J.useMemo=function(e,t){return rt.current.useMemo(e,t)};J.useReducer=function(e,t,n){return rt.current.useReducer(e,t,n)};J.useRef=function(e){return rt.current.useRef(e)};J.useState=function(e){return rt.current.useState(e)};J.useSyncExternalStore=function(e,t,n){return rt.current.useSyncExternalStore(e,t,n)};J.useTransition=function(){return rt.current.useTransition()};J.version="18.3.1";bh.exports=J;var f=bh.exports;const R=vh(f),dd=l0({__proto__:null,default:R},[f]);/**
+ * @license React
+ * react-jsx-runtime.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */var w0=f,S0=Symbol.for("react.element"),z0=Symbol.for("react.fragment"),C0=Object.prototype.hasOwnProperty,E0=w0.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ReactCurrentOwner,N0={key:!0,ref:!0,__self:!0,__source:!0};function jh(e,t,n){var r,i={},a=null,l=null;n!==void 0&&(a=""+n),t.key!==void 0&&(a=""+t.key),t.ref!==void 0&&(l=t.ref);for(r in t)C0.call(t,r)&&!N0.hasOwnProperty(r)&&(i[r]=t[r]);if(e&&e.defaultProps)for(r in t=e.defaultProps,t)i[r]===void 0&&(i[r]=t[r]);return{$$typeof:S0,type:e,key:a,ref:l,props:i,_owner:E0.current}}ls.Fragment=z0;ls.jsx=jh;ls.jsxs=jh;xh.exports=ls;var o=xh.exports,Th={exports:{}},St={},Mh={exports:{}},Rh={};/**
+ * @license React
+ * scheduler.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */(function(e){function t(P,N){var M=P.length;P.push(N);e:for(;0<M;){var _=M-1>>>1,O=P[_];if(0<i(O,N))P[_]=N,P[M]=O,M=_;else break e}}function n(P){return P.length===0?null:P[0]}function r(P){if(P.length===0)return null;var N=P[0],M=P.pop();if(M!==N){P[0]=M;e:for(var _=0,O=P.length,Y=O>>>1;_<Y;){var V=2*(_+1)-1,ne=P[V],se=V+1,W=P[se];if(0>i(ne,M))se<O&&0>i(W,ne)?(P[_]=W,P[se]=M,_=se):(P[_]=ne,P[V]=M,_=V);else if(se<O&&0>i(W,M))P[_]=W,P[se]=M,_=se;else break e}}return N}function i(P,N){var M=P.sortIndex-N.sortIndex;return M!==0?M:P.id-N.id}if(typeof performance=="object"&&typeof performance.now=="function"){var a=performance;e.unstable_now=function(){return a.now()}}else{var l=Date,s=l.now();e.unstable_now=function(){return l.now()-s}}var u=[],c=[],m=1,d=null,p=3,h=!1,b=!1,k=!1,x=typeof setTimeout=="function"?setTimeout:null,y=typeof clearTimeout=="function"?clearTimeout:null,g=typeof setImmediate<"u"?setImmediate:null;typeof navigator<"u"&&navigator.scheduling!==void 0&&navigator.scheduling.isInputPending!==void 0&&navigator.scheduling.isInputPending.bind(navigator.scheduling);function v(P){for(var N=n(c);N!==null;){if(N.callback===null)r(c);else if(N.startTime<=P)r(c),N.sortIndex=N.expirationTime,t(u,N);else break;N=n(c)}}function w(P){if(k=!1,v(P),!b)if(n(u)!==null)b=!0,B(S);else{var N=n(c);N!==null&&G(w,N.startTime-P)}}function S(P,N){b=!1,k&&(k=!1,y(E),E=-1),h=!0;var M=p;try{for(v(N),d=n(u);d!==null&&(!(d.expirationTime>N)||P&&!F());){var _=d.callback;if(typeof _=="function"){d.callback=null,p=d.priorityLevel;var O=_(d.expirationTime<=N);N=e.unstable_now(),typeof O=="function"?d.callback=O:d===n(u)&&r(u),v(N)}else r(u);d=n(u)}if(d!==null)var Y=!0;else{var V=n(c);V!==null&&G(w,V.startTime-N),Y=!1}return Y}finally{d=null,p=M,h=!1}}var z=!1,C=null,E=-1,A=5,T=-1;function F(){return!(e.unstable_now()-T<A)}function L(){if(C!==null){var P=e.unstable_now();T=P;var N=!0;try{N=C(!0,P)}finally{N?K():(z=!1,C=null)}}else z=!1}var K;if(typeof g=="function")K=function(){g(L)};else if(typeof MessageChannel<"u"){var I=new MessageChannel,$=I.port2;I.port1.onmessage=L,K=function(){$.postMessage(null)}}else K=function(){x(L,0)};function B(P){C=P,z||(z=!0,K())}function G(P,N){E=x(function(){P(e.unstable_now())},N)}e.unstable_IdlePriority=5,e.unstable_ImmediatePriority=1,e.unstable_LowPriority=4,e.unstable_NormalPriority=3,e.unstable_Profiling=null,e.unstable_UserBlockingPriority=2,e.unstable_cancelCallback=function(P){P.callback=null},e.unstable_continueExecution=function(){b||h||(b=!0,B(S))},e.unstable_forceFrameRate=function(P){0>P||125<P?console.error("forceFrameRate takes a positive int between 0 and 125, forcing frame rates higher than 125 fps is not supported"):A=0<P?Math.floor(1e3/P):5},e.unstable_getCurrentPriorityLevel=function(){return p},e.unstable_getFirstCallbackNode=function(){return n(u)},e.unstable_next=function(P){switch(p){case 1:case 2:case 3:var N=3;break;default:N=p}var M=p;p=N;try{return P()}finally{p=M}},e.unstable_pauseExecution=function(){},e.unstable_requestPaint=function(){},e.unstable_runWithPriority=function(P,N){switch(P){case 1:case 2:case 3:case 4:case 5:break;default:P=3}var M=p;p=P;try{return N()}finally{p=M}},e.unstable_scheduleCallback=function(P,N,M){var _=e.unstable_now();switch(typeof M=="object"&&M!==null?(M=M.delay,M=typeof M=="number"&&0<M?_+M:_):M=_,P){case 1:var O=-1;break;case 2:O=250;break;case 5:O=1073741823;break;case 4:O=1e4;break;default:O=5e3}return O=M+O,P={id:m++,callback:N,priorityLevel:P,startTime:M,expirationTime:O,sortIndex:-1},M>_?(P.sortIndex=M,t(c,P),n(u)===null&&P===n(c)&&(k?(y(E),E=-1):k=!0,G(w,M-_))):(P.sortIndex=O,t(u,P),b||h||(b=!0,B(S))),P},e.unstable_shouldYield=F,e.unstable_wrapCallback=function(P){var N=p;return function(){var M=p;p=N;try{return P.apply(this,arguments)}finally{p=M}}}})(Rh);Mh.exports=Rh;var P0=Mh.exports;/**
+ * @license React
+ * react-dom.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */var A0=f,bt=P0;function D(e){for(var t="https://reactjs.org/docs/error-decoder.html?invariant="+e,n=1;n<arguments.length;n++)t+="&args[]="+encodeURIComponent(arguments[n]);return"Minified React error #"+e+"; visit "+t+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings."}var Dh=new Set,ja={};function Qr(e,t){Li(e,t),Li(e+"Capture",t)}function Li(e,t){for(ja[e]=t,e=0;e<t.length;e++)Dh.add(t[e])}var An=!(typeof window>"u"||typeof window.document>"u"||typeof window.document.createElement>"u"),Bu=Object.prototype.hasOwnProperty,j0=/^[:A-Z_a-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD][:A-Z_a-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD\-.0-9\u00B7\u0300-\u036F\u203F-\u2040]*$/,Jm={},ef={};function T0(e){return Bu.call(ef,e)?!0:Bu.call(Jm,e)?!1:j0.test(e)?ef[e]=!0:(Jm[e]=!0,!1)}function M0(e,t,n,r){if(n!==null&&n.type===0)return!1;switch(typeof t){case"function":case"symbol":return!0;case"boolean":return r?!1:n!==null?!n.acceptsBooleans:(e=e.toLowerCase().slice(0,5),e!=="data-"&&e!=="aria-");default:return!1}}function R0(e,t,n,r){if(t===null||typeof t>"u"||M0(e,t,n,r))return!0;if(r)return!1;if(n!==null)switch(n.type){case 3:return!t;case 4:return t===!1;case 5:return isNaN(t);case 6:return isNaN(t)||1>t}return!1}function it(e,t,n,r,i,a,l){this.acceptsBooleans=t===2||t===3||t===4,this.attributeName=r,this.attributeNamespace=i,this.mustUseProperty=n,this.propertyName=e,this.type=t,this.sanitizeURL=a,this.removeEmptyString=l}var Ke={};"children dangerouslySetInnerHTML defaultValue defaultChecked innerHTML suppressContentEditableWarning suppressHydrationWarning style".split(" ").forEach(function(e){Ke[e]=new it(e,0,!1,e,null,!1,!1)});[["acceptCharset","accept-charset"],["className","class"],["htmlFor","for"],["httpEquiv","http-equiv"]].forEach(function(e){var t=e[0];Ke[t]=new it(t,1,!1,e[1],null,!1,!1)});["contentEditable","draggable","spellCheck","value"].forEach(function(e){Ke[e]=new it(e,2,!1,e.toLowerCase(),null,!1,!1)});["autoReverse","externalResourcesRequired","focusable","preserveAlpha"].forEach(function(e){Ke[e]=new it(e,2,!1,e,null,!1,!1)});"allowFullScreen async autoFocus autoPlay controls default defer disabled disablePictureInPicture disableRemotePlayback formNoValidate hidden loop noModule noValidate open playsInline readOnly required reversed scoped seamless itemScope".split(" ").forEach(function(e){Ke[e]=new it(e,3,!1,e.toLowerCase(),null,!1,!1)});["checked","multiple","muted","selected"].forEach(function(e){Ke[e]=new it(e,3,!0,e,null,!1,!1)});["capture","download"].forEach(function(e){Ke[e]=new it(e,4,!1,e,null,!1,!1)});["cols","rows","size","span"].forEach(function(e){Ke[e]=new it(e,6,!1,e,null,!1,!1)});["rowSpan","start"].forEach(function(e){Ke[e]=new it(e,5,!1,e.toLowerCase(),null,!1,!1)});var md=/[\-:]([a-z])/g;function fd(e){return e[1].toUpperCase()}"accent-height alignment-baseline arabic-form baseline-shift cap-height clip-path clip-rule color-interpolation color-interpolation-filters color-profile color-rendering dominant-baseline enable-background fill-opacity fill-rule flood-color flood-opacity font-family font-size font-size-adjust font-stretch font-style font-variant font-weight glyph-name glyph-orientation-horizontal glyph-orientation-vertical horiz-adv-x horiz-origin-x image-rendering letter-spacing lighting-color marker-end marker-mid marker-start overline-position overline-thickness paint-order panose-1 pointer-events rendering-intent shape-rendering stop-color stop-opacity strikethrough-position strikethrough-thickness stroke-dasharray stroke-dashoffset stroke-linecap stroke-linejoin stroke-miterlimit stroke-opacity stroke-width text-anchor text-decoration text-rendering underline-position underline-thickness unicode-bidi unicode-range units-per-em v-alphabetic v-hanging v-ideographic v-mathematical vector-effect vert-adv-y vert-origin-x vert-origin-y word-spacing writing-mode xmlns:xlink x-height".split(" ").forEach(function(e){var t=e.replace(md,fd);Ke[t]=new it(t,1,!1,e,null,!1,!1)});"xlink:actuate xlink:arcrole xlink:role xlink:show xlink:title xlink:type".split(" ").forEach(function(e){var t=e.replace(md,fd);Ke[t]=new it(t,1,!1,e,"http://www.w3.org/1999/xlink",!1,!1)});["xml:base","xml:lang","xml:space"].forEach(function(e){var t=e.replace(md,fd);Ke[t]=new it(t,1,!1,e,"http://www.w3.org/XML/1998/namespace",!1,!1)});["tabIndex","crossOrigin"].forEach(function(e){Ke[e]=new it(e,1,!1,e.toLowerCase(),null,!1,!1)});Ke.xlinkHref=new it("xlinkHref",1,!1,"xlink:href","http://www.w3.org/1999/xlink",!0,!1);["src","href","action","formAction"].forEach(function(e){Ke[e]=new it(e,1,!1,e.toLowerCase(),null,!0,!0)});function pd(e,t,n,r){var i=Ke.hasOwnProperty(t)?Ke[t]:null;(i!==null?i.type!==0:r||!(2<t.length)||t[0]!=="o"&&t[0]!=="O"||t[1]!=="n"&&t[1]!=="N")&&(R0(t,n,i,r)&&(n=null),r||i===null?T0(t)&&(n===null?e.removeAttribute(t):e.setAttribute(t,""+n)):i.mustUseProperty?e[i.propertyName]=n===null?i.type===3?!1:"":n:(t=i.attributeName,r=i.attributeNamespace,n===null?e.removeAttribute(t):(i=i.type,n=i===3||i===4&&n===!0?"":""+n,r?e.setAttributeNS(r,t,n):e.setAttribute(t,n))))}var On=A0.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED,Rl=Symbol.for("react.element"),oi=Symbol.for("react.portal"),si=Symbol.for("react.fragment"),hd=Symbol.for("react.strict_mode"),Hu=Symbol.for("react.profiler"),Ih=Symbol.for("react.provider"),Lh=Symbol.for("react.context"),yd=Symbol.for("react.forward_ref"),Uu=Symbol.for("react.suspense"),Ku=Symbol.for("react.suspense_list"),gd=Symbol.for("react.memo"),Zn=Symbol.for("react.lazy"),Fh=Symbol.for("react.offscreen"),tf=Symbol.iterator;function ra(e){return e===null||typeof e!="object"?null:(e=tf&&e[tf]||e["@@iterator"],typeof e=="function"?e:null)}var Ee=Object.assign,Zs;function fa(e){if(Zs===void 0)try{throw Error()}catch(n){var t=n.stack.trim().match(/\n( *(at )?)/);Zs=t&&t[1]||""}return`
+`+Zs+e}var Js=!1;function eu(e,t){if(!e||Js)return"";Js=!0;var n=Error.prepareStackTrace;Error.prepareStackTrace=void 0;try{if(t)if(t=function(){throw Error()},Object.defineProperty(t.prototype,"props",{set:function(){throw Error()}}),typeof Reflect=="object"&&Reflect.construct){try{Reflect.construct(t,[])}catch(c){var r=c}Reflect.construct(e,[],t)}else{try{t.call()}catch(c){r=c}e.call(t.prototype)}else{try{throw Error()}catch(c){r=c}e()}}catch(c){if(c&&r&&typeof c.stack=="string"){for(var i=c.stack.split(`
+`),a=r.stack.split(`
+`),l=i.length-1,s=a.length-1;1<=l&&0<=s&&i[l]!==a[s];)s--;for(;1<=l&&0<=s;l--,s--)if(i[l]!==a[s]){if(l!==1||s!==1)do if(l--,s--,0>s||i[l]!==a[s]){var u=`
+`+i[l].replace(" at new "," at ");return e.displayName&&u.includes("<anonymous>")&&(u=u.replace("<anonymous>",e.displayName)),u}while(1<=l&&0<=s);break}}}finally{Js=!1,Error.prepareStackTrace=n}return(e=e?e.displayName||e.name:"")?fa(e):""}function D0(e){switch(e.tag){case 5:return fa(e.type);case 16:return fa("Lazy");case 13:return fa("Suspense");case 19:return fa("SuspenseList");case 0:case 2:case 15:return e=eu(e.type,!1),e;case 11:return e=eu(e.type.render,!1),e;case 1:return e=eu(e.type,!0),e;default:return""}}function Gu(e){if(e==null)return null;if(typeof e=="function")return e.displayName||e.name||null;if(typeof e=="string")return e;switch(e){case si:return"Fragment";case oi:return"Portal";case Hu:return"Profiler";case hd:return"StrictMode";case Uu:return"Suspense";case Ku:return"SuspenseList"}if(typeof e=="object")switch(e.$$typeof){case Lh:return(e.displayName||"Context")+".Consumer";case Ih:return(e._context.displayName||"Context")+".Provider";case yd:var t=e.render;return e=e.displayName,e||(e=t.displayName||t.name||"",e=e!==""?"ForwardRef("+e+")":"ForwardRef"),e;case gd:return t=e.displayName||null,t!==null?t:Gu(e.type)||"Memo";case Zn:t=e._payload,e=e._init;try{return Gu(e(t))}catch{}}return null}function I0(e){var t=e.type;switch(e.tag){case 24:return"Cache";case 9:return(t.displayName||"Context")+".Consumer";case 10:return(t._context.displayName||"Context")+".Provider";case 18:return"DehydratedFragment";case 11:return e=t.render,e=e.displayName||e.name||"",t.displayName||(e!==""?"ForwardRef("+e+")":"ForwardRef");case 7:return"Fragment";case 5:return t;case 4:return"Portal";case 3:return"Root";case 6:return"Text";case 16:return Gu(t);case 8:return t===hd?"StrictMode":"Mode";case 22:return"Offscreen";case 12:return"Profiler";case 21:return"Scope";case 13:return"Suspense";case 19:return"SuspenseList";case 25:return"TracingMarker";case 1:case 0:case 17:case 2:case 14:case 15:if(typeof t=="function")return t.displayName||t.name||null;if(typeof t=="string")return t}return null}function vr(e){switch(typeof e){case"boolean":case"number":case"string":case"undefined":return e;case"object":return e;default:return""}}function Oh(e){var t=e.type;return(e=e.nodeName)&&e.toLowerCase()==="input"&&(t==="checkbox"||t==="radio")}function L0(e){var t=Oh(e)?"checked":"value",n=Object.getOwnPropertyDescriptor(e.constructor.prototype,t),r=""+e[t];if(!e.hasOwnProperty(t)&&typeof n<"u"&&typeof n.get=="function"&&typeof n.set=="function"){var i=n.get,a=n.set;return Object.defineProperty(e,t,{configurable:!0,get:function(){return i.call(this)},set:function(l){r=""+l,a.call(this,l)}}),Object.defineProperty(e,t,{enumerable:n.enumerable}),{getValue:function(){return r},setValue:function(l){r=""+l},stopTracking:function(){e._valueTracker=null,delete e[t]}}}}function Dl(e){e._valueTracker||(e._valueTracker=L0(e))}function _h(e){if(!e)return!1;var t=e._valueTracker;if(!t)return!0;var n=t.getValue(),r="";return e&&(r=Oh(e)?e.checked?"true":"false":e.value),e=r,e!==n?(t.setValue(e),!0):!1}function So(e){if(e=e||(typeof document<"u"?document:void 0),typeof e>"u")return null;try{return e.activeElement||e.body}catch{return e.body}}function $u(e,t){var n=t.checked;return Ee({},t,{defaultChecked:void 0,defaultValue:void 0,value:void 0,checked:n??e._wrapperState.initialChecked})}function nf(e,t){var n=t.defaultValue==null?"":t.defaultValue,r=t.checked!=null?t.checked:t.defaultChecked;n=vr(t.value!=null?t.value:n),e._wrapperState={initialChecked:r,initialValue:n,controlled:t.type==="checkbox"||t.type==="radio"?t.checked!=null:t.value!=null}}function Bh(e,t){t=t.checked,t!=null&&pd(e,"checked",t,!1)}function Vu(e,t){Bh(e,t);var n=vr(t.value),r=t.type;if(n!=null)r==="number"?(n===0&&e.value===""||e.value!=n)&&(e.value=""+n):e.value!==""+n&&(e.value=""+n);else if(r==="submit"||r==="reset"){e.removeAttribute("value");return}t.hasOwnProperty("value")?Yu(e,t.type,n):t.hasOwnProperty("defaultValue")&&Yu(e,t.type,vr(t.defaultValue)),t.checked==null&&t.defaultChecked!=null&&(e.defaultChecked=!!t.defaultChecked)}function rf(e,t,n){if(t.hasOwnProperty("value")||t.hasOwnProperty("defaultValue")){var r=t.type;if(!(r!=="submit"&&r!=="reset"||t.value!==void 0&&t.value!==null))return;t=""+e._wrapperState.initialValue,n||t===e.value||(e.value=t),e.defaultValue=t}n=e.name,n!==""&&(e.name=""),e.defaultChecked=!!e._wrapperState.initialChecked,n!==""&&(e.name=n)}function Yu(e,t,n){(t!=="number"||So(e.ownerDocument)!==e)&&(n==null?e.defaultValue=""+e._wrapperState.initialValue:e.defaultValue!==""+n&&(e.defaultValue=""+n))}var pa=Array.isArray;function vi(e,t,n,r){if(e=e.options,t){t={};for(var i=0;i<n.length;i++)t["$"+n[i]]=!0;for(n=0;n<e.length;n++)i=t.hasOwnProperty("$"+e[n].value),e[n].selected!==i&&(e[n].selected=i),i&&r&&(e[n].defaultSelected=!0)}else{for(n=""+vr(n),t=null,i=0;i<e.length;i++){if(e[i].value===n){e[i].selected=!0,r&&(e[i].defaultSelected=!0);return}t!==null||e[i].disabled||(t=e[i])}t!==null&&(t.selected=!0)}}function qu(e,t){if(t.dangerouslySetInnerHTML!=null)throw Error(D(91));return Ee({},t,{value:void 0,defaultValue:void 0,children:""+e._wrapperState.initialValue})}function af(e,t){var n=t.value;if(n==null){if(n=t.children,t=t.defaultValue,n!=null){if(t!=null)throw Error(D(92));if(pa(n)){if(1<n.length)throw Error(D(93));n=n[0]}t=n}t==null&&(t=""),n=t}e._wrapperState={initialValue:vr(n)}}function Hh(e,t){var n=vr(t.value),r=vr(t.defaultValue);n!=null&&(n=""+n,n!==e.value&&(e.value=n),t.defaultValue==null&&e.defaultValue!==n&&(e.defaultValue=n)),r!=null&&(e.defaultValue=""+r)}function lf(e){var t=e.textContent;t===e._wrapperState.initialValue&&t!==""&&t!==null&&(e.value=t)}function Uh(e){switch(e){case"svg":return"http://www.w3.org/2000/svg";case"math":return"http://www.w3.org/1998/Math/MathML";default:return"http://www.w3.org/1999/xhtml"}}function Wu(e,t){return e==null||e==="http://www.w3.org/1999/xhtml"?Uh(t):e==="http://www.w3.org/2000/svg"&&t==="foreignObject"?"http://www.w3.org/1999/xhtml":e}var Il,Kh=function(e){return typeof MSApp<"u"&&MSApp.execUnsafeLocalFunction?function(t,n,r,i){MSApp.execUnsafeLocalFunction(function(){return e(t,n,r,i)})}:e}(function(e,t){if(e.namespaceURI!=="http://www.w3.org/2000/svg"||"innerHTML"in e)e.innerHTML=t;else{for(Il=Il||document.createElement("div"),Il.innerHTML="<svg>"+t.valueOf().toString()+"</svg>",t=Il.firstChild;e.firstChild;)e.removeChild(e.firstChild);for(;t.firstChild;)e.appendChild(t.firstChild)}});function Ta(e,t){if(t){var n=e.firstChild;if(n&&n===e.lastChild&&n.nodeType===3){n.nodeValue=t;return}}e.textContent=t}var va={animationIterationCount:!0,aspectRatio:!0,borderImageOutset:!0,borderImageSlice:!0,borderImageWidth:!0,boxFlex:!0,boxFlexGroup:!0,boxOrdinalGroup:!0,columnCount:!0,columns:!0,flex:!0,flexGrow:!0,flexPositive:!0,flexShrink:!0,flexNegative:!0,flexOrder:!0,gridArea:!0,gridRow:!0,gridRowEnd:!0,gridRowSpan:!0,gridRowStart:!0,gridColumn:!0,gridColumnEnd:!0,gridColumnSpan:!0,gridColumnStart:!0,fontWeight:!0,lineClamp:!0,lineHeight:!0,opacity:!0,order:!0,orphans:!0,tabSize:!0,widows:!0,zIndex:!0,zoom:!0,fillOpacity:!0,floodOpacity:!0,stopOpacity:!0,strokeDasharray:!0,strokeDashoffset:!0,strokeMiterlimit:!0,strokeOpacity:!0,strokeWidth:!0},F0=["Webkit","ms","Moz","O"];Object.keys(va).forEach(function(e){F0.forEach(function(t){t=t+e.charAt(0).toUpperCase()+e.substring(1),va[t]=va[e]})});function Gh(e,t,n){return t==null||typeof t=="boolean"||t===""?"":n||typeof t!="number"||t===0||va.hasOwnProperty(e)&&va[e]?(""+t).trim():t+"px"}function $h(e,t){e=e.style;for(var n in t)if(t.hasOwnProperty(n)){var r=n.indexOf("--")===0,i=Gh(n,t[n],r);n==="float"&&(n="cssFloat"),r?e.setProperty(n,i):e[n]=i}}var O0=Ee({menuitem:!0},{area:!0,base:!0,br:!0,col:!0,embed:!0,hr:!0,img:!0,input:!0,keygen:!0,link:!0,meta:!0,param:!0,source:!0,track:!0,wbr:!0});function Qu(e,t){if(t){if(O0[e]&&(t.children!=null||t.dangerouslySetInnerHTML!=null))throw Error(D(137,e));if(t.dangerouslySetInnerHTML!=null){if(t.children!=null)throw Error(D(60));if(typeof t.dangerouslySetInnerHTML!="object"||!("__html"in t.dangerouslySetInnerHTML))throw Error(D(61))}if(t.style!=null&&typeof t.style!="object")throw Error(D(62))}}function Xu(e,t){if(e.indexOf("-")===-1)return typeof t.is=="string";switch(e){case"annotation-xml":case"color-profile":case"font-face":case"font-face-src":case"font-face-uri":case"font-face-format":case"font-face-name":case"missing-glyph":return!1;default:return!0}}var Zu=null;function kd(e){return e=e.target||e.srcElement||window,e.correspondingUseElement&&(e=e.correspondingUseElement),e.nodeType===3?e.parentNode:e}var Ju=null,xi=null,bi=null;function of(e){if(e=yl(e)){if(typeof Ju!="function")throw Error(D(280));var t=e.stateNode;t&&(t=ds(t),Ju(e.stateNode,e.type,t))}}function Vh(e){xi?bi?bi.push(e):bi=[e]:xi=e}function Yh(){if(xi){var e=xi,t=bi;if(bi=xi=null,of(e),t)for(e=0;e<t.length;e++)of(t[e])}}function qh(e,t){return e(t)}function Wh(){}var tu=!1;function Qh(e,t,n){if(tu)return e(t,n);tu=!0;try{return qh(e,t,n)}finally{tu=!1,(xi!==null||bi!==null)&&(Wh(),Yh())}}function Ma(e,t){var n=e.stateNode;if(n===null)return null;var r=ds(n);if(r===null)return null;n=r[t];e:switch(t){case"onClick":case"onClickCapture":case"onDoubleClick":case"onDoubleClickCapture":case"onMouseDown":case"onMouseDownCapture":case"onMouseMove":case"onMouseMoveCapture":case"onMouseUp":case"onMouseUpCapture":case"onMouseEnter":(r=!r.disabled)||(e=e.type,r=!(e==="button"||e==="input"||e==="select"||e==="textarea")),e=!r;break e;default:e=!1}if(e)return null;if(n&&typeof n!="function")throw Error(D(231,t,typeof n));return n}var ec=!1;if(An)try{var ia={};Object.defineProperty(ia,"passive",{get:function(){ec=!0}}),window.addEventListener("test",ia,ia),window.removeEventListener("test",ia,ia)}catch{ec=!1}function _0(e,t,n,r,i,a,l,s,u){var c=Array.prototype.slice.call(arguments,3);try{t.apply(n,c)}catch(m){this.onError(m)}}var xa=!1,zo=null,Co=!1,tc=null,B0={onError:function(e){xa=!0,zo=e}};function H0(e,t,n,r,i,a,l,s,u){xa=!1,zo=null,_0.apply(B0,arguments)}function U0(e,t,n,r,i,a,l,s,u){if(H0.apply(this,arguments),xa){if(xa){var c=zo;xa=!1,zo=null}else throw Error(D(198));Co||(Co=!0,tc=c)}}function Xr(e){var t=e,n=e;if(e.alternate)for(;t.return;)t=t.return;else{e=t;do t=e,t.flags&4098&&(n=t.return),e=t.return;while(e)}return t.tag===3?n:null}function Xh(e){if(e.tag===13){var t=e.memoizedState;if(t===null&&(e=e.alternate,e!==null&&(t=e.memoizedState)),t!==null)return t.dehydrated}return null}function sf(e){if(Xr(e)!==e)throw Error(D(188))}function K0(e){var t=e.alternate;if(!t){if(t=Xr(e),t===null)throw Error(D(188));return t!==e?null:e}for(var n=e,r=t;;){var i=n.return;if(i===null)break;var a=i.alternate;if(a===null){if(r=i.return,r!==null){n=r;continue}break}if(i.child===a.child){for(a=i.child;a;){if(a===n)return sf(i),e;if(a===r)return sf(i),t;a=a.sibling}throw Error(D(188))}if(n.return!==r.return)n=i,r=a;else{for(var l=!1,s=i.child;s;){if(s===n){l=!0,n=i,r=a;break}if(s===r){l=!0,r=i,n=a;break}s=s.sibling}if(!l){for(s=a.child;s;){if(s===n){l=!0,n=a,r=i;break}if(s===r){l=!0,r=a,n=i;break}s=s.sibling}if(!l)throw Error(D(189))}}if(n.alternate!==r)throw Error(D(190))}if(n.tag!==3)throw Error(D(188));return n.stateNode.current===n?e:t}function Zh(e){return e=K0(e),e!==null?Jh(e):null}function Jh(e){if(e.tag===5||e.tag===6)return e;for(e=e.child;e!==null;){var t=Jh(e);if(t!==null)return t;e=e.sibling}return null}var ey=bt.unstable_scheduleCallback,uf=bt.unstable_cancelCallback,G0=bt.unstable_shouldYield,$0=bt.unstable_requestPaint,Ae=bt.unstable_now,V0=bt.unstable_getCurrentPriorityLevel,vd=bt.unstable_ImmediatePriority,ty=bt.unstable_UserBlockingPriority,Eo=bt.unstable_NormalPriority,Y0=bt.unstable_LowPriority,ny=bt.unstable_IdlePriority,os=null,mn=null;function q0(e){if(mn&&typeof mn.onCommitFiberRoot=="function")try{mn.onCommitFiberRoot(os,e,void 0,(e.current.flags&128)===128)}catch{}}var qt=Math.clz32?Math.clz32:X0,W0=Math.log,Q0=Math.LN2;function X0(e){return e>>>=0,e===0?32:31-(W0(e)/Q0|0)|0}var Ll=64,Fl=4194304;function ha(e){switch(e&-e){case 1:return 1;case 2:return 2;case 4:return 4;case 8:return 8;case 16:return 16;case 32:return 32;case 64:case 128:case 256:case 512:case 1024:case 2048:case 4096:case 8192:case 16384:case 32768:case 65536:case 131072:case 262144:case 524288:case 1048576:case 2097152:return e&4194240;case 4194304:case 8388608:case 16777216:case 33554432:case 67108864:return e&130023424;case 134217728:return 134217728;case 268435456:return 268435456;case 536870912:return 536870912;case 1073741824:return 1073741824;default:return e}}function No(e,t){var n=e.pendingLanes;if(n===0)return 0;var r=0,i=e.suspendedLanes,a=e.pingedLanes,l=n&268435455;if(l!==0){var s=l&~i;s!==0?r=ha(s):(a&=l,a!==0&&(r=ha(a)))}else l=n&~i,l!==0?r=ha(l):a!==0&&(r=ha(a));if(r===0)return 0;if(t!==0&&t!==r&&!(t&i)&&(i=r&-r,a=t&-t,i>=a||i===16&&(a&4194240)!==0))return t;if(r&4&&(r|=n&16),t=e.entangledLanes,t!==0)for(e=e.entanglements,t&=r;0<t;)n=31-qt(t),i=1<<n,r|=e[n],t&=~i;return r}function Z0(e,t){switch(e){case 1:case 2:case 4:return t+250;case 8:case 16:case 32:case 64:case 128:case 256:case 512:case 1024:case 2048:case 4096:case 8192:case 16384:case 32768:case 65536:case 131072:case 262144:case 524288:case 1048576:case 2097152:return t+5e3;case 4194304:case 8388608:case 16777216:case 33554432:case 67108864:return-1;case 134217728:case 268435456:case 536870912:case 1073741824:return-1;default:return-1}}function J0(e,t){for(var n=e.suspendedLanes,r=e.pingedLanes,i=e.expirationTimes,a=e.pendingLanes;0<a;){var l=31-qt(a),s=1<<l,u=i[l];u===-1?(!(s&n)||s&r)&&(i[l]=Z0(s,t)):u<=t&&(e.expiredLanes|=s),a&=~s}}function nc(e){return e=e.pendingLanes&-1073741825,e!==0?e:e&1073741824?1073741824:0}function ry(){var e=Ll;return Ll<<=1,!(Ll&4194240)&&(Ll=64),e}function nu(e){for(var t=[],n=0;31>n;n++)t.push(e);return t}function pl(e,t,n){e.pendingLanes|=t,t!==536870912&&(e.suspendedLanes=0,e.pingedLanes=0),e=e.eventTimes,t=31-qt(t),e[t]=n}function eb(e,t){var n=e.pendingLanes&~t;e.pendingLanes=t,e.suspendedLanes=0,e.pingedLanes=0,e.expiredLanes&=t,e.mutableReadLanes&=t,e.entangledLanes&=t,t=e.entanglements;var r=e.eventTimes;for(e=e.expirationTimes;0<n;){var i=31-qt(n),a=1<<i;t[i]=0,r[i]=-1,e[i]=-1,n&=~a}}function xd(e,t){var n=e.entangledLanes|=t;for(e=e.entanglements;n;){var r=31-qt(n),i=1<<r;i&t|e[r]&t&&(e[r]|=t),n&=~i}}var de=0;function iy(e){return e&=-e,1<e?4<e?e&268435455?16:536870912:4:1}var ay,bd,ly,oy,sy,rc=!1,Ol=[],cr=null,dr=null,mr=null,Ra=new Map,Da=new Map,er=[],tb="mousedown mouseup touchcancel touchend touchstart auxclick dblclick pointercancel pointerdown pointerup dragend dragstart drop compositionend compositionstart keydown keypress keyup input textInput copy cut paste click change contextmenu reset submit".split(" ");function cf(e,t){switch(e){case"focusin":case"focusout":cr=null;break;case"dragenter":case"dragleave":dr=null;break;case"mouseover":case"mouseout":mr=null;break;case"pointerover":case"pointerout":Ra.delete(t.pointerId);break;case"gotpointercapture":case"lostpointercapture":Da.delete(t.pointerId)}}function aa(e,t,n,r,i,a){return e===null||e.nativeEvent!==a?(e={blockedOn:t,domEventName:n,eventSystemFlags:r,nativeEvent:a,targetContainers:[i]},t!==null&&(t=yl(t),t!==null&&bd(t)),e):(e.eventSystemFlags|=r,t=e.targetContainers,i!==null&&t.indexOf(i)===-1&&t.push(i),e)}function nb(e,t,n,r,i){switch(t){case"focusin":return cr=aa(cr,e,t,n,r,i),!0;case"dragenter":return dr=aa(dr,e,t,n,r,i),!0;case"mouseover":return mr=aa(mr,e,t,n,r,i),!0;case"pointerover":var a=i.pointerId;return Ra.set(a,aa(Ra.get(a)||null,e,t,n,r,i)),!0;case"gotpointercapture":return a=i.pointerId,Da.set(a,aa(Da.get(a)||null,e,t,n,r,i)),!0}return!1}function uy(e){var t=Tr(e.target);if(t!==null){var n=Xr(t);if(n!==null){if(t=n.tag,t===13){if(t=Xh(n),t!==null){e.blockedOn=t,sy(e.priority,function(){ly(n)});return}}else if(t===3&&n.stateNode.current.memoizedState.isDehydrated){e.blockedOn=n.tag===3?n.stateNode.containerInfo:null;return}}}e.blockedOn=null}function oo(e){if(e.blockedOn!==null)return!1;for(var t=e.targetContainers;0<t.length;){var n=ic(e.domEventName,e.eventSystemFlags,t[0],e.nativeEvent);if(n===null){n=e.nativeEvent;var r=new n.constructor(n.type,n);Zu=r,n.target.dispatchEvent(r),Zu=null}else return t=yl(n),t!==null&&bd(t),e.blockedOn=n,!1;t.shift()}return!0}function df(e,t,n){oo(e)&&n.delete(t)}function rb(){rc=!1,cr!==null&&oo(cr)&&(cr=null),dr!==null&&oo(dr)&&(dr=null),mr!==null&&oo(mr)&&(mr=null),Ra.forEach(df),Da.forEach(df)}function la(e,t){e.blockedOn===t&&(e.blockedOn=null,rc||(rc=!0,bt.unstable_scheduleCallback(bt.unstable_NormalPriority,rb)))}function Ia(e){function t(i){return la(i,e)}if(0<Ol.length){la(Ol[0],e);for(var n=1;n<Ol.length;n++){var r=Ol[n];r.blockedOn===e&&(r.blockedOn=null)}}for(cr!==null&&la(cr,e),dr!==null&&la(dr,e),mr!==null&&la(mr,e),Ra.forEach(t),Da.forEach(t),n=0;n<er.length;n++)r=er[n],r.blockedOn===e&&(r.blockedOn=null);for(;0<er.length&&(n=er[0],n.blockedOn===null);)uy(n),n.blockedOn===null&&er.shift()}var wi=On.ReactCurrentBatchConfig,Po=!0;function ib(e,t,n,r){var i=de,a=wi.transition;wi.transition=null;try{de=1,wd(e,t,n,r)}finally{de=i,wi.transition=a}}function ab(e,t,n,r){var i=de,a=wi.transition;wi.transition=null;try{de=4,wd(e,t,n,r)}finally{de=i,wi.transition=a}}function wd(e,t,n,r){if(Po){var i=ic(e,t,n,r);if(i===null)mu(e,t,r,Ao,n),cf(e,r);else if(nb(i,e,t,n,r))r.stopPropagation();else if(cf(e,r),t&4&&-1<tb.indexOf(e)){for(;i!==null;){var a=yl(i);if(a!==null&&ay(a),a=ic(e,t,n,r),a===null&&mu(e,t,r,Ao,n),a===i)break;i=a}i!==null&&r.stopPropagation()}else mu(e,t,r,null,n)}}var Ao=null;function ic(e,t,n,r){if(Ao=null,e=kd(r),e=Tr(e),e!==null)if(t=Xr(e),t===null)e=null;else if(n=t.tag,n===13){if(e=Xh(t),e!==null)return e;e=null}else if(n===3){if(t.stateNode.current.memoizedState.isDehydrated)return t.tag===3?t.stateNode.containerInfo:null;e=null}else t!==e&&(e=null);return Ao=e,null}function cy(e){switch(e){case"cancel":case"click":case"close":case"contextmenu":case"copy":case"cut":case"auxclick":case"dblclick":case"dragend":case"dragstart":case"drop":case"focusin":case"focusout":case"input":case"invalid":case"keydown":case"keypress":case"keyup":case"mousedown":case"mouseup":case"paste":case"pause":case"play":case"pointercancel":case"pointerdown":case"pointerup":case"ratechange":case"reset":case"resize":case"seeked":case"submit":case"touchcancel":case"touchend":case"touchstart":case"volumechange":case"change":case"selectionchange":case"textInput":case"compositionstart":case"compositionend":case"compositionupdate":case"beforeblur":case"afterblur":case"beforeinput":case"blur":case"fullscreenchange":case"focus":case"hashchange":case"popstate":case"select":case"selectstart":return 1;case"drag":case"dragenter":case"dragexit":case"dragleave":case"dragover":case"mousemove":case"mouseout":case"mouseover":case"pointermove":case"pointerout":case"pointerover":case"scroll":case"toggle":case"touchmove":case"wheel":case"mouseenter":case"mouseleave":case"pointerenter":case"pointerleave":return 4;case"message":switch(V0()){case vd:return 1;case ty:return 4;case Eo:case Y0:return 16;case ny:return 536870912;default:return 16}default:return 16}}var or=null,Sd=null,so=null;function dy(){if(so)return so;var e,t=Sd,n=t.length,r,i="value"in or?or.value:or.textContent,a=i.length;for(e=0;e<n&&t[e]===i[e];e++);var l=n-e;for(r=1;r<=l&&t[n-r]===i[a-r];r++);return so=i.slice(e,1<r?1-r:void 0)}function uo(e){var t=e.keyCode;return"charCode"in e?(e=e.charCode,e===0&&t===13&&(e=13)):e=t,e===10&&(e=13),32<=e||e===13?e:0}function _l(){return!0}function mf(){return!1}function zt(e){function t(n,r,i,a,l){this._reactName=n,this._targetInst=i,this.type=r,this.nativeEvent=a,this.target=l,this.currentTarget=null;for(var s in e)e.hasOwnProperty(s)&&(n=e[s],this[s]=n?n(a):a[s]);return this.isDefaultPrevented=(a.defaultPrevented!=null?a.defaultPrevented:a.returnValue===!1)?_l:mf,this.isPropagationStopped=mf,this}return Ee(t.prototype,{preventDefault:function(){this.defaultPrevented=!0;var n=this.nativeEvent;n&&(n.preventDefault?n.preventDefault():typeof n.returnValue!="unknown"&&(n.returnValue=!1),this.isDefaultPrevented=_l)},stopPropagation:function(){var n=this.nativeEvent;n&&(n.stopPropagation?n.stopPropagation():typeof n.cancelBubble!="unknown"&&(n.cancelBubble=!0),this.isPropagationStopped=_l)},persist:function(){},isPersistent:_l}),t}var Vi={eventPhase:0,bubbles:0,cancelable:0,timeStamp:function(e){return e.timeStamp||Date.now()},defaultPrevented:0,isTrusted:0},zd=zt(Vi),hl=Ee({},Vi,{view:0,detail:0}),lb=zt(hl),ru,iu,oa,ss=Ee({},hl,{screenX:0,screenY:0,clientX:0,clientY:0,pageX:0,pageY:0,ctrlKey:0,shiftKey:0,altKey:0,metaKey:0,getModifierState:Cd,button:0,buttons:0,relatedTarget:function(e){return e.relatedTarget===void 0?e.fromElement===e.srcElement?e.toElement:e.fromElement:e.relatedTarget},movementX:function(e){return"movementX"in e?e.movementX:(e!==oa&&(oa&&e.type==="mousemove"?(ru=e.screenX-oa.screenX,iu=e.screenY-oa.screenY):iu=ru=0,oa=e),ru)},movementY:function(e){return"movementY"in e?e.movementY:iu}}),ff=zt(ss),ob=Ee({},ss,{dataTransfer:0}),sb=zt(ob),ub=Ee({},hl,{relatedTarget:0}),au=zt(ub),cb=Ee({},Vi,{animationName:0,elapsedTime:0,pseudoElement:0}),db=zt(cb),mb=Ee({},Vi,{clipboardData:function(e){return"clipboardData"in e?e.clipboardData:window.clipboardData}}),fb=zt(mb),pb=Ee({},Vi,{data:0}),pf=zt(pb),hb={Esc:"Escape",Spacebar:" ",Left:"ArrowLeft",Up:"ArrowUp",Right:"ArrowRight",Down:"ArrowDown",Del:"Delete",Win:"OS",Menu:"ContextMenu",Apps:"ContextMenu",Scroll:"ScrollLock",MozPrintableKey:"Unidentified"},yb={8:"Backspace",9:"Tab",12:"Clear",13:"Enter",16:"Shift",17:"Control",18:"Alt",19:"Pause",20:"CapsLock",27:"Escape",32:" ",33:"PageUp",34:"PageDown",35:"End",36:"Home",37:"ArrowLeft",38:"ArrowUp",39:"ArrowRight",40:"ArrowDown",45:"Insert",46:"Delete",112:"F1",113:"F2",114:"F3",115:"F4",116:"F5",117:"F6",118:"F7",119:"F8",120:"F9",121:"F10",122:"F11",123:"F12",144:"NumLock",145:"ScrollLock",224:"Meta"},gb={Alt:"altKey",Control:"ctrlKey",Meta:"metaKey",Shift:"shiftKey"};function kb(e){var t=this.nativeEvent;return t.getModifierState?t.getModifierState(e):(e=gb[e])?!!t[e]:!1}function Cd(){return kb}var vb=Ee({},hl,{key:function(e){if(e.key){var t=hb[e.key]||e.key;if(t!=="Unidentified")return t}return e.type==="keypress"?(e=uo(e),e===13?"Enter":String.fromCharCode(e)):e.type==="keydown"||e.type==="keyup"?yb[e.keyCode]||"Unidentified":""},code:0,location:0,ctrlKey:0,shiftKey:0,altKey:0,metaKey:0,repeat:0,locale:0,getModifierState:Cd,charCode:function(e){return e.type==="keypress"?uo(e):0},keyCode:function(e){return e.type==="keydown"||e.type==="keyup"?e.keyCode:0},which:function(e){return e.type==="keypress"?uo(e):e.type==="keydown"||e.type==="keyup"?e.keyCode:0}}),xb=zt(vb),bb=Ee({},ss,{pointerId:0,width:0,height:0,pressure:0,tangentialPressure:0,tiltX:0,tiltY:0,twist:0,pointerType:0,isPrimary:0}),hf=zt(bb),wb=Ee({},hl,{touches:0,targetTouches:0,changedTouches:0,altKey:0,metaKey:0,ctrlKey:0,shiftKey:0,getModifierState:Cd}),Sb=zt(wb),zb=Ee({},Vi,{propertyName:0,elapsedTime:0,pseudoElement:0}),Cb=zt(zb),Eb=Ee({},ss,{deltaX:function(e){return"deltaX"in e?e.deltaX:"wheelDeltaX"in e?-e.wheelDeltaX:0},deltaY:function(e){return"deltaY"in e?e.deltaY:"wheelDeltaY"in e?-e.wheelDeltaY:"wheelDelta"in e?-e.wheelDelta:0},deltaZ:0,deltaMode:0}),Nb=zt(Eb),Pb=[9,13,27,32],Ed=An&&"CompositionEvent"in window,ba=null;An&&"documentMode"in document&&(ba=document.documentMode);var Ab=An&&"TextEvent"in window&&!ba,my=An&&(!Ed||ba&&8<ba&&11>=ba),yf=" ",gf=!1;function fy(e,t){switch(e){case"keyup":return Pb.indexOf(t.keyCode)!==-1;case"keydown":return t.keyCode!==229;case"keypress":case"mousedown":case"focusout":return!0;default:return!1}}function py(e){return e=e.detail,typeof e=="object"&&"data"in e?e.data:null}var ui=!1;function jb(e,t){switch(e){case"compositionend":return py(t);case"keypress":return t.which!==32?null:(gf=!0,yf);case"textInput":return e=t.data,e===yf&&gf?null:e;default:return null}}function Tb(e,t){if(ui)return e==="compositionend"||!Ed&&fy(e,t)?(e=dy(),so=Sd=or=null,ui=!1,e):null;switch(e){case"paste":return null;case"keypress":if(!(t.ctrlKey||t.altKey||t.metaKey)||t.ctrlKey&&t.altKey){if(t.char&&1<t.char.length)return t.char;if(t.which)return String.fromCharCode(t.which)}return null;case"compositionend":return my&&t.locale!=="ko"?null:t.data;default:return null}}var Mb={color:!0,date:!0,datetime:!0,"datetime-local":!0,email:!0,month:!0,number:!0,password:!0,range:!0,search:!0,tel:!0,text:!0,time:!0,url:!0,week:!0};function kf(e){var t=e&&e.nodeName&&e.nodeName.toLowerCase();return t==="input"?!!Mb[e.type]:t==="textarea"}function hy(e,t,n,r){Vh(r),t=jo(t,"onChange"),0<t.length&&(n=new zd("onChange","change",null,n,r),e.push({event:n,listeners:t}))}var wa=null,La=null;function Rb(e){Ey(e,0)}function us(e){var t=mi(e);if(_h(t))return e}function Db(e,t){if(e==="change")return t}var yy=!1;if(An){var lu;if(An){var ou="oninput"in document;if(!ou){var vf=document.createElement("div");vf.setAttribute("oninput","return;"),ou=typeof vf.oninput=="function"}lu=ou}else lu=!1;yy=lu&&(!document.documentMode||9<document.documentMode)}function xf(){wa&&(wa.detachEvent("onpropertychange",gy),La=wa=null)}function gy(e){if(e.propertyName==="value"&&us(La)){var t=[];hy(t,La,e,kd(e)),Qh(Rb,t)}}function Ib(e,t,n){e==="focusin"?(xf(),wa=t,La=n,wa.attachEvent("onpropertychange",gy)):e==="focusout"&&xf()}function Lb(e){if(e==="selectionchange"||e==="keyup"||e==="keydown")return us(La)}function Fb(e,t){if(e==="click")return us(t)}function Ob(e,t){if(e==="input"||e==="change")return us(t)}function _b(e,t){return e===t&&(e!==0||1/e===1/t)||e!==e&&t!==t}var Xt=typeof Object.is=="function"?Object.is:_b;function Fa(e,t){if(Xt(e,t))return!0;if(typeof e!="object"||e===null||typeof t!="object"||t===null)return!1;var n=Object.keys(e),r=Object.keys(t);if(n.length!==r.length)return!1;for(r=0;r<n.length;r++){var i=n[r];if(!Bu.call(t,i)||!Xt(e[i],t[i]))return!1}return!0}function bf(e){for(;e&&e.firstChild;)e=e.firstChild;return e}function wf(e,t){var n=bf(e);e=0;for(var r;n;){if(n.nodeType===3){if(r=e+n.textContent.length,e<=t&&r>=t)return{node:n,offset:t-e};e=r}e:{for(;n;){if(n.nextSibling){n=n.nextSibling;break e}n=n.parentNode}n=void 0}n=bf(n)}}function ky(e,t){return e&&t?e===t?!0:e&&e.nodeType===3?!1:t&&t.nodeType===3?ky(e,t.parentNode):"contains"in e?e.contains(t):e.compareDocumentPosition?!!(e.compareDocumentPosition(t)&16):!1:!1}function vy(){for(var e=window,t=So();t instanceof e.HTMLIFrameElement;){try{var n=typeof t.contentWindow.location.href=="string"}catch{n=!1}if(n)e=t.contentWindow;else break;t=So(e.document)}return t}function Nd(e){var t=e&&e.nodeName&&e.nodeName.toLowerCase();return t&&(t==="input"&&(e.type==="text"||e.type==="search"||e.type==="tel"||e.type==="url"||e.type==="password")||t==="textarea"||e.contentEditable==="true")}function Bb(e){var t=vy(),n=e.focusedElem,r=e.selectionRange;if(t!==n&&n&&n.ownerDocument&&ky(n.ownerDocument.documentElement,n)){if(r!==null&&Nd(n)){if(t=r.start,e=r.end,e===void 0&&(e=t),"selectionStart"in n)n.selectionStart=t,n.selectionEnd=Math.min(e,n.value.length);else if(e=(t=n.ownerDocument||document)&&t.defaultView||window,e.getSelection){e=e.getSelection();var i=n.textContent.length,a=Math.min(r.start,i);r=r.end===void 0?a:Math.min(r.end,i),!e.extend&&a>r&&(i=r,r=a,a=i),i=wf(n,a);var l=wf(n,r);i&&l&&(e.rangeCount!==1||e.anchorNode!==i.node||e.anchorOffset!==i.offset||e.focusNode!==l.node||e.focusOffset!==l.offset)&&(t=t.createRange(),t.setStart(i.node,i.offset),e.removeAllRanges(),a>r?(e.addRange(t),e.extend(l.node,l.offset)):(t.setEnd(l.node,l.offset),e.addRange(t)))}}for(t=[],e=n;e=e.parentNode;)e.nodeType===1&&t.push({element:e,left:e.scrollLeft,top:e.scrollTop});for(typeof n.focus=="function"&&n.focus(),n=0;n<t.length;n++)e=t[n],e.element.scrollLeft=e.left,e.element.scrollTop=e.top}}var Hb=An&&"documentMode"in document&&11>=document.documentMode,ci=null,ac=null,Sa=null,lc=!1;function Sf(e,t,n){var r=n.window===n?n.document:n.nodeType===9?n:n.ownerDocument;lc||ci==null||ci!==So(r)||(r=ci,"selectionStart"in r&&Nd(r)?r={start:r.selectionStart,end:r.selectionEnd}:(r=(r.ownerDocument&&r.ownerDocument.defaultView||window).getSelection(),r={anchorNode:r.anchorNode,anchorOffset:r.anchorOffset,focusNode:r.focusNode,focusOffset:r.focusOffset}),Sa&&Fa(Sa,r)||(Sa=r,r=jo(ac,"onSelect"),0<r.length&&(t=new zd("onSelect","select",null,t,n),e.push({event:t,listeners:r}),t.target=ci)))}function Bl(e,t){var n={};return n[e.toLowerCase()]=t.toLowerCase(),n["Webkit"+e]="webkit"+t,n["Moz"+e]="moz"+t,n}var di={animationend:Bl("Animation","AnimationEnd"),animationiteration:Bl("Animation","AnimationIteration"),animationstart:Bl("Animation","AnimationStart"),transitionend:Bl("Transition","TransitionEnd")},su={},xy={};An&&(xy=document.createElement("div").style,"AnimationEvent"in window||(delete di.animationend.animation,delete di.animationiteration.animation,delete di.animationstart.animation),"TransitionEvent"in window||delete di.transitionend.transition);function cs(e){if(su[e])return su[e];if(!di[e])return e;var t=di[e],n;for(n in t)if(t.hasOwnProperty(n)&&n in xy)return su[e]=t[n];return e}var by=cs("animationend"),wy=cs("animationiteration"),Sy=cs("animationstart"),zy=cs("transitionend"),Cy=new Map,zf="abort auxClick cancel canPlay canPlayThrough click close contextMenu copy cut drag dragEnd dragEnter dragExit dragLeave dragOver dragStart drop durationChange emptied encrypted ended error gotPointerCapture input invalid keyDown keyPress keyUp load loadedData loadedMetadata loadStart lostPointerCapture mouseDown mouseMove mouseOut mouseOver mouseUp paste pause play playing pointerCancel pointerDown pointerMove pointerOut pointerOver pointerUp progress rateChange reset resize seeked seeking stalled submit suspend timeUpdate touchCancel touchEnd touchStart volumeChange scroll toggle touchMove waiting wheel".split(" ");function Sr(e,t){Cy.set(e,t),Qr(t,[e])}for(var uu=0;uu<zf.length;uu++){var cu=zf[uu],Ub=cu.toLowerCase(),Kb=cu[0].toUpperCase()+cu.slice(1);Sr(Ub,"on"+Kb)}Sr(by,"onAnimationEnd");Sr(wy,"onAnimationIteration");Sr(Sy,"onAnimationStart");Sr("dblclick","onDoubleClick");Sr("focusin","onFocus");Sr("focusout","onBlur");Sr(zy,"onTransitionEnd");Li("onMouseEnter",["mouseout","mouseover"]);Li("onMouseLeave",["mouseout","mouseover"]);Li("onPointerEnter",["pointerout","pointerover"]);Li("onPointerLeave",["pointerout","pointerover"]);Qr("onChange","change click focusin focusout input keydown keyup selectionchange".split(" "));Qr("onSelect","focusout contextmenu dragend focusin keydown keyup mousedown mouseup selectionchange".split(" "));Qr("onBeforeInput",["compositionend","keypress","textInput","paste"]);Qr("onCompositionEnd","compositionend focusout keydown keypress keyup mousedown".split(" "));Qr("onCompositionStart","compositionstart focusout keydown keypress keyup mousedown".split(" "));Qr("onCompositionUpdate","compositionupdate focusout keydown keypress keyup mousedown".split(" "));var ya="abort canplay canplaythrough durationchange emptied encrypted ended error loadeddata loadedmetadata loadstart pause play playing progress ratechange resize seeked seeking stalled suspend timeupdate volumechange waiting".split(" "),Gb=new Set("cancel close invalid load scroll toggle".split(" ").concat(ya));function Cf(e,t,n){var r=e.type||"unknown-event";e.currentTarget=n,U0(r,t,void 0,e),e.currentTarget=null}function Ey(e,t){t=(t&4)!==0;for(var n=0;n<e.length;n++){var r=e[n],i=r.event;r=r.listeners;e:{var a=void 0;if(t)for(var l=r.length-1;0<=l;l--){var s=r[l],u=s.instance,c=s.currentTarget;if(s=s.listener,u!==a&&i.isPropagationStopped())break e;Cf(i,s,c),a=u}else for(l=0;l<r.length;l++){if(s=r[l],u=s.instance,c=s.currentTarget,s=s.listener,u!==a&&i.isPropagationStopped())break e;Cf(i,s,c),a=u}}}if(Co)throw e=tc,Co=!1,tc=null,e}function ve(e,t){var n=t[dc];n===void 0&&(n=t[dc]=new Set);var r=e+"__bubble";n.has(r)||(Ny(t,e,2,!1),n.add(r))}function du(e,t,n){var r=0;t&&(r|=4),Ny(n,e,r,t)}var Hl="_reactListening"+Math.random().toString(36).slice(2);function Oa(e){if(!e[Hl]){e[Hl]=!0,Dh.forEach(function(n){n!=="selectionchange"&&(Gb.has(n)||du(n,!1,e),du(n,!0,e))});var t=e.nodeType===9?e:e.ownerDocument;t===null||t[Hl]||(t[Hl]=!0,du("selectionchange",!1,t))}}function Ny(e,t,n,r){switch(cy(t)){case 1:var i=ib;break;case 4:i=ab;break;default:i=wd}n=i.bind(null,t,n,e),i=void 0,!ec||t!=="touchstart"&&t!=="touchmove"&&t!=="wheel"||(i=!0),r?i!==void 0?e.addEventListener(t,n,{capture:!0,passive:i}):e.addEventListener(t,n,!0):i!==void 0?e.addEventListener(t,n,{passive:i}):e.addEventListener(t,n,!1)}function mu(e,t,n,r,i){var a=r;if(!(t&1)&&!(t&2)&&r!==null)e:for(;;){if(r===null)return;var l=r.tag;if(l===3||l===4){var s=r.stateNode.containerInfo;if(s===i||s.nodeType===8&&s.parentNode===i)break;if(l===4)for(l=r.return;l!==null;){var u=l.tag;if((u===3||u===4)&&(u=l.stateNode.containerInfo,u===i||u.nodeType===8&&u.parentNode===i))return;l=l.return}for(;s!==null;){if(l=Tr(s),l===null)return;if(u=l.tag,u===5||u===6){r=a=l;continue e}s=s.parentNode}}r=r.return}Qh(function(){var c=a,m=kd(n),d=[];e:{var p=Cy.get(e);if(p!==void 0){var h=zd,b=e;switch(e){case"keypress":if(uo(n)===0)break e;case"keydown":case"keyup":h=xb;break;case"focusin":b="focus",h=au;break;case"focusout":b="blur",h=au;break;case"beforeblur":case"afterblur":h=au;break;case"click":if(n.button===2)break e;case"auxclick":case"dblclick":case"mousedown":case"mousemove":case"mouseup":case"mouseout":case"mouseover":case"contextmenu":h=ff;break;case"drag":case"dragend":case"dragenter":case"dragexit":case"dragleave":case"dragover":case"dragstart":case"drop":h=sb;break;case"touchcancel":case"touchend":case"touchmove":case"touchstart":h=Sb;break;case by:case wy:case Sy:h=db;break;case zy:h=Cb;break;case"scroll":h=lb;break;case"wheel":h=Nb;break;case"copy":case"cut":case"paste":h=fb;break;case"gotpointercapture":case"lostpointercapture":case"pointercancel":case"pointerdown":case"pointermove":case"pointerout":case"pointerover":case"pointerup":h=hf}var k=(t&4)!==0,x=!k&&e==="scroll",y=k?p!==null?p+"Capture":null:p;k=[];for(var g=c,v;g!==null;){v=g;var w=v.stateNode;if(v.tag===5&&w!==null&&(v=w,y!==null&&(w=Ma(g,y),w!=null&&k.push(_a(g,w,v)))),x)break;g=g.return}0<k.length&&(p=new h(p,b,null,n,m),d.push({event:p,listeners:k}))}}if(!(t&7)){e:{if(p=e==="mouseover"||e==="pointerover",h=e==="mouseout"||e==="pointerout",p&&n!==Zu&&(b=n.relatedTarget||n.fromElement)&&(Tr(b)||b[jn]))break e;if((h||p)&&(p=m.window===m?m:(p=m.ownerDocument)?p.defaultView||p.parentWindow:window,h?(b=n.relatedTarget||n.toElement,h=c,b=b?Tr(b):null,b!==null&&(x=Xr(b),b!==x||b.tag!==5&&b.tag!==6)&&(b=null)):(h=null,b=c),h!==b)){if(k=ff,w="onMouseLeave",y="onMouseEnter",g="mouse",(e==="pointerout"||e==="pointerover")&&(k=hf,w="onPointerLeave",y="onPointerEnter",g="pointer"),x=h==null?p:mi(h),v=b==null?p:mi(b),p=new k(w,g+"leave",h,n,m),p.target=x,p.relatedTarget=v,w=null,Tr(m)===c&&(k=new k(y,g+"enter",b,n,m),k.target=v,k.relatedTarget=x,w=k),x=w,h&&b)t:{for(k=h,y=b,g=0,v=k;v;v=ri(v))g++;for(v=0,w=y;w;w=ri(w))v++;for(;0<g-v;)k=ri(k),g--;for(;0<v-g;)y=ri(y),v--;for(;g--;){if(k===y||y!==null&&k===y.alternate)break t;k=ri(k),y=ri(y)}k=null}else k=null;h!==null&&Ef(d,p,h,k,!1),b!==null&&x!==null&&Ef(d,x,b,k,!0)}}e:{if(p=c?mi(c):window,h=p.nodeName&&p.nodeName.toLowerCase(),h==="select"||h==="input"&&p.type==="file")var S=Db;else if(kf(p))if(yy)S=Ob;else{S=Lb;var z=Ib}else(h=p.nodeName)&&h.toLowerCase()==="input"&&(p.type==="checkbox"||p.type==="radio")&&(S=Fb);if(S&&(S=S(e,c))){hy(d,S,n,m);break e}z&&z(e,p,c),e==="focusout"&&(z=p._wrapperState)&&z.controlled&&p.type==="number"&&Yu(p,"number",p.value)}switch(z=c?mi(c):window,e){case"focusin":(kf(z)||z.contentEditable==="true")&&(ci=z,ac=c,Sa=null);break;case"focusout":Sa=ac=ci=null;break;case"mousedown":lc=!0;break;case"contextmenu":case"mouseup":case"dragend":lc=!1,Sf(d,n,m);break;case"selectionchange":if(Hb)break;case"keydown":case"keyup":Sf(d,n,m)}var C;if(Ed)e:{switch(e){case"compositionstart":var E="onCompositionStart";break e;case"compositionend":E="onCompositionEnd";break e;case"compositionupdate":E="onCompositionUpdate";break e}E=void 0}else ui?fy(e,n)&&(E="onCompositionEnd"):e==="keydown"&&n.keyCode===229&&(E="onCompositionStart");E&&(my&&n.locale!=="ko"&&(ui||E!=="onCompositionStart"?E==="onCompositionEnd"&&ui&&(C=dy()):(or=m,Sd="value"in or?or.value:or.textContent,ui=!0)),z=jo(c,E),0<z.length&&(E=new pf(E,e,null,n,m),d.push({event:E,listeners:z}),C?E.data=C:(C=py(n),C!==null&&(E.data=C)))),(C=Ab?jb(e,n):Tb(e,n))&&(c=jo(c,"onBeforeInput"),0<c.length&&(m=new pf("onBeforeInput","beforeinput",null,n,m),d.push({event:m,listeners:c}),m.data=C))}Ey(d,t)})}function _a(e,t,n){return{instance:e,listener:t,currentTarget:n}}function jo(e,t){for(var n=t+"Capture",r=[];e!==null;){var i=e,a=i.stateNode;i.tag===5&&a!==null&&(i=a,a=Ma(e,n),a!=null&&r.unshift(_a(e,a,i)),a=Ma(e,t),a!=null&&r.push(_a(e,a,i))),e=e.return}return r}function ri(e){if(e===null)return null;do e=e.return;while(e&&e.tag!==5);return e||null}function Ef(e,t,n,r,i){for(var a=t._reactName,l=[];n!==null&&n!==r;){var s=n,u=s.alternate,c=s.stateNode;if(u!==null&&u===r)break;s.tag===5&&c!==null&&(s=c,i?(u=Ma(n,a),u!=null&&l.unshift(_a(n,u,s))):i||(u=Ma(n,a),u!=null&&l.push(_a(n,u,s)))),n=n.return}l.length!==0&&e.push({event:t,listeners:l})}var $b=/\r\n?/g,Vb=/\u0000|\uFFFD/g;function Nf(e){return(typeof e=="string"?e:""+e).replace($b,`
+`).replace(Vb,"")}function Ul(e,t,n){if(t=Nf(t),Nf(e)!==t&&n)throw Error(D(425))}function To(){}var oc=null,sc=null;function uc(e,t){return e==="textarea"||e==="noscript"||typeof t.children=="string"||typeof t.children=="number"||typeof t.dangerouslySetInnerHTML=="object"&&t.dangerouslySetInnerHTML!==null&&t.dangerouslySetInnerHTML.__html!=null}var cc=typeof setTimeout=="function"?setTimeout:void 0,Yb=typeof clearTimeout=="function"?clearTimeout:void 0,Pf=typeof Promise=="function"?Promise:void 0,qb=typeof queueMicrotask=="function"?queueMicrotask:typeof Pf<"u"?function(e){return Pf.resolve(null).then(e).catch(Wb)}:cc;function Wb(e){setTimeout(function(){throw e})}function fu(e,t){var n=t,r=0;do{var i=n.nextSibling;if(e.removeChild(n),i&&i.nodeType===8)if(n=i.data,n==="/$"){if(r===0){e.removeChild(i),Ia(t);return}r--}else n!=="$"&&n!=="$?"&&n!=="$!"||r++;n=i}while(n);Ia(t)}function fr(e){for(;e!=null;e=e.nextSibling){var t=e.nodeType;if(t===1||t===3)break;if(t===8){if(t=e.data,t==="$"||t==="$!"||t==="$?")break;if(t==="/$")return null}}return e}function Af(e){e=e.previousSibling;for(var t=0;e;){if(e.nodeType===8){var n=e.data;if(n==="$"||n==="$!"||n==="$?"){if(t===0)return e;t--}else n==="/$"&&t++}e=e.previousSibling}return null}var Yi=Math.random().toString(36).slice(2),sn="__reactFiber$"+Yi,Ba="__reactProps$"+Yi,jn="__reactContainer$"+Yi,dc="__reactEvents$"+Yi,Qb="__reactListeners$"+Yi,Xb="__reactHandles$"+Yi;function Tr(e){var t=e[sn];if(t)return t;for(var n=e.parentNode;n;){if(t=n[jn]||n[sn]){if(n=t.alternate,t.child!==null||n!==null&&n.child!==null)for(e=Af(e);e!==null;){if(n=e[sn])return n;e=Af(e)}return t}e=n,n=e.parentNode}return null}function yl(e){return e=e[sn]||e[jn],!e||e.tag!==5&&e.tag!==6&&e.tag!==13&&e.tag!==3?null:e}function mi(e){if(e.tag===5||e.tag===6)return e.stateNode;throw Error(D(33))}function ds(e){return e[Ba]||null}var mc=[],fi=-1;function zr(e){return{current:e}}function xe(e){0>fi||(e.current=mc[fi],mc[fi]=null,fi--)}function he(e,t){fi++,mc[fi]=e.current,e.current=t}var xr={},Qe=zr(xr),dt=zr(!1),Kr=xr;function Fi(e,t){var n=e.type.contextTypes;if(!n)return xr;var r=e.stateNode;if(r&&r.__reactInternalMemoizedUnmaskedChildContext===t)return r.__reactInternalMemoizedMaskedChildContext;var i={},a;for(a in n)i[a]=t[a];return r&&(e=e.stateNode,e.__reactInternalMemoizedUnmaskedChildContext=t,e.__reactInternalMemoizedMaskedChildContext=i),i}function mt(e){return e=e.childContextTypes,e!=null}function Mo(){xe(dt),xe(Qe)}function jf(e,t,n){if(Qe.current!==xr)throw Error(D(168));he(Qe,t),he(dt,n)}function Py(e,t,n){var r=e.stateNode;if(t=t.childContextTypes,typeof r.getChildContext!="function")return n;r=r.getChildContext();for(var i in r)if(!(i in t))throw Error(D(108,I0(e)||"Unknown",i));return Ee({},n,r)}function Ro(e){return e=(e=e.stateNode)&&e.__reactInternalMemoizedMergedChildContext||xr,Kr=Qe.current,he(Qe,e),he(dt,dt.current),!0}function Tf(e,t,n){var r=e.stateNode;if(!r)throw Error(D(169));n?(e=Py(e,t,Kr),r.__reactInternalMemoizedMergedChildContext=e,xe(dt),xe(Qe),he(Qe,e)):xe(dt),he(dt,n)}var Sn=null,ms=!1,pu=!1;function Ay(e){Sn===null?Sn=[e]:Sn.push(e)}function Zb(e){ms=!0,Ay(e)}function Cr(){if(!pu&&Sn!==null){pu=!0;var e=0,t=de;try{var n=Sn;for(de=1;e<n.length;e++){var r=n[e];do r=r(!0);while(r!==null)}Sn=null,ms=!1}catch(i){throw Sn!==null&&(Sn=Sn.slice(e+1)),ey(vd,Cr),i}finally{de=t,pu=!1}}return null}var pi=[],hi=0,Do=null,Io=0,Et=[],Nt=0,Gr=null,Cn=1,En="";function Ar(e,t){pi[hi++]=Io,pi[hi++]=Do,Do=e,Io=t}function jy(e,t,n){Et[Nt++]=Cn,Et[Nt++]=En,Et[Nt++]=Gr,Gr=e;var r=Cn;e=En;var i=32-qt(r)-1;r&=~(1<<i),n+=1;var a=32-qt(t)+i;if(30<a){var l=i-i%5;a=(r&(1<<l)-1).toString(32),r>>=l,i-=l,Cn=1<<32-qt(t)+i|n<<i|r,En=a+e}else Cn=1<<a|n<<i|r,En=e}function Pd(e){e.return!==null&&(Ar(e,1),jy(e,1,0))}function Ad(e){for(;e===Do;)Do=pi[--hi],pi[hi]=null,Io=pi[--hi],pi[hi]=null;for(;e===Gr;)Gr=Et[--Nt],Et[Nt]=null,En=Et[--Nt],Et[Nt]=null,Cn=Et[--Nt],Et[Nt]=null}var vt=null,kt=null,be=!1,Yt=null;function Ty(e,t){var n=Pt(5,null,null,0);n.elementType="DELETED",n.stateNode=t,n.return=e,t=e.deletions,t===null?(e.deletions=[n],e.flags|=16):t.push(n)}function Mf(e,t){switch(e.tag){case 5:var n=e.type;return t=t.nodeType!==1||n.toLowerCase()!==t.nodeName.toLowerCase()?null:t,t!==null?(e.stateNode=t,vt=e,kt=fr(t.firstChild),!0):!1;case 6:return t=e.pendingProps===""||t.nodeType!==3?null:t,t!==null?(e.stateNode=t,vt=e,kt=null,!0):!1;case 13:return t=t.nodeType!==8?null:t,t!==null?(n=Gr!==null?{id:Cn,overflow:En}:null,e.memoizedState={dehydrated:t,treeContext:n,retryLane:1073741824},n=Pt(18,null,null,0),n.stateNode=t,n.return=e,e.child=n,vt=e,kt=null,!0):!1;default:return!1}}function fc(e){return(e.mode&1)!==0&&(e.flags&128)===0}function pc(e){if(be){var t=kt;if(t){var n=t;if(!Mf(e,t)){if(fc(e))throw Error(D(418));t=fr(n.nextSibling);var r=vt;t&&Mf(e,t)?Ty(r,n):(e.flags=e.flags&-4097|2,be=!1,vt=e)}}else{if(fc(e))throw Error(D(418));e.flags=e.flags&-4097|2,be=!1,vt=e}}}function Rf(e){for(e=e.return;e!==null&&e.tag!==5&&e.tag!==3&&e.tag!==13;)e=e.return;vt=e}function Kl(e){if(e!==vt)return!1;if(!be)return Rf(e),be=!0,!1;var t;if((t=e.tag!==3)&&!(t=e.tag!==5)&&(t=e.type,t=t!=="head"&&t!=="body"&&!uc(e.type,e.memoizedProps)),t&&(t=kt)){if(fc(e))throw My(),Error(D(418));for(;t;)Ty(e,t),t=fr(t.nextSibling)}if(Rf(e),e.tag===13){if(e=e.memoizedState,e=e!==null?e.dehydrated:null,!e)throw Error(D(317));e:{for(e=e.nextSibling,t=0;e;){if(e.nodeType===8){var n=e.data;if(n==="/$"){if(t===0){kt=fr(e.nextSibling);break e}t--}else n!=="$"&&n!=="$!"&&n!=="$?"||t++}e=e.nextSibling}kt=null}}else kt=vt?fr(e.stateNode.nextSibling):null;return!0}function My(){for(var e=kt;e;)e=fr(e.nextSibling)}function Oi(){kt=vt=null,be=!1}function jd(e){Yt===null?Yt=[e]:Yt.push(e)}var Jb=On.ReactCurrentBatchConfig;function sa(e,t,n){if(e=n.ref,e!==null&&typeof e!="function"&&typeof e!="object"){if(n._owner){if(n=n._owner,n){if(n.tag!==1)throw Error(D(309));var r=n.stateNode}if(!r)throw Error(D(147,e));var i=r,a=""+e;return t!==null&&t.ref!==null&&typeof t.ref=="function"&&t.ref._stringRef===a?t.ref:(t=function(l){var s=i.refs;l===null?delete s[a]:s[a]=l},t._stringRef=a,t)}if(typeof e!="string")throw Error(D(284));if(!n._owner)throw Error(D(290,e))}return e}function Gl(e,t){throw e=Object.prototype.toString.call(t),Error(D(31,e==="[object Object]"?"object with keys {"+Object.keys(t).join(", ")+"}":e))}function Df(e){var t=e._init;return t(e._payload)}function Ry(e){function t(y,g){if(e){var v=y.deletions;v===null?(y.deletions=[g],y.flags|=16):v.push(g)}}function n(y,g){if(!e)return null;for(;g!==null;)t(y,g),g=g.sibling;return null}function r(y,g){for(y=new Map;g!==null;)g.key!==null?y.set(g.key,g):y.set(g.index,g),g=g.sibling;return y}function i(y,g){return y=gr(y,g),y.index=0,y.sibling=null,y}function a(y,g,v){return y.index=v,e?(v=y.alternate,v!==null?(v=v.index,v<g?(y.flags|=2,g):v):(y.flags|=2,g)):(y.flags|=1048576,g)}function l(y){return e&&y.alternate===null&&(y.flags|=2),y}function s(y,g,v,w){return g===null||g.tag!==6?(g=bu(v,y.mode,w),g.return=y,g):(g=i(g,v),g.return=y,g)}function u(y,g,v,w){var S=v.type;return S===si?m(y,g,v.props.children,w,v.key):g!==null&&(g.elementType===S||typeof S=="object"&&S!==null&&S.$$typeof===Zn&&Df(S)===g.type)?(w=i(g,v.props),w.ref=sa(y,g,v),w.return=y,w):(w=go(v.type,v.key,v.props,null,y.mode,w),w.ref=sa(y,g,v),w.return=y,w)}function c(y,g,v,w){return g===null||g.tag!==4||g.stateNode.containerInfo!==v.containerInfo||g.stateNode.implementation!==v.implementation?(g=wu(v,y.mode,w),g.return=y,g):(g=i(g,v.children||[]),g.return=y,g)}function m(y,g,v,w,S){return g===null||g.tag!==7?(g=Ur(v,y.mode,w,S),g.return=y,g):(g=i(g,v),g.return=y,g)}function d(y,g,v){if(typeof g=="string"&&g!==""||typeof g=="number")return g=bu(""+g,y.mode,v),g.return=y,g;if(typeof g=="object"&&g!==null){switch(g.$$typeof){case Rl:return v=go(g.type,g.key,g.props,null,y.mode,v),v.ref=sa(y,null,g),v.return=y,v;case oi:return g=wu(g,y.mode,v),g.return=y,g;case Zn:var w=g._init;return d(y,w(g._payload),v)}if(pa(g)||ra(g))return g=Ur(g,y.mode,v,null),g.return=y,g;Gl(y,g)}return null}function p(y,g,v,w){var S=g!==null?g.key:null;if(typeof v=="string"&&v!==""||typeof v=="number")return S!==null?null:s(y,g,""+v,w);if(typeof v=="object"&&v!==null){switch(v.$$typeof){case Rl:return v.key===S?u(y,g,v,w):null;case oi:return v.key===S?c(y,g,v,w):null;case Zn:return S=v._init,p(y,g,S(v._payload),w)}if(pa(v)||ra(v))return S!==null?null:m(y,g,v,w,null);Gl(y,v)}return null}function h(y,g,v,w,S){if(typeof w=="string"&&w!==""||typeof w=="number")return y=y.get(v)||null,s(g,y,""+w,S);if(typeof w=="object"&&w!==null){switch(w.$$typeof){case Rl:return y=y.get(w.key===null?v:w.key)||null,u(g,y,w,S);case oi:return y=y.get(w.key===null?v:w.key)||null,c(g,y,w,S);case Zn:var z=w._init;return h(y,g,v,z(w._payload),S)}if(pa(w)||ra(w))return y=y.get(v)||null,m(g,y,w,S,null);Gl(g,w)}return null}function b(y,g,v,w){for(var S=null,z=null,C=g,E=g=0,A=null;C!==null&&E<v.length;E++){C.index>E?(A=C,C=null):A=C.sibling;var T=p(y,C,v[E],w);if(T===null){C===null&&(C=A);break}e&&C&&T.alternate===null&&t(y,C),g=a(T,g,E),z===null?S=T:z.sibling=T,z=T,C=A}if(E===v.length)return n(y,C),be&&Ar(y,E),S;if(C===null){for(;E<v.length;E++)C=d(y,v[E],w),C!==null&&(g=a(C,g,E),z===null?S=C:z.sibling=C,z=C);return be&&Ar(y,E),S}for(C=r(y,C);E<v.length;E++)A=h(C,y,E,v[E],w),A!==null&&(e&&A.alternate!==null&&C.delete(A.key===null?E:A.key),g=a(A,g,E),z===null?S=A:z.sibling=A,z=A);return e&&C.forEach(function(F){return t(y,F)}),be&&Ar(y,E),S}function k(y,g,v,w){var S=ra(v);if(typeof S!="function")throw Error(D(150));if(v=S.call(v),v==null)throw Error(D(151));for(var z=S=null,C=g,E=g=0,A=null,T=v.next();C!==null&&!T.done;E++,T=v.next()){C.index>E?(A=C,C=null):A=C.sibling;var F=p(y,C,T.value,w);if(F===null){C===null&&(C=A);break}e&&C&&F.alternate===null&&t(y,C),g=a(F,g,E),z===null?S=F:z.sibling=F,z=F,C=A}if(T.done)return n(y,C),be&&Ar(y,E),S;if(C===null){for(;!T.done;E++,T=v.next())T=d(y,T.value,w),T!==null&&(g=a(T,g,E),z===null?S=T:z.sibling=T,z=T);return be&&Ar(y,E),S}for(C=r(y,C);!T.done;E++,T=v.next())T=h(C,y,E,T.value,w),T!==null&&(e&&T.alternate!==null&&C.delete(T.key===null?E:T.key),g=a(T,g,E),z===null?S=T:z.sibling=T,z=T);return e&&C.forEach(function(L){return t(y,L)}),be&&Ar(y,E),S}function x(y,g,v,w){if(typeof v=="object"&&v!==null&&v.type===si&&v.key===null&&(v=v.props.children),typeof v=="object"&&v!==null){switch(v.$$typeof){case Rl:e:{for(var S=v.key,z=g;z!==null;){if(z.key===S){if(S=v.type,S===si){if(z.tag===7){n(y,z.sibling),g=i(z,v.props.children),g.return=y,y=g;break e}}else if(z.elementType===S||typeof S=="object"&&S!==null&&S.$$typeof===Zn&&Df(S)===z.type){n(y,z.sibling),g=i(z,v.props),g.ref=sa(y,z,v),g.return=y,y=g;break e}n(y,z);break}else t(y,z);z=z.sibling}v.type===si?(g=Ur(v.props.children,y.mode,w,v.key),g.return=y,y=g):(w=go(v.type,v.key,v.props,null,y.mode,w),w.ref=sa(y,g,v),w.return=y,y=w)}return l(y);case oi:e:{for(z=v.key;g!==null;){if(g.key===z)if(g.tag===4&&g.stateNode.containerInfo===v.containerInfo&&g.stateNode.implementation===v.implementation){n(y,g.sibling),g=i(g,v.children||[]),g.return=y,y=g;break e}else{n(y,g);break}else t(y,g);g=g.sibling}g=wu(v,y.mode,w),g.return=y,y=g}return l(y);case Zn:return z=v._init,x(y,g,z(v._payload),w)}if(pa(v))return b(y,g,v,w);if(ra(v))return k(y,g,v,w);Gl(y,v)}return typeof v=="string"&&v!==""||typeof v=="number"?(v=""+v,g!==null&&g.tag===6?(n(y,g.sibling),g=i(g,v),g.return=y,y=g):(n(y,g),g=bu(v,y.mode,w),g.return=y,y=g),l(y)):n(y,g)}return x}var _i=Ry(!0),Dy=Ry(!1),Lo=zr(null),Fo=null,yi=null,Td=null;function Md(){Td=yi=Fo=null}function Rd(e){var t=Lo.current;xe(Lo),e._currentValue=t}function hc(e,t,n){for(;e!==null;){var r=e.alternate;if((e.childLanes&t)!==t?(e.childLanes|=t,r!==null&&(r.childLanes|=t)):r!==null&&(r.childLanes&t)!==t&&(r.childLanes|=t),e===n)break;e=e.return}}function Si(e,t){Fo=e,Td=yi=null,e=e.dependencies,e!==null&&e.firstContext!==null&&(e.lanes&t&&(ct=!0),e.firstContext=null)}function Tt(e){var t=e._currentValue;if(Td!==e)if(e={context:e,memoizedValue:t,next:null},yi===null){if(Fo===null)throw Error(D(308));yi=e,Fo.dependencies={lanes:0,firstContext:e}}else yi=yi.next=e;return t}var Mr=null;function Dd(e){Mr===null?Mr=[e]:Mr.push(e)}function Iy(e,t,n,r){var i=t.interleaved;return i===null?(n.next=n,Dd(t)):(n.next=i.next,i.next=n),t.interleaved=n,Tn(e,r)}function Tn(e,t){e.lanes|=t;var n=e.alternate;for(n!==null&&(n.lanes|=t),n=e,e=e.return;e!==null;)e.childLanes|=t,n=e.alternate,n!==null&&(n.childLanes|=t),n=e,e=e.return;return n.tag===3?n.stateNode:null}var Jn=!1;function Id(e){e.updateQueue={baseState:e.memoizedState,firstBaseUpdate:null,lastBaseUpdate:null,shared:{pending:null,interleaved:null,lanes:0},effects:null}}function Ly(e,t){e=e.updateQueue,t.updateQueue===e&&(t.updateQueue={baseState:e.baseState,firstBaseUpdate:e.firstBaseUpdate,lastBaseUpdate:e.lastBaseUpdate,shared:e.shared,effects:e.effects})}function Nn(e,t){return{eventTime:e,lane:t,tag:0,payload:null,callback:null,next:null}}function pr(e,t,n){var r=e.updateQueue;if(r===null)return null;if(r=r.shared,ie&2){var i=r.pending;return i===null?t.next=t:(t.next=i.next,i.next=t),r.pending=t,Tn(e,n)}return i=r.interleaved,i===null?(t.next=t,Dd(r)):(t.next=i.next,i.next=t),r.interleaved=t,Tn(e,n)}function co(e,t,n){if(t=t.updateQueue,t!==null&&(t=t.shared,(n&4194240)!==0)){var r=t.lanes;r&=e.pendingLanes,n|=r,t.lanes=n,xd(e,n)}}function If(e,t){var n=e.updateQueue,r=e.alternate;if(r!==null&&(r=r.updateQueue,n===r)){var i=null,a=null;if(n=n.firstBaseUpdate,n!==null){do{var l={eventTime:n.eventTime,lane:n.lane,tag:n.tag,payload:n.payload,callback:n.callback,next:null};a===null?i=a=l:a=a.next=l,n=n.next}while(n!==null);a===null?i=a=t:a=a.next=t}else i=a=t;n={baseState:r.baseState,firstBaseUpdate:i,lastBaseUpdate:a,shared:r.shared,effects:r.effects},e.updateQueue=n;return}e=n.lastBaseUpdate,e===null?n.firstBaseUpdate=t:e.next=t,n.lastBaseUpdate=t}function Oo(e,t,n,r){var i=e.updateQueue;Jn=!1;var a=i.firstBaseUpdate,l=i.lastBaseUpdate,s=i.shared.pending;if(s!==null){i.shared.pending=null;var u=s,c=u.next;u.next=null,l===null?a=c:l.next=c,l=u;var m=e.alternate;m!==null&&(m=m.updateQueue,s=m.lastBaseUpdate,s!==l&&(s===null?m.firstBaseUpdate=c:s.next=c,m.lastBaseUpdate=u))}if(a!==null){var d=i.baseState;l=0,m=c=u=null,s=a;do{var p=s.lane,h=s.eventTime;if((r&p)===p){m!==null&&(m=m.next={eventTime:h,lane:0,tag:s.tag,payload:s.payload,callback:s.callback,next:null});e:{var b=e,k=s;switch(p=t,h=n,k.tag){case 1:if(b=k.payload,typeof b=="function"){d=b.call(h,d,p);break e}d=b;break e;case 3:b.flags=b.flags&-65537|128;case 0:if(b=k.payload,p=typeof b=="function"?b.call(h,d,p):b,p==null)break e;d=Ee({},d,p);break e;case 2:Jn=!0}}s.callback!==null&&s.lane!==0&&(e.flags|=64,p=i.effects,p===null?i.effects=[s]:p.push(s))}else h={eventTime:h,lane:p,tag:s.tag,payload:s.payload,callback:s.callback,next:null},m===null?(c=m=h,u=d):m=m.next=h,l|=p;if(s=s.next,s===null){if(s=i.shared.pending,s===null)break;p=s,s=p.next,p.next=null,i.lastBaseUpdate=p,i.shared.pending=null}}while(!0);if(m===null&&(u=d),i.baseState=u,i.firstBaseUpdate=c,i.lastBaseUpdate=m,t=i.shared.interleaved,t!==null){i=t;do l|=i.lane,i=i.next;while(i!==t)}else a===null&&(i.shared.lanes=0);Vr|=l,e.lanes=l,e.memoizedState=d}}function Lf(e,t,n){if(e=t.effects,t.effects=null,e!==null)for(t=0;t<e.length;t++){var r=e[t],i=r.callback;if(i!==null){if(r.callback=null,r=n,typeof i!="function")throw Error(D(191,i));i.call(r)}}}var gl={},fn=zr(gl),Ha=zr(gl),Ua=zr(gl);function Rr(e){if(e===gl)throw Error(D(174));return e}function Ld(e,t){switch(he(Ua,t),he(Ha,e),he(fn,gl),e=t.nodeType,e){case 9:case 11:t=(t=t.documentElement)?t.namespaceURI:Wu(null,"");break;default:e=e===8?t.parentNode:t,t=e.namespaceURI||null,e=e.tagName,t=Wu(t,e)}xe(fn),he(fn,t)}function Bi(){xe(fn),xe(Ha),xe(Ua)}function Fy(e){Rr(Ua.current);var t=Rr(fn.current),n=Wu(t,e.type);t!==n&&(he(Ha,e),he(fn,n))}function Fd(e){Ha.current===e&&(xe(fn),xe(Ha))}var Se=zr(0);function _o(e){for(var t=e;t!==null;){if(t.tag===13){var n=t.memoizedState;if(n!==null&&(n=n.dehydrated,n===null||n.data==="$?"||n.data==="$!"))return t}else if(t.tag===19&&t.memoizedProps.revealOrder!==void 0){if(t.flags&128)return t}else if(t.child!==null){t.child.return=t,t=t.child;continue}if(t===e)break;for(;t.sibling===null;){if(t.return===null||t.return===e)return null;t=t.return}t.sibling.return=t.return,t=t.sibling}return null}var hu=[];function Od(){for(var e=0;e<hu.length;e++)hu[e]._workInProgressVersionPrimary=null;hu.length=0}var mo=On.ReactCurrentDispatcher,yu=On.ReactCurrentBatchConfig,$r=0,Ce=null,Ie=null,Fe=null,Bo=!1,za=!1,Ka=0,ew=0;function $e(){throw Error(D(321))}function _d(e,t){if(t===null)return!1;for(var n=0;n<t.length&&n<e.length;n++)if(!Xt(e[n],t[n]))return!1;return!0}function Bd(e,t,n,r,i,a){if($r=a,Ce=t,t.memoizedState=null,t.updateQueue=null,t.lanes=0,mo.current=e===null||e.memoizedState===null?iw:aw,e=n(r,i),za){a=0;do{if(za=!1,Ka=0,25<=a)throw Error(D(301));a+=1,Fe=Ie=null,t.updateQueue=null,mo.current=lw,e=n(r,i)}while(za)}if(mo.current=Ho,t=Ie!==null&&Ie.next!==null,$r=0,Fe=Ie=Ce=null,Bo=!1,t)throw Error(D(300));return e}function Hd(){var e=Ka!==0;return Ka=0,e}function rn(){var e={memoizedState:null,baseState:null,baseQueue:null,queue:null,next:null};return Fe===null?Ce.memoizedState=Fe=e:Fe=Fe.next=e,Fe}function Mt(){if(Ie===null){var e=Ce.alternate;e=e!==null?e.memoizedState:null}else e=Ie.next;var t=Fe===null?Ce.memoizedState:Fe.next;if(t!==null)Fe=t,Ie=e;else{if(e===null)throw Error(D(310));Ie=e,e={memoizedState:Ie.memoizedState,baseState:Ie.baseState,baseQueue:Ie.baseQueue,queue:Ie.queue,next:null},Fe===null?Ce.memoizedState=Fe=e:Fe=Fe.next=e}return Fe}function Ga(e,t){return typeof t=="function"?t(e):t}function gu(e){var t=Mt(),n=t.queue;if(n===null)throw Error(D(311));n.lastRenderedReducer=e;var r=Ie,i=r.baseQueue,a=n.pending;if(a!==null){if(i!==null){var l=i.next;i.next=a.next,a.next=l}r.baseQueue=i=a,n.pending=null}if(i!==null){a=i.next,r=r.baseState;var s=l=null,u=null,c=a;do{var m=c.lane;if(($r&m)===m)u!==null&&(u=u.next={lane:0,action:c.action,hasEagerState:c.hasEagerState,eagerState:c.eagerState,next:null}),r=c.hasEagerState?c.eagerState:e(r,c.action);else{var d={lane:m,action:c.action,hasEagerState:c.hasEagerState,eagerState:c.eagerState,next:null};u===null?(s=u=d,l=r):u=u.next=d,Ce.lanes|=m,Vr|=m}c=c.next}while(c!==null&&c!==a);u===null?l=r:u.next=s,Xt(r,t.memoizedState)||(ct=!0),t.memoizedState=r,t.baseState=l,t.baseQueue=u,n.lastRenderedState=r}if(e=n.interleaved,e!==null){i=e;do a=i.lane,Ce.lanes|=a,Vr|=a,i=i.next;while(i!==e)}else i===null&&(n.lanes=0);return[t.memoizedState,n.dispatch]}function ku(e){var t=Mt(),n=t.queue;if(n===null)throw Error(D(311));n.lastRenderedReducer=e;var r=n.dispatch,i=n.pending,a=t.memoizedState;if(i!==null){n.pending=null;var l=i=i.next;do a=e(a,l.action),l=l.next;while(l!==i);Xt(a,t.memoizedState)||(ct=!0),t.memoizedState=a,t.baseQueue===null&&(t.baseState=a),n.lastRenderedState=a}return[a,r]}function Oy(){}function _y(e,t){var n=Ce,r=Mt(),i=t(),a=!Xt(r.memoizedState,i);if(a&&(r.memoizedState=i,ct=!0),r=r.queue,Ud(Uy.bind(null,n,r,e),[e]),r.getSnapshot!==t||a||Fe!==null&&Fe.memoizedState.tag&1){if(n.flags|=2048,$a(9,Hy.bind(null,n,r,i,t),void 0,null),Oe===null)throw Error(D(349));$r&30||By(n,t,i)}return i}function By(e,t,n){e.flags|=16384,e={getSnapshot:t,value:n},t=Ce.updateQueue,t===null?(t={lastEffect:null,stores:null},Ce.updateQueue=t,t.stores=[e]):(n=t.stores,n===null?t.stores=[e]:n.push(e))}function Hy(e,t,n,r){t.value=n,t.getSnapshot=r,Ky(t)&&Gy(e)}function Uy(e,t,n){return n(function(){Ky(t)&&Gy(e)})}function Ky(e){var t=e.getSnapshot;e=e.value;try{var n=t();return!Xt(e,n)}catch{return!0}}function Gy(e){var t=Tn(e,1);t!==null&&Wt(t,e,1,-1)}function Ff(e){var t=rn();return typeof e=="function"&&(e=e()),t.memoizedState=t.baseState=e,e={pending:null,interleaved:null,lanes:0,dispatch:null,lastRenderedReducer:Ga,lastRenderedState:e},t.queue=e,e=e.dispatch=rw.bind(null,Ce,e),[t.memoizedState,e]}function $a(e,t,n,r){return e={tag:e,create:t,destroy:n,deps:r,next:null},t=Ce.updateQueue,t===null?(t={lastEffect:null,stores:null},Ce.updateQueue=t,t.lastEffect=e.next=e):(n=t.lastEffect,n===null?t.lastEffect=e.next=e:(r=n.next,n.next=e,e.next=r,t.lastEffect=e)),e}function $y(){return Mt().memoizedState}function fo(e,t,n,r){var i=rn();Ce.flags|=e,i.memoizedState=$a(1|t,n,void 0,r===void 0?null:r)}function fs(e,t,n,r){var i=Mt();r=r===void 0?null:r;var a=void 0;if(Ie!==null){var l=Ie.memoizedState;if(a=l.destroy,r!==null&&_d(r,l.deps)){i.memoizedState=$a(t,n,a,r);return}}Ce.flags|=e,i.memoizedState=$a(1|t,n,a,r)}function Of(e,t){return fo(8390656,8,e,t)}function Ud(e,t){return fs(2048,8,e,t)}function Vy(e,t){return fs(4,2,e,t)}function Yy(e,t){return fs(4,4,e,t)}function qy(e,t){if(typeof t=="function")return e=e(),t(e),function(){t(null)};if(t!=null)return e=e(),t.current=e,function(){t.current=null}}function Wy(e,t,n){return n=n!=null?n.concat([e]):null,fs(4,4,qy.bind(null,t,e),n)}function Kd(){}function Qy(e,t){var n=Mt();t=t===void 0?null:t;var r=n.memoizedState;return r!==null&&t!==null&&_d(t,r[1])?r[0]:(n.memoizedState=[e,t],e)}function Xy(e,t){var n=Mt();t=t===void 0?null:t;var r=n.memoizedState;return r!==null&&t!==null&&_d(t,r[1])?r[0]:(e=e(),n.memoizedState=[e,t],e)}function Zy(e,t,n){return $r&21?(Xt(n,t)||(n=ry(),Ce.lanes|=n,Vr|=n,e.baseState=!0),t):(e.baseState&&(e.baseState=!1,ct=!0),e.memoizedState=n)}function tw(e,t){var n=de;de=n!==0&&4>n?n:4,e(!0);var r=yu.transition;yu.transition={};try{e(!1),t()}finally{de=n,yu.transition=r}}function Jy(){return Mt().memoizedState}function nw(e,t,n){var r=yr(e);if(n={lane:r,action:n,hasEagerState:!1,eagerState:null,next:null},eg(e))tg(t,n);else if(n=Iy(e,t,n,r),n!==null){var i=nt();Wt(n,e,r,i),ng(n,t,r)}}function rw(e,t,n){var r=yr(e),i={lane:r,action:n,hasEagerState:!1,eagerState:null,next:null};if(eg(e))tg(t,i);else{var a=e.alternate;if(e.lanes===0&&(a===null||a.lanes===0)&&(a=t.lastRenderedReducer,a!==null))try{var l=t.lastRenderedState,s=a(l,n);if(i.hasEagerState=!0,i.eagerState=s,Xt(s,l)){var u=t.interleaved;u===null?(i.next=i,Dd(t)):(i.next=u.next,u.next=i),t.interleaved=i;return}}catch{}finally{}n=Iy(e,t,i,r),n!==null&&(i=nt(),Wt(n,e,r,i),ng(n,t,r))}}function eg(e){var t=e.alternate;return e===Ce||t!==null&&t===Ce}function tg(e,t){za=Bo=!0;var n=e.pending;n===null?t.next=t:(t.next=n.next,n.next=t),e.pending=t}function ng(e,t,n){if(n&4194240){var r=t.lanes;r&=e.pendingLanes,n|=r,t.lanes=n,xd(e,n)}}var Ho={readContext:Tt,useCallback:$e,useContext:$e,useEffect:$e,useImperativeHandle:$e,useInsertionEffect:$e,useLayoutEffect:$e,useMemo:$e,useReducer:$e,useRef:$e,useState:$e,useDebugValue:$e,useDeferredValue:$e,useTransition:$e,useMutableSource:$e,useSyncExternalStore:$e,useId:$e,unstable_isNewReconciler:!1},iw={readContext:Tt,useCallback:function(e,t){return rn().memoizedState=[e,t===void 0?null:t],e},useContext:Tt,useEffect:Of,useImperativeHandle:function(e,t,n){return n=n!=null?n.concat([e]):null,fo(4194308,4,qy.bind(null,t,e),n)},useLayoutEffect:function(e,t){return fo(4194308,4,e,t)},useInsertionEffect:function(e,t){return fo(4,2,e,t)},useMemo:function(e,t){var n=rn();return t=t===void 0?null:t,e=e(),n.memoizedState=[e,t],e},useReducer:function(e,t,n){var r=rn();return t=n!==void 0?n(t):t,r.memoizedState=r.baseState=t,e={pending:null,interleaved:null,lanes:0,dispatch:null,lastRenderedReducer:e,lastRenderedState:t},r.queue=e,e=e.dispatch=nw.bind(null,Ce,e),[r.memoizedState,e]},useRef:function(e){var t=rn();return e={current:e},t.memoizedState=e},useState:Ff,useDebugValue:Kd,useDeferredValue:function(e){return rn().memoizedState=e},useTransition:function(){var e=Ff(!1),t=e[0];return e=tw.bind(null,e[1]),rn().memoizedState=e,[t,e]},useMutableSource:function(){},useSyncExternalStore:function(e,t,n){var r=Ce,i=rn();if(be){if(n===void 0)throw Error(D(407));n=n()}else{if(n=t(),Oe===null)throw Error(D(349));$r&30||By(r,t,n)}i.memoizedState=n;var a={value:n,getSnapshot:t};return i.queue=a,Of(Uy.bind(null,r,a,e),[e]),r.flags|=2048,$a(9,Hy.bind(null,r,a,n,t),void 0,null),n},useId:function(){var e=rn(),t=Oe.identifierPrefix;if(be){var n=En,r=Cn;n=(r&~(1<<32-qt(r)-1)).toString(32)+n,t=":"+t+"R"+n,n=Ka++,0<n&&(t+="H"+n.toString(32)),t+=":"}else n=ew++,t=":"+t+"r"+n.toString(32)+":";return e.memoizedState=t},unstable_isNewReconciler:!1},aw={readContext:Tt,useCallback:Qy,useContext:Tt,useEffect:Ud,useImperativeHandle:Wy,useInsertionEffect:Vy,useLayoutEffect:Yy,useMemo:Xy,useReducer:gu,useRef:$y,useState:function(){return gu(Ga)},useDebugValue:Kd,useDeferredValue:function(e){var t=Mt();return Zy(t,Ie.memoizedState,e)},useTransition:function(){var e=gu(Ga)[0],t=Mt().memoizedState;return[e,t]},useMutableSource:Oy,useSyncExternalStore:_y,useId:Jy,unstable_isNewReconciler:!1},lw={readContext:Tt,useCallback:Qy,useContext:Tt,useEffect:Ud,useImperativeHandle:Wy,useInsertionEffect:Vy,useLayoutEffect:Yy,useMemo:Xy,useReducer:ku,useRef:$y,useState:function(){return ku(Ga)},useDebugValue:Kd,useDeferredValue:function(e){var t=Mt();return Ie===null?t.memoizedState=e:Zy(t,Ie.memoizedState,e)},useTransition:function(){var e=ku(Ga)[0],t=Mt().memoizedState;return[e,t]},useMutableSource:Oy,useSyncExternalStore:_y,useId:Jy,unstable_isNewReconciler:!1};function Ut(e,t){if(e&&e.defaultProps){t=Ee({},t),e=e.defaultProps;for(var n in e)t[n]===void 0&&(t[n]=e[n]);return t}return t}function yc(e,t,n,r){t=e.memoizedState,n=n(r,t),n=n==null?t:Ee({},t,n),e.memoizedState=n,e.lanes===0&&(e.updateQueue.baseState=n)}var ps={isMounted:function(e){return(e=e._reactInternals)?Xr(e)===e:!1},enqueueSetState:function(e,t,n){e=e._reactInternals;var r=nt(),i=yr(e),a=Nn(r,i);a.payload=t,n!=null&&(a.callback=n),t=pr(e,a,i),t!==null&&(Wt(t,e,i,r),co(t,e,i))},enqueueReplaceState:function(e,t,n){e=e._reactInternals;var r=nt(),i=yr(e),a=Nn(r,i);a.tag=1,a.payload=t,n!=null&&(a.callback=n),t=pr(e,a,i),t!==null&&(Wt(t,e,i,r),co(t,e,i))},enqueueForceUpdate:function(e,t){e=e._reactInternals;var n=nt(),r=yr(e),i=Nn(n,r);i.tag=2,t!=null&&(i.callback=t),t=pr(e,i,r),t!==null&&(Wt(t,e,r,n),co(t,e,r))}};function _f(e,t,n,r,i,a,l){return e=e.stateNode,typeof e.shouldComponentUpdate=="function"?e.shouldComponentUpdate(r,a,l):t.prototype&&t.prototype.isPureReactComponent?!Fa(n,r)||!Fa(i,a):!0}function rg(e,t,n){var r=!1,i=xr,a=t.contextType;return typeof a=="object"&&a!==null?a=Tt(a):(i=mt(t)?Kr:Qe.current,r=t.contextTypes,a=(r=r!=null)?Fi(e,i):xr),t=new t(n,a),e.memoizedState=t.state!==null&&t.state!==void 0?t.state:null,t.updater=ps,e.stateNode=t,t._reactInternals=e,r&&(e=e.stateNode,e.__reactInternalMemoizedUnmaskedChildContext=i,e.__reactInternalMemoizedMaskedChildContext=a),t}function Bf(e,t,n,r){e=t.state,typeof t.componentWillReceiveProps=="function"&&t.componentWillReceiveProps(n,r),typeof t.UNSAFE_componentWillReceiveProps=="function"&&t.UNSAFE_componentWillReceiveProps(n,r),t.state!==e&&ps.enqueueReplaceState(t,t.state,null)}function gc(e,t,n,r){var i=e.stateNode;i.props=n,i.state=e.memoizedState,i.refs={},Id(e);var a=t.contextType;typeof a=="object"&&a!==null?i.context=Tt(a):(a=mt(t)?Kr:Qe.current,i.context=Fi(e,a)),i.state=e.memoizedState,a=t.getDerivedStateFromProps,typeof a=="function"&&(yc(e,t,a,n),i.state=e.memoizedState),typeof t.getDerivedStateFromProps=="function"||typeof i.getSnapshotBeforeUpdate=="function"||typeof i.UNSAFE_componentWillMount!="function"&&typeof i.componentWillMount!="function"||(t=i.state,typeof i.componentWillMount=="function"&&i.componentWillMount(),typeof i.UNSAFE_componentWillMount=="function"&&i.UNSAFE_componentWillMount(),t!==i.state&&ps.enqueueReplaceState(i,i.state,null),Oo(e,n,i,r),i.state=e.memoizedState),typeof i.componentDidMount=="function"&&(e.flags|=4194308)}function Hi(e,t){try{var n="",r=t;do n+=D0(r),r=r.return;while(r);var i=n}catch(a){i=`
+Error generating stack: `+a.message+`
+`+a.stack}return{value:e,source:t,stack:i,digest:null}}function vu(e,t,n){return{value:e,source:null,stack:n??null,digest:t??null}}function kc(e,t){try{console.error(t.value)}catch(n){setTimeout(function(){throw n})}}var ow=typeof WeakMap=="function"?WeakMap:Map;function ig(e,t,n){n=Nn(-1,n),n.tag=3,n.payload={element:null};var r=t.value;return n.callback=function(){Ko||(Ko=!0,Pc=r),kc(e,t)},n}function ag(e,t,n){n=Nn(-1,n),n.tag=3;var r=e.type.getDerivedStateFromError;if(typeof r=="function"){var i=t.value;n.payload=function(){return r(i)},n.callback=function(){kc(e,t)}}var a=e.stateNode;return a!==null&&typeof a.componentDidCatch=="function"&&(n.callback=function(){kc(e,t),typeof r!="function"&&(hr===null?hr=new Set([this]):hr.add(this));var l=t.stack;this.componentDidCatch(t.value,{componentStack:l!==null?l:""})}),n}function Hf(e,t,n){var r=e.pingCache;if(r===null){r=e.pingCache=new ow;var i=new Set;r.set(t,i)}else i=r.get(t),i===void 0&&(i=new Set,r.set(t,i));i.has(n)||(i.add(n),e=bw.bind(null,e,t,n),t.then(e,e))}function Uf(e){do{var t;if((t=e.tag===13)&&(t=e.memoizedState,t=t!==null?t.dehydrated!==null:!0),t)return e;e=e.return}while(e!==null);return null}function Kf(e,t,n,r,i){return e.mode&1?(e.flags|=65536,e.lanes=i,e):(e===t?e.flags|=65536:(e.flags|=128,n.flags|=131072,n.flags&=-52805,n.tag===1&&(n.alternate===null?n.tag=17:(t=Nn(-1,1),t.tag=2,pr(n,t,1))),n.lanes|=1),e)}var sw=On.ReactCurrentOwner,ct=!1;function et(e,t,n,r){t.child=e===null?Dy(t,null,n,r):_i(t,e.child,n,r)}function Gf(e,t,n,r,i){n=n.render;var a=t.ref;return Si(t,i),r=Bd(e,t,n,r,a,i),n=Hd(),e!==null&&!ct?(t.updateQueue=e.updateQueue,t.flags&=-2053,e.lanes&=~i,Mn(e,t,i)):(be&&n&&Pd(t),t.flags|=1,et(e,t,r,i),t.child)}function $f(e,t,n,r,i){if(e===null){var a=n.type;return typeof a=="function"&&!Xd(a)&&a.defaultProps===void 0&&n.compare===null&&n.defaultProps===void 0?(t.tag=15,t.type=a,lg(e,t,a,r,i)):(e=go(n.type,null,r,t,t.mode,i),e.ref=t.ref,e.return=t,t.child=e)}if(a=e.child,!(e.lanes&i)){var l=a.memoizedProps;if(n=n.compare,n=n!==null?n:Fa,n(l,r)&&e.ref===t.ref)return Mn(e,t,i)}return t.flags|=1,e=gr(a,r),e.ref=t.ref,e.return=t,t.child=e}function lg(e,t,n,r,i){if(e!==null){var a=e.memoizedProps;if(Fa(a,r)&&e.ref===t.ref)if(ct=!1,t.pendingProps=r=a,(e.lanes&i)!==0)e.flags&131072&&(ct=!0);else return t.lanes=e.lanes,Mn(e,t,i)}return vc(e,t,n,r,i)}function og(e,t,n){var r=t.pendingProps,i=r.children,a=e!==null?e.memoizedState:null;if(r.mode==="hidden")if(!(t.mode&1))t.memoizedState={baseLanes:0,cachePool:null,transitions:null},he(ki,yt),yt|=n;else{if(!(n&1073741824))return e=a!==null?a.baseLanes|n:n,t.lanes=t.childLanes=1073741824,t.memoizedState={baseLanes:e,cachePool:null,transitions:null},t.updateQueue=null,he(ki,yt),yt|=e,null;t.memoizedState={baseLanes:0,cachePool:null,transitions:null},r=a!==null?a.baseLanes:n,he(ki,yt),yt|=r}else a!==null?(r=a.baseLanes|n,t.memoizedState=null):r=n,he(ki,yt),yt|=r;return et(e,t,i,n),t.child}function sg(e,t){var n=t.ref;(e===null&&n!==null||e!==null&&e.ref!==n)&&(t.flags|=512,t.flags|=2097152)}function vc(e,t,n,r,i){var a=mt(n)?Kr:Qe.current;return a=Fi(t,a),Si(t,i),n=Bd(e,t,n,r,a,i),r=Hd(),e!==null&&!ct?(t.updateQueue=e.updateQueue,t.flags&=-2053,e.lanes&=~i,Mn(e,t,i)):(be&&r&&Pd(t),t.flags|=1,et(e,t,n,i),t.child)}function Vf(e,t,n,r,i){if(mt(n)){var a=!0;Ro(t)}else a=!1;if(Si(t,i),t.stateNode===null)po(e,t),rg(t,n,r),gc(t,n,r,i),r=!0;else if(e===null){var l=t.stateNode,s=t.memoizedProps;l.props=s;var u=l.context,c=n.contextType;typeof c=="object"&&c!==null?c=Tt(c):(c=mt(n)?Kr:Qe.current,c=Fi(t,c));var m=n.getDerivedStateFromProps,d=typeof m=="function"||typeof l.getSnapshotBeforeUpdate=="function";d||typeof l.UNSAFE_componentWillReceiveProps!="function"&&typeof l.componentWillReceiveProps!="function"||(s!==r||u!==c)&&Bf(t,l,r,c),Jn=!1;var p=t.memoizedState;l.state=p,Oo(t,r,l,i),u=t.memoizedState,s!==r||p!==u||dt.current||Jn?(typeof m=="function"&&(yc(t,n,m,r),u=t.memoizedState),(s=Jn||_f(t,n,s,r,p,u,c))?(d||typeof l.UNSAFE_componentWillMount!="function"&&typeof l.componentWillMount!="function"||(typeof l.componentWillMount=="function"&&l.componentWillMount(),typeof l.UNSAFE_componentWillMount=="function"&&l.UNSAFE_componentWillMount()),typeof l.componentDidMount=="function"&&(t.flags|=4194308)):(typeof l.componentDidMount=="function"&&(t.flags|=4194308),t.memoizedProps=r,t.memoizedState=u),l.props=r,l.state=u,l.context=c,r=s):(typeof l.componentDidMount=="function"&&(t.flags|=4194308),r=!1)}else{l=t.stateNode,Ly(e,t),s=t.memoizedProps,c=t.type===t.elementType?s:Ut(t.type,s),l.props=c,d=t.pendingProps,p=l.context,u=n.contextType,typeof u=="object"&&u!==null?u=Tt(u):(u=mt(n)?Kr:Qe.current,u=Fi(t,u));var h=n.getDerivedStateFromProps;(m=typeof h=="function"||typeof l.getSnapshotBeforeUpdate=="function")||typeof l.UNSAFE_componentWillReceiveProps!="function"&&typeof l.componentWillReceiveProps!="function"||(s!==d||p!==u)&&Bf(t,l,r,u),Jn=!1,p=t.memoizedState,l.state=p,Oo(t,r,l,i);var b=t.memoizedState;s!==d||p!==b||dt.current||Jn?(typeof h=="function"&&(yc(t,n,h,r),b=t.memoizedState),(c=Jn||_f(t,n,c,r,p,b,u)||!1)?(m||typeof l.UNSAFE_componentWillUpdate!="function"&&typeof l.componentWillUpdate!="function"||(typeof l.componentWillUpdate=="function"&&l.componentWillUpdate(r,b,u),typeof l.UNSAFE_componentWillUpdate=="function"&&l.UNSAFE_componentWillUpdate(r,b,u)),typeof l.componentDidUpdate=="function"&&(t.flags|=4),typeof l.getSnapshotBeforeUpdate=="function"&&(t.flags|=1024)):(typeof l.componentDidUpdate!="function"||s===e.memoizedProps&&p===e.memoizedState||(t.flags|=4),typeof l.getSnapshotBeforeUpdate!="function"||s===e.memoizedProps&&p===e.memoizedState||(t.flags|=1024),t.memoizedProps=r,t.memoizedState=b),l.props=r,l.state=b,l.context=u,r=c):(typeof l.componentDidUpdate!="function"||s===e.memoizedProps&&p===e.memoizedState||(t.flags|=4),typeof l.getSnapshotBeforeUpdate!="function"||s===e.memoizedProps&&p===e.memoizedState||(t.flags|=1024),r=!1)}return xc(e,t,n,r,a,i)}function xc(e,t,n,r,i,a){sg(e,t);var l=(t.flags&128)!==0;if(!r&&!l)return i&&Tf(t,n,!1),Mn(e,t,a);r=t.stateNode,sw.current=t;var s=l&&typeof n.getDerivedStateFromError!="function"?null:r.render();return t.flags|=1,e!==null&&l?(t.child=_i(t,e.child,null,a),t.child=_i(t,null,s,a)):et(e,t,s,a),t.memoizedState=r.state,i&&Tf(t,n,!0),t.child}function ug(e){var t=e.stateNode;t.pendingContext?jf(e,t.pendingContext,t.pendingContext!==t.context):t.context&&jf(e,t.context,!1),Ld(e,t.containerInfo)}function Yf(e,t,n,r,i){return Oi(),jd(i),t.flags|=256,et(e,t,n,r),t.child}var bc={dehydrated:null,treeContext:null,retryLane:0};function wc(e){return{baseLanes:e,cachePool:null,transitions:null}}function cg(e,t,n){var r=t.pendingProps,i=Se.current,a=!1,l=(t.flags&128)!==0,s;if((s=l)||(s=e!==null&&e.memoizedState===null?!1:(i&2)!==0),s?(a=!0,t.flags&=-129):(e===null||e.memoizedState!==null)&&(i|=1),he(Se,i&1),e===null)return pc(t),e=t.memoizedState,e!==null&&(e=e.dehydrated,e!==null)?(t.mode&1?e.data==="$!"?t.lanes=8:t.lanes=1073741824:t.lanes=1,null):(l=r.children,e=r.fallback,a?(r=t.mode,a=t.child,l={mode:"hidden",children:l},!(r&1)&&a!==null?(a.childLanes=0,a.pendingProps=l):a=gs(l,r,0,null),e=Ur(e,r,n,null),a.return=t,e.return=t,a.sibling=e,t.child=a,t.child.memoizedState=wc(n),t.memoizedState=bc,e):Gd(t,l));if(i=e.memoizedState,i!==null&&(s=i.dehydrated,s!==null))return uw(e,t,l,r,s,i,n);if(a){a=r.fallback,l=t.mode,i=e.child,s=i.sibling;var u={mode:"hidden",children:r.children};return!(l&1)&&t.child!==i?(r=t.child,r.childLanes=0,r.pendingProps=u,t.deletions=null):(r=gr(i,u),r.subtreeFlags=i.subtreeFlags&14680064),s!==null?a=gr(s,a):(a=Ur(a,l,n,null),a.flags|=2),a.return=t,r.return=t,r.sibling=a,t.child=r,r=a,a=t.child,l=e.child.memoizedState,l=l===null?wc(n):{baseLanes:l.baseLanes|n,cachePool:null,transitions:l.transitions},a.memoizedState=l,a.childLanes=e.childLanes&~n,t.memoizedState=bc,r}return a=e.child,e=a.sibling,r=gr(a,{mode:"visible",children:r.children}),!(t.mode&1)&&(r.lanes=n),r.return=t,r.sibling=null,e!==null&&(n=t.deletions,n===null?(t.deletions=[e],t.flags|=16):n.push(e)),t.child=r,t.memoizedState=null,r}function Gd(e,t){return t=gs({mode:"visible",children:t},e.mode,0,null),t.return=e,e.child=t}function $l(e,t,n,r){return r!==null&&jd(r),_i(t,e.child,null,n),e=Gd(t,t.pendingProps.children),e.flags|=2,t.memoizedState=null,e}function uw(e,t,n,r,i,a,l){if(n)return t.flags&256?(t.flags&=-257,r=vu(Error(D(422))),$l(e,t,l,r)):t.memoizedState!==null?(t.child=e.child,t.flags|=128,null):(a=r.fallback,i=t.mode,r=gs({mode:"visible",children:r.children},i,0,null),a=Ur(a,i,l,null),a.flags|=2,r.return=t,a.return=t,r.sibling=a,t.child=r,t.mode&1&&_i(t,e.child,null,l),t.child.memoizedState=wc(l),t.memoizedState=bc,a);if(!(t.mode&1))return $l(e,t,l,null);if(i.data==="$!"){if(r=i.nextSibling&&i.nextSibling.dataset,r)var s=r.dgst;return r=s,a=Error(D(419)),r=vu(a,r,void 0),$l(e,t,l,r)}if(s=(l&e.childLanes)!==0,ct||s){if(r=Oe,r!==null){switch(l&-l){case 4:i=2;break;case 16:i=8;break;case 64:case 128:case 256:case 512:case 1024:case 2048:case 4096:case 8192:case 16384:case 32768:case 65536:case 131072:case 262144:case 524288:case 1048576:case 2097152:case 4194304:case 8388608:case 16777216:case 33554432:case 67108864:i=32;break;case 536870912:i=268435456;break;default:i=0}i=i&(r.suspendedLanes|l)?0:i,i!==0&&i!==a.retryLane&&(a.retryLane=i,Tn(e,i),Wt(r,e,i,-1))}return Qd(),r=vu(Error(D(421))),$l(e,t,l,r)}return i.data==="$?"?(t.flags|=128,t.child=e.child,t=ww.bind(null,e),i._reactRetry=t,null):(e=a.treeContext,kt=fr(i.nextSibling),vt=t,be=!0,Yt=null,e!==null&&(Et[Nt++]=Cn,Et[Nt++]=En,Et[Nt++]=Gr,Cn=e.id,En=e.overflow,Gr=t),t=Gd(t,r.children),t.flags|=4096,t)}function qf(e,t,n){e.lanes|=t;var r=e.alternate;r!==null&&(r.lanes|=t),hc(e.return,t,n)}function xu(e,t,n,r,i){var a=e.memoizedState;a===null?e.memoizedState={isBackwards:t,rendering:null,renderingStartTime:0,last:r,tail:n,tailMode:i}:(a.isBackwards=t,a.rendering=null,a.renderingStartTime=0,a.last=r,a.tail=n,a.tailMode=i)}function dg(e,t,n){var r=t.pendingProps,i=r.revealOrder,a=r.tail;if(et(e,t,r.children,n),r=Se.current,r&2)r=r&1|2,t.flags|=128;else{if(e!==null&&e.flags&128)e:for(e=t.child;e!==null;){if(e.tag===13)e.memoizedState!==null&&qf(e,n,t);else if(e.tag===19)qf(e,n,t);else if(e.child!==null){e.child.return=e,e=e.child;continue}if(e===t)break e;for(;e.sibling===null;){if(e.return===null||e.return===t)break e;e=e.return}e.sibling.return=e.return,e=e.sibling}r&=1}if(he(Se,r),!(t.mode&1))t.memoizedState=null;else switch(i){case"forwards":for(n=t.child,i=null;n!==null;)e=n.alternate,e!==null&&_o(e)===null&&(i=n),n=n.sibling;n=i,n===null?(i=t.child,t.child=null):(i=n.sibling,n.sibling=null),xu(t,!1,i,n,a);break;case"backwards":for(n=null,i=t.child,t.child=null;i!==null;){if(e=i.alternate,e!==null&&_o(e)===null){t.child=i;break}e=i.sibling,i.sibling=n,n=i,i=e}xu(t,!0,n,null,a);break;case"together":xu(t,!1,null,null,void 0);break;default:t.memoizedState=null}return t.child}function po(e,t){!(t.mode&1)&&e!==null&&(e.alternate=null,t.alternate=null,t.flags|=2)}function Mn(e,t,n){if(e!==null&&(t.dependencies=e.dependencies),Vr|=t.lanes,!(n&t.childLanes))return null;if(e!==null&&t.child!==e.child)throw Error(D(153));if(t.child!==null){for(e=t.child,n=gr(e,e.pendingProps),t.child=n,n.return=t;e.sibling!==null;)e=e.sibling,n=n.sibling=gr(e,e.pendingProps),n.return=t;n.sibling=null}return t.child}function cw(e,t,n){switch(t.tag){case 3:ug(t),Oi();break;case 5:Fy(t);break;case 1:mt(t.type)&&Ro(t);break;case 4:Ld(t,t.stateNode.containerInfo);break;case 10:var r=t.type._context,i=t.memoizedProps.value;he(Lo,r._currentValue),r._currentValue=i;break;case 13:if(r=t.memoizedState,r!==null)return r.dehydrated!==null?(he(Se,Se.current&1),t.flags|=128,null):n&t.child.childLanes?cg(e,t,n):(he(Se,Se.current&1),e=Mn(e,t,n),e!==null?e.sibling:null);he(Se,Se.current&1);break;case 19:if(r=(n&t.childLanes)!==0,e.flags&128){if(r)return dg(e,t,n);t.flags|=128}if(i=t.memoizedState,i!==null&&(i.rendering=null,i.tail=null,i.lastEffect=null),he(Se,Se.current),r)break;return null;case 22:case 23:return t.lanes=0,og(e,t,n)}return Mn(e,t,n)}var mg,Sc,fg,pg;mg=function(e,t){for(var n=t.child;n!==null;){if(n.tag===5||n.tag===6)e.appendChild(n.stateNode);else if(n.tag!==4&&n.child!==null){n.child.return=n,n=n.child;continue}if(n===t)break;for(;n.sibling===null;){if(n.return===null||n.return===t)return;n=n.return}n.sibling.return=n.return,n=n.sibling}};Sc=function(){};fg=function(e,t,n,r){var i=e.memoizedProps;if(i!==r){e=t.stateNode,Rr(fn.current);var a=null;switch(n){case"input":i=$u(e,i),r=$u(e,r),a=[];break;case"select":i=Ee({},i,{value:void 0}),r=Ee({},r,{value:void 0}),a=[];break;case"textarea":i=qu(e,i),r=qu(e,r),a=[];break;default:typeof i.onClick!="function"&&typeof r.onClick=="function"&&(e.onclick=To)}Qu(n,r);var l;n=null;for(c in i)if(!r.hasOwnProperty(c)&&i.hasOwnProperty(c)&&i[c]!=null)if(c==="style"){var s=i[c];for(l in s)s.hasOwnProperty(l)&&(n||(n={}),n[l]="")}else c!=="dangerouslySetInnerHTML"&&c!=="children"&&c!=="suppressContentEditableWarning"&&c!=="suppressHydrationWarning"&&c!=="autoFocus"&&(ja.hasOwnProperty(c)?a||(a=[]):(a=a||[]).push(c,null));for(c in r){var u=r[c];if(s=i!=null?i[c]:void 0,r.hasOwnProperty(c)&&u!==s&&(u!=null||s!=null))if(c==="style")if(s){for(l in s)!s.hasOwnProperty(l)||u&&u.hasOwnProperty(l)||(n||(n={}),n[l]="");for(l in u)u.hasOwnProperty(l)&&s[l]!==u[l]&&(n||(n={}),n[l]=u[l])}else n||(a||(a=[]),a.push(c,n)),n=u;else c==="dangerouslySetInnerHTML"?(u=u?u.__html:void 0,s=s?s.__html:void 0,u!=null&&s!==u&&(a=a||[]).push(c,u)):c==="children"?typeof u!="string"&&typeof u!="number"||(a=a||[]).push(c,""+u):c!=="suppressContentEditableWarning"&&c!=="suppressHydrationWarning"&&(ja.hasOwnProperty(c)?(u!=null&&c==="onScroll"&&ve("scroll",e),a||s===u||(a=[])):(a=a||[]).push(c,u))}n&&(a=a||[]).push("style",n);var c=a;(t.updateQueue=c)&&(t.flags|=4)}};pg=function(e,t,n,r){n!==r&&(t.flags|=4)};function ua(e,t){if(!be)switch(e.tailMode){case"hidden":t=e.tail;for(var n=null;t!==null;)t.alternate!==null&&(n=t),t=t.sibling;n===null?e.tail=null:n.sibling=null;break;case"collapsed":n=e.tail;for(var r=null;n!==null;)n.alternate!==null&&(r=n),n=n.sibling;r===null?t||e.tail===null?e.tail=null:e.tail.sibling=null:r.sibling=null}}function Ve(e){var t=e.alternate!==null&&e.alternate.child===e.child,n=0,r=0;if(t)for(var i=e.child;i!==null;)n|=i.lanes|i.childLanes,r|=i.subtreeFlags&14680064,r|=i.flags&14680064,i.return=e,i=i.sibling;else for(i=e.child;i!==null;)n|=i.lanes|i.childLanes,r|=i.subtreeFlags,r|=i.flags,i.return=e,i=i.sibling;return e.subtreeFlags|=r,e.childLanes=n,t}function dw(e,t,n){var r=t.pendingProps;switch(Ad(t),t.tag){case 2:case 16:case 15:case 0:case 11:case 7:case 8:case 12:case 9:case 14:return Ve(t),null;case 1:return mt(t.type)&&Mo(),Ve(t),null;case 3:return r=t.stateNode,Bi(),xe(dt),xe(Qe),Od(),r.pendingContext&&(r.context=r.pendingContext,r.pendingContext=null),(e===null||e.child===null)&&(Kl(t)?t.flags|=4:e===null||e.memoizedState.isDehydrated&&!(t.flags&256)||(t.flags|=1024,Yt!==null&&(Tc(Yt),Yt=null))),Sc(e,t),Ve(t),null;case 5:Fd(t);var i=Rr(Ua.current);if(n=t.type,e!==null&&t.stateNode!=null)fg(e,t,n,r,i),e.ref!==t.ref&&(t.flags|=512,t.flags|=2097152);else{if(!r){if(t.stateNode===null)throw Error(D(166));return Ve(t),null}if(e=Rr(fn.current),Kl(t)){r=t.stateNode,n=t.type;var a=t.memoizedProps;switch(r[sn]=t,r[Ba]=a,e=(t.mode&1)!==0,n){case"dialog":ve("cancel",r),ve("close",r);break;case"iframe":case"object":case"embed":ve("load",r);break;case"video":case"audio":for(i=0;i<ya.length;i++)ve(ya[i],r);break;case"source":ve("error",r);break;case"img":case"image":case"link":ve("error",r),ve("load",r);break;case"details":ve("toggle",r);break;case"input":nf(r,a),ve("invalid",r);break;case"select":r._wrapperState={wasMultiple:!!a.multiple},ve("invalid",r);break;case"textarea":af(r,a),ve("invalid",r)}Qu(n,a),i=null;for(var l in a)if(a.hasOwnProperty(l)){var s=a[l];l==="children"?typeof s=="string"?r.textContent!==s&&(a.suppressHydrationWarning!==!0&&Ul(r.textContent,s,e),i=["children",s]):typeof s=="number"&&r.textContent!==""+s&&(a.suppressHydrationWarning!==!0&&Ul(r.textContent,s,e),i=["children",""+s]):ja.hasOwnProperty(l)&&s!=null&&l==="onScroll"&&ve("scroll",r)}switch(n){case"input":Dl(r),rf(r,a,!0);break;case"textarea":Dl(r),lf(r);break;case"select":case"option":break;default:typeof a.onClick=="function"&&(r.onclick=To)}r=i,t.updateQueue=r,r!==null&&(t.flags|=4)}else{l=i.nodeType===9?i:i.ownerDocument,e==="http://www.w3.org/1999/xhtml"&&(e=Uh(n)),e==="http://www.w3.org/1999/xhtml"?n==="script"?(e=l.createElement("div"),e.innerHTML="<script><\/script>",e=e.removeChild(e.firstChild)):typeof r.is=="string"?e=l.createElement(n,{is:r.is}):(e=l.createElement(n),n==="select"&&(l=e,r.multiple?l.multiple=!0:r.size&&(l.size=r.size))):e=l.createElementNS(e,n),e[sn]=t,e[Ba]=r,mg(e,t,!1,!1),t.stateNode=e;e:{switch(l=Xu(n,r),n){case"dialog":ve("cancel",e),ve("close",e),i=r;break;case"iframe":case"object":case"embed":ve("load",e),i=r;break;case"video":case"audio":for(i=0;i<ya.length;i++)ve(ya[i],e);i=r;break;case"source":ve("error",e),i=r;break;case"img":case"image":case"link":ve("error",e),ve("load",e),i=r;break;case"details":ve("toggle",e),i=r;break;case"input":nf(e,r),i=$u(e,r),ve("invalid",e);break;case"option":i=r;break;case"select":e._wrapperState={wasMultiple:!!r.multiple},i=Ee({},r,{value:void 0}),ve("invalid",e);break;case"textarea":af(e,r),i=qu(e,r),ve("invalid",e);break;default:i=r}Qu(n,i),s=i;for(a in s)if(s.hasOwnProperty(a)){var u=s[a];a==="style"?$h(e,u):a==="dangerouslySetInnerHTML"?(u=u?u.__html:void 0,u!=null&&Kh(e,u)):a==="children"?typeof u=="string"?(n!=="textarea"||u!=="")&&Ta(e,u):typeof u=="number"&&Ta(e,""+u):a!=="suppressContentEditableWarning"&&a!=="suppressHydrationWarning"&&a!=="autoFocus"&&(ja.hasOwnProperty(a)?u!=null&&a==="onScroll"&&ve("scroll",e):u!=null&&pd(e,a,u,l))}switch(n){case"input":Dl(e),rf(e,r,!1);break;case"textarea":Dl(e),lf(e);break;case"option":r.value!=null&&e.setAttribute("value",""+vr(r.value));break;case"select":e.multiple=!!r.multiple,a=r.value,a!=null?vi(e,!!r.multiple,a,!1):r.defaultValue!=null&&vi(e,!!r.multiple,r.defaultValue,!0);break;default:typeof i.onClick=="function"&&(e.onclick=To)}switch(n){case"button":case"input":case"select":case"textarea":r=!!r.autoFocus;break e;case"img":r=!0;break e;default:r=!1}}r&&(t.flags|=4)}t.ref!==null&&(t.flags|=512,t.flags|=2097152)}return Ve(t),null;case 6:if(e&&t.stateNode!=null)pg(e,t,e.memoizedProps,r);else{if(typeof r!="string"&&t.stateNode===null)throw Error(D(166));if(n=Rr(Ua.current),Rr(fn.current),Kl(t)){if(r=t.stateNode,n=t.memoizedProps,r[sn]=t,(a=r.nodeValue!==n)&&(e=vt,e!==null))switch(e.tag){case 3:Ul(r.nodeValue,n,(e.mode&1)!==0);break;case 5:e.memoizedProps.suppressHydrationWarning!==!0&&Ul(r.nodeValue,n,(e.mode&1)!==0)}a&&(t.flags|=4)}else r=(n.nodeType===9?n:n.ownerDocument).createTextNode(r),r[sn]=t,t.stateNode=r}return Ve(t),null;case 13:if(xe(Se),r=t.memoizedState,e===null||e.memoizedState!==null&&e.memoizedState.dehydrated!==null){if(be&&kt!==null&&t.mode&1&&!(t.flags&128))My(),Oi(),t.flags|=98560,a=!1;else if(a=Kl(t),r!==null&&r.dehydrated!==null){if(e===null){if(!a)throw Error(D(318));if(a=t.memoizedState,a=a!==null?a.dehydrated:null,!a)throw Error(D(317));a[sn]=t}else Oi(),!(t.flags&128)&&(t.memoizedState=null),t.flags|=4;Ve(t),a=!1}else Yt!==null&&(Tc(Yt),Yt=null),a=!0;if(!a)return t.flags&65536?t:null}return t.flags&128?(t.lanes=n,t):(r=r!==null,r!==(e!==null&&e.memoizedState!==null)&&r&&(t.child.flags|=8192,t.mode&1&&(e===null||Se.current&1?Le===0&&(Le=3):Qd())),t.updateQueue!==null&&(t.flags|=4),Ve(t),null);case 4:return Bi(),Sc(e,t),e===null&&Oa(t.stateNode.containerInfo),Ve(t),null;case 10:return Rd(t.type._context),Ve(t),null;case 17:return mt(t.type)&&Mo(),Ve(t),null;case 19:if(xe(Se),a=t.memoizedState,a===null)return Ve(t),null;if(r=(t.flags&128)!==0,l=a.rendering,l===null)if(r)ua(a,!1);else{if(Le!==0||e!==null&&e.flags&128)for(e=t.child;e!==null;){if(l=_o(e),l!==null){for(t.flags|=128,ua(a,!1),r=l.updateQueue,r!==null&&(t.updateQueue=r,t.flags|=4),t.subtreeFlags=0,r=n,n=t.child;n!==null;)a=n,e=r,a.flags&=14680066,l=a.alternate,l===null?(a.childLanes=0,a.lanes=e,a.child=null,a.subtreeFlags=0,a.memoizedProps=null,a.memoizedState=null,a.updateQueue=null,a.dependencies=null,a.stateNode=null):(a.childLanes=l.childLanes,a.lanes=l.lanes,a.child=l.child,a.subtreeFlags=0,a.deletions=null,a.memoizedProps=l.memoizedProps,a.memoizedState=l.memoizedState,a.updateQueue=l.updateQueue,a.type=l.type,e=l.dependencies,a.dependencies=e===null?null:{lanes:e.lanes,firstContext:e.firstContext}),n=n.sibling;return he(Se,Se.current&1|2),t.child}e=e.sibling}a.tail!==null&&Ae()>Ui&&(t.flags|=128,r=!0,ua(a,!1),t.lanes=4194304)}else{if(!r)if(e=_o(l),e!==null){if(t.flags|=128,r=!0,n=e.updateQueue,n!==null&&(t.updateQueue=n,t.flags|=4),ua(a,!0),a.tail===null&&a.tailMode==="hidden"&&!l.alternate&&!be)return Ve(t),null}else 2*Ae()-a.renderingStartTime>Ui&&n!==1073741824&&(t.flags|=128,r=!0,ua(a,!1),t.lanes=4194304);a.isBackwards?(l.sibling=t.child,t.child=l):(n=a.last,n!==null?n.sibling=l:t.child=l,a.last=l)}return a.tail!==null?(t=a.tail,a.rendering=t,a.tail=t.sibling,a.renderingStartTime=Ae(),t.sibling=null,n=Se.current,he(Se,r?n&1|2:n&1),t):(Ve(t),null);case 22:case 23:return Wd(),r=t.memoizedState!==null,e!==null&&e.memoizedState!==null!==r&&(t.flags|=8192),r&&t.mode&1?yt&1073741824&&(Ve(t),t.subtreeFlags&6&&(t.flags|=8192)):Ve(t),null;case 24:return null;case 25:return null}throw Error(D(156,t.tag))}function mw(e,t){switch(Ad(t),t.tag){case 1:return mt(t.type)&&Mo(),e=t.flags,e&65536?(t.flags=e&-65537|128,t):null;case 3:return Bi(),xe(dt),xe(Qe),Od(),e=t.flags,e&65536&&!(e&128)?(t.flags=e&-65537|128,t):null;case 5:return Fd(t),null;case 13:if(xe(Se),e=t.memoizedState,e!==null&&e.dehydrated!==null){if(t.alternate===null)throw Error(D(340));Oi()}return e=t.flags,e&65536?(t.flags=e&-65537|128,t):null;case 19:return xe(Se),null;case 4:return Bi(),null;case 10:return Rd(t.type._context),null;case 22:case 23:return Wd(),null;case 24:return null;default:return null}}var Vl=!1,We=!1,fw=typeof WeakSet=="function"?WeakSet:Set,H=null;function gi(e,t){var n=e.ref;if(n!==null)if(typeof n=="function")try{n(null)}catch(r){Pe(e,t,r)}else n.current=null}function zc(e,t,n){try{n()}catch(r){Pe(e,t,r)}}var Wf=!1;function pw(e,t){if(oc=Po,e=vy(),Nd(e)){if("selectionStart"in e)var n={start:e.selectionStart,end:e.selectionEnd};else e:{n=(n=e.ownerDocument)&&n.defaultView||window;var r=n.getSelection&&n.getSelection();if(r&&r.rangeCount!==0){n=r.anchorNode;var i=r.anchorOffset,a=r.focusNode;r=r.focusOffset;try{n.nodeType,a.nodeType}catch{n=null;break e}var l=0,s=-1,u=-1,c=0,m=0,d=e,p=null;t:for(;;){for(var h;d!==n||i!==0&&d.nodeType!==3||(s=l+i),d!==a||r!==0&&d.nodeType!==3||(u=l+r),d.nodeType===3&&(l+=d.nodeValue.length),(h=d.firstChild)!==null;)p=d,d=h;for(;;){if(d===e)break t;if(p===n&&++c===i&&(s=l),p===a&&++m===r&&(u=l),(h=d.nextSibling)!==null)break;d=p,p=d.parentNode}d=h}n=s===-1||u===-1?null:{start:s,end:u}}else n=null}n=n||{start:0,end:0}}else n=null;for(sc={focusedElem:e,selectionRange:n},Po=!1,H=t;H!==null;)if(t=H,e=t.child,(t.subtreeFlags&1028)!==0&&e!==null)e.return=t,H=e;else for(;H!==null;){t=H;try{var b=t.alternate;if(t.flags&1024)switch(t.tag){case 0:case 11:case 15:break;case 1:if(b!==null){var k=b.memoizedProps,x=b.memoizedState,y=t.stateNode,g=y.getSnapshotBeforeUpdate(t.elementType===t.type?k:Ut(t.type,k),x);y.__reactInternalSnapshotBeforeUpdate=g}break;case 3:var v=t.stateNode.containerInfo;v.nodeType===1?v.textContent="":v.nodeType===9&&v.documentElement&&v.removeChild(v.documentElement);break;case 5:case 6:case 4:case 17:break;default:throw Error(D(163))}}catch(w){Pe(t,t.return,w)}if(e=t.sibling,e!==null){e.return=t.return,H=e;break}H=t.return}return b=Wf,Wf=!1,b}function Ca(e,t,n){var r=t.updateQueue;if(r=r!==null?r.lastEffect:null,r!==null){var i=r=r.next;do{if((i.tag&e)===e){var a=i.destroy;i.destroy=void 0,a!==void 0&&zc(t,n,a)}i=i.next}while(i!==r)}}function hs(e,t){if(t=t.updateQueue,t=t!==null?t.lastEffect:null,t!==null){var n=t=t.next;do{if((n.tag&e)===e){var r=n.create;n.destroy=r()}n=n.next}while(n!==t)}}function Cc(e){var t=e.ref;if(t!==null){var n=e.stateNode;switch(e.tag){case 5:e=n;break;default:e=n}typeof t=="function"?t(e):t.current=e}}function hg(e){var t=e.alternate;t!==null&&(e.alternate=null,hg(t)),e.child=null,e.deletions=null,e.sibling=null,e.tag===5&&(t=e.stateNode,t!==null&&(delete t[sn],delete t[Ba],delete t[dc],delete t[Qb],delete t[Xb])),e.stateNode=null,e.return=null,e.dependencies=null,e.memoizedProps=null,e.memoizedState=null,e.pendingProps=null,e.stateNode=null,e.updateQueue=null}function yg(e){return e.tag===5||e.tag===3||e.tag===4}function Qf(e){e:for(;;){for(;e.sibling===null;){if(e.return===null||yg(e.return))return null;e=e.return}for(e.sibling.return=e.return,e=e.sibling;e.tag!==5&&e.tag!==6&&e.tag!==18;){if(e.flags&2||e.child===null||e.tag===4)continue e;e.child.return=e,e=e.child}if(!(e.flags&2))return e.stateNode}}function Ec(e,t,n){var r=e.tag;if(r===5||r===6)e=e.stateNode,t?n.nodeType===8?n.parentNode.insertBefore(e,t):n.insertBefore(e,t):(n.nodeType===8?(t=n.parentNode,t.insertBefore(e,n)):(t=n,t.appendChild(e)),n=n._reactRootContainer,n!=null||t.onclick!==null||(t.onclick=To));else if(r!==4&&(e=e.child,e!==null))for(Ec(e,t,n),e=e.sibling;e!==null;)Ec(e,t,n),e=e.sibling}function Nc(e,t,n){var r=e.tag;if(r===5||r===6)e=e.stateNode,t?n.insertBefore(e,t):n.appendChild(e);else if(r!==4&&(e=e.child,e!==null))for(Nc(e,t,n),e=e.sibling;e!==null;)Nc(e,t,n),e=e.sibling}var Be=null,Vt=!1;function Yn(e,t,n){for(n=n.child;n!==null;)gg(e,t,n),n=n.sibling}function gg(e,t,n){if(mn&&typeof mn.onCommitFiberUnmount=="function")try{mn.onCommitFiberUnmount(os,n)}catch{}switch(n.tag){case 5:We||gi(n,t);case 6:var r=Be,i=Vt;Be=null,Yn(e,t,n),Be=r,Vt=i,Be!==null&&(Vt?(e=Be,n=n.stateNode,e.nodeType===8?e.parentNode.removeChild(n):e.removeChild(n)):Be.removeChild(n.stateNode));break;case 18:Be!==null&&(Vt?(e=Be,n=n.stateNode,e.nodeType===8?fu(e.parentNode,n):e.nodeType===1&&fu(e,n),Ia(e)):fu(Be,n.stateNode));break;case 4:r=Be,i=Vt,Be=n.stateNode.containerInfo,Vt=!0,Yn(e,t,n),Be=r,Vt=i;break;case 0:case 11:case 14:case 15:if(!We&&(r=n.updateQueue,r!==null&&(r=r.lastEffect,r!==null))){i=r=r.next;do{var a=i,l=a.destroy;a=a.tag,l!==void 0&&(a&2||a&4)&&zc(n,t,l),i=i.next}while(i!==r)}Yn(e,t,n);break;case 1:if(!We&&(gi(n,t),r=n.stateNode,typeof r.componentWillUnmount=="function"))try{r.props=n.memoizedProps,r.state=n.memoizedState,r.componentWillUnmount()}catch(s){Pe(n,t,s)}Yn(e,t,n);break;case 21:Yn(e,t,n);break;case 22:n.mode&1?(We=(r=We)||n.memoizedState!==null,Yn(e,t,n),We=r):Yn(e,t,n);break;default:Yn(e,t,n)}}function Xf(e){var t=e.updateQueue;if(t!==null){e.updateQueue=null;var n=e.stateNode;n===null&&(n=e.stateNode=new fw),t.forEach(function(r){var i=Sw.bind(null,e,r);n.has(r)||(n.add(r),r.then(i,i))})}}function Bt(e,t){var n=t.deletions;if(n!==null)for(var r=0;r<n.length;r++){var i=n[r];try{var a=e,l=t,s=l;e:for(;s!==null;){switch(s.tag){case 5:Be=s.stateNode,Vt=!1;break e;case 3:Be=s.stateNode.containerInfo,Vt=!0;break e;case 4:Be=s.stateNode.containerInfo,Vt=!0;break e}s=s.return}if(Be===null)throw Error(D(160));gg(a,l,i),Be=null,Vt=!1;var u=i.alternate;u!==null&&(u.return=null),i.return=null}catch(c){Pe(i,t,c)}}if(t.subtreeFlags&12854)for(t=t.child;t!==null;)kg(t,e),t=t.sibling}function kg(e,t){var n=e.alternate,r=e.flags;switch(e.tag){case 0:case 11:case 14:case 15:if(Bt(t,e),nn(e),r&4){try{Ca(3,e,e.return),hs(3,e)}catch(k){Pe(e,e.return,k)}try{Ca(5,e,e.return)}catch(k){Pe(e,e.return,k)}}break;case 1:Bt(t,e),nn(e),r&512&&n!==null&&gi(n,n.return);break;case 5:if(Bt(t,e),nn(e),r&512&&n!==null&&gi(n,n.return),e.flags&32){var i=e.stateNode;try{Ta(i,"")}catch(k){Pe(e,e.return,k)}}if(r&4&&(i=e.stateNode,i!=null)){var a=e.memoizedProps,l=n!==null?n.memoizedProps:a,s=e.type,u=e.updateQueue;if(e.updateQueue=null,u!==null)try{s==="input"&&a.type==="radio"&&a.name!=null&&Bh(i,a),Xu(s,l);var c=Xu(s,a);for(l=0;l<u.length;l+=2){var m=u[l],d=u[l+1];m==="style"?$h(i,d):m==="dangerouslySetInnerHTML"?Kh(i,d):m==="children"?Ta(i,d):pd(i,m,d,c)}switch(s){case"input":Vu(i,a);break;case"textarea":Hh(i,a);break;case"select":var p=i._wrapperState.wasMultiple;i._wrapperState.wasMultiple=!!a.multiple;var h=a.value;h!=null?vi(i,!!a.multiple,h,!1):p!==!!a.multiple&&(a.defaultValue!=null?vi(i,!!a.multiple,a.defaultValue,!0):vi(i,!!a.multiple,a.multiple?[]:"",!1))}i[Ba]=a}catch(k){Pe(e,e.return,k)}}break;case 6:if(Bt(t,e),nn(e),r&4){if(e.stateNode===null)throw Error(D(162));i=e.stateNode,a=e.memoizedProps;try{i.nodeValue=a}catch(k){Pe(e,e.return,k)}}break;case 3:if(Bt(t,e),nn(e),r&4&&n!==null&&n.memoizedState.isDehydrated)try{Ia(t.containerInfo)}catch(k){Pe(e,e.return,k)}break;case 4:Bt(t,e),nn(e);break;case 13:Bt(t,e),nn(e),i=e.child,i.flags&8192&&(a=i.memoizedState!==null,i.stateNode.isHidden=a,!a||i.alternate!==null&&i.alternate.memoizedState!==null||(Yd=Ae())),r&4&&Xf(e);break;case 22:if(m=n!==null&&n.memoizedState!==null,e.mode&1?(We=(c=We)||m,Bt(t,e),We=c):Bt(t,e),nn(e),r&8192){if(c=e.memoizedState!==null,(e.stateNode.isHidden=c)&&!m&&e.mode&1)for(H=e,m=e.child;m!==null;){for(d=H=m;H!==null;){switch(p=H,h=p.child,p.tag){case 0:case 11:case 14:case 15:Ca(4,p,p.return);break;case 1:gi(p,p.return);var b=p.stateNode;if(typeof b.componentWillUnmount=="function"){r=p,n=p.return;try{t=r,b.props=t.memoizedProps,b.state=t.memoizedState,b.componentWillUnmount()}catch(k){Pe(r,n,k)}}break;case 5:gi(p,p.return);break;case 22:if(p.memoizedState!==null){Jf(d);continue}}h!==null?(h.return=p,H=h):Jf(d)}m=m.sibling}e:for(m=null,d=e;;){if(d.tag===5){if(m===null){m=d;try{i=d.stateNode,c?(a=i.style,typeof a.setProperty=="function"?a.setProperty("display","none","important"):a.display="none"):(s=d.stateNode,u=d.memoizedProps.style,l=u!=null&&u.hasOwnProperty("display")?u.display:null,s.style.display=Gh("display",l))}catch(k){Pe(e,e.return,k)}}}else if(d.tag===6){if(m===null)try{d.stateNode.nodeValue=c?"":d.memoizedProps}catch(k){Pe(e,e.return,k)}}else if((d.tag!==22&&d.tag!==23||d.memoizedState===null||d===e)&&d.child!==null){d.child.return=d,d=d.child;continue}if(d===e)break e;for(;d.sibling===null;){if(d.return===null||d.return===e)break e;m===d&&(m=null),d=d.return}m===d&&(m=null),d.sibling.return=d.return,d=d.sibling}}break;case 19:Bt(t,e),nn(e),r&4&&Xf(e);break;case 21:break;default:Bt(t,e),nn(e)}}function nn(e){var t=e.flags;if(t&2){try{e:{for(var n=e.return;n!==null;){if(yg(n)){var r=n;break e}n=n.return}throw Error(D(160))}switch(r.tag){case 5:var i=r.stateNode;r.flags&32&&(Ta(i,""),r.flags&=-33);var a=Qf(e);Nc(e,a,i);break;case 3:case 4:var l=r.stateNode.containerInfo,s=Qf(e);Ec(e,s,l);break;default:throw Error(D(161))}}catch(u){Pe(e,e.return,u)}e.flags&=-3}t&4096&&(e.flags&=-4097)}function hw(e,t,n){H=e,vg(e)}function vg(e,t,n){for(var r=(e.mode&1)!==0;H!==null;){var i=H,a=i.child;if(i.tag===22&&r){var l=i.memoizedState!==null||Vl;if(!l){var s=i.alternate,u=s!==null&&s.memoizedState!==null||We;s=Vl;var c=We;if(Vl=l,(We=u)&&!c)for(H=i;H!==null;)l=H,u=l.child,l.tag===22&&l.memoizedState!==null?ep(i):u!==null?(u.return=l,H=u):ep(i);for(;a!==null;)H=a,vg(a),a=a.sibling;H=i,Vl=s,We=c}Zf(e)}else i.subtreeFlags&8772&&a!==null?(a.return=i,H=a):Zf(e)}}function Zf(e){for(;H!==null;){var t=H;if(t.flags&8772){var n=t.alternate;try{if(t.flags&8772)switch(t.tag){case 0:case 11:case 15:We||hs(5,t);break;case 1:var r=t.stateNode;if(t.flags&4&&!We)if(n===null)r.componentDidMount();else{var i=t.elementType===t.type?n.memoizedProps:Ut(t.type,n.memoizedProps);r.componentDidUpdate(i,n.memoizedState,r.__reactInternalSnapshotBeforeUpdate)}var a=t.updateQueue;a!==null&&Lf(t,a,r);break;case 3:var l=t.updateQueue;if(l!==null){if(n=null,t.child!==null)switch(t.child.tag){case 5:n=t.child.stateNode;break;case 1:n=t.child.stateNode}Lf(t,l,n)}break;case 5:var s=t.stateNode;if(n===null&&t.flags&4){n=s;var u=t.memoizedProps;switch(t.type){case"button":case"input":case"select":case"textarea":u.autoFocus&&n.focus();break;case"img":u.src&&(n.src=u.src)}}break;case 6:break;case 4:break;case 12:break;case 13:if(t.memoizedState===null){var c=t.alternate;if(c!==null){var m=c.memoizedState;if(m!==null){var d=m.dehydrated;d!==null&&Ia(d)}}}break;case 19:case 17:case 21:case 22:case 23:case 25:break;default:throw Error(D(163))}We||t.flags&512&&Cc(t)}catch(p){Pe(t,t.return,p)}}if(t===e){H=null;break}if(n=t.sibling,n!==null){n.return=t.return,H=n;break}H=t.return}}function Jf(e){for(;H!==null;){var t=H;if(t===e){H=null;break}var n=t.sibling;if(n!==null){n.return=t.return,H=n;break}H=t.return}}function ep(e){for(;H!==null;){var t=H;try{switch(t.tag){case 0:case 11:case 15:var n=t.return;try{hs(4,t)}catch(u){Pe(t,n,u)}break;case 1:var r=t.stateNode;if(typeof r.componentDidMount=="function"){var i=t.return;try{r.componentDidMount()}catch(u){Pe(t,i,u)}}var a=t.return;try{Cc(t)}catch(u){Pe(t,a,u)}break;case 5:var l=t.return;try{Cc(t)}catch(u){Pe(t,l,u)}}}catch(u){Pe(t,t.return,u)}if(t===e){H=null;break}var s=t.sibling;if(s!==null){s.return=t.return,H=s;break}H=t.return}}var yw=Math.ceil,Uo=On.ReactCurrentDispatcher,$d=On.ReactCurrentOwner,At=On.ReactCurrentBatchConfig,ie=0,Oe=null,Te=null,Ue=0,yt=0,ki=zr(0),Le=0,Va=null,Vr=0,ys=0,Vd=0,Ea=null,ut=null,Yd=0,Ui=1/0,wn=null,Ko=!1,Pc=null,hr=null,Yl=!1,sr=null,Go=0,Na=0,Ac=null,ho=-1,yo=0;function nt(){return ie&6?Ae():ho!==-1?ho:ho=Ae()}function yr(e){return e.mode&1?ie&2&&Ue!==0?Ue&-Ue:Jb.transition!==null?(yo===0&&(yo=ry()),yo):(e=de,e!==0||(e=window.event,e=e===void 0?16:cy(e.type)),e):1}function Wt(e,t,n,r){if(50<Na)throw Na=0,Ac=null,Error(D(185));pl(e,n,r),(!(ie&2)||e!==Oe)&&(e===Oe&&(!(ie&2)&&(ys|=n),Le===4&&tr(e,Ue)),ft(e,r),n===1&&ie===0&&!(t.mode&1)&&(Ui=Ae()+500,ms&&Cr()))}function ft(e,t){var n=e.callbackNode;J0(e,t);var r=No(e,e===Oe?Ue:0);if(r===0)n!==null&&uf(n),e.callbackNode=null,e.callbackPriority=0;else if(t=r&-r,e.callbackPriority!==t){if(n!=null&&uf(n),t===1)e.tag===0?Zb(tp.bind(null,e)):Ay(tp.bind(null,e)),qb(function(){!(ie&6)&&Cr()}),n=null;else{switch(iy(r)){case 1:n=vd;break;case 4:n=ty;break;case 16:n=Eo;break;case 536870912:n=ny;break;default:n=Eo}n=Ng(n,xg.bind(null,e))}e.callbackPriority=t,e.callbackNode=n}}function xg(e,t){if(ho=-1,yo=0,ie&6)throw Error(D(327));var n=e.callbackNode;if(zi()&&e.callbackNode!==n)return null;var r=No(e,e===Oe?Ue:0);if(r===0)return null;if(r&30||r&e.expiredLanes||t)t=$o(e,r);else{t=r;var i=ie;ie|=2;var a=wg();(Oe!==e||Ue!==t)&&(wn=null,Ui=Ae()+500,Hr(e,t));do try{vw();break}catch(s){bg(e,s)}while(!0);Md(),Uo.current=a,ie=i,Te!==null?t=0:(Oe=null,Ue=0,t=Le)}if(t!==0){if(t===2&&(i=nc(e),i!==0&&(r=i,t=jc(e,i))),t===1)throw n=Va,Hr(e,0),tr(e,r),ft(e,Ae()),n;if(t===6)tr(e,r);else{if(i=e.current.alternate,!(r&30)&&!gw(i)&&(t=$o(e,r),t===2&&(a=nc(e),a!==0&&(r=a,t=jc(e,a))),t===1))throw n=Va,Hr(e,0),tr(e,r),ft(e,Ae()),n;switch(e.finishedWork=i,e.finishedLanes=r,t){case 0:case 1:throw Error(D(345));case 2:jr(e,ut,wn);break;case 3:if(tr(e,r),(r&130023424)===r&&(t=Yd+500-Ae(),10<t)){if(No(e,0)!==0)break;if(i=e.suspendedLanes,(i&r)!==r){nt(),e.pingedLanes|=e.suspendedLanes&i;break}e.timeoutHandle=cc(jr.bind(null,e,ut,wn),t);break}jr(e,ut,wn);break;case 4:if(tr(e,r),(r&4194240)===r)break;for(t=e.eventTimes,i=-1;0<r;){var l=31-qt(r);a=1<<l,l=t[l],l>i&&(i=l),r&=~a}if(r=i,r=Ae()-r,r=(120>r?120:480>r?480:1080>r?1080:1920>r?1920:3e3>r?3e3:4320>r?4320:1960*yw(r/1960))-r,10<r){e.timeoutHandle=cc(jr.bind(null,e,ut,wn),r);break}jr(e,ut,wn);break;case 5:jr(e,ut,wn);break;default:throw Error(D(329))}}}return ft(e,Ae()),e.callbackNode===n?xg.bind(null,e):null}function jc(e,t){var n=Ea;return e.current.memoizedState.isDehydrated&&(Hr(e,t).flags|=256),e=$o(e,t),e!==2&&(t=ut,ut=n,t!==null&&Tc(t)),e}function Tc(e){ut===null?ut=e:ut.push.apply(ut,e)}function gw(e){for(var t=e;;){if(t.flags&16384){var n=t.updateQueue;if(n!==null&&(n=n.stores,n!==null))for(var r=0;r<n.length;r++){var i=n[r],a=i.getSnapshot;i=i.value;try{if(!Xt(a(),i))return!1}catch{return!1}}}if(n=t.child,t.subtreeFlags&16384&&n!==null)n.return=t,t=n;else{if(t===e)break;for(;t.sibling===null;){if(t.return===null||t.return===e)return!0;t=t.return}t.sibling.return=t.return,t=t.sibling}}return!0}function tr(e,t){for(t&=~Vd,t&=~ys,e.suspendedLanes|=t,e.pingedLanes&=~t,e=e.expirationTimes;0<t;){var n=31-qt(t),r=1<<n;e[n]=-1,t&=~r}}function tp(e){if(ie&6)throw Error(D(327));zi();var t=No(e,0);if(!(t&1))return ft(e,Ae()),null;var n=$o(e,t);if(e.tag!==0&&n===2){var r=nc(e);r!==0&&(t=r,n=jc(e,r))}if(n===1)throw n=Va,Hr(e,0),tr(e,t),ft(e,Ae()),n;if(n===6)throw Error(D(345));return e.finishedWork=e.current.alternate,e.finishedLanes=t,jr(e,ut,wn),ft(e,Ae()),null}function qd(e,t){var n=ie;ie|=1;try{return e(t)}finally{ie=n,ie===0&&(Ui=Ae()+500,ms&&Cr())}}function Yr(e){sr!==null&&sr.tag===0&&!(ie&6)&&zi();var t=ie;ie|=1;var n=At.transition,r=de;try{if(At.transition=null,de=1,e)return e()}finally{de=r,At.transition=n,ie=t,!(ie&6)&&Cr()}}function Wd(){yt=ki.current,xe(ki)}function Hr(e,t){e.finishedWork=null,e.finishedLanes=0;var n=e.timeoutHandle;if(n!==-1&&(e.timeoutHandle=-1,Yb(n)),Te!==null)for(n=Te.return;n!==null;){var r=n;switch(Ad(r),r.tag){case 1:r=r.type.childContextTypes,r!=null&&Mo();break;case 3:Bi(),xe(dt),xe(Qe),Od();break;case 5:Fd(r);break;case 4:Bi();break;case 13:xe(Se);break;case 19:xe(Se);break;case 10:Rd(r.type._context);break;case 22:case 23:Wd()}n=n.return}if(Oe=e,Te=e=gr(e.current,null),Ue=yt=t,Le=0,Va=null,Vd=ys=Vr=0,ut=Ea=null,Mr!==null){for(t=0;t<Mr.length;t++)if(n=Mr[t],r=n.interleaved,r!==null){n.interleaved=null;var i=r.next,a=n.pending;if(a!==null){var l=a.next;a.next=i,r.next=l}n.pending=r}Mr=null}return e}function bg(e,t){do{var n=Te;try{if(Md(),mo.current=Ho,Bo){for(var r=Ce.memoizedState;r!==null;){var i=r.queue;i!==null&&(i.pending=null),r=r.next}Bo=!1}if($r=0,Fe=Ie=Ce=null,za=!1,Ka=0,$d.current=null,n===null||n.return===null){Le=1,Va=t,Te=null;break}e:{var a=e,l=n.return,s=n,u=t;if(t=Ue,s.flags|=32768,u!==null&&typeof u=="object"&&typeof u.then=="function"){var c=u,m=s,d=m.tag;if(!(m.mode&1)&&(d===0||d===11||d===15)){var p=m.alternate;p?(m.updateQueue=p.updateQueue,m.memoizedState=p.memoizedState,m.lanes=p.lanes):(m.updateQueue=null,m.memoizedState=null)}var h=Uf(l);if(h!==null){h.flags&=-257,Kf(h,l,s,a,t),h.mode&1&&Hf(a,c,t),t=h,u=c;var b=t.updateQueue;if(b===null){var k=new Set;k.add(u),t.updateQueue=k}else b.add(u);break e}else{if(!(t&1)){Hf(a,c,t),Qd();break e}u=Error(D(426))}}else if(be&&s.mode&1){var x=Uf(l);if(x!==null){!(x.flags&65536)&&(x.flags|=256),Kf(x,l,s,a,t),jd(Hi(u,s));break e}}a=u=Hi(u,s),Le!==4&&(Le=2),Ea===null?Ea=[a]:Ea.push(a),a=l;do{switch(a.tag){case 3:a.flags|=65536,t&=-t,a.lanes|=t;var y=ig(a,u,t);If(a,y);break e;case 1:s=u;var g=a.type,v=a.stateNode;if(!(a.flags&128)&&(typeof g.getDerivedStateFromError=="function"||v!==null&&typeof v.componentDidCatch=="function"&&(hr===null||!hr.has(v)))){a.flags|=65536,t&=-t,a.lanes|=t;var w=ag(a,s,t);If(a,w);break e}}a=a.return}while(a!==null)}zg(n)}catch(S){t=S,Te===n&&n!==null&&(Te=n=n.return);continue}break}while(!0)}function wg(){var e=Uo.current;return Uo.current=Ho,e===null?Ho:e}function Qd(){(Le===0||Le===3||Le===2)&&(Le=4),Oe===null||!(Vr&268435455)&&!(ys&268435455)||tr(Oe,Ue)}function $o(e,t){var n=ie;ie|=2;var r=wg();(Oe!==e||Ue!==t)&&(wn=null,Hr(e,t));do try{kw();break}catch(i){bg(e,i)}while(!0);if(Md(),ie=n,Uo.current=r,Te!==null)throw Error(D(261));return Oe=null,Ue=0,Le}function kw(){for(;Te!==null;)Sg(Te)}function vw(){for(;Te!==null&&!G0();)Sg(Te)}function Sg(e){var t=Eg(e.alternate,e,yt);e.memoizedProps=e.pendingProps,t===null?zg(e):Te=t,$d.current=null}function zg(e){var t=e;do{var n=t.alternate;if(e=t.return,t.flags&32768){if(n=mw(n,t),n!==null){n.flags&=32767,Te=n;return}if(e!==null)e.flags|=32768,e.subtreeFlags=0,e.deletions=null;else{Le=6,Te=null;return}}else if(n=dw(n,t,yt),n!==null){Te=n;return}if(t=t.sibling,t!==null){Te=t;return}Te=t=e}while(t!==null);Le===0&&(Le=5)}function jr(e,t,n){var r=de,i=At.transition;try{At.transition=null,de=1,xw(e,t,n,r)}finally{At.transition=i,de=r}return null}function xw(e,t,n,r){do zi();while(sr!==null);if(ie&6)throw Error(D(327));n=e.finishedWork;var i=e.finishedLanes;if(n===null)return null;if(e.finishedWork=null,e.finishedLanes=0,n===e.current)throw Error(D(177));e.callbackNode=null,e.callbackPriority=0;var a=n.lanes|n.childLanes;if(eb(e,a),e===Oe&&(Te=Oe=null,Ue=0),!(n.subtreeFlags&2064)&&!(n.flags&2064)||Yl||(Yl=!0,Ng(Eo,function(){return zi(),null})),a=(n.flags&15990)!==0,n.subtreeFlags&15990||a){a=At.transition,At.transition=null;var l=de;de=1;var s=ie;ie|=4,$d.current=null,pw(e,n),kg(n,e),Bb(sc),Po=!!oc,sc=oc=null,e.current=n,hw(n),$0(),ie=s,de=l,At.transition=a}else e.current=n;if(Yl&&(Yl=!1,sr=e,Go=i),a=e.pendingLanes,a===0&&(hr=null),q0(n.stateNode),ft(e,Ae()),t!==null)for(r=e.onRecoverableError,n=0;n<t.length;n++)i=t[n],r(i.value,{componentStack:i.stack,digest:i.digest});if(Ko)throw Ko=!1,e=Pc,Pc=null,e;return Go&1&&e.tag!==0&&zi(),a=e.pendingLanes,a&1?e===Ac?Na++:(Na=0,Ac=e):Na=0,Cr(),null}function zi(){if(sr!==null){var e=iy(Go),t=At.transition,n=de;try{if(At.transition=null,de=16>e?16:e,sr===null)var r=!1;else{if(e=sr,sr=null,Go=0,ie&6)throw Error(D(331));var i=ie;for(ie|=4,H=e.current;H!==null;){var a=H,l=a.child;if(H.flags&16){var s=a.deletions;if(s!==null){for(var u=0;u<s.length;u++){var c=s[u];for(H=c;H!==null;){var m=H;switch(m.tag){case 0:case 11:case 15:Ca(8,m,a)}var d=m.child;if(d!==null)d.return=m,H=d;else for(;H!==null;){m=H;var p=m.sibling,h=m.return;if(hg(m),m===c){H=null;break}if(p!==null){p.return=h,H=p;break}H=h}}}var b=a.alternate;if(b!==null){var k=b.child;if(k!==null){b.child=null;do{var x=k.sibling;k.sibling=null,k=x}while(k!==null)}}H=a}}if(a.subtreeFlags&2064&&l!==null)l.return=a,H=l;else e:for(;H!==null;){if(a=H,a.flags&2048)switch(a.tag){case 0:case 11:case 15:Ca(9,a,a.return)}var y=a.sibling;if(y!==null){y.return=a.return,H=y;break e}H=a.return}}var g=e.current;for(H=g;H!==null;){l=H;var v=l.child;if(l.subtreeFlags&2064&&v!==null)v.return=l,H=v;else e:for(l=g;H!==null;){if(s=H,s.flags&2048)try{switch(s.tag){case 0:case 11:case 15:hs(9,s)}}catch(S){Pe(s,s.return,S)}if(s===l){H=null;break e}var w=s.sibling;if(w!==null){w.return=s.return,H=w;break e}H=s.return}}if(ie=i,Cr(),mn&&typeof mn.onPostCommitFiberRoot=="function")try{mn.onPostCommitFiberRoot(os,e)}catch{}r=!0}return r}finally{de=n,At.transition=t}}return!1}function np(e,t,n){t=Hi(n,t),t=ig(e,t,1),e=pr(e,t,1),t=nt(),e!==null&&(pl(e,1,t),ft(e,t))}function Pe(e,t,n){if(e.tag===3)np(e,e,n);else for(;t!==null;){if(t.tag===3){np(t,e,n);break}else if(t.tag===1){var r=t.stateNode;if(typeof t.type.getDerivedStateFromError=="function"||typeof r.componentDidCatch=="function"&&(hr===null||!hr.has(r))){e=Hi(n,e),e=ag(t,e,1),t=pr(t,e,1),e=nt(),t!==null&&(pl(t,1,e),ft(t,e));break}}t=t.return}}function bw(e,t,n){var r=e.pingCache;r!==null&&r.delete(t),t=nt(),e.pingedLanes|=e.suspendedLanes&n,Oe===e&&(Ue&n)===n&&(Le===4||Le===3&&(Ue&130023424)===Ue&&500>Ae()-Yd?Hr(e,0):Vd|=n),ft(e,t)}function Cg(e,t){t===0&&(e.mode&1?(t=Fl,Fl<<=1,!(Fl&130023424)&&(Fl=4194304)):t=1);var n=nt();e=Tn(e,t),e!==null&&(pl(e,t,n),ft(e,n))}function ww(e){var t=e.memoizedState,n=0;t!==null&&(n=t.retryLane),Cg(e,n)}function Sw(e,t){var n=0;switch(e.tag){case 13:var r=e.stateNode,i=e.memoizedState;i!==null&&(n=i.retryLane);break;case 19:r=e.stateNode;break;default:throw Error(D(314))}r!==null&&r.delete(t),Cg(e,n)}var Eg;Eg=function(e,t,n){if(e!==null)if(e.memoizedProps!==t.pendingProps||dt.current)ct=!0;else{if(!(e.lanes&n)&&!(t.flags&128))return ct=!1,cw(e,t,n);ct=!!(e.flags&131072)}else ct=!1,be&&t.flags&1048576&&jy(t,Io,t.index);switch(t.lanes=0,t.tag){case 2:var r=t.type;po(e,t),e=t.pendingProps;var i=Fi(t,Qe.current);Si(t,n),i=Bd(null,t,r,e,i,n);var a=Hd();return t.flags|=1,typeof i=="object"&&i!==null&&typeof i.render=="function"&&i.$$typeof===void 0?(t.tag=1,t.memoizedState=null,t.updateQueue=null,mt(r)?(a=!0,Ro(t)):a=!1,t.memoizedState=i.state!==null&&i.state!==void 0?i.state:null,Id(t),i.updater=ps,t.stateNode=i,i._reactInternals=t,gc(t,r,e,n),t=xc(null,t,r,!0,a,n)):(t.tag=0,be&&a&&Pd(t),et(null,t,i,n),t=t.child),t;case 16:r=t.elementType;e:{switch(po(e,t),e=t.pendingProps,i=r._init,r=i(r._payload),t.type=r,i=t.tag=Cw(r),e=Ut(r,e),i){case 0:t=vc(null,t,r,e,n);break e;case 1:t=Vf(null,t,r,e,n);break e;case 11:t=Gf(null,t,r,e,n);break e;case 14:t=$f(null,t,r,Ut(r.type,e),n);break e}throw Error(D(306,r,""))}return t;case 0:return r=t.type,i=t.pendingProps,i=t.elementType===r?i:Ut(r,i),vc(e,t,r,i,n);case 1:return r=t.type,i=t.pendingProps,i=t.elementType===r?i:Ut(r,i),Vf(e,t,r,i,n);case 3:e:{if(ug(t),e===null)throw Error(D(387));r=t.pendingProps,a=t.memoizedState,i=a.element,Ly(e,t),Oo(t,r,null,n);var l=t.memoizedState;if(r=l.element,a.isDehydrated)if(a={element:r,isDehydrated:!1,cache:l.cache,pendingSuspenseBoundaries:l.pendingSuspenseBoundaries,transitions:l.transitions},t.updateQueue.baseState=a,t.memoizedState=a,t.flags&256){i=Hi(Error(D(423)),t),t=Yf(e,t,r,n,i);break e}else if(r!==i){i=Hi(Error(D(424)),t),t=Yf(e,t,r,n,i);break e}else for(kt=fr(t.stateNode.containerInfo.firstChild),vt=t,be=!0,Yt=null,n=Dy(t,null,r,n),t.child=n;n;)n.flags=n.flags&-3|4096,n=n.sibling;else{if(Oi(),r===i){t=Mn(e,t,n);break e}et(e,t,r,n)}t=t.child}return t;case 5:return Fy(t),e===null&&pc(t),r=t.type,i=t.pendingProps,a=e!==null?e.memoizedProps:null,l=i.children,uc(r,i)?l=null:a!==null&&uc(r,a)&&(t.flags|=32),sg(e,t),et(e,t,l,n),t.child;case 6:return e===null&&pc(t),null;case 13:return cg(e,t,n);case 4:return Ld(t,t.stateNode.containerInfo),r=t.pendingProps,e===null?t.child=_i(t,null,r,n):et(e,t,r,n),t.child;case 11:return r=t.type,i=t.pendingProps,i=t.elementType===r?i:Ut(r,i),Gf(e,t,r,i,n);case 7:return et(e,t,t.pendingProps,n),t.child;case 8:return et(e,t,t.pendingProps.children,n),t.child;case 12:return et(e,t,t.pendingProps.children,n),t.child;case 10:e:{if(r=t.type._context,i=t.pendingProps,a=t.memoizedProps,l=i.value,he(Lo,r._currentValue),r._currentValue=l,a!==null)if(Xt(a.value,l)){if(a.children===i.children&&!dt.current){t=Mn(e,t,n);break e}}else for(a=t.child,a!==null&&(a.return=t);a!==null;){var s=a.dependencies;if(s!==null){l=a.child;for(var u=s.firstContext;u!==null;){if(u.context===r){if(a.tag===1){u=Nn(-1,n&-n),u.tag=2;var c=a.updateQueue;if(c!==null){c=c.shared;var m=c.pending;m===null?u.next=u:(u.next=m.next,m.next=u),c.pending=u}}a.lanes|=n,u=a.alternate,u!==null&&(u.lanes|=n),hc(a.return,n,t),s.lanes|=n;break}u=u.next}}else if(a.tag===10)l=a.type===t.type?null:a.child;else if(a.tag===18){if(l=a.return,l===null)throw Error(D(341));l.lanes|=n,s=l.alternate,s!==null&&(s.lanes|=n),hc(l,n,t),l=a.sibling}else l=a.child;if(l!==null)l.return=a;else for(l=a;l!==null;){if(l===t){l=null;break}if(a=l.sibling,a!==null){a.return=l.return,l=a;break}l=l.return}a=l}et(e,t,i.children,n),t=t.child}return t;case 9:return i=t.type,r=t.pendingProps.children,Si(t,n),i=Tt(i),r=r(i),t.flags|=1,et(e,t,r,n),t.child;case 14:return r=t.type,i=Ut(r,t.pendingProps),i=Ut(r.type,i),$f(e,t,r,i,n);case 15:return lg(e,t,t.type,t.pendingProps,n);case 17:return r=t.type,i=t.pendingProps,i=t.elementType===r?i:Ut(r,i),po(e,t),t.tag=1,mt(r)?(e=!0,Ro(t)):e=!1,Si(t,n),rg(t,r,i),gc(t,r,i,n),xc(null,t,r,!0,e,n);case 19:return dg(e,t,n);case 22:return og(e,t,n)}throw Error(D(156,t.tag))};function Ng(e,t){return ey(e,t)}function zw(e,t,n,r){this.tag=e,this.key=n,this.sibling=this.child=this.return=this.stateNode=this.type=this.elementType=null,this.index=0,this.ref=null,this.pendingProps=t,this.dependencies=this.memoizedState=this.updateQueue=this.memoizedProps=null,this.mode=r,this.subtreeFlags=this.flags=0,this.deletions=null,this.childLanes=this.lanes=0,this.alternate=null}function Pt(e,t,n,r){return new zw(e,t,n,r)}function Xd(e){return e=e.prototype,!(!e||!e.isReactComponent)}function Cw(e){if(typeof e=="function")return Xd(e)?1:0;if(e!=null){if(e=e.$$typeof,e===yd)return 11;if(e===gd)return 14}return 2}function gr(e,t){var n=e.alternate;return n===null?(n=Pt(e.tag,t,e.key,e.mode),n.elementType=e.elementType,n.type=e.type,n.stateNode=e.stateNode,n.alternate=e,e.alternate=n):(n.pendingProps=t,n.type=e.type,n.flags=0,n.subtreeFlags=0,n.deletions=null),n.flags=e.flags&14680064,n.childLanes=e.childLanes,n.lanes=e.lanes,n.child=e.child,n.memoizedProps=e.memoizedProps,n.memoizedState=e.memoizedState,n.updateQueue=e.updateQueue,t=e.dependencies,n.dependencies=t===null?null:{lanes:t.lanes,firstContext:t.firstContext},n.sibling=e.sibling,n.index=e.index,n.ref=e.ref,n}function go(e,t,n,r,i,a){var l=2;if(r=e,typeof e=="function")Xd(e)&&(l=1);else if(typeof e=="string")l=5;else e:switch(e){case si:return Ur(n.children,i,a,t);case hd:l=8,i|=8;break;case Hu:return e=Pt(12,n,t,i|2),e.elementType=Hu,e.lanes=a,e;case Uu:return e=Pt(13,n,t,i),e.elementType=Uu,e.lanes=a,e;case Ku:return e=Pt(19,n,t,i),e.elementType=Ku,e.lanes=a,e;case Fh:return gs(n,i,a,t);default:if(typeof e=="object"&&e!==null)switch(e.$$typeof){case Ih:l=10;break e;case Lh:l=9;break e;case yd:l=11;break e;case gd:l=14;break e;case Zn:l=16,r=null;break e}throw Error(D(130,e==null?e:typeof e,""))}return t=Pt(l,n,t,i),t.elementType=e,t.type=r,t.lanes=a,t}function Ur(e,t,n,r){return e=Pt(7,e,r,t),e.lanes=n,e}function gs(e,t,n,r){return e=Pt(22,e,r,t),e.elementType=Fh,e.lanes=n,e.stateNode={isHidden:!1},e}function bu(e,t,n){return e=Pt(6,e,null,t),e.lanes=n,e}function wu(e,t,n){return t=Pt(4,e.children!==null?e.children:[],e.key,t),t.lanes=n,t.stateNode={containerInfo:e.containerInfo,pendingChildren:null,implementation:e.implementation},t}function Ew(e,t,n,r,i){this.tag=t,this.containerInfo=e,this.finishedWork=this.pingCache=this.current=this.pendingChildren=null,this.timeoutHandle=-1,this.callbackNode=this.pendingContext=this.context=null,this.callbackPriority=0,this.eventTimes=nu(0),this.expirationTimes=nu(-1),this.entangledLanes=this.finishedLanes=this.mutableReadLanes=this.expiredLanes=this.pingedLanes=this.suspendedLanes=this.pendingLanes=0,this.entanglements=nu(0),this.identifierPrefix=r,this.onRecoverableError=i,this.mutableSourceEagerHydrationData=null}function Zd(e,t,n,r,i,a,l,s,u){return e=new Ew(e,t,n,s,u),t===1?(t=1,a===!0&&(t|=8)):t=0,a=Pt(3,null,null,t),e.current=a,a.stateNode=e,a.memoizedState={element:r,isDehydrated:n,cache:null,transitions:null,pendingSuspenseBoundaries:null},Id(a),e}function Nw(e,t,n){var r=3<arguments.length&&arguments[3]!==void 0?arguments[3]:null;return{$$typeof:oi,key:r==null?null:""+r,children:e,containerInfo:t,implementation:n}}function Pg(e){if(!e)return xr;e=e._reactInternals;e:{if(Xr(e)!==e||e.tag!==1)throw Error(D(170));var t=e;do{switch(t.tag){case 3:t=t.stateNode.context;break e;case 1:if(mt(t.type)){t=t.stateNode.__reactInternalMemoizedMergedChildContext;break e}}t=t.return}while(t!==null);throw Error(D(171))}if(e.tag===1){var n=e.type;if(mt(n))return Py(e,n,t)}return t}function Ag(e,t,n,r,i,a,l,s,u){return e=Zd(n,r,!0,e,i,a,l,s,u),e.context=Pg(null),n=e.current,r=nt(),i=yr(n),a=Nn(r,i),a.callback=t??null,pr(n,a,i),e.current.lanes=i,pl(e,i,r),ft(e,r),e}function ks(e,t,n,r){var i=t.current,a=nt(),l=yr(i);return n=Pg(n),t.context===null?t.context=n:t.pendingContext=n,t=Nn(a,l),t.payload={element:e},r=r===void 0?null:r,r!==null&&(t.callback=r),e=pr(i,t,l),e!==null&&(Wt(e,i,l,a),co(e,i,l)),l}function Vo(e){if(e=e.current,!e.child)return null;switch(e.child.tag){case 5:return e.child.stateNode;default:return e.child.stateNode}}function rp(e,t){if(e=e.memoizedState,e!==null&&e.dehydrated!==null){var n=e.retryLane;e.retryLane=n!==0&&n<t?n:t}}function Jd(e,t){rp(e,t),(e=e.alternate)&&rp(e,t)}function Pw(){return null}var jg=typeof reportError=="function"?reportError:function(e){console.error(e)};function em(e){this._internalRoot=e}vs.prototype.render=em.prototype.render=function(e){var t=this._internalRoot;if(t===null)throw Error(D(409));ks(e,t,null,null)};vs.prototype.unmount=em.prototype.unmount=function(){var e=this._internalRoot;if(e!==null){this._internalRoot=null;var t=e.containerInfo;Yr(function(){ks(null,e,null,null)}),t[jn]=null}};function vs(e){this._internalRoot=e}vs.prototype.unstable_scheduleHydration=function(e){if(e){var t=oy();e={blockedOn:null,target:e,priority:t};for(var n=0;n<er.length&&t!==0&&t<er[n].priority;n++);er.splice(n,0,e),n===0&&uy(e)}};function tm(e){return!(!e||e.nodeType!==1&&e.nodeType!==9&&e.nodeType!==11)}function xs(e){return!(!e||e.nodeType!==1&&e.nodeType!==9&&e.nodeType!==11&&(e.nodeType!==8||e.nodeValue!==" react-mount-point-unstable "))}function ip(){}function Aw(e,t,n,r,i){if(i){if(typeof r=="function"){var a=r;r=function(){var c=Vo(l);a.call(c)}}var l=Ag(t,r,e,0,null,!1,!1,"",ip);return e._reactRootContainer=l,e[jn]=l.current,Oa(e.nodeType===8?e.parentNode:e),Yr(),l}for(;i=e.lastChild;)e.removeChild(i);if(typeof r=="function"){var s=r;r=function(){var c=Vo(u);s.call(c)}}var u=Zd(e,0,!1,null,null,!1,!1,"",ip);return e._reactRootContainer=u,e[jn]=u.current,Oa(e.nodeType===8?e.parentNode:e),Yr(function(){ks(t,u,n,r)}),u}function bs(e,t,n,r,i){var a=n._reactRootContainer;if(a){var l=a;if(typeof i=="function"){var s=i;i=function(){var u=Vo(l);s.call(u)}}ks(t,l,e,i)}else l=Aw(n,t,e,i,r);return Vo(l)}ay=function(e){switch(e.tag){case 3:var t=e.stateNode;if(t.current.memoizedState.isDehydrated){var n=ha(t.pendingLanes);n!==0&&(xd(t,n|1),ft(t,Ae()),!(ie&6)&&(Ui=Ae()+500,Cr()))}break;case 13:Yr(function(){var r=Tn(e,1);if(r!==null){var i=nt();Wt(r,e,1,i)}}),Jd(e,1)}};bd=function(e){if(e.tag===13){var t=Tn(e,134217728);if(t!==null){var n=nt();Wt(t,e,134217728,n)}Jd(e,134217728)}};ly=function(e){if(e.tag===13){var t=yr(e),n=Tn(e,t);if(n!==null){var r=nt();Wt(n,e,t,r)}Jd(e,t)}};oy=function(){return de};sy=function(e,t){var n=de;try{return de=e,t()}finally{de=n}};Ju=function(e,t,n){switch(t){case"input":if(Vu(e,n),t=n.name,n.type==="radio"&&t!=null){for(n=e;n.parentNode;)n=n.parentNode;for(n=n.querySelectorAll("input[name="+JSON.stringify(""+t)+'][type="radio"]'),t=0;t<n.length;t++){var r=n[t];if(r!==e&&r.form===e.form){var i=ds(r);if(!i)throw Error(D(90));_h(r),Vu(r,i)}}}break;case"textarea":Hh(e,n);break;case"select":t=n.value,t!=null&&vi(e,!!n.multiple,t,!1)}};qh=qd;Wh=Yr;var jw={usingClientEntryPoint:!1,Events:[yl,mi,ds,Vh,Yh,qd]},ca={findFiberByHostInstance:Tr,bundleType:0,version:"18.3.1",rendererPackageName:"react-dom"},Tw={bundleType:ca.bundleType,version:ca.version,rendererPackageName:ca.rendererPackageName,rendererConfig:ca.rendererConfig,overrideHookState:null,overrideHookStateDeletePath:null,overrideHookStateRenamePath:null,overrideProps:null,overridePropsDeletePath:null,overridePropsRenamePath:null,setErrorHandler:null,setSuspenseHandler:null,scheduleUpdate:null,currentDispatcherRef:On.ReactCurrentDispatcher,findHostInstanceByFiber:function(e){return e=Zh(e),e===null?null:e.stateNode},findFiberByHostInstance:ca.findFiberByHostInstance||Pw,findHostInstancesForRefresh:null,scheduleRefresh:null,scheduleRoot:null,setRefreshHandler:null,getCurrentFiber:null,reconcilerVersion:"18.3.1-next-f1338f8080-20240426"};if(typeof __REACT_DEVTOOLS_GLOBAL_HOOK__<"u"){var ql=__REACT_DEVTOOLS_GLOBAL_HOOK__;if(!ql.isDisabled&&ql.supportsFiber)try{os=ql.inject(Tw),mn=ql}catch{}}St.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED=jw;St.createPortal=function(e,t){var n=2<arguments.length&&arguments[2]!==void 0?arguments[2]:null;if(!tm(t))throw Error(D(200));return Nw(e,t,null,n)};St.createRoot=function(e,t){if(!tm(e))throw Error(D(299));var n=!1,r="",i=jg;return t!=null&&(t.unstable_strictMode===!0&&(n=!0),t.identifierPrefix!==void 0&&(r=t.identifierPrefix),t.onRecoverableError!==void 0&&(i=t.onRecoverableError)),t=Zd(e,1,!1,null,null,n,!1,r,i),e[jn]=t.current,Oa(e.nodeType===8?e.parentNode:e),new em(t)};St.findDOMNode=function(e){if(e==null)return null;if(e.nodeType===1)return e;var t=e._reactInternals;if(t===void 0)throw typeof e.render=="function"?Error(D(188)):(e=Object.keys(e).join(","),Error(D(268,e)));return e=Zh(t),e=e===null?null:e.stateNode,e};St.flushSync=function(e){return Yr(e)};St.hydrate=function(e,t,n){if(!xs(t))throw Error(D(200));return bs(null,e,t,!0,n)};St.hydrateRoot=function(e,t,n){if(!tm(e))throw Error(D(405));var r=n!=null&&n.hydratedSources||null,i=!1,a="",l=jg;if(n!=null&&(n.unstable_strictMode===!0&&(i=!0),n.identifierPrefix!==void 0&&(a=n.identifierPrefix),n.onRecoverableError!==void 0&&(l=n.onRecoverableError)),t=Ag(t,null,e,1,n??null,i,!1,a,l),e[jn]=t.current,Oa(e),r)for(e=0;e<r.length;e++)n=r[e],i=n._getVersion,i=i(n._source),t.mutableSourceEagerHydrationData==null?t.mutableSourceEagerHydrationData=[n,i]:t.mutableSourceEagerHydrationData.push(n,i);return new vs(t)};St.render=function(e,t,n){if(!xs(t))throw Error(D(200));return bs(null,e,t,!1,n)};St.unmountComponentAtNode=function(e){if(!xs(e))throw Error(D(40));return e._reactRootContainer?(Yr(function(){bs(null,null,e,!1,function(){e._reactRootContainer=null,e[jn]=null})}),!0):!1};St.unstable_batchedUpdates=qd;St.unstable_renderSubtreeIntoContainer=function(e,t,n,r){if(!xs(n))throw Error(D(200));if(e==null||e._reactInternals===void 0)throw Error(D(38));return bs(e,t,n,!1,r)};St.version="18.3.1-next-f1338f8080-20240426";function Tg(){if(!(typeof __REACT_DEVTOOLS_GLOBAL_HOOK__>"u"||typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE!="function"))try{__REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE(Tg)}catch(e){console.error(e)}}Tg(),Th.exports=St;var kl=Th.exports;const Mg=vh(kl);var Rg,ap=kl;Rg=ap.createRoot,ap.hydrateRoot;const Mw=1,Rw=1e6;let Su=0;function Dw(){return Su=(Su+1)%Number.MAX_SAFE_INTEGER,Su.toString()}const zu=new Map,lp=e=>{if(zu.has(e))return;const t=setTimeout(()=>{zu.delete(e),Pa({type:"REMOVE_TOAST",toastId:e})},Rw);zu.set(e,t)},Iw=(e,t)=>{switch(t.type){case"ADD_TOAST":return{...e,toasts:[t.toast,...e.toasts].slice(0,Mw)};case"UPDATE_TOAST":return{...e,toasts:e.toasts.map(n=>n.id===t.toast.id?{...n,...t.toast}:n)};case"DISMISS_TOAST":{const{toastId:n}=t;return n?lp(n):e.toasts.forEach(r=>{lp(r.id)}),{...e,toasts:e.toasts.map(r=>r.id===n||n===void 0?{...r,open:!1}:r)}}case"REMOVE_TOAST":return t.toastId===void 0?{...e,toasts:[]}:{...e,toasts:e.toasts.filter(n=>n.id!==t.toastId)}}},ko=[];let vo={toasts:[]};function Pa(e){vo=Iw(vo,e),ko.forEach(t=>{t(vo)})}function Lw({...e}){const t=Dw(),n=i=>Pa({type:"UPDATE_TOAST",toast:{...i,id:t}}),r=()=>Pa({type:"DISMISS_TOAST",toastId:t});return Pa({type:"ADD_TOAST",toast:{...e,id:t,open:!0,onOpenChange:i=>{i||r()}}}),{id:t,dismiss:r,update:n}}function Dg(){const[e,t]=f.useState(vo);return f.useEffect(()=>(ko.push(t),()=>{const n=ko.indexOf(t);n>-1&&ko.splice(n,1)}),[e]),{...e,toast:Lw,dismiss:n=>Pa({type:"DISMISS_TOAST",toastId:n})}}function q(e,t,{checkForDefaultPrevented:n=!0}={}){return function(i){if(e==null||e(i),n===!1||!i.defaultPrevented)return t==null?void 0:t(i)}}function op(e,t){if(typeof e=="function")return e(t);e!=null&&(e.current=t)}function ws(...e){return t=>{let n=!1;const r=e.map(i=>{const a=op(i,t);return!n&&typeof a=="function"&&(n=!0),a});if(n)return()=>{for(let i=0;i<r.length;i++){const a=r[i];typeof a=="function"?a():op(e[i],null)}}}}function Re(...e){return f.useCallback(ws(...e),e)}function _n(e,t=[]){let n=[];function r(a,l){const s=f.createContext(l),u=n.length;n=[...n,l];const c=d=>{var y;const{scope:p,children:h,...b}=d,k=((y=p==null?void 0:p[e])==null?void 0:y[u])||s,x=f.useMemo(()=>b,Object.values(b));return o.jsx(k.Provider,{value:x,children:h})};c.displayName=a+"Provider";function m(d,p){var k;const h=((k=p==null?void 0:p[e])==null?void 0:k[u])||s,b=f.useContext(h);if(b)return b;if(l!==void 0)return l;throw new Error(`\`${d}\` must be used within \`${a}\``)}return[c,m]}const i=()=>{const a=n.map(l=>f.createContext(l));return function(s){const u=(s==null?void 0:s[e])||a;return f.useMemo(()=>({[`__scope${e}`]:{...s,[e]:u}}),[s,u])}};return i.scopeName=e,[r,Fw(i,...t)]}function Fw(...e){const t=e[0];if(e.length===1)return t;const n=()=>{const r=e.map(i=>({useScope:i(),scopeName:i.scopeName}));return function(a){const l=r.reduce((s,{useScope:u,scopeName:c})=>{const d=u(a)[`__scope${c}`];return{...s,...d}},{});return f.useMemo(()=>({[`__scope${t.scopeName}`]:l}),[l])}};return n.scopeName=t.scopeName,n}function Ya(e){const t=_w(e),n=f.forwardRef((r,i)=>{const{children:a,...l}=r,s=f.Children.toArray(a),u=s.find(Hw);if(u){const c=u.props.children,m=s.map(d=>d===u?f.Children.count(c)>1?f.Children.only(null):f.isValidElement(c)?c.props.children:null:d);return o.jsx(t,{...l,ref:i,children:f.isValidElement(c)?f.cloneElement(c,void 0,m):null})}return o.jsx(t,{...l,ref:i,children:a})});return n.displayName=`${e}.Slot`,n}var Ow=Ya("Slot");function _w(e){const t=f.forwardRef((n,r)=>{const{children:i,...a}=n;if(f.isValidElement(i)){const l=Kw(i),s=Uw(a,i.props);return i.type!==f.Fragment&&(s.ref=r?ws(r,l):l),f.cloneElement(i,s)}return f.Children.count(i)>1?f.Children.only(null):null});return t.displayName=`${e}.SlotClone`,t}var Ig=Symbol("radix.slottable");function Bw(e){const t=({children:n})=>o.jsx(o.Fragment,{children:n});return t.displayName=`${e}.Slottable`,t.__radixId=Ig,t}function Hw(e){return f.isValidElement(e)&&typeof e.type=="function"&&"__radixId"in e.type&&e.type.__radixId===Ig}function Uw(e,t){const n={...t};for(const r in t){const i=e[r],a=t[r];/^on[A-Z]/.test(r)?i&&a?n[r]=(...s)=>{const u=a(...s);return i(...s),u}:i&&(n[r]=i):r==="style"?n[r]={...i,...a}:r==="className"&&(n[r]=[i,a].filter(Boolean).join(" "))}return{...e,...n}}function Kw(e){var r,i;let t=(r=Object.getOwnPropertyDescriptor(e.props,"ref"))==null?void 0:r.get,n=t&&"isReactWarning"in t&&t.isReactWarning;return n?e.ref:(t=(i=Object.getOwnPropertyDescriptor(e,"ref"))==null?void 0:i.get,n=t&&"isReactWarning"in t&&t.isReactWarning,n?e.props.ref:e.props.ref||e.ref)}function Ss(e){const t=e+"CollectionProvider",[n,r]=_n(t),[i,a]=n(t,{collectionRef:{current:null},itemMap:new Map}),l=k=>{const{scope:x,children:y}=k,g=R.useRef(null),v=R.useRef(new Map).current;return o.jsx(i,{scope:x,itemMap:v,collectionRef:g,children:y})};l.displayName=t;const s=e+"CollectionSlot",u=Ya(s),c=R.forwardRef((k,x)=>{const{scope:y,children:g}=k,v=a(s,y),w=Re(x,v.collectionRef);return o.jsx(u,{ref:w,children:g})});c.displayName=s;const m=e+"CollectionItemSlot",d="data-radix-collection-item",p=Ya(m),h=R.forwardRef((k,x)=>{const{scope:y,children:g,...v}=k,w=R.useRef(null),S=Re(x,w),z=a(m,y);return R.useEffect(()=>(z.itemMap.set(w,{ref:w,...v}),()=>void z.itemMap.delete(w))),o.jsx(p,{[d]:"",ref:S,children:g})});h.displayName=m;function b(k){const x=a(e+"CollectionConsumer",k);return R.useCallback(()=>{const g=x.collectionRef.current;if(!g)return[];const v=Array.from(g.querySelectorAll(`[${d}]`));return Array.from(x.itemMap.values()).sort((z,C)=>v.indexOf(z.ref.current)-v.indexOf(C.ref.current))},[x.collectionRef,x.itemMap])}return[{Provider:l,Slot:c,ItemSlot:h},b,r]}var Gw=["a","button","div","form","h2","h3","img","input","label","li","nav","ol","p","select","span","svg","ul"],ue=Gw.reduce((e,t)=>{const n=Ya(`Primitive.${t}`),r=f.forwardRef((i,a)=>{const{asChild:l,...s}=i,u=l?n:t;return typeof window<"u"&&(window[Symbol.for("radix-ui")]=!0),o.jsx(u,{...s,ref:a})});return r.displayName=`Primitive.${t}`,{...e,[t]:r}},{});function nm(e,t){e&&kl.flushSync(()=>e.dispatchEvent(t))}function wt(e){const t=f.useRef(e);return f.useEffect(()=>{t.current=e}),f.useMemo(()=>(...n)=>{var r;return(r=t.current)==null?void 0:r.call(t,...n)},[])}function $w(e,t=globalThis==null?void 0:globalThis.document){const n=wt(e);f.useEffect(()=>{const r=i=>{i.key==="Escape"&&n(i)};return t.addEventListener("keydown",r,{capture:!0}),()=>t.removeEventListener("keydown",r,{capture:!0})},[n,t])}var Vw="DismissableLayer",Mc="dismissableLayer.update",Yw="dismissableLayer.pointerDownOutside",qw="dismissableLayer.focusOutside",sp,Lg=f.createContext({layers:new Set,layersWithOutsidePointerEventsDisabled:new Set,branches:new Set}),zs=f.forwardRef((e,t)=>{const{disableOutsidePointerEvents:n=!1,onEscapeKeyDown:r,onPointerDownOutside:i,onFocusOutside:a,onInteractOutside:l,onDismiss:s,...u}=e,c=f.useContext(Lg),[m,d]=f.useState(null),p=(m==null?void 0:m.ownerDocument)??(globalThis==null?void 0:globalThis.document),[,h]=f.useState({}),b=Re(t,C=>d(C)),k=Array.from(c.layers),[x]=[...c.layersWithOutsidePointerEventsDisabled].slice(-1),y=k.indexOf(x),g=m?k.indexOf(m):-1,v=c.layersWithOutsidePointerEventsDisabled.size>0,w=g>=y,S=Qw(C=>{const E=C.target,A=[...c.branches].some(T=>T.contains(E));!w||A||(i==null||i(C),l==null||l(C),C.defaultPrevented||s==null||s())},p),z=Xw(C=>{const E=C.target;[...c.branches].some(T=>T.contains(E))||(a==null||a(C),l==null||l(C),C.defaultPrevented||s==null||s())},p);return $w(C=>{g===c.layers.size-1&&(r==null||r(C),!C.defaultPrevented&&s&&(C.preventDefault(),s()))},p),f.useEffect(()=>{if(m)return n&&(c.layersWithOutsidePointerEventsDisabled.size===0&&(sp=p.body.style.pointerEvents,p.body.style.pointerEvents="none"),c.layersWithOutsidePointerEventsDisabled.add(m)),c.layers.add(m),up(),()=>{n&&c.layersWithOutsidePointerEventsDisabled.size===1&&(p.body.style.pointerEvents=sp)}},[m,p,n,c]),f.useEffect(()=>()=>{m&&(c.layers.delete(m),c.layersWithOutsidePointerEventsDisabled.delete(m),up())},[m,c]),f.useEffect(()=>{const C=()=>h({});return document.addEventListener(Mc,C),()=>document.removeEventListener(Mc,C)},[]),o.jsx(ue.div,{...u,ref:b,style:{pointerEvents:v?w?"auto":"none":void 0,...e.style},onFocusCapture:q(e.onFocusCapture,z.onFocusCapture),onBlurCapture:q(e.onBlurCapture,z.onBlurCapture),onPointerDownCapture:q(e.onPointerDownCapture,S.onPointerDownCapture)})});zs.displayName=Vw;var Ww="DismissableLayerBranch",Fg=f.forwardRef((e,t)=>{const n=f.useContext(Lg),r=f.useRef(null),i=Re(t,r);return f.useEffect(()=>{const a=r.current;if(a)return n.branches.add(a),()=>{n.branches.delete(a)}},[n.branches]),o.jsx(ue.div,{...e,ref:i})});Fg.displayName=Ww;function Qw(e,t=globalThis==null?void 0:globalThis.document){const n=wt(e),r=f.useRef(!1),i=f.useRef(()=>{});return f.useEffect(()=>{const a=s=>{if(s.target&&!r.current){let u=function(){Og(Yw,n,c,{discrete:!0})};const c={originalEvent:s};s.pointerType==="touch"?(t.removeEventListener("click",i.current),i.current=u,t.addEventListener("click",i.current,{once:!0})):u()}else t.removeEventListener("click",i.current);r.current=!1},l=window.setTimeout(()=>{t.addEventListener("pointerdown",a)},0);return()=>{window.clearTimeout(l),t.removeEventListener("pointerdown",a),t.removeEventListener("click",i.current)}},[t,n]),{onPointerDownCapture:()=>r.current=!0}}function Xw(e,t=globalThis==null?void 0:globalThis.document){const n=wt(e),r=f.useRef(!1);return f.useEffect(()=>{const i=a=>{a.target&&!r.current&&Og(qw,n,{originalEvent:a},{discrete:!1})};return t.addEventListener("focusin",i),()=>t.removeEventListener("focusin",i)},[t,n]),{onFocusCapture:()=>r.current=!0,onBlurCapture:()=>r.current=!1}}function up(){const e=new CustomEvent(Mc);document.dispatchEvent(e)}function Og(e,t,n,{discrete:r}){const i=n.originalEvent.target,a=new CustomEvent(e,{bubbles:!1,cancelable:!0,detail:n});t&&i.addEventListener(e,t,{once:!0}),r?nm(i,a):i.dispatchEvent(a)}var Zw=zs,Jw=Fg,hn=globalThis!=null&&globalThis.document?f.useLayoutEffect:()=>{},e1="Portal",rm=f.forwardRef((e,t)=>{var s;const{container:n,...r}=e,[i,a]=f.useState(!1);hn(()=>a(!0),[]);const l=n||i&&((s=globalThis==null?void 0:globalThis.document)==null?void 0:s.body);return l?Mg.createPortal(o.jsx(ue.div,{...r,ref:t}),l):null});rm.displayName=e1;function t1(e,t){return f.useReducer((n,r)=>t[n][r]??n,e)}var Er=e=>{const{present:t,children:n}=e,r=n1(t),i=typeof n=="function"?n({present:r.isPresent}):f.Children.only(n),a=Re(r.ref,r1(i));return typeof n=="function"||r.isPresent?f.cloneElement(i,{ref:a}):null};Er.displayName="Presence";function n1(e){const[t,n]=f.useState(),r=f.useRef(null),i=f.useRef(e),a=f.useRef("none"),l=e?"mounted":"unmounted",[s,u]=t1(l,{mounted:{UNMOUNT:"unmounted",ANIMATION_OUT:"unmountSuspended"},unmountSuspended:{MOUNT:"mounted",ANIMATION_END:"unmounted"},unmounted:{MOUNT:"mounted"}});return f.useEffect(()=>{const c=Wl(r.current);a.current=s==="mounted"?c:"none"},[s]),hn(()=>{const c=r.current,m=i.current;if(m!==e){const p=a.current,h=Wl(c);e?u("MOUNT"):h==="none"||(c==null?void 0:c.display)==="none"?u("UNMOUNT"):u(m&&p!==h?"ANIMATION_OUT":"UNMOUNT"),i.current=e}},[e,u]),hn(()=>{if(t){let c;const m=t.ownerDocument.defaultView??window,d=h=>{const k=Wl(r.current).includes(h.animationName);if(h.target===t&&k&&(u("ANIMATION_END"),!i.current)){const x=t.style.animationFillMode;t.style.animationFillMode="forwards",c=m.setTimeout(()=>{t.style.animationFillMode==="forwards"&&(t.style.animationFillMode=x)})}},p=h=>{h.target===t&&(a.current=Wl(r.current))};return t.addEventListener("animationstart",p),t.addEventListener("animationcancel",d),t.addEventListener("animationend",d),()=>{m.clearTimeout(c),t.removeEventListener("animationstart",p),t.removeEventListener("animationcancel",d),t.removeEventListener("animationend",d)}}else u("ANIMATION_END")},[t,u]),{isPresent:["mounted","unmountSuspended"].includes(s),ref:f.useCallback(c=>{r.current=c?getComputedStyle(c):null,n(c)},[])}}function Wl(e){return(e==null?void 0:e.animationName)||"none"}function r1(e){var r,i;let t=(r=Object.getOwnPropertyDescriptor(e.props,"ref"))==null?void 0:r.get,n=t&&"isReactWarning"in t&&t.isReactWarning;return n?e.ref:(t=(i=Object.getOwnPropertyDescriptor(e,"ref"))==null?void 0:i.get,n=t&&"isReactWarning"in t&&t.isReactWarning,n?e.props.ref:e.props.ref||e.ref)}var i1=dd[" useInsertionEffect ".trim().toString()]||hn;function qi({prop:e,defaultProp:t,onChange:n=()=>{},caller:r}){const[i,a,l]=a1({defaultProp:t,onChange:n}),s=e!==void 0,u=s?e:i;{const m=f.useRef(e!==void 0);f.useEffect(()=>{const d=m.current;d!==s&&console.warn(`${r} is changing from ${d?"controlled":"uncontrolled"} to ${s?"controlled":"uncontrolled"}. Components should not switch from controlled to uncontrolled (or vice versa). Decide between using a controlled or uncontrolled value for the lifetime of the component.`),m.current=s},[s,r])}const c=f.useCallback(m=>{var d;if(s){const p=l1(m)?m(e):m;p!==e&&((d=l.current)==null||d.call(l,p))}else a(m)},[s,e,a,l]);return[u,c]}function a1({defaultProp:e,onChange:t}){const[n,r]=f.useState(e),i=f.useRef(n),a=f.useRef(t);return i1(()=>{a.current=t},[t]),f.useEffect(()=>{var l;i.current!==n&&((l=a.current)==null||l.call(a,n),i.current=n)},[n,i]),[n,r,a]}function l1(e){return typeof e=="function"}var o1=Object.freeze({position:"absolute",border:0,width:1,height:1,padding:0,margin:-1,overflow:"hidden",clip:"rect(0, 0, 0, 0)",whiteSpace:"nowrap",wordWrap:"normal"}),s1="VisuallyHidden",Cs=f.forwardRef((e,t)=>o.jsx(ue.span,{...e,ref:t,style:{...o1,...e.style}}));Cs.displayName=s1;var u1=Cs,im="ToastProvider",[am,c1,d1]=Ss("Toast"),[_g,dM]=_n("Toast",[d1]),[m1,Es]=_g(im),Bg=e=>{const{__scopeToast:t,label:n="Notification",duration:r=5e3,swipeDirection:i="right",swipeThreshold:a=50,children:l}=e,[s,u]=f.useState(null),[c,m]=f.useState(0),d=f.useRef(!1),p=f.useRef(!1);return n.trim()||console.error(`Invalid prop \`label\` supplied to \`${im}\`. Expected non-empty \`string\`.`),o.jsx(am.Provider,{scope:t,children:o.jsx(m1,{scope:t,label:n,duration:r,swipeDirection:i,swipeThreshold:a,toastCount:c,viewport:s,onViewportChange:u,onToastAdd:f.useCallback(()=>m(h=>h+1),[]),onToastRemove:f.useCallback(()=>m(h=>h-1),[]),isFocusedToastEscapeKeyDownRef:d,isClosePausedRef:p,children:l})})};Bg.displayName=im;var Hg="ToastViewport",f1=["F8"],Rc="toast.viewportPause",Dc="toast.viewportResume",Ug=f.forwardRef((e,t)=>{const{__scopeToast:n,hotkey:r=f1,label:i="Notifications ({hotkey})",...a}=e,l=Es(Hg,n),s=c1(n),u=f.useRef(null),c=f.useRef(null),m=f.useRef(null),d=f.useRef(null),p=Re(t,d,l.onViewportChange),h=r.join("+").replace(/Key/g,"").replace(/Digit/g,""),b=l.toastCount>0;f.useEffect(()=>{const x=y=>{var v;r.length!==0&&r.every(w=>y[w]||y.code===w)&&((v=d.current)==null||v.focus())};return document.addEventListener("keydown",x),()=>document.removeEventListener("keydown",x)},[r]),f.useEffect(()=>{const x=u.current,y=d.current;if(b&&x&&y){const g=()=>{if(!l.isClosePausedRef.current){const z=new CustomEvent(Rc);y.dispatchEvent(z),l.isClosePausedRef.current=!0}},v=()=>{if(l.isClosePausedRef.current){const z=new CustomEvent(Dc);y.dispatchEvent(z),l.isClosePausedRef.current=!1}},w=z=>{!x.contains(z.relatedTarget)&&v()},S=()=>{x.contains(document.activeElement)||v()};return x.addEventListener("focusin",g),x.addEventListener("focusout",w),x.addEventListener("pointermove",g),x.addEventListener("pointerleave",S),window.addEventListener("blur",g),window.addEventListener("focus",v),()=>{x.removeEventListener("focusin",g),x.removeEventListener("focusout",w),x.removeEventListener("pointermove",g),x.removeEventListener("pointerleave",S),window.removeEventListener("blur",g),window.removeEventListener("focus",v)}}},[b,l.isClosePausedRef]);const k=f.useCallback(({tabbingDirection:x})=>{const g=s().map(v=>{const w=v.ref.current,S=[w,...E1(w)];return x==="forwards"?S:S.reverse()});return(x==="forwards"?g.reverse():g).flat()},[s]);return f.useEffect(()=>{const x=d.current;if(x){const y=g=>{var S,z,C;const v=g.altKey||g.ctrlKey||g.metaKey;if(g.key==="Tab"&&!v){const E=document.activeElement,A=g.shiftKey;if(g.target===x&&A){(S=c.current)==null||S.focus();return}const L=k({tabbingDirection:A?"backwards":"forwards"}),K=L.findIndex(I=>I===E);Cu(L.slice(K+1))?g.preventDefault():A?(z=c.current)==null||z.focus():(C=m.current)==null||C.focus()}};return x.addEventListener("keydown",y),()=>x.removeEventListener("keydown",y)}},[s,k]),o.jsxs(Jw,{ref:u,role:"region","aria-label":i.replace("{hotkey}",h),tabIndex:-1,style:{pointerEvents:b?void 0:"none"},children:[b&&o.jsx(Ic,{ref:c,onFocusFromOutsideViewport:()=>{const x=k({tabbingDirection:"forwards"});Cu(x)}}),o.jsx(am.Slot,{scope:n,children:o.jsx(ue.ol,{tabIndex:-1,...a,ref:p})}),b&&o.jsx(Ic,{ref:m,onFocusFromOutsideViewport:()=>{const x=k({tabbingDirection:"backwards"});Cu(x)}})]})});Ug.displayName=Hg;var Kg="ToastFocusProxy",Ic=f.forwardRef((e,t)=>{const{__scopeToast:n,onFocusFromOutsideViewport:r,...i}=e,a=Es(Kg,n);return o.jsx(Cs,{"aria-hidden":!0,tabIndex:0,...i,ref:t,style:{position:"fixed"},onFocus:l=>{var c;const s=l.relatedTarget;!((c=a.viewport)!=null&&c.contains(s))&&r()}})});Ic.displayName=Kg;var vl="Toast",p1="toast.swipeStart",h1="toast.swipeMove",y1="toast.swipeCancel",g1="toast.swipeEnd",Gg=f.forwardRef((e,t)=>{const{forceMount:n,open:r,defaultOpen:i,onOpenChange:a,...l}=e,[s,u]=qi({prop:r,defaultProp:i??!0,onChange:a,caller:vl});return o.jsx(Er,{present:n||s,children:o.jsx(x1,{open:s,...l,ref:t,onClose:()=>u(!1),onPause:wt(e.onPause),onResume:wt(e.onResume),onSwipeStart:q(e.onSwipeStart,c=>{c.currentTarget.setAttribute("data-swipe","start")}),onSwipeMove:q(e.onSwipeMove,c=>{const{x:m,y:d}=c.detail.delta;c.currentTarget.setAttribute("data-swipe","move"),c.currentTarget.style.setProperty("--radix-toast-swipe-move-x",`${m}px`),c.currentTarget.style.setProperty("--radix-toast-swipe-move-y",`${d}px`)}),onSwipeCancel:q(e.onSwipeCancel,c=>{c.currentTarget.setAttribute("data-swipe","cancel"),c.currentTarget.style.removeProperty("--radix-toast-swipe-move-x"),c.currentTarget.style.removeProperty("--radix-toast-swipe-move-y"),c.currentTarget.style.removeProperty("--radix-toast-swipe-end-x"),c.currentTarget.style.removeProperty("--radix-toast-swipe-end-y")}),onSwipeEnd:q(e.onSwipeEnd,c=>{const{x:m,y:d}=c.detail.delta;c.currentTarget.setAttribute("data-swipe","end"),c.currentTarget.style.removeProperty("--radix-toast-swipe-move-x"),c.currentTarget.style.removeProperty("--radix-toast-swipe-move-y"),c.currentTarget.style.setProperty("--radix-toast-swipe-end-x",`${m}px`),c.currentTarget.style.setProperty("--radix-toast-swipe-end-y",`${d}px`),u(!1)})})})});Gg.displayName=vl;var[k1,v1]=_g(vl,{onClose(){}}),x1=f.forwardRef((e,t)=>{const{__scopeToast:n,type:r="foreground",duration:i,open:a,onClose:l,onEscapeKeyDown:s,onPause:u,onResume:c,onSwipeStart:m,onSwipeMove:d,onSwipeCancel:p,onSwipeEnd:h,...b}=e,k=Es(vl,n),[x,y]=f.useState(null),g=Re(t,I=>y(I)),v=f.useRef(null),w=f.useRef(null),S=i||k.duration,z=f.useRef(0),C=f.useRef(S),E=f.useRef(0),{onToastAdd:A,onToastRemove:T}=k,F=wt(()=>{var $;(x==null?void 0:x.contains(document.activeElement))&&(($=k.viewport)==null||$.focus()),l()}),L=f.useCallback(I=>{!I||I===1/0||(window.clearTimeout(E.current),z.current=new Date().getTime(),E.current=window.setTimeout(F,I))},[F]);f.useEffect(()=>{const I=k.viewport;if(I){const $=()=>{L(C.current),c==null||c()},B=()=>{const G=new Date().getTime()-z.current;C.current=C.current-G,window.clearTimeout(E.current),u==null||u()};return I.addEventListener(Rc,B),I.addEventListener(Dc,$),()=>{I.removeEventListener(Rc,B),I.removeEventListener(Dc,$)}}},[k.viewport,S,u,c,L]),f.useEffect(()=>{a&&!k.isClosePausedRef.current&&L(S)},[a,S,k.isClosePausedRef,L]),f.useEffect(()=>(A(),()=>T()),[A,T]);const K=f.useMemo(()=>x?Xg(x):null,[x]);return k.viewport?o.jsxs(o.Fragment,{children:[K&&o.jsx(b1,{__scopeToast:n,role:"status","aria-live":r==="foreground"?"assertive":"polite","aria-atomic":!0,children:K}),o.jsx(k1,{scope:n,onClose:F,children:kl.createPortal(o.jsx(am.ItemSlot,{scope:n,children:o.jsx(Zw,{asChild:!0,onEscapeKeyDown:q(s,()=>{k.isFocusedToastEscapeKeyDownRef.current||F(),k.isFocusedToastEscapeKeyDownRef.current=!1}),children:o.jsx(ue.li,{role:"status","aria-live":"off","aria-atomic":!0,tabIndex:0,"data-state":a?"open":"closed","data-swipe-direction":k.swipeDirection,...b,ref:g,style:{userSelect:"none",touchAction:"none",...e.style},onKeyDown:q(e.onKeyDown,I=>{I.key==="Escape"&&(s==null||s(I.nativeEvent),I.nativeEvent.defaultPrevented||(k.isFocusedToastEscapeKeyDownRef.current=!0,F()))}),onPointerDown:q(e.onPointerDown,I=>{I.button===0&&(v.current={x:I.clientX,y:I.clientY})}),onPointerMove:q(e.onPointerMove,I=>{if(!v.current)return;const $=I.clientX-v.current.x,B=I.clientY-v.current.y,G=!!w.current,P=["left","right"].includes(k.swipeDirection),N=["left","up"].includes(k.swipeDirection)?Math.min:Math.max,M=P?N(0,$):0,_=P?0:N(0,B),O=I.pointerType==="touch"?10:2,Y={x:M,y:_},V={originalEvent:I,delta:Y};G?(w.current=Y,Ql(h1,d,V,{discrete:!1})):cp(Y,k.swipeDirection,O)?(w.current=Y,Ql(p1,m,V,{discrete:!1}),I.target.setPointerCapture(I.pointerId)):(Math.abs($)>O||Math.abs(B)>O)&&(v.current=null)}),onPointerUp:q(e.onPointerUp,I=>{const $=w.current,B=I.target;if(B.hasPointerCapture(I.pointerId)&&B.releasePointerCapture(I.pointerId),w.current=null,v.current=null,$){const G=I.currentTarget,P={originalEvent:I,delta:$};cp($,k.swipeDirection,k.swipeThreshold)?Ql(g1,h,P,{discrete:!0}):Ql(y1,p,P,{discrete:!0}),G.addEventListener("click",N=>N.preventDefault(),{once:!0})}})})})}),k.viewport)})]}):null}),b1=e=>{const{__scopeToast:t,children:n,...r}=e,i=Es(vl,t),[a,l]=f.useState(!1),[s,u]=f.useState(!1);return z1(()=>l(!0)),f.useEffect(()=>{const c=window.setTimeout(()=>u(!0),1e3);return()=>window.clearTimeout(c)},[]),s?null:o.jsx(rm,{asChild:!0,children:o.jsx(Cs,{...r,children:a&&o.jsxs(o.Fragment,{children:[i.label," ",n]})})})},w1="ToastTitle",$g=f.forwardRef((e,t)=>{const{__scopeToast:n,...r}=e;return o.jsx(ue.div,{...r,ref:t})});$g.displayName=w1;var S1="ToastDescription",Vg=f.forwardRef((e,t)=>{const{__scopeToast:n,...r}=e;return o.jsx(ue.div,{...r,ref:t})});Vg.displayName=S1;var Yg="ToastAction",qg=f.forwardRef((e,t)=>{const{altText:n,...r}=e;return n.trim()?o.jsx(Qg,{altText:n,asChild:!0,children:o.jsx(lm,{...r,ref:t})}):(console.error(`Invalid prop \`altText\` supplied to \`${Yg}\`. Expected non-empty \`string\`.`),null)});qg.displayName=Yg;var Wg="ToastClose",lm=f.forwardRef((e,t)=>{const{__scopeToast:n,...r}=e,i=v1(Wg,n);return o.jsx(Qg,{asChild:!0,children:o.jsx(ue.button,{type:"button",...r,ref:t,onClick:q(e.onClick,i.onClose)})})});lm.displayName=Wg;var Qg=f.forwardRef((e,t)=>{const{__scopeToast:n,altText:r,...i}=e;return o.jsx(ue.div,{"data-radix-toast-announce-exclude":"","data-radix-toast-announce-alt":r||void 0,...i,ref:t})});function Xg(e){const t=[];return Array.from(e.childNodes).forEach(r=>{if(r.nodeType===r.TEXT_NODE&&r.textContent&&t.push(r.textContent),C1(r)){const i=r.ariaHidden||r.hidden||r.style.display==="none",a=r.dataset.radixToastAnnounceExclude==="";if(!i)if(a){const l=r.dataset.radixToastAnnounceAlt;l&&t.push(l)}else t.push(...Xg(r))}}),t}function Ql(e,t,n,{discrete:r}){const i=n.originalEvent.currentTarget,a=new CustomEvent(e,{bubbles:!0,cancelable:!0,detail:n});t&&i.addEventListener(e,t,{once:!0}),r?nm(i,a):i.dispatchEvent(a)}var cp=(e,t,n=0)=>{const r=Math.abs(e.x),i=Math.abs(e.y),a=r>i;return t==="left"||t==="right"?a&&r>n:!a&&i>n};function z1(e=()=>{}){const t=wt(e);hn(()=>{let n=0,r=0;return n=window.requestAnimationFrame(()=>r=window.requestAnimationFrame(t)),()=>{window.cancelAnimationFrame(n),window.cancelAnimationFrame(r)}},[t])}function C1(e){return e.nodeType===e.ELEMENT_NODE}function E1(e){const t=[],n=document.createTreeWalker(e,NodeFilter.SHOW_ELEMENT,{acceptNode:r=>{const i=r.tagName==="INPUT"&&r.type==="hidden";return r.disabled||r.hidden||i?NodeFilter.FILTER_SKIP:r.tabIndex>=0?NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_SKIP}});for(;n.nextNode();)t.push(n.currentNode);return t}function Cu(e){const t=document.activeElement;return e.some(n=>n===t?!0:(n.focus(),document.activeElement!==t))}var N1=Bg,Zg=Ug,Jg=Gg,ek=$g,tk=Vg,nk=qg,rk=lm;function ik(e){var t,n,r="";if(typeof e=="string"||typeof e=="number")r+=e;else if(typeof e=="object")if(Array.isArray(e)){var i=e.length;for(t=0;t<i;t++)e[t]&&(n=ik(e[t]))&&(r&&(r+=" "),r+=n)}else for(n in e)e[n]&&(r&&(r+=" "),r+=n);return r}function ak(){for(var e,t,n=0,r="",i=arguments.length;n<i;n++)(e=arguments[n])&&(t=ik(e))&&(r&&(r+=" "),r+=t);return r}const dp=e=>typeof e=="boolean"?`${e}`:e===0?"0":e,mp=ak,om=(e,t)=>n=>{var r;if((t==null?void 0:t.variants)==null)return mp(e,n==null?void 0:n.class,n==null?void 0:n.className);const{variants:i,defaultVariants:a}=t,l=Object.keys(i).map(c=>{const m=n==null?void 0:n[c],d=a==null?void 0:a[c];if(m===null)return null;const p=dp(m)||dp(d);return i[c][p]}),s=n&&Object.entries(n).reduce((c,m)=>{let[d,p]=m;return p===void 0||(c[d]=p),c},{}),u=t==null||(r=t.compoundVariants)===null||r===void 0?void 0:r.reduce((c,m)=>{let{class:d,className:p,...h}=m;return Object.entries(h).every(b=>{let[k,x]=b;return Array.isArray(x)?x.includes({...a,...s}[k]):{...a,...s}[k]===x})?[...c,d,p]:c},[]);return mp(e,l,u,n==null?void 0:n.class,n==null?void 0:n.className)};/**
+ * @license lucide-react v0.462.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const P1=e=>e.replace(/([a-z0-9])([A-Z])/g,"$1-$2").toLowerCase(),lk=(...e)=>e.filter((t,n,r)=>!!t&&t.trim()!==""&&r.indexOf(t)===n).join(" ").trim();/**
+ * @license lucide-react v0.462.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */var A1={xmlns:"http://www.w3.org/2000/svg",width:24,height:24,viewBox:"0 0 24 24",fill:"none",stroke:"currentColor",strokeWidth:2,strokeLinecap:"round",strokeLinejoin:"round"};/**
+ * @license lucide-react v0.462.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const j1=f.forwardRef(({color:e="currentColor",size:t=24,strokeWidth:n=2,absoluteStrokeWidth:r,className:i="",children:a,iconNode:l,...s},u)=>f.createElement("svg",{ref:u,...A1,width:t,height:t,stroke:e,strokeWidth:r?Number(n)*24/Number(t):n,className:lk("lucide",i),...s},[...l.map(([c,m])=>f.createElement(c,m)),...Array.isArray(a)?a:[a]]));/**
+ * @license lucide-react v0.462.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const ce=(e,t)=>{const n=f.forwardRef(({className:r,...i},a)=>f.createElement(j1,{ref:a,iconNode:t,className:lk(`lucide-${P1(e)}`,r),...i}));return n.displayName=`${e}`,n};/**
+ * @license lucide-react v0.462.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const ok=ce("ArrowLeft",[["path",{d:"m12 19-7-7 7-7",key:"1l729n"}],["path",{d:"M19 12H5",key:"x3x0zl"}]]);/**
+ * @license lucide-react v0.462.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const qa=ce("ArrowRight",[["path",{d:"M5 12h14",key:"1ays0h"}],["path",{d:"m12 5 7 7-7 7",key:"xquz4c"}]]);/**
+ * @license lucide-react v0.462.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const T1=ce("Award",[["path",{d:"m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526",key:"1yiouv"}],["circle",{cx:"12",cy:"8",r:"6",key:"1vp47v"}]]);/**
+ * @license lucide-react v0.462.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const sk=ce("Calendar",[["path",{d:"M8 2v4",key:"1cmpym"}],["path",{d:"M16 2v4",key:"4m81vk"}],["rect",{width:"18",height:"18",x:"3",y:"4",rx:"2",key:"1hopcy"}],["path",{d:"M3 10h18",key:"8toen8"}]]);/**
+ * @license lucide-react v0.462.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const M1=ce("Check",[["path",{d:"M20 6 9 17l-5-5",key:"1gmf2c"}]]);/**
+ * @license lucide-react v0.462.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const R1=ce("ChevronDown",[["path",{d:"m6 9 6 6 6-6",key:"qrunsl"}]]);/**
+ * @license lucide-react v0.462.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const D1=ce("ChevronLeft",[["path",{d:"m15 18-6-6 6-6",key:"1wnfg3"}]]);/**
+ * @license lucide-react v0.462.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const Yo=ce("ChevronRight",[["path",{d:"m9 18 6-6-6-6",key:"mthhwq"}]]);/**
+ * @license lucide-react v0.462.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const I1=ce("Circle",[["circle",{cx:"12",cy:"12",r:"10",key:"1mglay"}]]);/**
+ * @license lucide-react v0.462.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const L1=ce("Clock",[["circle",{cx:"12",cy:"12",r:"10",key:"1mglay"}],["polyline",{points:"12 6 12 12 16 14",key:"68esgv"}]]);/**
+ * @license lucide-react v0.462.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const F1=ce("Cookie",[["path",{d:"M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5",key:"laymnq"}],["path",{d:"M8.5 8.5v.01",key:"ue8clq"}],["path",{d:"M16 15.5v.01",key:"14dtrp"}],["path",{d:"M12 12v.01",key:"u5ubse"}],["path",{d:"M11 17v.01",key:"1hyl5a"}],["path",{d:"M7 14v.01",key:"uct60s"}]]);/**
+ * @license lucide-react v0.462.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const O1=ce("Facebook",[["path",{d:"M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z",key:"1jg4f8"}]]);/**
+ * @license lucide-react v0.462.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const _1=ce("Globe",[["circle",{cx:"12",cy:"12",r:"10",key:"1mglay"}],["path",{d:"M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20",key:"13o1zl"}],["path",{d:"M2 12h20",key:"9i4pu4"}]]);/**
+ * @license lucide-react v0.462.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const B1=ce("Grid3x3",[["rect",{width:"18",height:"18",x:"3",y:"3",rx:"2",key:"afitv7"}],["path",{d:"M3 9h18",key:"1pudct"}],["path",{d:"M3 15h18",key:"5xshup"}],["path",{d:"M9 3v18",key:"fh3hqa"}],["path",{d:"M15 3v18",key:"14nvp0"}]]);/**
+ * @license lucide-react v0.462.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const H1=ce("Heart",[["path",{d:"M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z",key:"c3ymky"}]]);/**
+ * @license lucide-react v0.462.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const U1=ce("House",[["path",{d:"M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8",key:"5wwlr5"}],["path",{d:"M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z",key:"1d0kgt"}]]);/**
+ * @license lucide-react v0.462.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const K1=ce("Instagram",[["rect",{width:"20",height:"20",x:"2",y:"2",rx:"5",ry:"5",key:"2e1cvw"}],["path",{d:"M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z",key:"9exkf1"}],["line",{x1:"17.5",x2:"17.51",y1:"6.5",y2:"6.5",key:"r4j83e"}]]);/**
+ * @license lucide-react v0.462.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const G1=ce("Leaf",[["path",{d:"M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z",key:"nnexq3"}],["path",{d:"M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12",key:"mt58a7"}]]);/**
+ * @license lucide-react v0.462.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const $1=ce("List",[["path",{d:"M3 12h.01",key:"nlz23k"}],["path",{d:"M3 18h.01",key:"1tta3j"}],["path",{d:"M3 6h.01",key:"1rqtza"}],["path",{d:"M8 12h13",key:"1za7za"}],["path",{d:"M8 18h13",key:"1lx6n3"}],["path",{d:"M8 6h13",key:"ik3vkj"}]]);/**
+ * @license lucide-react v0.462.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const uk=ce("Mail",[["rect",{width:"20",height:"16",x:"2",y:"4",rx:"2",key:"18n3k1"}],["path",{d:"m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7",key:"1ocrg3"}]]);/**
+ * @license lucide-react v0.462.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const fp=ce("MapPin",[["path",{d:"M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0",key:"1r0f0z"}],["circle",{cx:"12",cy:"10",r:"3",key:"ilqhr7"}]]);/**
+ * @license lucide-react v0.462.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const V1=ce("Menu",[["line",{x1:"4",x2:"20",y1:"12",y2:"12",key:"1e0a9i"}],["line",{x1:"4",x2:"20",y1:"6",y2:"6",key:"1owob3"}],["line",{x1:"4",x2:"20",y1:"18",y2:"18",key:"yk5zj1"}]]);/**
+ * @license lucide-react v0.462.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const Y1=ce("Phone",[["path",{d:"M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z",key:"foiqr5"}]]);/**
+ * @license lucide-react v0.462.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const qo=ce("Search",[["circle",{cx:"11",cy:"11",r:"8",key:"4ej97u"}],["path",{d:"m21 21-4.3-4.3",key:"1qie3q"}]]);/**
+ * @license lucide-react v0.462.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const q1=ce("Shield",[["path",{d:"M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z",key:"oel41y"}]]);/**
+ * @license lucide-react v0.462.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const W1=ce("ShoppingCart",[["circle",{cx:"8",cy:"21",r:"1",key:"jimo8o"}],["circle",{cx:"19",cy:"21",r:"1",key:"13723u"}],["path",{d:"M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12",key:"9zh506"}]]);/**
+ * @license lucide-react v0.462.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const Q1=ce("Star",[["path",{d:"M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z",key:"r04s7s"}]]);/**
+ * @license lucide-react v0.462.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const X1=ce("Twitter",[["path",{d:"M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z",key:"pff0z6"}]]);/**
+ * @license lucide-react v0.462.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const ck=ce("User",[["path",{d:"M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2",key:"975kel"}],["circle",{cx:"12",cy:"7",r:"4",key:"17ys0d"}]]);/**
+ * @license lucide-react v0.462.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const xl=ce("X",[["path",{d:"M18 6 6 18",key:"1bl5f8"}],["path",{d:"m6 6 12 12",key:"d8bk6v"}]]),sm="-",Z1=e=>{const t=eS(e),{conflictingClassGroups:n,conflictingClassGroupModifiers:r}=e;return{getClassGroupId:l=>{const s=l.split(sm);return s[0]===""&&s.length!==1&&s.shift(),dk(s,t)||J1(l)},getConflictingClassGroupIds:(l,s)=>{const u=n[l]||[];return s&&r[l]?[...u,...r[l]]:u}}},dk=(e,t)=>{var l;if(e.length===0)return t.classGroupId;const n=e[0],r=t.nextPart.get(n),i=r?dk(e.slice(1),r):void 0;if(i)return i;if(t.validators.length===0)return;const a=e.join(sm);return(l=t.validators.find(({validator:s})=>s(a)))==null?void 0:l.classGroupId},pp=/^\[(.+)\]$/,J1=e=>{if(pp.test(e)){const t=pp.exec(e)[1],n=t==null?void 0:t.substring(0,t.indexOf(":"));if(n)return"arbitrary.."+n}},eS=e=>{const{theme:t,prefix:n}=e,r={nextPart:new Map,validators:[]};return nS(Object.entries(e.classGroups),n).forEach(([a,l])=>{Lc(l,r,a,t)}),r},Lc=(e,t,n,r)=>{e.forEach(i=>{if(typeof i=="string"){const a=i===""?t:hp(t,i);a.classGroupId=n;return}if(typeof i=="function"){if(tS(i)){Lc(i(r),t,n,r);return}t.validators.push({validator:i,classGroupId:n});return}Object.entries(i).forEach(([a,l])=>{Lc(l,hp(t,a),n,r)})})},hp=(e,t)=>{let n=e;return t.split(sm).forEach(r=>{n.nextPart.has(r)||n.nextPart.set(r,{nextPart:new Map,validators:[]}),n=n.nextPart.get(r)}),n},tS=e=>e.isThemeGetter,nS=(e,t)=>t?e.map(([n,r])=>{const i=r.map(a=>typeof a=="string"?t+a:typeof a=="object"?Object.fromEntries(Object.entries(a).map(([l,s])=>[t+l,s])):a);return[n,i]}):e,rS=e=>{if(e<1)return{get:()=>{},set:()=>{}};let t=0,n=new Map,r=new Map;const i=(a,l)=>{n.set(a,l),t++,t>e&&(t=0,r=n,n=new Map)};return{get(a){let l=n.get(a);if(l!==void 0)return l;if((l=r.get(a))!==void 0)return i(a,l),l},set(a,l){n.has(a)?n.set(a,l):i(a,l)}}},mk="!",iS=e=>{const{separator:t,experimentalParseClassName:n}=e,r=t.length===1,i=t[0],a=t.length,l=s=>{const u=[];let c=0,m=0,d;for(let x=0;x<s.length;x++){let y=s[x];if(c===0){if(y===i&&(r||s.slice(x,x+a)===t)){u.push(s.slice(m,x)),m=x+a;continue}if(y==="/"){d=x;continue}}y==="["?c++:y==="]"&&c--}const p=u.length===0?s:s.substring(m),h=p.startsWith(mk),b=h?p.substring(1):p,k=d&&d>m?d-m:void 0;return{modifiers:u,hasImportantModifier:h,baseClassName:b,maybePostfixModifierPosition:k}};return n?s=>n({className:s,parseClassName:l}):l},aS=e=>{if(e.length<=1)return e;const t=[];let n=[];return e.forEach(r=>{r[0]==="["?(t.push(...n.sort(),r),n=[]):n.push(r)}),t.push(...n.sort()),t},lS=e=>({cache:rS(e.cacheSize),parseClassName:iS(e),...Z1(e)}),oS=/\s+/,sS=(e,t)=>{const{parseClassName:n,getClassGroupId:r,getConflictingClassGroupIds:i}=t,a=[],l=e.trim().split(oS);let s="";for(let u=l.length-1;u>=0;u-=1){const c=l[u],{modifiers:m,hasImportantModifier:d,baseClassName:p,maybePostfixModifierPosition:h}=n(c);let b=!!h,k=r(b?p.substring(0,h):p);if(!k){if(!b){s=c+(s.length>0?" "+s:s);continue}if(k=r(p),!k){s=c+(s.length>0?" "+s:s);continue}b=!1}const x=aS(m).join(":"),y=d?x+mk:x,g=y+k;if(a.includes(g))continue;a.push(g);const v=i(k,b);for(let w=0;w<v.length;++w){const S=v[w];a.push(y+S)}s=c+(s.length>0?" "+s:s)}return s};function uS(){let e=0,t,n,r="";for(;e<arguments.length;)(t=arguments[e++])&&(n=fk(t))&&(r&&(r+=" "),r+=n);return r}const fk=e=>{if(typeof e=="string")return e;let t,n="";for(let r=0;r<e.length;r++)e[r]&&(t=fk(e[r]))&&(n&&(n+=" "),n+=t);return n};function cS(e,...t){let n,r,i,a=l;function l(u){const c=t.reduce((m,d)=>d(m),e());return n=lS(c),r=n.cache.get,i=n.cache.set,a=s,s(u)}function s(u){const c=r(u);if(c)return c;const m=sS(u,n);return i(u,m),m}return function(){return a(uS.apply(null,arguments))}}const ke=e=>{const t=n=>n[e]||[];return t.isThemeGetter=!0,t},pk=/^\[(?:([a-z-]+):)?(.+)\]$/i,dS=/^\d+\/\d+$/,mS=new Set(["px","full","screen"]),fS=/^(\d+(\.\d+)?)?(xs|sm|md|lg|xl)$/,pS=/\d+(%|px|r?em|[sdl]?v([hwib]|min|max)|pt|pc|in|cm|mm|cap|ch|ex|r?lh|cq(w|h|i|b|min|max))|\b(calc|min|max|clamp)\(.+\)|^0$/,hS=/^(rgba?|hsla?|hwb|(ok)?(lab|lch))\(.+\)$/,yS=/^(inset_)?-?((\d+)?\.?(\d+)[a-z]+|0)_-?((\d+)?\.?(\d+)[a-z]+|0)/,gS=/^(url|image|image-set|cross-fade|element|(repeating-)?(linear|radial|conic)-gradient)\(.+\)$/,vn=e=>Ci(e)||mS.has(e)||dS.test(e),qn=e=>Wi(e,"length",CS),Ci=e=>!!e&&!Number.isNaN(Number(e)),Eu=e=>Wi(e,"number",Ci),da=e=>!!e&&Number.isInteger(Number(e)),kS=e=>e.endsWith("%")&&Ci(e.slice(0,-1)),Z=e=>pk.test(e),Wn=e=>fS.test(e),vS=new Set(["length","size","percentage"]),xS=e=>Wi(e,vS,hk),bS=e=>Wi(e,"position",hk),wS=new Set(["image","url"]),SS=e=>Wi(e,wS,NS),zS=e=>Wi(e,"",ES),ma=()=>!0,Wi=(e,t,n)=>{const r=pk.exec(e);return r?r[1]?typeof t=="string"?r[1]===t:t.has(r[1]):n(r[2]):!1},CS=e=>pS.test(e)&&!hS.test(e),hk=()=>!1,ES=e=>yS.test(e),NS=e=>gS.test(e),PS=()=>{const e=ke("colors"),t=ke("spacing"),n=ke("blur"),r=ke("brightness"),i=ke("borderColor"),a=ke("borderRadius"),l=ke("borderSpacing"),s=ke("borderWidth"),u=ke("contrast"),c=ke("grayscale"),m=ke("hueRotate"),d=ke("invert"),p=ke("gap"),h=ke("gradientColorStops"),b=ke("gradientColorStopPositions"),k=ke("inset"),x=ke("margin"),y=ke("opacity"),g=ke("padding"),v=ke("saturate"),w=ke("scale"),S=ke("sepia"),z=ke("skew"),C=ke("space"),E=ke("translate"),A=()=>["auto","contain","none"],T=()=>["auto","hidden","clip","visible","scroll"],F=()=>["auto",Z,t],L=()=>[Z,t],K=()=>["",vn,qn],I=()=>["auto",Ci,Z],$=()=>["bottom","center","left","left-bottom","left-top","right","right-bottom","right-top","top"],B=()=>["solid","dashed","dotted","double","none"],G=()=>["normal","multiply","screen","overlay","darken","lighten","color-dodge","color-burn","hard-light","soft-light","difference","exclusion","hue","saturation","color","luminosity"],P=()=>["start","end","center","between","around","evenly","stretch"],N=()=>["","0",Z],M=()=>["auto","avoid","all","avoid-page","page","left","right","column"],_=()=>[Ci,Z];return{cacheSize:500,separator:":",theme:{colors:[ma],spacing:[vn,qn],blur:["none","",Wn,Z],brightness:_(),borderColor:[e],borderRadius:["none","","full",Wn,Z],borderSpacing:L(),borderWidth:K(),contrast:_(),grayscale:N(),hueRotate:_(),invert:N(),gap:L(),gradientColorStops:[e],gradientColorStopPositions:[kS,qn],inset:F(),margin:F(),opacity:_(),padding:L(),saturate:_(),scale:_(),sepia:N(),skew:_(),space:L(),translate:L()},classGroups:{aspect:[{aspect:["auto","square","video",Z]}],container:["container"],columns:[{columns:[Wn]}],"break-after":[{"break-after":M()}],"break-before":[{"break-before":M()}],"break-inside":[{"break-inside":["auto","avoid","avoid-page","avoid-column"]}],"box-decoration":[{"box-decoration":["slice","clone"]}],box:[{box:["border","content"]}],display:["block","inline-block","inline","flex","inline-flex","table","inline-table","table-caption","table-cell","table-column","table-column-group","table-footer-group","table-header-group","table-row-group","table-row","flow-root","grid","inline-grid","contents","list-item","hidden"],float:[{float:["right","left","none","start","end"]}],clear:[{clear:["left","right","both","none","start","end"]}],isolation:["isolate","isolation-auto"],"object-fit":[{object:["contain","cover","fill","none","scale-down"]}],"object-position":[{object:[...$(),Z]}],overflow:[{overflow:T()}],"overflow-x":[{"overflow-x":T()}],"overflow-y":[{"overflow-y":T()}],overscroll:[{overscroll:A()}],"overscroll-x":[{"overscroll-x":A()}],"overscroll-y":[{"overscroll-y":A()}],position:["static","fixed","absolute","relative","sticky"],inset:[{inset:[k]}],"inset-x":[{"inset-x":[k]}],"inset-y":[{"inset-y":[k]}],start:[{start:[k]}],end:[{end:[k]}],top:[{top:[k]}],right:[{right:[k]}],bottom:[{bottom:[k]}],left:[{left:[k]}],visibility:["visible","invisible","collapse"],z:[{z:["auto",da,Z]}],basis:[{basis:F()}],"flex-direction":[{flex:["row","row-reverse","col","col-reverse"]}],"flex-wrap":[{flex:["wrap","wrap-reverse","nowrap"]}],flex:[{flex:["1","auto","initial","none",Z]}],grow:[{grow:N()}],shrink:[{shrink:N()}],order:[{order:["first","last","none",da,Z]}],"grid-cols":[{"grid-cols":[ma]}],"col-start-end":[{col:["auto",{span:["full",da,Z]},Z]}],"col-start":[{"col-start":I()}],"col-end":[{"col-end":I()}],"grid-rows":[{"grid-rows":[ma]}],"row-start-end":[{row:["auto",{span:[da,Z]},Z]}],"row-start":[{"row-start":I()}],"row-end":[{"row-end":I()}],"grid-flow":[{"grid-flow":["row","col","dense","row-dense","col-dense"]}],"auto-cols":[{"auto-cols":["auto","min","max","fr",Z]}],"auto-rows":[{"auto-rows":["auto","min","max","fr",Z]}],gap:[{gap:[p]}],"gap-x":[{"gap-x":[p]}],"gap-y":[{"gap-y":[p]}],"justify-content":[{justify:["normal",...P()]}],"justify-items":[{"justify-items":["start","end","center","stretch"]}],"justify-self":[{"justify-self":["auto","start","end","center","stretch"]}],"align-content":[{content:["normal",...P(),"baseline"]}],"align-items":[{items:["start","end","center","baseline","stretch"]}],"align-self":[{self:["auto","start","end","center","stretch","baseline"]}],"place-content":[{"place-content":[...P(),"baseline"]}],"place-items":[{"place-items":["start","end","center","baseline","stretch"]}],"place-self":[{"place-self":["auto","start","end","center","stretch"]}],p:[{p:[g]}],px:[{px:[g]}],py:[{py:[g]}],ps:[{ps:[g]}],pe:[{pe:[g]}],pt:[{pt:[g]}],pr:[{pr:[g]}],pb:[{pb:[g]}],pl:[{pl:[g]}],m:[{m:[x]}],mx:[{mx:[x]}],my:[{my:[x]}],ms:[{ms:[x]}],me:[{me:[x]}],mt:[{mt:[x]}],mr:[{mr:[x]}],mb:[{mb:[x]}],ml:[{ml:[x]}],"space-x":[{"space-x":[C]}],"space-x-reverse":["space-x-reverse"],"space-y":[{"space-y":[C]}],"space-y-reverse":["space-y-reverse"],w:[{w:["auto","min","max","fit","svw","lvw","dvw",Z,t]}],"min-w":[{"min-w":[Z,t,"min","max","fit"]}],"max-w":[{"max-w":[Z,t,"none","full","min","max","fit","prose",{screen:[Wn]},Wn]}],h:[{h:[Z,t,"auto","min","max","fit","svh","lvh","dvh"]}],"min-h":[{"min-h":[Z,t,"min","max","fit","svh","lvh","dvh"]}],"max-h":[{"max-h":[Z,t,"min","max","fit","svh","lvh","dvh"]}],size:[{size:[Z,t,"auto","min","max","fit"]}],"font-size":[{text:["base",Wn,qn]}],"font-smoothing":["antialiased","subpixel-antialiased"],"font-style":["italic","not-italic"],"font-weight":[{font:["thin","extralight","light","normal","medium","semibold","bold","extrabold","black",Eu]}],"font-family":[{font:[ma]}],"fvn-normal":["normal-nums"],"fvn-ordinal":["ordinal"],"fvn-slashed-zero":["slashed-zero"],"fvn-figure":["lining-nums","oldstyle-nums"],"fvn-spacing":["proportional-nums","tabular-nums"],"fvn-fraction":["diagonal-fractions","stacked-fractions"],tracking:[{tracking:["tighter","tight","normal","wide","wider","widest",Z]}],"line-clamp":[{"line-clamp":["none",Ci,Eu]}],leading:[{leading:["none","tight","snug","normal","relaxed","loose",vn,Z]}],"list-image":[{"list-image":["none",Z]}],"list-style-type":[{list:["none","disc","decimal",Z]}],"list-style-position":[{list:["inside","outside"]}],"placeholder-color":[{placeholder:[e]}],"placeholder-opacity":[{"placeholder-opacity":[y]}],"text-alignment":[{text:["left","center","right","justify","start","end"]}],"text-color":[{text:[e]}],"text-opacity":[{"text-opacity":[y]}],"text-decoration":["underline","overline","line-through","no-underline"],"text-decoration-style":[{decoration:[...B(),"wavy"]}],"text-decoration-thickness":[{decoration:["auto","from-font",vn,qn]}],"underline-offset":[{"underline-offset":["auto",vn,Z]}],"text-decoration-color":[{decoration:[e]}],"text-transform":["uppercase","lowercase","capitalize","normal-case"],"text-overflow":["truncate","text-ellipsis","text-clip"],"text-wrap":[{text:["wrap","nowrap","balance","pretty"]}],indent:[{indent:L()}],"vertical-align":[{align:["baseline","top","middle","bottom","text-top","text-bottom","sub","super",Z]}],whitespace:[{whitespace:["normal","nowrap","pre","pre-line","pre-wrap","break-spaces"]}],break:[{break:["normal","words","all","keep"]}],hyphens:[{hyphens:["none","manual","auto"]}],content:[{content:["none",Z]}],"bg-attachment":[{bg:["fixed","local","scroll"]}],"bg-clip":[{"bg-clip":["border","padding","content","text"]}],"bg-opacity":[{"bg-opacity":[y]}],"bg-origin":[{"bg-origin":["border","padding","content"]}],"bg-position":[{bg:[...$(),bS]}],"bg-repeat":[{bg:["no-repeat",{repeat:["","x","y","round","space"]}]}],"bg-size":[{bg:["auto","cover","contain",xS]}],"bg-image":[{bg:["none",{"gradient-to":["t","tr","r","br","b","bl","l","tl"]},SS]}],"bg-color":[{bg:[e]}],"gradient-from-pos":[{from:[b]}],"gradient-via-pos":[{via:[b]}],"gradient-to-pos":[{to:[b]}],"gradient-from":[{from:[h]}],"gradient-via":[{via:[h]}],"gradient-to":[{to:[h]}],rounded:[{rounded:[a]}],"rounded-s":[{"rounded-s":[a]}],"rounded-e":[{"rounded-e":[a]}],"rounded-t":[{"rounded-t":[a]}],"rounded-r":[{"rounded-r":[a]}],"rounded-b":[{"rounded-b":[a]}],"rounded-l":[{"rounded-l":[a]}],"rounded-ss":[{"rounded-ss":[a]}],"rounded-se":[{"rounded-se":[a]}],"rounded-ee":[{"rounded-ee":[a]}],"rounded-es":[{"rounded-es":[a]}],"rounded-tl":[{"rounded-tl":[a]}],"rounded-tr":[{"rounded-tr":[a]}],"rounded-br":[{"rounded-br":[a]}],"rounded-bl":[{"rounded-bl":[a]}],"border-w":[{border:[s]}],"border-w-x":[{"border-x":[s]}],"border-w-y":[{"border-y":[s]}],"border-w-s":[{"border-s":[s]}],"border-w-e":[{"border-e":[s]}],"border-w-t":[{"border-t":[s]}],"border-w-r":[{"border-r":[s]}],"border-w-b":[{"border-b":[s]}],"border-w-l":[{"border-l":[s]}],"border-opacity":[{"border-opacity":[y]}],"border-style":[{border:[...B(),"hidden"]}],"divide-x":[{"divide-x":[s]}],"divide-x-reverse":["divide-x-reverse"],"divide-y":[{"divide-y":[s]}],"divide-y-reverse":["divide-y-reverse"],"divide-opacity":[{"divide-opacity":[y]}],"divide-style":[{divide:B()}],"border-color":[{border:[i]}],"border-color-x":[{"border-x":[i]}],"border-color-y":[{"border-y":[i]}],"border-color-s":[{"border-s":[i]}],"border-color-e":[{"border-e":[i]}],"border-color-t":[{"border-t":[i]}],"border-color-r":[{"border-r":[i]}],"border-color-b":[{"border-b":[i]}],"border-color-l":[{"border-l":[i]}],"divide-color":[{divide:[i]}],"outline-style":[{outline:["",...B()]}],"outline-offset":[{"outline-offset":[vn,Z]}],"outline-w":[{outline:[vn,qn]}],"outline-color":[{outline:[e]}],"ring-w":[{ring:K()}],"ring-w-inset":["ring-inset"],"ring-color":[{ring:[e]}],"ring-opacity":[{"ring-opacity":[y]}],"ring-offset-w":[{"ring-offset":[vn,qn]}],"ring-offset-color":[{"ring-offset":[e]}],shadow:[{shadow:["","inner","none",Wn,zS]}],"shadow-color":[{shadow:[ma]}],opacity:[{opacity:[y]}],"mix-blend":[{"mix-blend":[...G(),"plus-lighter","plus-darker"]}],"bg-blend":[{"bg-blend":G()}],filter:[{filter:["","none"]}],blur:[{blur:[n]}],brightness:[{brightness:[r]}],contrast:[{contrast:[u]}],"drop-shadow":[{"drop-shadow":["","none",Wn,Z]}],grayscale:[{grayscale:[c]}],"hue-rotate":[{"hue-rotate":[m]}],invert:[{invert:[d]}],saturate:[{saturate:[v]}],sepia:[{sepia:[S]}],"backdrop-filter":[{"backdrop-filter":["","none"]}],"backdrop-blur":[{"backdrop-blur":[n]}],"backdrop-brightness":[{"backdrop-brightness":[r]}],"backdrop-contrast":[{"backdrop-contrast":[u]}],"backdrop-grayscale":[{"backdrop-grayscale":[c]}],"backdrop-hue-rotate":[{"backdrop-hue-rotate":[m]}],"backdrop-invert":[{"backdrop-invert":[d]}],"backdrop-opacity":[{"backdrop-opacity":[y]}],"backdrop-saturate":[{"backdrop-saturate":[v]}],"backdrop-sepia":[{"backdrop-sepia":[S]}],"border-collapse":[{border:["collapse","separate"]}],"border-spacing":[{"border-spacing":[l]}],"border-spacing-x":[{"border-spacing-x":[l]}],"border-spacing-y":[{"border-spacing-y":[l]}],"table-layout":[{table:["auto","fixed"]}],caption:[{caption:["top","bottom"]}],transition:[{transition:["none","all","","colors","opacity","shadow","transform",Z]}],duration:[{duration:_()}],ease:[{ease:["linear","in","out","in-out",Z]}],delay:[{delay:_()}],animate:[{animate:["none","spin","ping","pulse","bounce",Z]}],transform:[{transform:["","gpu","none"]}],scale:[{scale:[w]}],"scale-x":[{"scale-x":[w]}],"scale-y":[{"scale-y":[w]}],rotate:[{rotate:[da,Z]}],"translate-x":[{"translate-x":[E]}],"translate-y":[{"translate-y":[E]}],"skew-x":[{"skew-x":[z]}],"skew-y":[{"skew-y":[z]}],"transform-origin":[{origin:["center","top","top-right","right","bottom-right","bottom","bottom-left","left","top-left",Z]}],accent:[{accent:["auto",e]}],appearance:[{appearance:["none","auto"]}],cursor:[{cursor:["auto","default","pointer","wait","text","move","help","not-allowed","none","context-menu","progress","cell","crosshair","vertical-text","alias","copy","no-drop","grab","grabbing","all-scroll","col-resize","row-resize","n-resize","e-resize","s-resize","w-resize","ne-resize","nw-resize","se-resize","sw-resize","ew-resize","ns-resize","nesw-resize","nwse-resize","zoom-in","zoom-out",Z]}],"caret-color":[{caret:[e]}],"pointer-events":[{"pointer-events":["none","auto"]}],resize:[{resize:["none","y","x",""]}],"scroll-behavior":[{scroll:["auto","smooth"]}],"scroll-m":[{"scroll-m":L()}],"scroll-mx":[{"scroll-mx":L()}],"scroll-my":[{"scroll-my":L()}],"scroll-ms":[{"scroll-ms":L()}],"scroll-me":[{"scroll-me":L()}],"scroll-mt":[{"scroll-mt":L()}],"scroll-mr":[{"scroll-mr":L()}],"scroll-mb":[{"scroll-mb":L()}],"scroll-ml":[{"scroll-ml":L()}],"scroll-p":[{"scroll-p":L()}],"scroll-px":[{"scroll-px":L()}],"scroll-py":[{"scroll-py":L()}],"scroll-ps":[{"scroll-ps":L()}],"scroll-pe":[{"scroll-pe":L()}],"scroll-pt":[{"scroll-pt":L()}],"scroll-pr":[{"scroll-pr":L()}],"scroll-pb":[{"scroll-pb":L()}],"scroll-pl":[{"scroll-pl":L()}],"snap-align":[{snap:["start","end","center","align-none"]}],"snap-stop":[{snap:["normal","always"]}],"snap-type":[{snap:["none","x","y","both"]}],"snap-strictness":[{snap:["mandatory","proximity"]}],touch:[{touch:["auto","none","manipulation"]}],"touch-x":[{"touch-pan":["x","left","right"]}],"touch-y":[{"touch-pan":["y","up","down"]}],"touch-pz":["touch-pinch-zoom"],select:[{select:["none","text","all","auto"]}],"will-change":[{"will-change":["auto","scroll","contents","transform",Z]}],fill:[{fill:[e,"none"]}],"stroke-w":[{stroke:[vn,qn,Eu]}],stroke:[{stroke:[e,"none"]}],sr:["sr-only","not-sr-only"],"forced-color-adjust":[{"forced-color-adjust":["auto","none"]}]},conflictingClassGroups:{overflow:["overflow-x","overflow-y"],overscroll:["overscroll-x","overscroll-y"],inset:["inset-x","inset-y","start","end","top","right","bottom","left"],"inset-x":["right","left"],"inset-y":["top","bottom"],flex:["basis","grow","shrink"],gap:["gap-x","gap-y"],p:["px","py","ps","pe","pt","pr","pb","pl"],px:["pr","pl"],py:["pt","pb"],m:["mx","my","ms","me","mt","mr","mb","ml"],mx:["mr","ml"],my:["mt","mb"],size:["w","h"],"font-size":["leading"],"fvn-normal":["fvn-ordinal","fvn-slashed-zero","fvn-figure","fvn-spacing","fvn-fraction"],"fvn-ordinal":["fvn-normal"],"fvn-slashed-zero":["fvn-normal"],"fvn-figure":["fvn-normal"],"fvn-spacing":["fvn-normal"],"fvn-fraction":["fvn-normal"],"line-clamp":["display","overflow"],rounded:["rounded-s","rounded-e","rounded-t","rounded-r","rounded-b","rounded-l","rounded-ss","rounded-se","rounded-ee","rounded-es","rounded-tl","rounded-tr","rounded-br","rounded-bl"],"rounded-s":["rounded-ss","rounded-es"],"rounded-e":["rounded-se","rounded-ee"],"rounded-t":["rounded-tl","rounded-tr"],"rounded-r":["rounded-tr","rounded-br"],"rounded-b":["rounded-br","rounded-bl"],"rounded-l":["rounded-tl","rounded-bl"],"border-spacing":["border-spacing-x","border-spacing-y"],"border-w":["border-w-s","border-w-e","border-w-t","border-w-r","border-w-b","border-w-l"],"border-w-x":["border-w-r","border-w-l"],"border-w-y":["border-w-t","border-w-b"],"border-color":["border-color-s","border-color-e","border-color-t","border-color-r","border-color-b","border-color-l"],"border-color-x":["border-color-r","border-color-l"],"border-color-y":["border-color-t","border-color-b"],"scroll-m":["scroll-mx","scroll-my","scroll-ms","scroll-me","scroll-mt","scroll-mr","scroll-mb","scroll-ml"],"scroll-mx":["scroll-mr","scroll-ml"],"scroll-my":["scroll-mt","scroll-mb"],"scroll-p":["scroll-px","scroll-py","scroll-ps","scroll-pe","scroll-pt","scroll-pr","scroll-pb","scroll-pl"],"scroll-px":["scroll-pr","scroll-pl"],"scroll-py":["scroll-pt","scroll-pb"],touch:["touch-x","touch-y","touch-pz"],"touch-x":["touch"],"touch-y":["touch"],"touch-pz":["touch"]},conflictingClassGroupModifiers:{"font-size":["leading"]}}},AS=cS(PS);function re(...e){return AS(ak(e))}const jS=N1,yk=f.forwardRef(({className:e,...t},n)=>o.jsx(Zg,{ref:n,className:re("fixed top-0 z-[100] flex max-h-screen w-full flex-col-reverse p-4 sm:bottom-0 sm:right-0 sm:top-auto sm:flex-col md:max-w-[420px]",e),...t}));yk.displayName=Zg.displayName;const TS=om("group pointer-events-auto relative flex w-full items-center justify-between space-x-4 overflow-hidden rounded-md border p-6 pr-8 shadow-lg transition-all data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=move]:transition-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[swipe=end]:animate-out data-[state=closed]:fade-out-80 data-[state=closed]:slide-out-to-right-full data-[state=open]:slide-in-from-top-full data-[state=open]:sm:slide-in-from-bottom-full",{variants:{variant:{default:"border bg-background text-foreground",destructive:"destructive group border-destructive bg-destructive text-destructive-foreground"}},defaultVariants:{variant:"default"}}),gk=f.forwardRef(({className:e,variant:t,...n},r)=>o.jsx(Jg,{ref:r,className:re(TS({variant:t}),e),...n}));gk.displayName=Jg.displayName;const MS=f.forwardRef(({className:e,...t},n)=>o.jsx(nk,{ref:n,className:re("inline-flex h-8 shrink-0 items-center justify-center rounded-md border bg-transparent px-3 text-sm font-medium ring-offset-background transition-colors hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 group-[.destructive]:border-muted/40 group-[.destructive]:hover:border-destructive/30 group-[.destructive]:hover:bg-destructive group-[.destructive]:hover:text-destructive-foreground group-[.destructive]:focus:ring-destructive",e),...t}));MS.displayName=nk.displayName;const kk=f.forwardRef(({className:e,...t},n)=>o.jsx(rk,{ref:n,className:re("absolute right-2 top-2 rounded-md p-1 text-foreground/50 opacity-0 transition-opacity hover:text-foreground focus:opacity-100 focus:outline-none focus:ring-2 group-hover:opacity-100 group-[.destructive]:text-red-300 group-[.destructive]:hover:text-red-50 group-[.destructive]:focus:ring-red-400 group-[.destructive]:focus:ring-offset-red-600",e),"toast-close":"",...t,children:o.jsx(xl,{className:"h-4 w-4"})}));kk.displayName=rk.displayName;const vk=f.forwardRef(({className:e,...t},n)=>o.jsx(ek,{ref:n,className:re("text-sm font-semibold",e),...t}));vk.displayName=ek.displayName;const xk=f.forwardRef(({className:e,...t},n)=>o.jsx(tk,{ref:n,className:re("text-sm opacity-90",e),...t}));xk.displayName=tk.displayName;function RS(){const{toasts:e}=Dg();return o.jsxs(jS,{children:[e.map(function({id:t,title:n,description:r,action:i,...a}){return o.jsxs(gk,{...a,children:[o.jsxs("div",{className:"grid gap-1",children:[n&&o.jsx(vk,{children:n}),r&&o.jsx(xk,{children:r})]}),i,o.jsx(kk,{})]},t)}),o.jsx(yk,{})]})}var yp=["light","dark"],DS="(prefers-color-scheme: dark)",IS=f.createContext(void 0),LS={setTheme:e=>{},themes:[]},FS=()=>{var e;return(e=f.useContext(IS))!=null?e:LS};f.memo(({forcedTheme:e,storageKey:t,attribute:n,enableSystem:r,enableColorScheme:i,defaultTheme:a,value:l,attrs:s,nonce:u})=>{let c=a==="system",m=n==="class"?`var d=document.documentElement,c=d.classList;${`c.remove(${s.map(b=>`'${b}'`).join(",")})`};`:`var d=document.documentElement,n='${n}',s='setAttribute';`,d=i?yp.includes(a)&&a?`if(e==='light'||e==='dark'||!e)d.style.colorScheme=e||'${a}'`:"if(e==='light'||e==='dark')d.style.colorScheme=e":"",p=(b,k=!1,x=!0)=>{let y=l?l[b]:b,g=k?b+"|| ''":`'${y}'`,v="";return i&&x&&!k&&yp.includes(b)&&(v+=`d.style.colorScheme = '${b}';`),n==="class"?k||y?v+=`c.add(${g})`:v+="null":y&&(v+=`d[s](n,${g})`),v},h=e?`!function(){${m}${p(e)}}()`:r?`!function(){try{${m}var e=localStorage.getItem('${t}');if('system'===e||(!e&&${c})){var t='${DS}',m=window.matchMedia(t);if(m.media!==t||m.matches){${p("dark")}}else{${p("light")}}}else if(e){${l?`var x=${JSON.stringify(l)};`:""}${p(l?"x[e]":"e",!0)}}${c?"":"else{"+p(a,!1,!1)+"}"}${d}}catch(e){}}()`:`!function(){try{${m}var e=localStorage.getItem('${t}');if(e){${l?`var x=${JSON.stringify(l)};`:""}${p(l?"x[e]":"e",!0)}}else{${p(a,!1,!1)};}${d}}catch(t){}}();`;return f.createElement("script",{nonce:u,dangerouslySetInnerHTML:{__html:h}})});var OS=e=>{switch(e){case"success":return HS;case"info":return KS;case"warning":return US;case"error":return GS;default:return null}},_S=Array(12).fill(0),BS=({visible:e,className:t})=>R.createElement("div",{className:["sonner-loading-wrapper",t].filter(Boolean).join(" "),"data-visible":e},R.createElement("div",{className:"sonner-spinner"},_S.map((n,r)=>R.createElement("div",{className:"sonner-loading-bar",key:`spinner-bar-${r}`})))),HS=R.createElement("svg",{xmlns:"http://www.w3.org/2000/svg",viewBox:"0 0 20 20",fill:"currentColor",height:"20",width:"20"},R.createElement("path",{fillRule:"evenodd",d:"M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z",clipRule:"evenodd"})),US=R.createElement("svg",{xmlns:"http://www.w3.org/2000/svg",viewBox:"0 0 24 24",fill:"currentColor",height:"20",width:"20"},R.createElement("path",{fillRule:"evenodd",d:"M9.401 3.003c1.155-2 4.043-2 5.197 0l7.355 12.748c1.154 2-.29 4.5-2.599 4.5H4.645c-2.309 0-3.752-2.5-2.598-4.5L9.4 3.003zM12 8.25a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V9a.75.75 0 01.75-.75zm0 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z",clipRule:"evenodd"})),KS=R.createElement("svg",{xmlns:"http://www.w3.org/2000/svg",viewBox:"0 0 20 20",fill:"currentColor",height:"20",width:"20"},R.createElement("path",{fillRule:"evenodd",d:"M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z",clipRule:"evenodd"})),GS=R.createElement("svg",{xmlns:"http://www.w3.org/2000/svg",viewBox:"0 0 20 20",fill:"currentColor",height:"20",width:"20"},R.createElement("path",{fillRule:"evenodd",d:"M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-5a.75.75 0 01.75.75v4.5a.75.75 0 01-1.5 0v-4.5A.75.75 0 0110 5zm0 10a1 1 0 100-2 1 1 0 000 2z",clipRule:"evenodd"})),$S=R.createElement("svg",{xmlns:"http://www.w3.org/2000/svg",width:"12",height:"12",viewBox:"0 0 24 24",fill:"none",stroke:"currentColor",strokeWidth:"1.5",strokeLinecap:"round",strokeLinejoin:"round"},R.createElement("line",{x1:"18",y1:"6",x2:"6",y2:"18"}),R.createElement("line",{x1:"6",y1:"6",x2:"18",y2:"18"})),VS=()=>{let[e,t]=R.useState(document.hidden);return R.useEffect(()=>{let n=()=>{t(document.hidden)};return document.addEventListener("visibilitychange",n),()=>window.removeEventListener("visibilitychange",n)},[]),e},Fc=1,YS=class{constructor(){this.subscribe=e=>(this.subscribers.push(e),()=>{let t=this.subscribers.indexOf(e);this.subscribers.splice(t,1)}),this.publish=e=>{this.subscribers.forEach(t=>t(e))},this.addToast=e=>{this.publish(e),this.toasts=[...this.toasts,e]},this.create=e=>{var t;let{message:n,...r}=e,i=typeof(e==null?void 0:e.id)=="number"||((t=e.id)==null?void 0:t.length)>0?e.id:Fc++,a=this.toasts.find(s=>s.id===i),l=e.dismissible===void 0?!0:e.dismissible;return this.dismissedToasts.has(i)&&this.dismissedToasts.delete(i),a?this.toasts=this.toasts.map(s=>s.id===i?(this.publish({...s,...e,id:i,title:n}),{...s,...e,id:i,dismissible:l,title:n}):s):this.addToast({title:n,...r,dismissible:l,id:i}),i},this.dismiss=e=>(this.dismissedToasts.add(e),e||this.toasts.forEach(t=>{this.subscribers.forEach(n=>n({id:t.id,dismiss:!0}))}),this.subscribers.forEach(t=>t({id:e,dismiss:!0})),e),this.message=(e,t)=>this.create({...t,message:e}),this.error=(e,t)=>this.create({...t,message:e,type:"error"}),this.success=(e,t)=>this.create({...t,type:"success",message:e}),this.info=(e,t)=>this.create({...t,type:"info",message:e}),this.warning=(e,t)=>this.create({...t,type:"warning",message:e}),this.loading=(e,t)=>this.create({...t,type:"loading",message:e}),this.promise=(e,t)=>{if(!t)return;let n;t.loading!==void 0&&(n=this.create({...t,promise:e,type:"loading",message:t.loading,description:typeof t.description!="function"?t.description:void 0}));let r=e instanceof Promise?e:e(),i=n!==void 0,a,l=r.then(async u=>{if(a=["resolve",u],R.isValidElement(u))i=!1,this.create({id:n,type:"default",message:u});else if(WS(u)&&!u.ok){i=!1;let c=typeof t.error=="function"?await t.error(`HTTP error! status: ${u.status}`):t.error,m=typeof t.description=="function"?await t.description(`HTTP error! status: ${u.status}`):t.description;this.create({id:n,type:"error",message:c,description:m})}else if(t.success!==void 0){i=!1;let c=typeof t.success=="function"?await t.success(u):t.success,m=typeof t.description=="function"?await t.description(u):t.description;this.create({id:n,type:"success",message:c,description:m})}}).catch(async u=>{if(a=["reject",u],t.error!==void 0){i=!1;let c=typeof t.error=="function"?await t.error(u):t.error,m=typeof t.description=="function"?await t.description(u):t.description;this.create({id:n,type:"error",message:c,description:m})}}).finally(()=>{var u;i&&(this.dismiss(n),n=void 0),(u=t.finally)==null||u.call(t)}),s=()=>new Promise((u,c)=>l.then(()=>a[0]==="reject"?c(a[1]):u(a[1])).catch(c));return typeof n!="string"&&typeof n!="number"?{unwrap:s}:Object.assign(n,{unwrap:s})},this.custom=(e,t)=>{let n=(t==null?void 0:t.id)||Fc++;return this.create({jsx:e(n),id:n,...t}),n},this.getActiveToasts=()=>this.toasts.filter(e=>!this.dismissedToasts.has(e.id)),this.subscribers=[],this.toasts=[],this.dismissedToasts=new Set}},st=new YS,qS=(e,t)=>{let n=(t==null?void 0:t.id)||Fc++;return st.addToast({title:e,...t,id:n}),n},WS=e=>e&&typeof e=="object"&&"ok"in e&&typeof e.ok=="boolean"&&"status"in e&&typeof e.status=="number",QS=qS,XS=()=>st.toasts,ZS=()=>st.getActiveToasts();Object.assign(QS,{success:st.success,info:st.info,warning:st.warning,error:st.error,custom:st.custom,message:st.message,promise:st.promise,dismiss:st.dismiss,loading:st.loading},{getHistory:XS,getToasts:ZS});function JS(e,{insertAt:t}={}){if(typeof document>"u")return;let n=document.head||document.getElementsByTagName("head")[0],r=document.createElement("style");r.type="text/css",t==="top"&&n.firstChild?n.insertBefore(r,n.firstChild):n.appendChild(r),r.styleSheet?r.styleSheet.cssText=e:r.appendChild(document.createTextNode(e))}JS(`:where(html[dir="ltr"]),:where([data-sonner-toaster][dir="ltr"]){--toast-icon-margin-start: -3px;--toast-icon-margin-end: 4px;--toast-svg-margin-start: -1px;--toast-svg-margin-end: 0px;--toast-button-margin-start: auto;--toast-button-margin-end: 0;--toast-close-button-start: 0;--toast-close-button-end: unset;--toast-close-button-transform: translate(-35%, -35%)}:where(html[dir="rtl"]),:where([data-sonner-toaster][dir="rtl"]){--toast-icon-margin-start: 4px;--toast-icon-margin-end: -3px;--toast-svg-margin-start: 0px;--toast-svg-margin-end: -1px;--toast-button-margin-start: 0;--toast-button-margin-end: auto;--toast-close-button-start: unset;--toast-close-button-end: 0;--toast-close-button-transform: translate(35%, -35%)}:where([data-sonner-toaster]){position:fixed;width:var(--width);font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;--gray1: hsl(0, 0%, 99%);--gray2: hsl(0, 0%, 97.3%);--gray3: hsl(0, 0%, 95.1%);--gray4: hsl(0, 0%, 93%);--gray5: hsl(0, 0%, 90.9%);--gray6: hsl(0, 0%, 88.7%);--gray7: hsl(0, 0%, 85.8%);--gray8: hsl(0, 0%, 78%);--gray9: hsl(0, 0%, 56.1%);--gray10: hsl(0, 0%, 52.3%);--gray11: hsl(0, 0%, 43.5%);--gray12: hsl(0, 0%, 9%);--border-radius: 8px;box-sizing:border-box;padding:0;margin:0;list-style:none;outline:none;z-index:999999999;transition:transform .4s ease}:where([data-sonner-toaster][data-lifted="true"]){transform:translateY(-10px)}@media (hover: none) and (pointer: coarse){:where([data-sonner-toaster][data-lifted="true"]){transform:none}}:where([data-sonner-toaster][data-x-position="right"]){right:var(--offset-right)}:where([data-sonner-toaster][data-x-position="left"]){left:var(--offset-left)}:where([data-sonner-toaster][data-x-position="center"]){left:50%;transform:translate(-50%)}:where([data-sonner-toaster][data-y-position="top"]){top:var(--offset-top)}:where([data-sonner-toaster][data-y-position="bottom"]){bottom:var(--offset-bottom)}:where([data-sonner-toast]){--y: translateY(100%);--lift-amount: calc(var(--lift) * var(--gap));z-index:var(--z-index);position:absolute;opacity:0;transform:var(--y);filter:blur(0);touch-action:none;transition:transform .4s,opacity .4s,height .4s,box-shadow .2s;box-sizing:border-box;outline:none;overflow-wrap:anywhere}:where([data-sonner-toast][data-styled="true"]){padding:16px;background:var(--normal-bg);border:1px solid var(--normal-border);color:var(--normal-text);border-radius:var(--border-radius);box-shadow:0 4px 12px #0000001a;width:var(--width);font-size:13px;display:flex;align-items:center;gap:6px}:where([data-sonner-toast]:focus-visible){box-shadow:0 4px 12px #0000001a,0 0 0 2px #0003}:where([data-sonner-toast][data-y-position="top"]){top:0;--y: translateY(-100%);--lift: 1;--lift-amount: calc(1 * var(--gap))}:where([data-sonner-toast][data-y-position="bottom"]){bottom:0;--y: translateY(100%);--lift: -1;--lift-amount: calc(var(--lift) * var(--gap))}:where([data-sonner-toast]) :where([data-description]){font-weight:400;line-height:1.4;color:inherit}:where([data-sonner-toast]) :where([data-title]){font-weight:500;line-height:1.5;color:inherit}:where([data-sonner-toast]) :where([data-icon]){display:flex;height:16px;width:16px;position:relative;justify-content:flex-start;align-items:center;flex-shrink:0;margin-left:var(--toast-icon-margin-start);margin-right:var(--toast-icon-margin-end)}:where([data-sonner-toast][data-promise="true"]) :where([data-icon])>svg{opacity:0;transform:scale(.8);transform-origin:center;animation:sonner-fade-in .3s ease forwards}:where([data-sonner-toast]) :where([data-icon])>*{flex-shrink:0}:where([data-sonner-toast]) :where([data-icon]) svg{margin-left:var(--toast-svg-margin-start);margin-right:var(--toast-svg-margin-end)}:where([data-sonner-toast]) :where([data-content]){display:flex;flex-direction:column;gap:2px}[data-sonner-toast][data-styled=true] [data-button]{border-radius:4px;padding-left:8px;padding-right:8px;height:24px;font-size:12px;color:var(--normal-bg);background:var(--normal-text);margin-left:var(--toast-button-margin-start);margin-right:var(--toast-button-margin-end);border:none;cursor:pointer;outline:none;display:flex;align-items:center;flex-shrink:0;transition:opacity .4s,box-shadow .2s}:where([data-sonner-toast]) :where([data-button]):focus-visible{box-shadow:0 0 0 2px #0006}:where([data-sonner-toast]) :where([data-button]):first-of-type{margin-left:var(--toast-button-margin-start);margin-right:var(--toast-button-margin-end)}:where([data-sonner-toast]) :where([data-cancel]){color:var(--normal-text);background:rgba(0,0,0,.08)}:where([data-sonner-toast][data-theme="dark"]) :where([data-cancel]){background:rgba(255,255,255,.3)}:where([data-sonner-toast]) :where([data-close-button]){position:absolute;left:var(--toast-close-button-start);right:var(--toast-close-button-end);top:0;height:20px;width:20px;display:flex;justify-content:center;align-items:center;padding:0;color:var(--gray12);border:1px solid var(--gray4);transform:var(--toast-close-button-transform);border-radius:50%;cursor:pointer;z-index:1;transition:opacity .1s,background .2s,border-color .2s}[data-sonner-toast] [data-close-button]{background:var(--gray1)}:where([data-sonner-toast]) :where([data-close-button]):focus-visible{box-shadow:0 4px 12px #0000001a,0 0 0 2px #0003}:where([data-sonner-toast]) :where([data-disabled="true"]){cursor:not-allowed}:where([data-sonner-toast]):hover :where([data-close-button]):hover{background:var(--gray2);border-color:var(--gray5)}:where([data-sonner-toast][data-swiping="true"]):before{content:"";position:absolute;left:-50%;right:-50%;height:100%;z-index:-1}:where([data-sonner-toast][data-y-position="top"][data-swiping="true"]):before{bottom:50%;transform:scaleY(3) translateY(50%)}:where([data-sonner-toast][data-y-position="bottom"][data-swiping="true"]):before{top:50%;transform:scaleY(3) translateY(-50%)}:where([data-sonner-toast][data-swiping="false"][data-removed="true"]):before{content:"";position:absolute;inset:0;transform:scaleY(2)}:where([data-sonner-toast]):after{content:"";position:absolute;left:0;height:calc(var(--gap) + 1px);bottom:100%;width:100%}:where([data-sonner-toast][data-mounted="true"]){--y: translateY(0);opacity:1}:where([data-sonner-toast][data-expanded="false"][data-front="false"]){--scale: var(--toasts-before) * .05 + 1;--y: translateY(calc(var(--lift-amount) * var(--toasts-before))) scale(calc(-1 * var(--scale)));height:var(--front-toast-height)}:where([data-sonner-toast])>*{transition:opacity .4s}:where([data-sonner-toast][data-expanded="false"][data-front="false"][data-styled="true"])>*{opacity:0}:where([data-sonner-toast][data-visible="false"]){opacity:0;pointer-events:none}:where([data-sonner-toast][data-mounted="true"][data-expanded="true"]){--y: translateY(calc(var(--lift) * var(--offset)));height:var(--initial-height)}:where([data-sonner-toast][data-removed="true"][data-front="true"][data-swipe-out="false"]){--y: translateY(calc(var(--lift) * -100%));opacity:0}:where([data-sonner-toast][data-removed="true"][data-front="false"][data-swipe-out="false"][data-expanded="true"]){--y: translateY(calc(var(--lift) * var(--offset) + var(--lift) * -100%));opacity:0}:where([data-sonner-toast][data-removed="true"][data-front="false"][data-swipe-out="false"][data-expanded="false"]){--y: translateY(40%);opacity:0;transition:transform .5s,opacity .2s}:where([data-sonner-toast][data-removed="true"][data-front="false"]):before{height:calc(var(--initial-height) + 20%)}[data-sonner-toast][data-swiping=true]{transform:var(--y) translateY(var(--swipe-amount-y, 0px)) translate(var(--swipe-amount-x, 0px));transition:none}[data-sonner-toast][data-swiped=true]{user-select:none}[data-sonner-toast][data-swipe-out=true][data-y-position=bottom],[data-sonner-toast][data-swipe-out=true][data-y-position=top]{animation-duration:.2s;animation-timing-function:ease-out;animation-fill-mode:forwards}[data-sonner-toast][data-swipe-out=true][data-swipe-direction=left]{animation-name:swipe-out-left}[data-sonner-toast][data-swipe-out=true][data-swipe-direction=right]{animation-name:swipe-out-right}[data-sonner-toast][data-swipe-out=true][data-swipe-direction=up]{animation-name:swipe-out-up}[data-sonner-toast][data-swipe-out=true][data-swipe-direction=down]{animation-name:swipe-out-down}@keyframes swipe-out-left{0%{transform:var(--y) translate(var(--swipe-amount-x));opacity:1}to{transform:var(--y) translate(calc(var(--swipe-amount-x) - 100%));opacity:0}}@keyframes swipe-out-right{0%{transform:var(--y) translate(var(--swipe-amount-x));opacity:1}to{transform:var(--y) translate(calc(var(--swipe-amount-x) + 100%));opacity:0}}@keyframes swipe-out-up{0%{transform:var(--y) translateY(var(--swipe-amount-y));opacity:1}to{transform:var(--y) translateY(calc(var(--swipe-amount-y) - 100%));opacity:0}}@keyframes swipe-out-down{0%{transform:var(--y) translateY(var(--swipe-amount-y));opacity:1}to{transform:var(--y) translateY(calc(var(--swipe-amount-y) + 100%));opacity:0}}@media (max-width: 600px){[data-sonner-toaster]{position:fixed;right:var(--mobile-offset-right);left:var(--mobile-offset-left);width:100%}[data-sonner-toaster][dir=rtl]{left:calc(var(--mobile-offset-left) * -1)}[data-sonner-toaster] [data-sonner-toast]{left:0;right:0;width:calc(100% - var(--mobile-offset-left) * 2)}[data-sonner-toaster][data-x-position=left]{left:var(--mobile-offset-left)}[data-sonner-toaster][data-y-position=bottom]{bottom:var(--mobile-offset-bottom)}[data-sonner-toaster][data-y-position=top]{top:var(--mobile-offset-top)}[data-sonner-toaster][data-x-position=center]{left:var(--mobile-offset-left);right:var(--mobile-offset-right);transform:none}}[data-sonner-toaster][data-theme=light]{--normal-bg: #fff;--normal-border: var(--gray4);--normal-text: var(--gray12);--success-bg: hsl(143, 85%, 96%);--success-border: hsl(145, 92%, 91%);--success-text: hsl(140, 100%, 27%);--info-bg: hsl(208, 100%, 97%);--info-border: hsl(221, 91%, 91%);--info-text: hsl(210, 92%, 45%);--warning-bg: hsl(49, 100%, 97%);--warning-border: hsl(49, 91%, 91%);--warning-text: hsl(31, 92%, 45%);--error-bg: hsl(359, 100%, 97%);--error-border: hsl(359, 100%, 94%);--error-text: hsl(360, 100%, 45%)}[data-sonner-toaster][data-theme=light] [data-sonner-toast][data-invert=true]{--normal-bg: #000;--normal-border: hsl(0, 0%, 20%);--normal-text: var(--gray1)}[data-sonner-toaster][data-theme=dark] [data-sonner-toast][data-invert=true]{--normal-bg: #fff;--normal-border: var(--gray3);--normal-text: var(--gray12)}[data-sonner-toaster][data-theme=dark]{--normal-bg: #000;--normal-bg-hover: hsl(0, 0%, 12%);--normal-border: hsl(0, 0%, 20%);--normal-border-hover: hsl(0, 0%, 25%);--normal-text: var(--gray1);--success-bg: hsl(150, 100%, 6%);--success-border: hsl(147, 100%, 12%);--success-text: hsl(150, 86%, 65%);--info-bg: hsl(215, 100%, 6%);--info-border: hsl(223, 100%, 12%);--info-text: hsl(216, 87%, 65%);--warning-bg: hsl(64, 100%, 6%);--warning-border: hsl(60, 100%, 12%);--warning-text: hsl(46, 87%, 65%);--error-bg: hsl(358, 76%, 10%);--error-border: hsl(357, 89%, 16%);--error-text: hsl(358, 100%, 81%)}[data-sonner-toaster][data-theme=dark] [data-sonner-toast] [data-close-button]{background:var(--normal-bg);border-color:var(--normal-border);color:var(--normal-text)}[data-sonner-toaster][data-theme=dark] [data-sonner-toast] [data-close-button]:hover{background:var(--normal-bg-hover);border-color:var(--normal-border-hover)}[data-rich-colors=true][data-sonner-toast][data-type=success],[data-rich-colors=true][data-sonner-toast][data-type=success] [data-close-button]{background:var(--success-bg);border-color:var(--success-border);color:var(--success-text)}[data-rich-colors=true][data-sonner-toast][data-type=info],[data-rich-colors=true][data-sonner-toast][data-type=info] [data-close-button]{background:var(--info-bg);border-color:var(--info-border);color:var(--info-text)}[data-rich-colors=true][data-sonner-toast][data-type=warning],[data-rich-colors=true][data-sonner-toast][data-type=warning] [data-close-button]{background:var(--warning-bg);border-color:var(--warning-border);color:var(--warning-text)}[data-rich-colors=true][data-sonner-toast][data-type=error],[data-rich-colors=true][data-sonner-toast][data-type=error] [data-close-button]{background:var(--error-bg);border-color:var(--error-border);color:var(--error-text)}.sonner-loading-wrapper{--size: 16px;height:var(--size);width:var(--size);position:absolute;inset:0;z-index:10}.sonner-loading-wrapper[data-visible=false]{transform-origin:center;animation:sonner-fade-out .2s ease forwards}.sonner-spinner{position:relative;top:50%;left:50%;height:var(--size);width:var(--size)}.sonner-loading-bar{animation:sonner-spin 1.2s linear infinite;background:var(--gray11);border-radius:6px;height:8%;left:-10%;position:absolute;top:-3.9%;width:24%}.sonner-loading-bar:nth-child(1){animation-delay:-1.2s;transform:rotate(.0001deg) translate(146%)}.sonner-loading-bar:nth-child(2){animation-delay:-1.1s;transform:rotate(30deg) translate(146%)}.sonner-loading-bar:nth-child(3){animation-delay:-1s;transform:rotate(60deg) translate(146%)}.sonner-loading-bar:nth-child(4){animation-delay:-.9s;transform:rotate(90deg) translate(146%)}.sonner-loading-bar:nth-child(5){animation-delay:-.8s;transform:rotate(120deg) translate(146%)}.sonner-loading-bar:nth-child(6){animation-delay:-.7s;transform:rotate(150deg) translate(146%)}.sonner-loading-bar:nth-child(7){animation-delay:-.6s;transform:rotate(180deg) translate(146%)}.sonner-loading-bar:nth-child(8){animation-delay:-.5s;transform:rotate(210deg) translate(146%)}.sonner-loading-bar:nth-child(9){animation-delay:-.4s;transform:rotate(240deg) translate(146%)}.sonner-loading-bar:nth-child(10){animation-delay:-.3s;transform:rotate(270deg) translate(146%)}.sonner-loading-bar:nth-child(11){animation-delay:-.2s;transform:rotate(300deg) translate(146%)}.sonner-loading-bar:nth-child(12){animation-delay:-.1s;transform:rotate(330deg) translate(146%)}@keyframes sonner-fade-in{0%{opacity:0;transform:scale(.8)}to{opacity:1;transform:scale(1)}}@keyframes sonner-fade-out{0%{opacity:1;transform:scale(1)}to{opacity:0;transform:scale(.8)}}@keyframes sonner-spin{0%{opacity:1}to{opacity:.15}}@media (prefers-reduced-motion){[data-sonner-toast],[data-sonner-toast]>*,.sonner-loading-bar{transition:none!important;animation:none!important}}.sonner-loader{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);transform-origin:center;transition:opacity .2s,transform .2s}.sonner-loader[data-visible=false]{opacity:0;transform:scale(.8) translate(-50%,-50%)}
+`);function Xl(e){return e.label!==void 0}var ez=3,tz="32px",nz="16px",gp=4e3,rz=356,iz=14,az=20,lz=200;function Ht(...e){return e.filter(Boolean).join(" ")}function oz(e){let[t,n]=e.split("-"),r=[];return t&&r.push(t),n&&r.push(n),r}var sz=e=>{var t,n,r,i,a,l,s,u,c,m,d;let{invert:p,toast:h,unstyled:b,interacting:k,setHeights:x,visibleToasts:y,heights:g,index:v,toasts:w,expanded:S,removeToast:z,defaultRichColors:C,closeButton:E,style:A,cancelButtonStyle:T,actionButtonStyle:F,className:L="",descriptionClassName:K="",duration:I,position:$,gap:B,loadingIcon:G,expandByDefault:P,classNames:N,icons:M,closeButtonAriaLabel:_="Close toast",pauseWhenPageIsHidden:O}=e,[Y,V]=R.useState(null),[ne,se]=R.useState(null),[W,ye]=R.useState(!1),[me,we]=R.useState(!1),[ae,U]=R.useState(!1),[ee,ge]=R.useState(!1),[De,Xe]=R.useState(!1),[pt,ht]=R.useState(0),[Ze,tn]=R.useState(0),Rt=R.useRef(h.duration||I||gp),ei=R.useRef(null),Dt=R.useRef(null),El=v===0,Nl=v+1<=y,ot=h.type,kn=h.dismissible!==!1,Vs=h.className||"",ea=h.descriptionClassName||"",It=R.useMemo(()=>g.findIndex(Q=>Q.toastId===h.id)||0,[g,h.id]),ta=R.useMemo(()=>{var Q;return(Q=h.closeButton)!=null?Q:E},[h.closeButton,E]),ti=R.useMemo(()=>h.duration||I||gp,[h.duration,I]),Un=R.useRef(0),Kn=R.useRef(0),Pl=R.useRef(0),Gn=R.useRef(null),[Ys,qs]=$.split("-"),na=R.useMemo(()=>g.reduce((Q,oe,fe)=>fe>=It?Q:Q+oe.height,0),[g,It]),Al=VS(),jl=h.invert||p,ni=ot==="loading";Kn.current=R.useMemo(()=>It*B+na,[It,na]),R.useEffect(()=>{Rt.current=ti},[ti]),R.useEffect(()=>{ye(!0)},[]),R.useEffect(()=>{let Q=Dt.current;if(Q){let oe=Q.getBoundingClientRect().height;return tn(oe),x(fe=>[{toastId:h.id,height:oe,position:h.position},...fe]),()=>x(fe=>fe.filter(Ft=>Ft.toastId!==h.id))}},[x,h.id]),R.useLayoutEffect(()=>{if(!W)return;let Q=Dt.current,oe=Q.style.height;Q.style.height="auto";let fe=Q.getBoundingClientRect().height;Q.style.height=oe,tn(fe),x(Ft=>Ft.find(Ot=>Ot.toastId===h.id)?Ft.map(Ot=>Ot.toastId===h.id?{...Ot,height:fe}:Ot):[{toastId:h.id,height:fe,position:h.position},...Ft])},[W,h.title,h.description,x,h.id]);let Lt=R.useCallback(()=>{we(!0),ht(Kn.current),x(Q=>Q.filter(oe=>oe.toastId!==h.id)),setTimeout(()=>{z(h)},lz)},[h,z,x,Kn]);R.useEffect(()=>{if(h.promise&&ot==="loading"||h.duration===1/0||h.type==="loading")return;let Q;return S||k||O&&Al?(()=>{if(Pl.current<Un.current){let oe=new Date().getTime()-Un.current;Rt.current=Rt.current-oe}Pl.current=new Date().getTime()})():Rt.current!==1/0&&(Un.current=new Date().getTime(),Q=setTimeout(()=>{var oe;(oe=h.onAutoClose)==null||oe.call(h,h),Lt()},Rt.current)),()=>clearTimeout(Q)},[S,k,h,ot,O,Al,Lt]),R.useEffect(()=>{h.delete&&Lt()},[Lt,h.delete]);function Ws(){var Q,oe,fe;return M!=null&&M.loading?R.createElement("div",{className:Ht(N==null?void 0:N.loader,(Q=h==null?void 0:h.classNames)==null?void 0:Q.loader,"sonner-loader"),"data-visible":ot==="loading"},M.loading):G?R.createElement("div",{className:Ht(N==null?void 0:N.loader,(oe=h==null?void 0:h.classNames)==null?void 0:oe.loader,"sonner-loader"),"data-visible":ot==="loading"},G):R.createElement(BS,{className:Ht(N==null?void 0:N.loader,(fe=h==null?void 0:h.classNames)==null?void 0:fe.loader),visible:ot==="loading"})}return R.createElement("li",{tabIndex:0,ref:Dt,className:Ht(L,Vs,N==null?void 0:N.toast,(t=h==null?void 0:h.classNames)==null?void 0:t.toast,N==null?void 0:N.default,N==null?void 0:N[ot],(n=h==null?void 0:h.classNames)==null?void 0:n[ot]),"data-sonner-toast":"","data-rich-colors":(r=h.richColors)!=null?r:C,"data-styled":!(h.jsx||h.unstyled||b),"data-mounted":W,"data-promise":!!h.promise,"data-swiped":De,"data-removed":me,"data-visible":Nl,"data-y-position":Ys,"data-x-position":qs,"data-index":v,"data-front":El,"data-swiping":ae,"data-dismissible":kn,"data-type":ot,"data-invert":jl,"data-swipe-out":ee,"data-swipe-direction":ne,"data-expanded":!!(S||P&&W),style:{"--index":v,"--toasts-before":v,"--z-index":w.length-v,"--offset":`${me?pt:Kn.current}px`,"--initial-height":P?"auto":`${Ze}px`,...A,...h.style},onDragEnd:()=>{U(!1),V(null),Gn.current=null},onPointerDown:Q=>{ni||!kn||(ei.current=new Date,ht(Kn.current),Q.target.setPointerCapture(Q.pointerId),Q.target.tagName!=="BUTTON"&&(U(!0),Gn.current={x:Q.clientX,y:Q.clientY}))},onPointerUp:()=>{var Q,oe,fe,Ft;if(ee||!kn)return;Gn.current=null;let Ot=Number(((Q=Dt.current)==null?void 0:Q.style.getPropertyValue("--swipe-amount-x").replace("px",""))||0),$n=Number(((oe=Dt.current)==null?void 0:oe.style.getPropertyValue("--swipe-amount-y").replace("px",""))||0),Pr=new Date().getTime()-((fe=ei.current)==null?void 0:fe.getTime()),_t=Y==="x"?Ot:$n,Vn=Math.abs(_t)/Pr;if(Math.abs(_t)>=az||Vn>.11){ht(Kn.current),(Ft=h.onDismiss)==null||Ft.call(h,h),se(Y==="x"?Ot>0?"right":"left":$n>0?"down":"up"),Lt(),ge(!0),Xe(!1);return}U(!1),V(null)},onPointerMove:Q=>{var oe,fe,Ft,Ot;if(!Gn.current||!kn||((oe=window.getSelection())==null?void 0:oe.toString().length)>0)return;let $n=Q.clientY-Gn.current.y,Pr=Q.clientX-Gn.current.x,_t=(fe=e.swipeDirections)!=null?fe:oz($);!Y&&(Math.abs(Pr)>1||Math.abs($n)>1)&&V(Math.abs(Pr)>Math.abs($n)?"x":"y");let Vn={x:0,y:0};Y==="y"?(_t.includes("top")||_t.includes("bottom"))&&(_t.includes("top")&&$n<0||_t.includes("bottom")&&$n>0)&&(Vn.y=$n):Y==="x"&&(_t.includes("left")||_t.includes("right"))&&(_t.includes("left")&&Pr<0||_t.includes("right")&&Pr>0)&&(Vn.x=Pr),(Math.abs(Vn.x)>0||Math.abs(Vn.y)>0)&&Xe(!0),(Ft=Dt.current)==null||Ft.style.setProperty("--swipe-amount-x",`${Vn.x}px`),(Ot=Dt.current)==null||Ot.style.setProperty("--swipe-amount-y",`${Vn.y}px`)}},ta&&!h.jsx?R.createElement("button",{"aria-label":_,"data-disabled":ni,"data-close-button":!0,onClick:ni||!kn?()=>{}:()=>{var Q;Lt(),(Q=h.onDismiss)==null||Q.call(h,h)},className:Ht(N==null?void 0:N.closeButton,(i=h==null?void 0:h.classNames)==null?void 0:i.closeButton)},(a=M==null?void 0:M.close)!=null?a:$S):null,h.jsx||f.isValidElement(h.title)?h.jsx?h.jsx:typeof h.title=="function"?h.title():h.title:R.createElement(R.Fragment,null,ot||h.icon||h.promise?R.createElement("div",{"data-icon":"",className:Ht(N==null?void 0:N.icon,(l=h==null?void 0:h.classNames)==null?void 0:l.icon)},h.promise||h.type==="loading"&&!h.icon?h.icon||Ws():null,h.type!=="loading"?h.icon||(M==null?void 0:M[ot])||OS(ot):null):null,R.createElement("div",{"data-content":"",className:Ht(N==null?void 0:N.content,(s=h==null?void 0:h.classNames)==null?void 0:s.content)},R.createElement("div",{"data-title":"",className:Ht(N==null?void 0:N.title,(u=h==null?void 0:h.classNames)==null?void 0:u.title)},typeof h.title=="function"?h.title():h.title),h.description?R.createElement("div",{"data-description":"",className:Ht(K,ea,N==null?void 0:N.description,(c=h==null?void 0:h.classNames)==null?void 0:c.description)},typeof h.description=="function"?h.description():h.description):null),f.isValidElement(h.cancel)?h.cancel:h.cancel&&Xl(h.cancel)?R.createElement("button",{"data-button":!0,"data-cancel":!0,style:h.cancelButtonStyle||T,onClick:Q=>{var oe,fe;Xl(h.cancel)&&kn&&((fe=(oe=h.cancel).onClick)==null||fe.call(oe,Q),Lt())},className:Ht(N==null?void 0:N.cancelButton,(m=h==null?void 0:h.classNames)==null?void 0:m.cancelButton)},h.cancel.label):null,f.isValidElement(h.action)?h.action:h.action&&Xl(h.action)?R.createElement("button",{"data-button":!0,"data-action":!0,style:h.actionButtonStyle||F,onClick:Q=>{var oe,fe;Xl(h.action)&&((fe=(oe=h.action).onClick)==null||fe.call(oe,Q),!Q.defaultPrevented&&Lt())},className:Ht(N==null?void 0:N.actionButton,(d=h==null?void 0:h.classNames)==null?void 0:d.actionButton)},h.action.label):null))};function kp(){if(typeof window>"u"||typeof document>"u")return"ltr";let e=document.documentElement.getAttribute("dir");return e==="auto"||!e?window.getComputedStyle(document.documentElement).direction:e}function uz(e,t){let n={};return[e,t].forEach((r,i)=>{let a=i===1,l=a?"--mobile-offset":"--offset",s=a?nz:tz;function u(c){["top","right","bottom","left"].forEach(m=>{n[`${l}-${m}`]=typeof c=="number"?`${c}px`:c})}typeof r=="number"||typeof r=="string"?u(r):typeof r=="object"?["top","right","bottom","left"].forEach(c=>{r[c]===void 0?n[`${l}-${c}`]=s:n[`${l}-${c}`]=typeof r[c]=="number"?`${r[c]}px`:r[c]}):u(s)}),n}var cz=f.forwardRef(function(e,t){let{invert:n,position:r="bottom-right",hotkey:i=["altKey","KeyT"],expand:a,closeButton:l,className:s,offset:u,mobileOffset:c,theme:m="light",richColors:d,duration:p,style:h,visibleToasts:b=ez,toastOptions:k,dir:x=kp(),gap:y=iz,loadingIcon:g,icons:v,containerAriaLabel:w="Notifications",pauseWhenPageIsHidden:S}=e,[z,C]=R.useState([]),E=R.useMemo(()=>Array.from(new Set([r].concat(z.filter(O=>O.position).map(O=>O.position)))),[z,r]),[A,T]=R.useState([]),[F,L]=R.useState(!1),[K,I]=R.useState(!1),[$,B]=R.useState(m!=="system"?m:typeof window<"u"&&window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"),G=R.useRef(null),P=i.join("+").replace(/Key/g,"").replace(/Digit/g,""),N=R.useRef(null),M=R.useRef(!1),_=R.useCallback(O=>{C(Y=>{var V;return(V=Y.find(ne=>ne.id===O.id))!=null&&V.delete||st.dismiss(O.id),Y.filter(({id:ne})=>ne!==O.id)})},[]);return R.useEffect(()=>st.subscribe(O=>{if(O.dismiss){C(Y=>Y.map(V=>V.id===O.id?{...V,delete:!0}:V));return}setTimeout(()=>{Mg.flushSync(()=>{C(Y=>{let V=Y.findIndex(ne=>ne.id===O.id);return V!==-1?[...Y.slice(0,V),{...Y[V],...O},...Y.slice(V+1)]:[O,...Y]})})})}),[]),R.useEffect(()=>{if(m!=="system"){B(m);return}if(m==="system"&&(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?B("dark"):B("light")),typeof window>"u")return;let O=window.matchMedia("(prefers-color-scheme: dark)");try{O.addEventListener("change",({matches:Y})=>{B(Y?"dark":"light")})}catch{O.addListener(({matches:V})=>{try{B(V?"dark":"light")}catch(ne){console.error(ne)}})}},[m]),R.useEffect(()=>{z.length<=1&&L(!1)},[z]),R.useEffect(()=>{let O=Y=>{var V,ne;i.every(se=>Y[se]||Y.code===se)&&(L(!0),(V=G.current)==null||V.focus()),Y.code==="Escape"&&(document.activeElement===G.current||(ne=G.current)!=null&&ne.contains(document.activeElement))&&L(!1)};return document.addEventListener("keydown",O),()=>document.removeEventListener("keydown",O)},[i]),R.useEffect(()=>{if(G.current)return()=>{N.current&&(N.current.focus({preventScroll:!0}),N.current=null,M.current=!1)}},[G.current]),R.createElement("section",{ref:t,"aria-label":`${w} ${P}`,tabIndex:-1,"aria-live":"polite","aria-relevant":"additions text","aria-atomic":"false",suppressHydrationWarning:!0},E.map((O,Y)=>{var V;let[ne,se]=O.split("-");return z.length?R.createElement("ol",{key:O,dir:x==="auto"?kp():x,tabIndex:-1,ref:G,className:s,"data-sonner-toaster":!0,"data-theme":$,"data-y-position":ne,"data-lifted":F&&z.length>1&&!a,"data-x-position":se,style:{"--front-toast-height":`${((V=A[0])==null?void 0:V.height)||0}px`,"--width":`${rz}px`,"--gap":`${y}px`,...h,...uz(u,c)},onBlur:W=>{M.current&&!W.currentTarget.contains(W.relatedTarget)&&(M.current=!1,N.current&&(N.current.focus({preventScroll:!0}),N.current=null))},onFocus:W=>{W.target instanceof HTMLElement&&W.target.dataset.dismissible==="false"||M.current||(M.current=!0,N.current=W.relatedTarget)},onMouseEnter:()=>L(!0),onMouseMove:()=>L(!0),onMouseLeave:()=>{K||L(!1)},onDragEnd:()=>L(!1),onPointerDown:W=>{W.target instanceof HTMLElement&&W.target.dataset.dismissible==="false"||I(!0)},onPointerUp:()=>I(!1)},z.filter(W=>!W.position&&Y===0||W.position===O).map((W,ye)=>{var me,we;return R.createElement(sz,{key:W.id,icons:v,index:ye,toast:W,defaultRichColors:d,duration:(me=k==null?void 0:k.duration)!=null?me:p,className:k==null?void 0:k.className,descriptionClassName:k==null?void 0:k.descriptionClassName,invert:n,visibleToasts:b,closeButton:(we=k==null?void 0:k.closeButton)!=null?we:l,interacting:K,position:O,style:k==null?void 0:k.style,unstyled:k==null?void 0:k.unstyled,classNames:k==null?void 0:k.classNames,cancelButtonStyle:k==null?void 0:k.cancelButtonStyle,actionButtonStyle:k==null?void 0:k.actionButtonStyle,removeToast:_,toasts:z.filter(ae=>ae.position==W.position),heights:A.filter(ae=>ae.position==W.position),setHeights:T,expandByDefault:a,gap:y,loadingIcon:g,expanded:F,pauseWhenPageIsHidden:S,swipeDirections:e.swipeDirections})})):null}))});const dz=({...e})=>{const{theme:t="system"}=FS();return o.jsx(cz,{theme:t,className:"toaster group",toastOptions:{classNames:{toast:"group toast group-[.toaster]:bg-background group-[.toaster]:text-foreground group-[.toaster]:border-border group-[.toaster]:shadow-lg",description:"group-[.toast]:text-muted-foreground",actionButton:"group-[.toast]:bg-primary group-[.toast]:text-primary-foreground",cancelButton:"group-[.toast]:bg-muted group-[.toast]:text-muted-foreground"}},...e})};var mz=dd[" useId ".trim().toString()]||(()=>{}),fz=0;function Wa(e){const[t,n]=f.useState(mz());return hn(()=>{n(r=>r??String(fz++))},[e]),t?`radix-${t}`:""}const pz=["top","right","bottom","left"],br=Math.min,gt=Math.max,Wo=Math.round,Zl=Math.floor,pn=e=>({x:e,y:e}),hz={left:"right",right:"left",bottom:"top",top:"bottom"},yz={start:"end",end:"start"};function Oc(e,t,n){return gt(e,br(t,n))}function Rn(e,t){return typeof e=="function"?e(t):e}function Dn(e){return e.split("-")[0]}function Qi(e){return e.split("-")[1]}function um(e){return e==="x"?"y":"x"}function cm(e){return e==="y"?"height":"width"}const gz=new Set(["top","bottom"]);function cn(e){return gz.has(Dn(e))?"y":"x"}function dm(e){return um(cn(e))}function kz(e,t,n){n===void 0&&(n=!1);const r=Qi(e),i=dm(e),a=cm(i);let l=i==="x"?r===(n?"end":"start")?"right":"left":r==="start"?"bottom":"top";return t.reference[a]>t.floating[a]&&(l=Qo(l)),[l,Qo(l)]}function vz(e){const t=Qo(e);return[_c(e),t,_c(t)]}function _c(e){return e.replace(/start|end/g,t=>yz[t])}const vp=["left","right"],xp=["right","left"],xz=["top","bottom"],bz=["bottom","top"];function wz(e,t,n){switch(e){case"top":case"bottom":return n?t?xp:vp:t?vp:xp;case"left":case"right":return t?xz:bz;default:return[]}}function Sz(e,t,n,r){const i=Qi(e);let a=wz(Dn(e),n==="start",r);return i&&(a=a.map(l=>l+"-"+i),t&&(a=a.concat(a.map(_c)))),a}function Qo(e){return e.replace(/left|right|bottom|top/g,t=>hz[t])}function zz(e){return{top:0,right:0,bottom:0,left:0,...e}}function bk(e){return typeof e!="number"?zz(e):{top:e,right:e,bottom:e,left:e}}function Xo(e){const{x:t,y:n,width:r,height:i}=e;return{width:r,height:i,top:n,left:t,right:t+r,bottom:n+i,x:t,y:n}}function bp(e,t,n){let{reference:r,floating:i}=e;const a=cn(t),l=dm(t),s=cm(l),u=Dn(t),c=a==="y",m=r.x+r.width/2-i.width/2,d=r.y+r.height/2-i.height/2,p=r[s]/2-i[s]/2;let h;switch(u){case"top":h={x:m,y:r.y-i.height};break;case"bottom":h={x:m,y:r.y+r.height};break;case"right":h={x:r.x+r.width,y:d};break;case"left":h={x:r.x-i.width,y:d};break;default:h={x:r.x,y:r.y}}switch(Qi(t)){case"start":h[l]-=p*(n&&c?-1:1);break;case"end":h[l]+=p*(n&&c?-1:1);break}return h}const Cz=async(e,t,n)=>{const{placement:r="bottom",strategy:i="absolute",middleware:a=[],platform:l}=n,s=a.filter(Boolean),u=await(l.isRTL==null?void 0:l.isRTL(t));let c=await l.getElementRects({reference:e,floating:t,strategy:i}),{x:m,y:d}=bp(c,r,u),p=r,h={},b=0;for(let k=0;k<s.length;k++){const{name:x,fn:y}=s[k],{x:g,y:v,data:w,reset:S}=await y({x:m,y:d,initialPlacement:r,placement:p,strategy:i,middlewareData:h,rects:c,platform:l,elements:{reference:e,floating:t}});m=g??m,d=v??d,h={...h,[x]:{...h[x],...w}},S&&b<=50&&(b++,typeof S=="object"&&(S.placement&&(p=S.placement),S.rects&&(c=S.rects===!0?await l.getElementRects({reference:e,floating:t,strategy:i}):S.rects),{x:m,y:d}=bp(c,p,u)),k=-1)}return{x:m,y:d,placement:p,strategy:i,middlewareData:h}};async function Qa(e,t){var n;t===void 0&&(t={});const{x:r,y:i,platform:a,rects:l,elements:s,strategy:u}=e,{boundary:c="clippingAncestors",rootBoundary:m="viewport",elementContext:d="floating",altBoundary:p=!1,padding:h=0}=Rn(t,e),b=bk(h),x=s[p?d==="floating"?"reference":"floating":d],y=Xo(await a.getClippingRect({element:(n=await(a.isElement==null?void 0:a.isElement(x)))==null||n?x:x.contextElement||await(a.getDocumentElement==null?void 0:a.getDocumentElement(s.floating)),boundary:c,rootBoundary:m,strategy:u})),g=d==="floating"?{x:r,y:i,width:l.floating.width,height:l.floating.height}:l.reference,v=await(a.getOffsetParent==null?void 0:a.getOffsetParent(s.floating)),w=await(a.isElement==null?void 0:a.isElement(v))?await(a.getScale==null?void 0:a.getScale(v))||{x:1,y:1}:{x:1,y:1},S=Xo(a.convertOffsetParentRelativeRectToViewportRelativeRect?await a.convertOffsetParentRelativeRectToViewportRelativeRect({elements:s,rect:g,offsetParent:v,strategy:u}):g);return{top:(y.top-S.top+b.top)/w.y,bottom:(S.bottom-y.bottom+b.bottom)/w.y,left:(y.left-S.left+b.left)/w.x,right:(S.right-y.right+b.right)/w.x}}const Ez=e=>({name:"arrow",options:e,async fn(t){const{x:n,y:r,placement:i,rects:a,platform:l,elements:s,middlewareData:u}=t,{element:c,padding:m=0}=Rn(e,t)||{};if(c==null)return{};const d=bk(m),p={x:n,y:r},h=dm(i),b=cm(h),k=await l.getDimensions(c),x=h==="y",y=x?"top":"left",g=x?"bottom":"right",v=x?"clientHeight":"clientWidth",w=a.reference[b]+a.reference[h]-p[h]-a.floating[b],S=p[h]-a.reference[h],z=await(l.getOffsetParent==null?void 0:l.getOffsetParent(c));let C=z?z[v]:0;(!C||!await(l.isElement==null?void 0:l.isElement(z)))&&(C=s.floating[v]||a.floating[b]);const E=w/2-S/2,A=C/2-k[b]/2-1,T=br(d[y],A),F=br(d[g],A),L=T,K=C-k[b]-F,I=C/2-k[b]/2+E,$=Oc(L,I,K),B=!u.arrow&&Qi(i)!=null&&I!==$&&a.reference[b]/2-(I<L?T:F)-k[b]/2<0,G=B?I<L?I-L:I-K:0;return{[h]:p[h]+G,data:{[h]:$,centerOffset:I-$-G,...B&&{alignmentOffset:G}},reset:B}}}),Nz=function(e){return e===void 0&&(e={}),{name:"flip",options:e,async fn(t){var n,r;const{placement:i,middlewareData:a,rects:l,initialPlacement:s,platform:u,elements:c}=t,{mainAxis:m=!0,crossAxis:d=!0,fallbackPlacements:p,fallbackStrategy:h="bestFit",fallbackAxisSideDirection:b="none",flipAlignment:k=!0,...x}=Rn(e,t);if((n=a.arrow)!=null&&n.alignmentOffset)return{};const y=Dn(i),g=cn(s),v=Dn(s)===s,w=await(u.isRTL==null?void 0:u.isRTL(c.floating)),S=p||(v||!k?[Qo(s)]:vz(s)),z=b!=="none";!p&&z&&S.push(...Sz(s,k,b,w));const C=[s,...S],E=await Qa(t,x),A=[];let T=((r=a.flip)==null?void 0:r.overflows)||[];if(m&&A.push(E[y]),d){const I=kz(i,l,w);A.push(E[I[0]],E[I[1]])}if(T=[...T,{placement:i,overflows:A}],!A.every(I=>I<=0)){var F,L;const I=(((F=a.flip)==null?void 0:F.index)||0)+1,$=C[I];if($&&(!(d==="alignment"?g!==cn($):!1)||T.every(P=>P.overflows[0]>0&&cn(P.placement)===g)))return{data:{index:I,overflows:T},reset:{placement:$}};let B=(L=T.filter(G=>G.overflows[0]<=0).sort((G,P)=>G.overflows[1]-P.overflows[1])[0])==null?void 0:L.placement;if(!B)switch(h){case"bestFit":{var K;const G=(K=T.filter(P=>{if(z){const N=cn(P.placement);return N===g||N==="y"}return!0}).map(P=>[P.placement,P.overflows.filter(N=>N>0).reduce((N,M)=>N+M,0)]).sort((P,N)=>P[1]-N[1])[0])==null?void 0:K[0];G&&(B=G);break}case"initialPlacement":B=s;break}if(i!==B)return{reset:{placement:B}}}return{}}}};function wp(e,t){return{top:e.top-t.height,right:e.right-t.width,bottom:e.bottom-t.height,left:e.left-t.width}}function Sp(e){return pz.some(t=>e[t]>=0)}const Pz=function(e){return e===void 0&&(e={}),{name:"hide",options:e,async fn(t){const{rects:n}=t,{strategy:r="referenceHidden",...i}=Rn(e,t);switch(r){case"referenceHidden":{const a=await Qa(t,{...i,elementContext:"reference"}),l=wp(a,n.reference);return{data:{referenceHiddenOffsets:l,referenceHidden:Sp(l)}}}case"escaped":{const a=await Qa(t,{...i,altBoundary:!0}),l=wp(a,n.floating);return{data:{escapedOffsets:l,escaped:Sp(l)}}}default:return{}}}}},wk=new Set(["left","top"]);async function Az(e,t){const{placement:n,platform:r,elements:i}=e,a=await(r.isRTL==null?void 0:r.isRTL(i.floating)),l=Dn(n),s=Qi(n),u=cn(n)==="y",c=wk.has(l)?-1:1,m=a&&u?-1:1,d=Rn(t,e);let{mainAxis:p,crossAxis:h,alignmentAxis:b}=typeof d=="number"?{mainAxis:d,crossAxis:0,alignmentAxis:null}:{mainAxis:d.mainAxis||0,crossAxis:d.crossAxis||0,alignmentAxis:d.alignmentAxis};return s&&typeof b=="number"&&(h=s==="end"?b*-1:b),u?{x:h*m,y:p*c}:{x:p*c,y:h*m}}const jz=function(e){return e===void 0&&(e=0),{name:"offset",options:e,async fn(t){var n,r;const{x:i,y:a,placement:l,middlewareData:s}=t,u=await Az(t,e);return l===((n=s.offset)==null?void 0:n.placement)&&(r=s.arrow)!=null&&r.alignmentOffset?{}:{x:i+u.x,y:a+u.y,data:{...u,placement:l}}}}},Tz=function(e){return e===void 0&&(e={}),{name:"shift",options:e,async fn(t){const{x:n,y:r,placement:i}=t,{mainAxis:a=!0,crossAxis:l=!1,limiter:s={fn:x=>{let{x:y,y:g}=x;return{x:y,y:g}}},...u}=Rn(e,t),c={x:n,y:r},m=await Qa(t,u),d=cn(Dn(i)),p=um(d);let h=c[p],b=c[d];if(a){const x=p==="y"?"top":"left",y=p==="y"?"bottom":"right",g=h+m[x],v=h-m[y];h=Oc(g,h,v)}if(l){const x=d==="y"?"top":"left",y=d==="y"?"bottom":"right",g=b+m[x],v=b-m[y];b=Oc(g,b,v)}const k=s.fn({...t,[p]:h,[d]:b});return{...k,data:{x:k.x-n,y:k.y-r,enabled:{[p]:a,[d]:l}}}}}},Mz=function(e){return e===void 0&&(e={}),{options:e,fn(t){const{x:n,y:r,placement:i,rects:a,middlewareData:l}=t,{offset:s=0,mainAxis:u=!0,crossAxis:c=!0}=Rn(e,t),m={x:n,y:r},d=cn(i),p=um(d);let h=m[p],b=m[d];const k=Rn(s,t),x=typeof k=="number"?{mainAxis:k,crossAxis:0}:{mainAxis:0,crossAxis:0,...k};if(u){const v=p==="y"?"height":"width",w=a.reference[p]-a.floating[v]+x.mainAxis,S=a.reference[p]+a.reference[v]-x.mainAxis;h<w?h=w:h>S&&(h=S)}if(c){var y,g;const v=p==="y"?"width":"height",w=wk.has(Dn(i)),S=a.reference[d]-a.floating[v]+(w&&((y=l.offset)==null?void 0:y[d])||0)+(w?0:x.crossAxis),z=a.reference[d]+a.reference[v]+(w?0:((g=l.offset)==null?void 0:g[d])||0)-(w?x.crossAxis:0);b<S?b=S:b>z&&(b=z)}return{[p]:h,[d]:b}}}},Rz=function(e){return e===void 0&&(e={}),{name:"size",options:e,async fn(t){var n,r;const{placement:i,rects:a,platform:l,elements:s}=t,{apply:u=()=>{},...c}=Rn(e,t),m=await Qa(t,c),d=Dn(i),p=Qi(i),h=cn(i)==="y",{width:b,height:k}=a.floating;let x,y;d==="top"||d==="bottom"?(x=d,y=p===(await(l.isRTL==null?void 0:l.isRTL(s.floating))?"start":"end")?"left":"right"):(y=d,x=p==="end"?"top":"bottom");const g=k-m.top-m.bottom,v=b-m.left-m.right,w=br(k-m[x],g),S=br(b-m[y],v),z=!t.middlewareData.shift;let C=w,E=S;if((n=t.middlewareData.shift)!=null&&n.enabled.x&&(E=v),(r=t.middlewareData.shift)!=null&&r.enabled.y&&(C=g),z&&!p){const T=gt(m.left,0),F=gt(m.right,0),L=gt(m.top,0),K=gt(m.bottom,0);h?E=b-2*(T!==0||F!==0?T+F:gt(m.left,m.right)):C=k-2*(L!==0||K!==0?L+K:gt(m.top,m.bottom))}await u({...t,availableWidth:E,availableHeight:C});const A=await l.getDimensions(s.floating);return b!==A.width||k!==A.height?{reset:{rects:!0}}:{}}}};function Ns(){return typeof window<"u"}function Xi(e){return Sk(e)?(e.nodeName||"").toLowerCase():"#document"}function xt(e){var t;return(e==null||(t=e.ownerDocument)==null?void 0:t.defaultView)||window}function gn(e){var t;return(t=(Sk(e)?e.ownerDocument:e.document)||window.document)==null?void 0:t.documentElement}function Sk(e){return Ns()?e instanceof Node||e instanceof xt(e).Node:!1}function Zt(e){return Ns()?e instanceof Element||e instanceof xt(e).Element:!1}function yn(e){return Ns()?e instanceof HTMLElement||e instanceof xt(e).HTMLElement:!1}function zp(e){return!Ns()||typeof ShadowRoot>"u"?!1:e instanceof ShadowRoot||e instanceof xt(e).ShadowRoot}const Dz=new Set(["inline","contents"]);function bl(e){const{overflow:t,overflowX:n,overflowY:r,display:i}=Jt(e);return/auto|scroll|overlay|hidden|clip/.test(t+r+n)&&!Dz.has(i)}const Iz=new Set(["table","td","th"]);function Lz(e){return Iz.has(Xi(e))}const Fz=[":popover-open",":modal"];function Ps(e){return Fz.some(t=>{try{return e.matches(t)}catch{return!1}})}const Oz=["transform","translate","scale","rotate","perspective"],_z=["transform","translate","scale","rotate","perspective","filter"],Bz=["paint","layout","strict","content"];function mm(e){const t=fm(),n=Zt(e)?Jt(e):e;return Oz.some(r=>n[r]?n[r]!=="none":!1)||(n.containerType?n.containerType!=="normal":!1)||!t&&(n.backdropFilter?n.backdropFilter!=="none":!1)||!t&&(n.filter?n.filter!=="none":!1)||_z.some(r=>(n.willChange||"").includes(r))||Bz.some(r=>(n.contain||"").includes(r))}function Hz(e){let t=wr(e);for(;yn(t)&&!Ki(t);){if(mm(t))return t;if(Ps(t))return null;t=wr(t)}return null}function fm(){return typeof CSS>"u"||!CSS.supports?!1:CSS.supports("-webkit-backdrop-filter","none")}const Uz=new Set(["html","body","#document"]);function Ki(e){return Uz.has(Xi(e))}function Jt(e){return xt(e).getComputedStyle(e)}function As(e){return Zt(e)?{scrollLeft:e.scrollLeft,scrollTop:e.scrollTop}:{scrollLeft:e.scrollX,scrollTop:e.scrollY}}function wr(e){if(Xi(e)==="html")return e;const t=e.assignedSlot||e.parentNode||zp(e)&&e.host||gn(e);return zp(t)?t.host:t}function zk(e){const t=wr(e);return Ki(t)?e.ownerDocument?e.ownerDocument.body:e.body:yn(t)&&bl(t)?t:zk(t)}function Xa(e,t,n){var r;t===void 0&&(t=[]),n===void 0&&(n=!0);const i=zk(e),a=i===((r=e.ownerDocument)==null?void 0:r.body),l=xt(i);if(a){const s=Bc(l);return t.concat(l,l.visualViewport||[],bl(i)?i:[],s&&n?Xa(s):[])}return t.concat(i,Xa(i,[],n))}function Bc(e){return e.parent&&Object.getPrototypeOf(e.parent)?e.frameElement:null}function Ck(e){const t=Jt(e);let n=parseFloat(t.width)||0,r=parseFloat(t.height)||0;const i=yn(e),a=i?e.offsetWidth:n,l=i?e.offsetHeight:r,s=Wo(n)!==a||Wo(r)!==l;return s&&(n=a,r=l),{width:n,height:r,$:s}}function pm(e){return Zt(e)?e:e.contextElement}function Ei(e){const t=pm(e);if(!yn(t))return pn(1);const n=t.getBoundingClientRect(),{width:r,height:i,$:a}=Ck(t);let l=(a?Wo(n.width):n.width)/r,s=(a?Wo(n.height):n.height)/i;return(!l||!Number.isFinite(l))&&(l=1),(!s||!Number.isFinite(s))&&(s=1),{x:l,y:s}}const Kz=pn(0);function Ek(e){const t=xt(e);return!fm()||!t.visualViewport?Kz:{x:t.visualViewport.offsetLeft,y:t.visualViewport.offsetTop}}function Gz(e,t,n){return t===void 0&&(t=!1),!n||t&&n!==xt(e)?!1:t}function qr(e,t,n,r){t===void 0&&(t=!1),n===void 0&&(n=!1);const i=e.getBoundingClientRect(),a=pm(e);let l=pn(1);t&&(r?Zt(r)&&(l=Ei(r)):l=Ei(e));const s=Gz(a,n,r)?Ek(a):pn(0);let u=(i.left+s.x)/l.x,c=(i.top+s.y)/l.y,m=i.width/l.x,d=i.height/l.y;if(a){const p=xt(a),h=r&&Zt(r)?xt(r):r;let b=p,k=Bc(b);for(;k&&r&&h!==b;){const x=Ei(k),y=k.getBoundingClientRect(),g=Jt(k),v=y.left+(k.clientLeft+parseFloat(g.paddingLeft))*x.x,w=y.top+(k.clientTop+parseFloat(g.paddingTop))*x.y;u*=x.x,c*=x.y,m*=x.x,d*=x.y,u+=v,c+=w,b=xt(k),k=Bc(b)}}return Xo({width:m,height:d,x:u,y:c})}function hm(e,t){const n=As(e).scrollLeft;return t?t.left+n:qr(gn(e)).left+n}function Nk(e,t,n){n===void 0&&(n=!1);const r=e.getBoundingClientRect(),i=r.left+t.scrollLeft-(n?0:hm(e,r)),a=r.top+t.scrollTop;return{x:i,y:a}}function $z(e){let{elements:t,rect:n,offsetParent:r,strategy:i}=e;const a=i==="fixed",l=gn(r),s=t?Ps(t.floating):!1;if(r===l||s&&a)return n;let u={scrollLeft:0,scrollTop:0},c=pn(1);const m=pn(0),d=yn(r);if((d||!d&&!a)&&((Xi(r)!=="body"||bl(l))&&(u=As(r)),yn(r))){const h=qr(r);c=Ei(r),m.x=h.x+r.clientLeft,m.y=h.y+r.clientTop}const p=l&&!d&&!a?Nk(l,u,!0):pn(0);return{width:n.width*c.x,height:n.height*c.y,x:n.x*c.x-u.scrollLeft*c.x+m.x+p.x,y:n.y*c.y-u.scrollTop*c.y+m.y+p.y}}function Vz(e){return Array.from(e.getClientRects())}function Yz(e){const t=gn(e),n=As(e),r=e.ownerDocument.body,i=gt(t.scrollWidth,t.clientWidth,r.scrollWidth,r.clientWidth),a=gt(t.scrollHeight,t.clientHeight,r.scrollHeight,r.clientHeight);let l=-n.scrollLeft+hm(e);const s=-n.scrollTop;return Jt(r).direction==="rtl"&&(l+=gt(t.clientWidth,r.clientWidth)-i),{width:i,height:a,x:l,y:s}}function qz(e,t){const n=xt(e),r=gn(e),i=n.visualViewport;let a=r.clientWidth,l=r.clientHeight,s=0,u=0;if(i){a=i.width,l=i.height;const c=fm();(!c||c&&t==="fixed")&&(s=i.offsetLeft,u=i.offsetTop)}return{width:a,height:l,x:s,y:u}}const Wz=new Set(["absolute","fixed"]);function Qz(e,t){const n=qr(e,!0,t==="fixed"),r=n.top+e.clientTop,i=n.left+e.clientLeft,a=yn(e)?Ei(e):pn(1),l=e.clientWidth*a.x,s=e.clientHeight*a.y,u=i*a.x,c=r*a.y;return{width:l,height:s,x:u,y:c}}function Cp(e,t,n){let r;if(t==="viewport")r=qz(e,n);else if(t==="document")r=Yz(gn(e));else if(Zt(t))r=Qz(t,n);else{const i=Ek(e);r={x:t.x-i.x,y:t.y-i.y,width:t.width,height:t.height}}return Xo(r)}function Pk(e,t){const n=wr(e);return n===t||!Zt(n)||Ki(n)?!1:Jt(n).position==="fixed"||Pk(n,t)}function Xz(e,t){const n=t.get(e);if(n)return n;let r=Xa(e,[],!1).filter(s=>Zt(s)&&Xi(s)!=="body"),i=null;const a=Jt(e).position==="fixed";let l=a?wr(e):e;for(;Zt(l)&&!Ki(l);){const s=Jt(l),u=mm(l);!u&&s.position==="fixed"&&(i=null),(a?!u&&!i:!u&&s.position==="static"&&!!i&&Wz.has(i.position)||bl(l)&&!u&&Pk(e,l))?r=r.filter(m=>m!==l):i=s,l=wr(l)}return t.set(e,r),r}function Zz(e){let{element:t,boundary:n,rootBoundary:r,strategy:i}=e;const l=[...n==="clippingAncestors"?Ps(t)?[]:Xz(t,this._c):[].concat(n),r],s=l[0],u=l.reduce((c,m)=>{const d=Cp(t,m,i);return c.top=gt(d.top,c.top),c.right=br(d.right,c.right),c.bottom=br(d.bottom,c.bottom),c.left=gt(d.left,c.left),c},Cp(t,s,i));return{width:u.right-u.left,height:u.bottom-u.top,x:u.left,y:u.top}}function Jz(e){const{width:t,height:n}=Ck(e);return{width:t,height:n}}function eC(e,t,n){const r=yn(t),i=gn(t),a=n==="fixed",l=qr(e,!0,a,t);let s={scrollLeft:0,scrollTop:0};const u=pn(0);function c(){u.x=hm(i)}if(r||!r&&!a)if((Xi(t)!=="body"||bl(i))&&(s=As(t)),r){const h=qr(t,!0,a,t);u.x=h.x+t.clientLeft,u.y=h.y+t.clientTop}else i&&c();a&&!r&&i&&c();const m=i&&!r&&!a?Nk(i,s):pn(0),d=l.left+s.scrollLeft-u.x-m.x,p=l.top+s.scrollTop-u.y-m.y;return{x:d,y:p,width:l.width,height:l.height}}function Nu(e){return Jt(e).position==="static"}function Ep(e,t){if(!yn(e)||Jt(e).position==="fixed")return null;if(t)return t(e);let n=e.offsetParent;return gn(e)===n&&(n=n.ownerDocument.body),n}function Ak(e,t){const n=xt(e);if(Ps(e))return n;if(!yn(e)){let i=wr(e);for(;i&&!Ki(i);){if(Zt(i)&&!Nu(i))return i;i=wr(i)}return n}let r=Ep(e,t);for(;r&&Lz(r)&&Nu(r);)r=Ep(r,t);return r&&Ki(r)&&Nu(r)&&!mm(r)?n:r||Hz(e)||n}const tC=async function(e){const t=this.getOffsetParent||Ak,n=this.getDimensions,r=await n(e.floating);return{reference:eC(e.reference,await t(e.floating),e.strategy),floating:{x:0,y:0,width:r.width,height:r.height}}};function nC(e){return Jt(e).direction==="rtl"}const rC={convertOffsetParentRelativeRectToViewportRelativeRect:$z,getDocumentElement:gn,getClippingRect:Zz,getOffsetParent:Ak,getElementRects:tC,getClientRects:Vz,getDimensions:Jz,getScale:Ei,isElement:Zt,isRTL:nC};function jk(e,t){return e.x===t.x&&e.y===t.y&&e.width===t.width&&e.height===t.height}function iC(e,t){let n=null,r;const i=gn(e);function a(){var s;clearTimeout(r),(s=n)==null||s.disconnect(),n=null}function l(s,u){s===void 0&&(s=!1),u===void 0&&(u=1),a();const c=e.getBoundingClientRect(),{left:m,top:d,width:p,height:h}=c;if(s||t(),!p||!h)return;const b=Zl(d),k=Zl(i.clientWidth-(m+p)),x=Zl(i.clientHeight-(d+h)),y=Zl(m),v={rootMargin:-b+"px "+-k+"px "+-x+"px "+-y+"px",threshold:gt(0,br(1,u))||1};let w=!0;function S(z){const C=z[0].intersectionRatio;if(C!==u){if(!w)return l();C?l(!1,C):r=setTimeout(()=>{l(!1,1e-7)},1e3)}C===1&&!jk(c,e.getBoundingClientRect())&&l(),w=!1}try{n=new IntersectionObserver(S,{...v,root:i.ownerDocument})}catch{n=new IntersectionObserver(S,v)}n.observe(e)}return l(!0),a}function aC(e,t,n,r){r===void 0&&(r={});const{ancestorScroll:i=!0,ancestorResize:a=!0,elementResize:l=typeof ResizeObserver=="function",layoutShift:s=typeof IntersectionObserver=="function",animationFrame:u=!1}=r,c=pm(e),m=i||a?[...c?Xa(c):[],...Xa(t)]:[];m.forEach(y=>{i&&y.addEventListener("scroll",n,{passive:!0}),a&&y.addEventListener("resize",n)});const d=c&&s?iC(c,n):null;let p=-1,h=null;l&&(h=new ResizeObserver(y=>{let[g]=y;g&&g.target===c&&h&&(h.unobserve(t),cancelAnimationFrame(p),p=requestAnimationFrame(()=>{var v;(v=h)==null||v.observe(t)})),n()}),c&&!u&&h.observe(c),h.observe(t));let b,k=u?qr(e):null;u&&x();function x(){const y=qr(e);k&&!jk(k,y)&&n(),k=y,b=requestAnimationFrame(x)}return n(),()=>{var y;m.forEach(g=>{i&&g.removeEventListener("scroll",n),a&&g.removeEventListener("resize",n)}),d==null||d(),(y=h)==null||y.disconnect(),h=null,u&&cancelAnimationFrame(b)}}const lC=jz,oC=Tz,sC=Nz,uC=Rz,cC=Pz,Np=Ez,dC=Mz,mC=(e,t,n)=>{const r=new Map,i={platform:rC,...n},a={...i.platform,_c:r};return Cz(e,t,{...i,platform:a})};var fC=typeof document<"u",pC=function(){},xo=fC?f.useLayoutEffect:pC;function Zo(e,t){if(e===t)return!0;if(typeof e!=typeof t)return!1;if(typeof e=="function"&&e.toString()===t.toString())return!0;let n,r,i;if(e&&t&&typeof e=="object"){if(Array.isArray(e)){if(n=e.length,n!==t.length)return!1;for(r=n;r--!==0;)if(!Zo(e[r],t[r]))return!1;return!0}if(i=Object.keys(e),n=i.length,n!==Object.keys(t).length)return!1;for(r=n;r--!==0;)if(!{}.hasOwnProperty.call(t,i[r]))return!1;for(r=n;r--!==0;){const a=i[r];if(!(a==="_owner"&&e.$$typeof)&&!Zo(e[a],t[a]))return!1}return!0}return e!==e&&t!==t}function Tk(e){return typeof window>"u"?1:(e.ownerDocument.defaultView||window).devicePixelRatio||1}function Pp(e,t){const n=Tk(e);return Math.round(t*n)/n}function Pu(e){const t=f.useRef(e);return xo(()=>{t.current=e}),t}function hC(e){e===void 0&&(e={});const{placement:t="bottom",strategy:n="absolute",middleware:r=[],platform:i,elements:{reference:a,floating:l}={},transform:s=!0,whileElementsMounted:u,open:c}=e,[m,d]=f.useState({x:0,y:0,strategy:n,placement:t,middlewareData:{},isPositioned:!1}),[p,h]=f.useState(r);Zo(p,r)||h(r);const[b,k]=f.useState(null),[x,y]=f.useState(null),g=f.useCallback(P=>{P!==z.current&&(z.current=P,k(P))},[]),v=f.useCallback(P=>{P!==C.current&&(C.current=P,y(P))},[]),w=a||b,S=l||x,z=f.useRef(null),C=f.useRef(null),E=f.useRef(m),A=u!=null,T=Pu(u),F=Pu(i),L=Pu(c),K=f.useCallback(()=>{if(!z.current||!C.current)return;const P={placement:t,strategy:n,middleware:p};F.current&&(P.platform=F.current),mC(z.current,C.current,P).then(N=>{const M={...N,isPositioned:L.current!==!1};I.current&&!Zo(E.current,M)&&(E.current=M,kl.flushSync(()=>{d(M)}))})},[p,t,n,F,L]);xo(()=>{c===!1&&E.current.isPositioned&&(E.current.isPositioned=!1,d(P=>({...P,isPositioned:!1})))},[c]);const I=f.useRef(!1);xo(()=>(I.current=!0,()=>{I.current=!1}),[]),xo(()=>{if(w&&(z.current=w),S&&(C.current=S),w&&S){if(T.current)return T.current(w,S,K);K()}},[w,S,K,T,A]);const $=f.useMemo(()=>({reference:z,floating:C,setReference:g,setFloating:v}),[g,v]),B=f.useMemo(()=>({reference:w,floating:S}),[w,S]),G=f.useMemo(()=>{const P={position:n,left:0,top:0};if(!B.floating)return P;const N=Pp(B.floating,m.x),M=Pp(B.floating,m.y);return s?{...P,transform:"translate("+N+"px, "+M+"px)",...Tk(B.floating)>=1.5&&{willChange:"transform"}}:{position:n,left:N,top:M}},[n,s,B.floating,m.x,m.y]);return f.useMemo(()=>({...m,update:K,refs:$,elements:B,floatingStyles:G}),[m,K,$,B,G])}const yC=e=>{function t(n){return{}.hasOwnProperty.call(n,"current")}return{name:"arrow",options:e,fn(n){const{element:r,padding:i}=typeof e=="function"?e(n):e;return r&&t(r)?r.current!=null?Np({element:r.current,padding:i}).fn(n):{}:r?Np({element:r,padding:i}).fn(n):{}}}},gC=(e,t)=>({...lC(e),options:[e,t]}),kC=(e,t)=>({...oC(e),options:[e,t]}),vC=(e,t)=>({...dC(e),options:[e,t]}),xC=(e,t)=>({...sC(e),options:[e,t]}),bC=(e,t)=>({...uC(e),options:[e,t]}),wC=(e,t)=>({...cC(e),options:[e,t]}),SC=(e,t)=>({...yC(e),options:[e,t]});var zC="Arrow",Mk=f.forwardRef((e,t)=>{const{children:n,width:r=10,height:i=5,...a}=e;return o.jsx(ue.svg,{...a,ref:t,width:r,height:i,viewBox:"0 0 30 10",preserveAspectRatio:"none",children:e.asChild?n:o.jsx("polygon",{points:"0,0 30,0 15,10"})})});Mk.displayName=zC;var CC=Mk;function EC(e){const[t,n]=f.useState(void 0);return hn(()=>{if(e){n({width:e.offsetWidth,height:e.offsetHeight});const r=new ResizeObserver(i=>{if(!Array.isArray(i)||!i.length)return;const a=i[0];let l,s;if("borderBoxSize"in a){const u=a.borderBoxSize,c=Array.isArray(u)?u[0]:u;l=c.inlineSize,s=c.blockSize}else l=e.offsetWidth,s=e.offsetHeight;n({width:l,height:s})});return r.observe(e,{box:"border-box"}),()=>r.unobserve(e)}else n(void 0)},[e]),t}var ym="Popper",[Rk,js]=_n(ym),[NC,Dk]=Rk(ym),Ik=e=>{const{__scopePopper:t,children:n}=e,[r,i]=f.useState(null);return o.jsx(NC,{scope:t,anchor:r,onAnchorChange:i,children:n})};Ik.displayName=ym;var Lk="PopperAnchor",Fk=f.forwardRef((e,t)=>{const{__scopePopper:n,virtualRef:r,...i}=e,a=Dk(Lk,n),l=f.useRef(null),s=Re(t,l);return f.useEffect(()=>{a.onAnchorChange((r==null?void 0:r.current)||l.current)}),r?null:o.jsx(ue.div,{...i,ref:s})});Fk.displayName=Lk;var gm="PopperContent",[PC,AC]=Rk(gm),Ok=f.forwardRef((e,t)=>{var W,ye,me,we,ae,U;const{__scopePopper:n,side:r="bottom",sideOffset:i=0,align:a="center",alignOffset:l=0,arrowPadding:s=0,avoidCollisions:u=!0,collisionBoundary:c=[],collisionPadding:m=0,sticky:d="partial",hideWhenDetached:p=!1,updatePositionStrategy:h="optimized",onPlaced:b,...k}=e,x=Dk(gm,n),[y,g]=f.useState(null),v=Re(t,ee=>g(ee)),[w,S]=f.useState(null),z=EC(w),C=(z==null?void 0:z.width)??0,E=(z==null?void 0:z.height)??0,A=r+(a!=="center"?"-"+a:""),T=typeof m=="number"?m:{top:0,right:0,bottom:0,left:0,...m},F=Array.isArray(c)?c:[c],L=F.length>0,K={padding:T,boundary:F.filter(TC),altBoundary:L},{refs:I,floatingStyles:$,placement:B,isPositioned:G,middlewareData:P}=hC({strategy:"fixed",placement:A,whileElementsMounted:(...ee)=>aC(...ee,{animationFrame:h==="always"}),elements:{reference:x.anchor},middleware:[gC({mainAxis:i+E,alignmentAxis:l}),u&&kC({mainAxis:!0,crossAxis:!1,limiter:d==="partial"?vC():void 0,...K}),u&&xC({...K}),bC({...K,apply:({elements:ee,rects:ge,availableWidth:De,availableHeight:Xe})=>{const{width:pt,height:ht}=ge.reference,Ze=ee.floating.style;Ze.setProperty("--radix-popper-available-width",`${De}px`),Ze.setProperty("--radix-popper-available-height",`${Xe}px`),Ze.setProperty("--radix-popper-anchor-width",`${pt}px`),Ze.setProperty("--radix-popper-anchor-height",`${ht}px`)}}),w&&SC({element:w,padding:s}),MC({arrowWidth:C,arrowHeight:E}),p&&wC({strategy:"referenceHidden",...K})]}),[N,M]=Hk(B),_=wt(b);hn(()=>{G&&(_==null||_())},[G,_]);const O=(W=P.arrow)==null?void 0:W.x,Y=(ye=P.arrow)==null?void 0:ye.y,V=((me=P.arrow)==null?void 0:me.centerOffset)!==0,[ne,se]=f.useState();return hn(()=>{y&&se(window.getComputedStyle(y).zIndex)},[y]),o.jsx("div",{ref:I.setFloating,"data-radix-popper-content-wrapper":"",style:{...$,transform:G?$.transform:"translate(0, -200%)",minWidth:"max-content",zIndex:ne,"--radix-popper-transform-origin":[(we=P.transformOrigin)==null?void 0:we.x,(ae=P.transformOrigin)==null?void 0:ae.y].join(" "),...((U=P.hide)==null?void 0:U.referenceHidden)&&{visibility:"hidden",pointerEvents:"none"}},dir:e.dir,children:o.jsx(PC,{scope:n,placedSide:N,onArrowChange:S,arrowX:O,arrowY:Y,shouldHideArrow:V,children:o.jsx(ue.div,{"data-side":N,"data-align":M,...k,ref:v,style:{...k.style,animation:G?void 0:"none"}})})})});Ok.displayName=gm;var _k="PopperArrow",jC={top:"bottom",right:"left",bottom:"top",left:"right"},Bk=f.forwardRef(function(t,n){const{__scopePopper:r,...i}=t,a=AC(_k,r),l=jC[a.placedSide];return o.jsx("span",{ref:a.onArrowChange,style:{position:"absolute",left:a.arrowX,top:a.arrowY,[l]:0,transformOrigin:{top:"",right:"0 0",bottom:"center 0",left:"100% 0"}[a.placedSide],transform:{top:"translateY(100%)",right:"translateY(50%) rotate(90deg) translateX(-50%)",bottom:"rotate(180deg)",left:"translateY(50%) rotate(-90deg) translateX(50%)"}[a.placedSide],visibility:a.shouldHideArrow?"hidden":void 0},children:o.jsx(CC,{...i,ref:n,style:{...i.style,display:"block"}})})});Bk.displayName=_k;function TC(e){return e!==null}var MC=e=>({name:"transformOrigin",options:e,fn(t){var x,y,g;const{placement:n,rects:r,middlewareData:i}=t,l=((x=i.arrow)==null?void 0:x.centerOffset)!==0,s=l?0:e.arrowWidth,u=l?0:e.arrowHeight,[c,m]=Hk(n),d={start:"0%",center:"50%",end:"100%"}[m],p=(((y=i.arrow)==null?void 0:y.x)??0)+s/2,h=(((g=i.arrow)==null?void 0:g.y)??0)+u/2;let b="",k="";return c==="bottom"?(b=l?d:`${p}px`,k=`${-u}px`):c==="top"?(b=l?d:`${p}px`,k=`${r.floating.height+u}px`):c==="right"?(b=`${-u}px`,k=l?d:`${h}px`):c==="left"&&(b=`${r.floating.width+u}px`,k=l?d:`${h}px`),{data:{x:b,y:k}}}});function Hk(e){const[t,n="center"]=e.split("-");return[t,n]}var RC=Ik,Uk=Fk,Kk=Ok,Gk=Bk,[Ts,mM]=_n("Tooltip",[js]),km=js(),$k="TooltipProvider",DC=700,Ap="tooltip.open",[IC,Vk]=Ts($k),Yk=e=>{const{__scopeTooltip:t,delayDuration:n=DC,skipDelayDuration:r=300,disableHoverableContent:i=!1,children:a}=e,l=f.useRef(!0),s=f.useRef(!1),u=f.useRef(0);return f.useEffect(()=>{const c=u.current;return()=>window.clearTimeout(c)},[]),o.jsx(IC,{scope:t,isOpenDelayedRef:l,delayDuration:n,onOpen:f.useCallback(()=>{window.clearTimeout(u.current),l.current=!1},[]),onClose:f.useCallback(()=>{window.clearTimeout(u.current),u.current=window.setTimeout(()=>l.current=!0,r)},[r]),isPointerInTransitRef:s,onPointerInTransitChange:f.useCallback(c=>{s.current=c},[]),disableHoverableContent:i,children:a})};Yk.displayName=$k;var qk="Tooltip",[fM,Ms]=Ts(qk),Hc="TooltipTrigger",LC=f.forwardRef((e,t)=>{const{__scopeTooltip:n,...r}=e,i=Ms(Hc,n),a=Vk(Hc,n),l=km(n),s=f.useRef(null),u=Re(t,s,i.onTriggerChange),c=f.useRef(!1),m=f.useRef(!1),d=f.useCallback(()=>c.current=!1,[]);return f.useEffect(()=>()=>document.removeEventListener("pointerup",d),[d]),o.jsx(Uk,{asChild:!0,...l,children:o.jsx(ue.button,{"aria-describedby":i.open?i.contentId:void 0,"data-state":i.stateAttribute,...r,ref:u,onPointerMove:q(e.onPointerMove,p=>{p.pointerType!=="touch"&&!m.current&&!a.isPointerInTransitRef.current&&(i.onTriggerEnter(),m.current=!0)}),onPointerLeave:q(e.onPointerLeave,()=>{i.onTriggerLeave(),m.current=!1}),onPointerDown:q(e.onPointerDown,()=>{i.open&&i.onClose(),c.current=!0,document.addEventListener("pointerup",d,{once:!0})}),onFocus:q(e.onFocus,()=>{c.current||i.onOpen()}),onBlur:q(e.onBlur,i.onClose),onClick:q(e.onClick,i.onClose)})})});LC.displayName=Hc;var FC="TooltipPortal",[pM,OC]=Ts(FC,{forceMount:void 0}),Gi="TooltipContent",Wk=f.forwardRef((e,t)=>{const n=OC(Gi,e.__scopeTooltip),{forceMount:r=n.forceMount,side:i="top",...a}=e,l=Ms(Gi,e.__scopeTooltip);return o.jsx(Er,{present:r||l.open,children:l.disableHoverableContent?o.jsx(Qk,{side:i,...a,ref:t}):o.jsx(_C,{side:i,...a,ref:t})})}),_C=f.forwardRef((e,t)=>{const n=Ms(Gi,e.__scopeTooltip),r=Vk(Gi,e.__scopeTooltip),i=f.useRef(null),a=Re(t,i),[l,s]=f.useState(null),{trigger:u,onClose:c}=n,m=i.current,{onPointerInTransitChange:d}=r,p=f.useCallback(()=>{s(null),d(!1)},[d]),h=f.useCallback((b,k)=>{const x=b.currentTarget,y={x:b.clientX,y:b.clientY},g=GC(y,x.getBoundingClientRect()),v=$C(y,g),w=VC(k.getBoundingClientRect()),S=qC([...v,...w]);s(S),d(!0)},[d]);return f.useEffect(()=>()=>p(),[p]),f.useEffect(()=>{if(u&&m){const b=x=>h(x,m),k=x=>h(x,u);return u.addEventListener("pointerleave",b),m.addEventListener("pointerleave",k),()=>{u.removeEventListener("pointerleave",b),m.removeEventListener("pointerleave",k)}}},[u,m,h,p]),f.useEffect(()=>{if(l){const b=k=>{const x=k.target,y={x:k.clientX,y:k.clientY},g=(u==null?void 0:u.contains(x))||(m==null?void 0:m.contains(x)),v=!YC(y,l);g?p():v&&(p(),c())};return document.addEventListener("pointermove",b),()=>document.removeEventListener("pointermove",b)}},[u,m,l,c,p]),o.jsx(Qk,{...e,ref:a})}),[BC,HC]=Ts(qk,{isInside:!1}),UC=Bw("TooltipContent"),Qk=f.forwardRef((e,t)=>{const{__scopeTooltip:n,children:r,"aria-label":i,onEscapeKeyDown:a,onPointerDownOutside:l,...s}=e,u=Ms(Gi,n),c=km(n),{onClose:m}=u;return f.useEffect(()=>(document.addEventListener(Ap,m),()=>document.removeEventListener(Ap,m)),[m]),f.useEffect(()=>{if(u.trigger){const d=p=>{const h=p.target;h!=null&&h.contains(u.trigger)&&m()};return window.addEventListener("scroll",d,{capture:!0}),()=>window.removeEventListener("scroll",d,{capture:!0})}},[u.trigger,m]),o.jsx(zs,{asChild:!0,disableOutsidePointerEvents:!1,onEscapeKeyDown:a,onPointerDownOutside:l,onFocusOutside:d=>d.preventDefault(),onDismiss:m,children:o.jsxs(Kk,{"data-state":u.stateAttribute,...c,...s,ref:t,style:{...s.style,"--radix-tooltip-content-transform-origin":"var(--radix-popper-transform-origin)","--radix-tooltip-content-available-width":"var(--radix-popper-available-width)","--radix-tooltip-content-available-height":"var(--radix-popper-available-height)","--radix-tooltip-trigger-width":"var(--radix-popper-anchor-width)","--radix-tooltip-trigger-height":"var(--radix-popper-anchor-height)"},children:[o.jsx(UC,{children:r}),o.jsx(BC,{scope:n,isInside:!0,children:o.jsx(u1,{id:u.contentId,role:"tooltip",children:i||r})})]})})});Wk.displayName=Gi;var Xk="TooltipArrow",KC=f.forwardRef((e,t)=>{const{__scopeTooltip:n,...r}=e,i=km(n);return HC(Xk,n).isInside?null:o.jsx(Gk,{...i,...r,ref:t})});KC.displayName=Xk;function GC(e,t){const n=Math.abs(t.top-e.y),r=Math.abs(t.bottom-e.y),i=Math.abs(t.right-e.x),a=Math.abs(t.left-e.x);switch(Math.min(n,r,i,a)){case a:return"left";case i:return"right";case n:return"top";case r:return"bottom";default:throw new Error("unreachable")}}function $C(e,t,n=5){const r=[];switch(t){case"top":r.push({x:e.x-n,y:e.y+n},{x:e.x+n,y:e.y+n});break;case"bottom":r.push({x:e.x-n,y:e.y-n},{x:e.x+n,y:e.y-n});break;case"left":r.push({x:e.x+n,y:e.y-n},{x:e.x+n,y:e.y+n});break;case"right":r.push({x:e.x-n,y:e.y-n},{x:e.x-n,y:e.y+n});break}return r}function VC(e){const{top:t,right:n,bottom:r,left:i}=e;return[{x:i,y:t},{x:n,y:t},{x:n,y:r},{x:i,y:r}]}function YC(e,t){const{x:n,y:r}=e;let i=!1;for(let a=0,l=t.length-1;a<t.length;l=a++){const s=t[a],u=t[l],c=s.x,m=s.y,d=u.x,p=u.y;m>r!=p>r&&n<(d-c)*(r-m)/(p-m)+c&&(i=!i)}return i}function qC(e){const t=e.slice();return t.sort((n,r)=>n.x<r.x?-1:n.x>r.x?1:n.y<r.y?-1:n.y>r.y?1:0),WC(t)}function WC(e){if(e.length<=1)return e.slice();const t=[];for(let r=0;r<e.length;r++){const i=e[r];for(;t.length>=2;){const a=t[t.length-1],l=t[t.length-2];if((a.x-l.x)*(i.y-l.y)>=(a.y-l.y)*(i.x-l.x))t.pop();else break}t.push(i)}t.pop();const n=[];for(let r=e.length-1;r>=0;r--){const i=e[r];for(;n.length>=2;){const a=n[n.length-1],l=n[n.length-2];if((a.x-l.x)*(i.y-l.y)>=(a.y-l.y)*(i.x-l.x))n.pop();else break}n.push(i)}return n.pop(),t.length===1&&n.length===1&&t[0].x===n[0].x&&t[0].y===n[0].y?t:t.concat(n)}var QC=Yk,Zk=Wk;const XC=QC,ZC=f.forwardRef(({className:e,sideOffset:t=4,...n},r)=>o.jsx(Zk,{ref:r,sideOffset:t,className:re("z-50 overflow-hidden rounded-md border bg-popover px-3 py-1.5 text-sm text-popover-foreground shadow-md animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",e),...n}));ZC.displayName=Zk.displayName;var Rs=class{constructor(){this.listeners=new Set,this.subscribe=this.subscribe.bind(this)}subscribe(e){return this.listeners.add(e),this.onSubscribe(),()=>{this.listeners.delete(e),this.onUnsubscribe()}}hasListeners(){return this.listeners.size>0}onSubscribe(){}onUnsubscribe(){}},Ds=typeof window>"u"||"Deno"in globalThis;function Kt(){}function JC(e,t){return typeof e=="function"?e(t):e}function eE(e){return typeof e=="number"&&e>=0&&e!==1/0}function tE(e,t){return Math.max(e+(t||0)-Date.now(),0)}function Uc(e,t){return typeof e=="function"?e(t):e}function nE(e,t){return typeof e=="function"?e(t):e}function jp(e,t){const{type:n="all",exact:r,fetchStatus:i,predicate:a,queryKey:l,stale:s}=e;if(l){if(r){if(t.queryHash!==vm(l,t.options))return!1}else if(!Ja(t.queryKey,l))return!1}if(n!=="all"){const u=t.isActive();if(n==="active"&&!u||n==="inactive"&&u)return!1}return!(typeof s=="boolean"&&t.isStale()!==s||i&&i!==t.state.fetchStatus||a&&!a(t))}function Tp(e,t){const{exact:n,status:r,predicate:i,mutationKey:a}=e;if(a){if(!t.options.mutationKey)return!1;if(n){if(Za(t.options.mutationKey)!==Za(a))return!1}else if(!Ja(t.options.mutationKey,a))return!1}return!(r&&t.state.status!==r||i&&!i(t))}function vm(e,t){return((t==null?void 0:t.queryKeyHashFn)||Za)(e)}function Za(e){return JSON.stringify(e,(t,n)=>Kc(n)?Object.keys(n).sort().reduce((r,i)=>(r[i]=n[i],r),{}):n)}function Ja(e,t){return e===t?!0:typeof e!=typeof t?!1:e&&t&&typeof e=="object"&&typeof t=="object"?Object.keys(t).every(n=>Ja(e[n],t[n])):!1}function Jk(e,t){if(e===t)return e;const n=Mp(e)&&Mp(t);if(n||Kc(e)&&Kc(t)){const r=n?e:Object.keys(e),i=r.length,a=n?t:Object.keys(t),l=a.length,s=n?[]:{},u=new Set(r);let c=0;for(let m=0;m<l;m++){const d=n?m:a[m];(!n&&u.has(d)||n)&&e[d]===void 0&&t[d]===void 0?(s[d]=void 0,c++):(s[d]=Jk(e[d],t[d]),s[d]===e[d]&&e[d]!==void 0&&c++)}return i===l&&c===i?e:s}return t}function Mp(e){return Array.isArray(e)&&e.length===Object.keys(e).length}function Kc(e){if(!Rp(e))return!1;const t=e.constructor;if(t===void 0)return!0;const n=t.prototype;return!(!Rp(n)||!n.hasOwnProperty("isPrototypeOf")||Object.getPrototypeOf(e)!==Object.prototype)}function Rp(e){return Object.prototype.toString.call(e)==="[object Object]"}function rE(e){return new Promise(t=>{setTimeout(t,e)})}function iE(e,t,n){return typeof n.structuralSharing=="function"?n.structuralSharing(e,t):n.structuralSharing!==!1?Jk(e,t):t}function aE(e,t,n=0){const r=[...e,t];return n&&r.length>n?r.slice(1):r}function lE(e,t,n=0){const r=[t,...e];return n&&r.length>n?r.slice(0,-1):r}var xm=Symbol();function ev(e,t){return!e.queryFn&&(t!=null&&t.initialPromise)?()=>t.initialPromise:!e.queryFn||e.queryFn===xm?()=>Promise.reject(new Error(`Missing queryFn: '${e.queryHash}'`)):e.queryFn}var Ir,nr,Pi,dh,oE=(dh=class extends Rs{constructor(){super();le(this,Ir);le(this,nr);le(this,Pi);X(this,Pi,t=>{if(!Ds&&window.addEventListener){const n=()=>t();return window.addEventListener("visibilitychange",n,!1),()=>{window.removeEventListener("visibilitychange",n)}}})}onSubscribe(){j(this,nr)||this.setEventListener(j(this,Pi))}onUnsubscribe(){var t;this.hasListeners()||((t=j(this,nr))==null||t.call(this),X(this,nr,void 0))}setEventListener(t){var n;X(this,Pi,t),(n=j(this,nr))==null||n.call(this),X(this,nr,t(r=>{typeof r=="boolean"?this.setFocused(r):this.onFocus()}))}setFocused(t){j(this,Ir)!==t&&(X(this,Ir,t),this.onFocus())}onFocus(){const t=this.isFocused();this.listeners.forEach(n=>{n(t)})}isFocused(){var t;return typeof j(this,Ir)=="boolean"?j(this,Ir):((t=globalThis.document)==null?void 0:t.visibilityState)!=="hidden"}},Ir=new WeakMap,nr=new WeakMap,Pi=new WeakMap,dh),tv=new oE,Ai,rr,ji,mh,sE=(mh=class extends Rs{constructor(){super();le(this,Ai,!0);le(this,rr);le(this,ji);X(this,ji,t=>{if(!Ds&&window.addEventListener){const n=()=>t(!0),r=()=>t(!1);return window.addEventListener("online",n,!1),window.addEventListener("offline",r,!1),()=>{window.removeEventListener("online",n),window.removeEventListener("offline",r)}}})}onSubscribe(){j(this,rr)||this.setEventListener(j(this,ji))}onUnsubscribe(){var t;this.hasListeners()||((t=j(this,rr))==null||t.call(this),X(this,rr,void 0))}setEventListener(t){var n;X(this,ji,t),(n=j(this,rr))==null||n.call(this),X(this,rr,t(this.setOnline.bind(this)))}setOnline(t){j(this,Ai)!==t&&(X(this,Ai,t),this.listeners.forEach(r=>{r(t)}))}isOnline(){return j(this,Ai)}},Ai=new WeakMap,rr=new WeakMap,ji=new WeakMap,mh),Jo=new sE;function uE(){let e,t;const n=new Promise((i,a)=>{e=i,t=a});n.status="pending",n.catch(()=>{});function r(i){Object.assign(n,i),delete n.resolve,delete n.reject}return n.resolve=i=>{r({status:"fulfilled",value:i}),e(i)},n.reject=i=>{r({status:"rejected",reason:i}),t(i)},n}function cE(e){return Math.min(1e3*2**e,3e4)}function nv(e){return(e??"online")==="online"?Jo.isOnline():!0}var rv=class extends Error{constructor(e){super("CancelledError"),this.revert=e==null?void 0:e.revert,this.silent=e==null?void 0:e.silent}};function Au(e){return e instanceof rv}function iv(e){let t=!1,n=0,r=!1,i;const a=uE(),l=k=>{var x;r||(p(new rv(k)),(x=e.abort)==null||x.call(e))},s=()=>{t=!0},u=()=>{t=!1},c=()=>tv.isFocused()&&(e.networkMode==="always"||Jo.isOnline())&&e.canRun(),m=()=>nv(e.networkMode)&&e.canRun(),d=k=>{var x;r||(r=!0,(x=e.onSuccess)==null||x.call(e,k),i==null||i(),a.resolve(k))},p=k=>{var x;r||(r=!0,(x=e.onError)==null||x.call(e,k),i==null||i(),a.reject(k))},h=()=>new Promise(k=>{var x;i=y=>{(r||c())&&k(y)},(x=e.onPause)==null||x.call(e)}).then(()=>{var k;i=void 0,r||(k=e.onContinue)==null||k.call(e)}),b=()=>{if(r)return;let k;const x=n===0?e.initialPromise:void 0;try{k=x??e.fn()}catch(y){k=Promise.reject(y)}Promise.resolve(k).then(d).catch(y=>{var z;if(r)return;const g=e.retry??(Ds?0:3),v=e.retryDelay??cE,w=typeof v=="function"?v(n,y):v,S=g===!0||typeof g=="number"&&n<g||typeof g=="function"&&g(n,y);if(t||!S){p(y);return}n++,(z=e.onFail)==null||z.call(e,n,y),rE(w).then(()=>c()?void 0:h()).then(()=>{t?p(y):b()})})};return{promise:a,cancel:l,continue:()=>(i==null||i(),a),cancelRetry:s,continueRetry:u,canStart:m,start:()=>(m()?b():h().then(b),a)}}var dE=e=>setTimeout(e,0);function mE(){let e=[],t=0,n=s=>{s()},r=s=>{s()},i=dE;const a=s=>{t?e.push(s):i(()=>{n(s)})},l=()=>{const s=e;e=[],s.length&&i(()=>{r(()=>{s.forEach(u=>{n(u)})})})};return{batch:s=>{let u;t++;try{u=s()}finally{t--,t||l()}return u},batchCalls:s=>(...u)=>{a(()=>{s(...u)})},schedule:a,setNotifyFunction:s=>{n=s},setBatchNotifyFunction:s=>{r=s},setScheduler:s=>{i=s}}}var tt=mE(),Lr,fh,av=(fh=class{constructor(){le(this,Lr)}destroy(){this.clearGcTimeout()}scheduleGc(){this.clearGcTimeout(),eE(this.gcTime)&&X(this,Lr,setTimeout(()=>{this.optionalRemove()},this.gcTime))}updateGcTime(e){this.gcTime=Math.max(this.gcTime||0,e??(Ds?1/0:5*60*1e3))}clearGcTimeout(){j(this,Lr)&&(clearTimeout(j(this,Lr)),X(this,Lr,void 0))}},Lr=new WeakMap,fh),Ti,Fr,Ct,Or,qe,dl,_r,Gt,bn,ph,fE=(ph=class extends av{constructor(t){super();le(this,Gt);le(this,Ti);le(this,Fr);le(this,Ct);le(this,Or);le(this,qe);le(this,dl);le(this,_r);X(this,_r,!1),X(this,dl,t.defaultOptions),this.setOptions(t.options),this.observers=[],X(this,Or,t.client),X(this,Ct,j(this,Or).getQueryCache()),this.queryKey=t.queryKey,this.queryHash=t.queryHash,X(this,Ti,hE(this.options)),this.state=t.state??j(this,Ti),this.scheduleGc()}get meta(){return this.options.meta}get promise(){var t;return(t=j(this,qe))==null?void 0:t.promise}setOptions(t){this.options={...j(this,dl),...t},this.updateGcTime(this.options.gcTime)}optionalRemove(){!this.observers.length&&this.state.fetchStatus==="idle"&&j(this,Ct).remove(this)}setData(t,n){const r=iE(this.state.data,t,this.options);return Ge(this,Gt,bn).call(this,{data:r,type:"success",dataUpdatedAt:n==null?void 0:n.updatedAt,manual:n==null?void 0:n.manual}),r}setState(t,n){Ge(this,Gt,bn).call(this,{type:"setState",state:t,setStateOptions:n})}cancel(t){var r,i;const n=(r=j(this,qe))==null?void 0:r.promise;return(i=j(this,qe))==null||i.cancel(t),n?n.then(Kt).catch(Kt):Promise.resolve()}destroy(){super.destroy(),this.cancel({silent:!0})}reset(){this.destroy(),this.setState(j(this,Ti))}isActive(){return this.observers.some(t=>nE(t.options.enabled,this)!==!1)}isDisabled(){return this.getObserversCount()>0?!this.isActive():this.options.queryFn===xm||this.state.dataUpdateCount+this.state.errorUpdateCount===0}isStatic(){return this.getObserversCount()>0?this.observers.some(t=>Uc(t.options.staleTime,this)==="static"):!1}isStale(){return this.getObserversCount()>0?this.observers.some(t=>t.getCurrentResult().isStale):this.state.data===void 0||this.state.isInvalidated}isStaleByTime(t=0){return this.state.data===void 0?!0:t==="static"?!1:this.state.isInvalidated?!0:!tE(this.state.dataUpdatedAt,t)}onFocus(){var n;const t=this.observers.find(r=>r.shouldFetchOnWindowFocus());t==null||t.refetch({cancelRefetch:!1}),(n=j(this,qe))==null||n.continue()}onOnline(){var n;const t=this.observers.find(r=>r.shouldFetchOnReconnect());t==null||t.refetch({cancelRefetch:!1}),(n=j(this,qe))==null||n.continue()}addObserver(t){this.observers.includes(t)||(this.observers.push(t),this.clearGcTimeout(),j(this,Ct).notify({type:"observerAdded",query:this,observer:t}))}removeObserver(t){this.observers.includes(t)&&(this.observers=this.observers.filter(n=>n!==t),this.observers.length||(j(this,qe)&&(j(this,_r)?j(this,qe).cancel({revert:!0}):j(this,qe).cancelRetry()),this.scheduleGc()),j(this,Ct).notify({type:"observerRemoved",query:this,observer:t}))}getObserversCount(){return this.observers.length}invalidate(){this.state.isInvalidated||Ge(this,Gt,bn).call(this,{type:"invalidate"})}fetch(t,n){var c,m,d;if(this.state.fetchStatus!=="idle"){if(this.state.data!==void 0&&(n!=null&&n.cancelRefetch))this.cancel({silent:!0});else if(j(this,qe))return j(this,qe).continueRetry(),j(this,qe).promise}if(t&&this.setOptions(t),!this.options.queryFn){const p=this.observers.find(h=>h.options.queryFn);p&&this.setOptions(p.options)}const r=new AbortController,i=p=>{Object.defineProperty(p,"signal",{enumerable:!0,get:()=>(X(this,_r,!0),r.signal)})},a=()=>{const p=ev(this.options,n),b=(()=>{const k={client:j(this,Or),queryKey:this.queryKey,meta:this.meta};return i(k),k})();return X(this,_r,!1),this.options.persister?this.options.persister(p,b,this):p(b)},s=(()=>{const p={fetchOptions:n,options:this.options,queryKey:this.queryKey,client:j(this,Or),state:this.state,fetchFn:a};return i(p),p})();(c=this.options.behavior)==null||c.onFetch(s,this),X(this,Fr,this.state),(this.state.fetchStatus==="idle"||this.state.fetchMeta!==((m=s.fetchOptions)==null?void 0:m.meta))&&Ge(this,Gt,bn).call(this,{type:"fetch",meta:(d=s.fetchOptions)==null?void 0:d.meta});const u=p=>{var h,b,k,x;Au(p)&&p.silent||Ge(this,Gt,bn).call(this,{type:"error",error:p}),Au(p)||((b=(h=j(this,Ct).config).onError)==null||b.call(h,p,this),(x=(k=j(this,Ct).config).onSettled)==null||x.call(k,this.state.data,p,this)),this.scheduleGc()};return X(this,qe,iv({initialPromise:n==null?void 0:n.initialPromise,fn:s.fetchFn,abort:r.abort.bind(r),onSuccess:p=>{var h,b,k,x;if(p===void 0){u(new Error(`${this.queryHash} data is undefined`));return}try{this.setData(p)}catch(y){u(y);return}(b=(h=j(this,Ct).config).onSuccess)==null||b.call(h,p,this),(x=(k=j(this,Ct).config).onSettled)==null||x.call(k,p,this.state.error,this),this.scheduleGc()},onError:u,onFail:(p,h)=>{Ge(this,Gt,bn).call(this,{type:"failed",failureCount:p,error:h})},onPause:()=>{Ge(this,Gt,bn).call(this,{type:"pause"})},onContinue:()=>{Ge(this,Gt,bn).call(this,{type:"continue"})},retry:s.options.retry,retryDelay:s.options.retryDelay,networkMode:s.options.networkMode,canRun:()=>!0})),j(this,qe).start()}},Ti=new WeakMap,Fr=new WeakMap,Ct=new WeakMap,Or=new WeakMap,qe=new WeakMap,dl=new WeakMap,_r=new WeakMap,Gt=new WeakSet,bn=function(t){const n=r=>{switch(t.type){case"failed":return{...r,fetchFailureCount:t.failureCount,fetchFailureReason:t.error};case"pause":return{...r,fetchStatus:"paused"};case"continue":return{...r,fetchStatus:"fetching"};case"fetch":return{...r,...pE(r.data,this.options),fetchMeta:t.meta??null};case"success":return X(this,Fr,void 0),{...r,data:t.data,dataUpdateCount:r.dataUpdateCount+1,dataUpdatedAt:t.dataUpdatedAt??Date.now(),error:null,isInvalidated:!1,status:"success",...!t.manual&&{fetchStatus:"idle",fetchFailureCount:0,fetchFailureReason:null}};case"error":const i=t.error;return Au(i)&&i.revert&&j(this,Fr)?{...j(this,Fr),fetchStatus:"idle"}:{...r,error:i,errorUpdateCount:r.errorUpdateCount+1,errorUpdatedAt:Date.now(),fetchFailureCount:r.fetchFailureCount+1,fetchFailureReason:i,fetchStatus:"idle",status:"error"};case"invalidate":return{...r,isInvalidated:!0};case"setState":return{...r,...t.state}}};this.state=n(this.state),tt.batch(()=>{this.observers.forEach(r=>{r.onQueryUpdate()}),j(this,Ct).notify({query:this,type:"updated",action:t})})},ph);function pE(e,t){return{fetchFailureCount:0,fetchFailureReason:null,fetchStatus:nv(t.networkMode)?"fetching":"paused",...e===void 0&&{error:null,status:"pending"}}}function hE(e){const t=typeof e.initialData=="function"?e.initialData():e.initialData,n=t!==void 0,r=n?typeof e.initialDataUpdatedAt=="function"?e.initialDataUpdatedAt():e.initialDataUpdatedAt:0;return{data:t,dataUpdateCount:0,dataUpdatedAt:n?r??Date.now():0,error:null,errorUpdateCount:0,errorUpdatedAt:0,fetchFailureCount:0,fetchFailureReason:null,fetchMeta:null,isInvalidated:!1,status:n?"success":"pending",fetchStatus:"idle"}}var an,hh,yE=(hh=class extends Rs{constructor(t={}){super();le(this,an);this.config=t,X(this,an,new Map)}build(t,n,r){const i=n.queryKey,a=n.queryHash??vm(i,n);let l=this.get(a);return l||(l=new fE({client:t,queryKey:i,queryHash:a,options:t.defaultQueryOptions(n),state:r,defaultOptions:t.getQueryDefaults(i)}),this.add(l)),l}add(t){j(this,an).has(t.queryHash)||(j(this,an).set(t.queryHash,t),this.notify({type:"added",query:t}))}remove(t){const n=j(this,an).get(t.queryHash);n&&(t.destroy(),n===t&&j(this,an).delete(t.queryHash),this.notify({type:"removed",query:t}))}clear(){tt.batch(()=>{this.getAll().forEach(t=>{this.remove(t)})})}get(t){return j(this,an).get(t)}getAll(){return[...j(this,an).values()]}find(t){const n={exact:!0,...t};return this.getAll().find(r=>jp(n,r))}findAll(t={}){const n=this.getAll();return Object.keys(t).length>0?n.filter(r=>jp(t,r)):n}notify(t){tt.batch(()=>{this.listeners.forEach(n=>{n(t)})})}onFocus(){tt.batch(()=>{this.getAll().forEach(t=>{t.onFocus()})})}onOnline(){tt.batch(()=>{this.getAll().forEach(t=>{t.onOnline()})})}},an=new WeakMap,hh),ln,Je,Br,on,Qn,yh,gE=(yh=class extends av{constructor(t){super();le(this,on);le(this,ln);le(this,Je);le(this,Br);this.mutationId=t.mutationId,X(this,Je,t.mutationCache),X(this,ln,[]),this.state=t.state||kE(),this.setOptions(t.options),this.scheduleGc()}setOptions(t){this.options=t,this.updateGcTime(this.options.gcTime)}get meta(){return this.options.meta}addObserver(t){j(this,ln).includes(t)||(j(this,ln).push(t),this.clearGcTimeout(),j(this,Je).notify({type:"observerAdded",mutation:this,observer:t}))}removeObserver(t){X(this,ln,j(this,ln).filter(n=>n!==t)),this.scheduleGc(),j(this,Je).notify({type:"observerRemoved",mutation:this,observer:t})}optionalRemove(){j(this,ln).length||(this.state.status==="pending"?this.scheduleGc():j(this,Je).remove(this))}continue(){var t;return((t=j(this,Br))==null?void 0:t.continue())??this.execute(this.state.variables)}async execute(t){var a,l,s,u,c,m,d,p,h,b,k,x,y,g,v,w,S,z,C,E;const n=()=>{Ge(this,on,Qn).call(this,{type:"continue"})};X(this,Br,iv({fn:()=>this.options.mutationFn?this.options.mutationFn(t):Promise.reject(new Error("No mutationFn found")),onFail:(A,T)=>{Ge(this,on,Qn).call(this,{type:"failed",failureCount:A,error:T})},onPause:()=>{Ge(this,on,Qn).call(this,{type:"pause"})},onContinue:n,retry:this.options.retry??0,retryDelay:this.options.retryDelay,networkMode:this.options.networkMode,canRun:()=>j(this,Je).canRun(this)}));const r=this.state.status==="pending",i=!j(this,Br).canStart();try{if(r)n();else{Ge(this,on,Qn).call(this,{type:"pending",variables:t,isPaused:i}),await((l=(a=j(this,Je).config).onMutate)==null?void 0:l.call(a,t,this));const T=await((u=(s=this.options).onMutate)==null?void 0:u.call(s,t));T!==this.state.context&&Ge(this,on,Qn).call(this,{type:"pending",context:T,variables:t,isPaused:i})}const A=await j(this,Br).start();return await((m=(c=j(this,Je).config).onSuccess)==null?void 0:m.call(c,A,t,this.state.context,this)),await((p=(d=this.options).onSuccess)==null?void 0:p.call(d,A,t,this.state.context)),await((b=(h=j(this,Je).config).onSettled)==null?void 0:b.call(h,A,null,this.state.variables,this.state.context,this)),await((x=(k=this.options).onSettled)==null?void 0:x.call(k,A,null,t,this.state.context)),Ge(this,on,Qn).call(this,{type:"success",data:A}),A}catch(A){try{throw await((g=(y=j(this,Je).config).onError)==null?void 0:g.call(y,A,t,this.state.context,this)),await((w=(v=this.options).onError)==null?void 0:w.call(v,A,t,this.state.context)),await((z=(S=j(this,Je).config).onSettled)==null?void 0:z.call(S,void 0,A,this.state.variables,this.state.context,this)),await((E=(C=this.options).onSettled)==null?void 0:E.call(C,void 0,A,t,this.state.context)),A}finally{Ge(this,on,Qn).call(this,{type:"error",error:A})}}finally{j(this,Je).runNext(this)}}},ln=new WeakMap,Je=new WeakMap,Br=new WeakMap,on=new WeakSet,Qn=function(t){const n=r=>{switch(t.type){case"failed":return{...r,failureCount:t.failureCount,failureReason:t.error};case"pause":return{...r,isPaused:!0};case"continue":return{...r,isPaused:!1};case"pending":return{...r,context:t.context,data:void 0,failureCount:0,failureReason:null,error:null,isPaused:t.isPaused,status:"pending",variables:t.variables,submittedAt:Date.now()};case"success":return{...r,data:t.data,failureCount:0,failureReason:null,error:null,status:"success",isPaused:!1};case"error":return{...r,data:void 0,error:t.error,failureCount:r.failureCount+1,failureReason:t.error,isPaused:!1,status:"error"}}};this.state=n(this.state),tt.batch(()=>{j(this,ln).forEach(r=>{r.onMutationUpdate(t)}),j(this,Je).notify({mutation:this,type:"updated",action:t})})},yh);function kE(){return{context:void 0,data:void 0,error:null,failureCount:0,failureReason:null,isPaused:!1,status:"idle",variables:void 0,submittedAt:0}}var zn,$t,ml,gh,vE=(gh=class extends Rs{constructor(t={}){super();le(this,zn);le(this,$t);le(this,ml);this.config=t,X(this,zn,new Set),X(this,$t,new Map),X(this,ml,0)}build(t,n,r){const i=new gE({mutationCache:this,mutationId:++Tl(this,ml)._,options:t.defaultMutationOptions(n),state:r});return this.add(i),i}add(t){j(this,zn).add(t);const n=Jl(t);if(typeof n=="string"){const r=j(this,$t).get(n);r?r.push(t):j(this,$t).set(n,[t])}this.notify({type:"added",mutation:t})}remove(t){if(j(this,zn).delete(t)){const n=Jl(t);if(typeof n=="string"){const r=j(this,$t).get(n);if(r)if(r.length>1){const i=r.indexOf(t);i!==-1&&r.splice(i,1)}else r[0]===t&&j(this,$t).delete(n)}}this.notify({type:"removed",mutation:t})}canRun(t){const n=Jl(t);if(typeof n=="string"){const r=j(this,$t).get(n),i=r==null?void 0:r.find(a=>a.state.status==="pending");return!i||i===t}else return!0}runNext(t){var r;const n=Jl(t);if(typeof n=="string"){const i=(r=j(this,$t).get(n))==null?void 0:r.find(a=>a!==t&&a.state.isPaused);return(i==null?void 0:i.continue())??Promise.resolve()}else return Promise.resolve()}clear(){tt.batch(()=>{j(this,zn).forEach(t=>{this.notify({type:"removed",mutation:t})}),j(this,zn).clear(),j(this,$t).clear()})}getAll(){return Array.from(j(this,zn))}find(t){const n={exact:!0,...t};return this.getAll().find(r=>Tp(n,r))}findAll(t={}){return this.getAll().filter(n=>Tp(t,n))}notify(t){tt.batch(()=>{this.listeners.forEach(n=>{n(t)})})}resumePausedMutations(){const t=this.getAll().filter(n=>n.state.isPaused);return tt.batch(()=>Promise.all(t.map(n=>n.continue().catch(Kt))))}},zn=new WeakMap,$t=new WeakMap,ml=new WeakMap,gh);function Jl(e){var t;return(t=e.options.scope)==null?void 0:t.id}function Dp(e){return{onFetch:(t,n)=>{var m,d,p,h,b;const r=t.options,i=(p=(d=(m=t.fetchOptions)==null?void 0:m.meta)==null?void 0:d.fetchMore)==null?void 0:p.direction,a=((h=t.state.data)==null?void 0:h.pages)||[],l=((b=t.state.data)==null?void 0:b.pageParams)||[];let s={pages:[],pageParams:[]},u=0;const c=async()=>{let k=!1;const x=v=>{Object.defineProperty(v,"signal",{enumerable:!0,get:()=>(t.signal.aborted?k=!0:t.signal.addEventListener("abort",()=>{k=!0}),t.signal)})},y=ev(t.options,t.fetchOptions),g=async(v,w,S)=>{if(k)return Promise.reject();if(w==null&&v.pages.length)return Promise.resolve(v);const C=(()=>{const F={client:t.client,queryKey:t.queryKey,pageParam:w,direction:S?"backward":"forward",meta:t.options.meta};return x(F),F})(),E=await y(C),{maxPages:A}=t.options,T=S?lE:aE;return{pages:T(v.pages,E,A),pageParams:T(v.pageParams,w,A)}};if(i&&a.length){const v=i==="backward",w=v?xE:Ip,S={pages:a,pageParams:l},z=w(r,S);s=await g(S,z,v)}else{const v=e??a.length;do{const w=u===0?l[0]??r.initialPageParam:Ip(r,s);if(u>0&&w==null)break;s=await g(s,w),u++}while(u<v)}return s};t.options.persister?t.fetchFn=()=>{var k,x;return(x=(k=t.options).persister)==null?void 0:x.call(k,c,{client:t.client,queryKey:t.queryKey,meta:t.options.meta,signal:t.signal},n)}:t.fetchFn=c}}}function Ip(e,{pages:t,pageParams:n}){const r=t.length-1;return t.length>0?e.getNextPageParam(t[r],t,n[r],n):void 0}function xE(e,{pages:t,pageParams:n}){var r;return t.length>0?(r=e.getPreviousPageParam)==null?void 0:r.call(e,t[0],t,n[0],n):void 0}var Ne,ir,ar,Mi,Ri,lr,Di,Ii,kh,bE=(kh=class{constructor(e={}){le(this,Ne);le(this,ir);le(this,ar);le(this,Mi);le(this,Ri);le(this,lr);le(this,Di);le(this,Ii);X(this,Ne,e.queryCache||new yE),X(this,ir,e.mutationCache||new vE),X(this,ar,e.defaultOptions||{}),X(this,Mi,new Map),X(this,Ri,new Map),X(this,lr,0)}mount(){Tl(this,lr)._++,j(this,lr)===1&&(X(this,Di,tv.subscribe(async e=>{e&&(await this.resumePausedMutations(),j(this,Ne).onFocus())})),X(this,Ii,Jo.subscribe(async e=>{e&&(await this.resumePausedMutations(),j(this,Ne).onOnline())})))}unmount(){var e,t;Tl(this,lr)._--,j(this,lr)===0&&((e=j(this,Di))==null||e.call(this),X(this,Di,void 0),(t=j(this,Ii))==null||t.call(this),X(this,Ii,void 0))}isFetching(e){return j(this,Ne).findAll({...e,fetchStatus:"fetching"}).length}isMutating(e){return j(this,ir).findAll({...e,status:"pending"}).length}getQueryData(e){var n;const t=this.defaultQueryOptions({queryKey:e});return(n=j(this,Ne).get(t.queryHash))==null?void 0:n.state.data}ensureQueryData(e){const t=this.defaultQueryOptions(e),n=j(this,Ne).build(this,t),r=n.state.data;return r===void 0?this.fetchQuery(e):(e.revalidateIfStale&&n.isStaleByTime(Uc(t.staleTime,n))&&this.prefetchQuery(t),Promise.resolve(r))}getQueriesData(e){return j(this,Ne).findAll(e).map(({queryKey:t,state:n})=>{const r=n.data;return[t,r]})}setQueryData(e,t,n){const r=this.defaultQueryOptions({queryKey:e}),i=j(this,Ne).get(r.queryHash),a=i==null?void 0:i.state.data,l=JC(t,a);if(l!==void 0)return j(this,Ne).build(this,r).setData(l,{...n,manual:!0})}setQueriesData(e,t,n){return tt.batch(()=>j(this,Ne).findAll(e).map(({queryKey:r})=>[r,this.setQueryData(r,t,n)]))}getQueryState(e){var n;const t=this.defaultQueryOptions({queryKey:e});return(n=j(this,Ne).get(t.queryHash))==null?void 0:n.state}removeQueries(e){const t=j(this,Ne);tt.batch(()=>{t.findAll(e).forEach(n=>{t.remove(n)})})}resetQueries(e,t){const n=j(this,Ne);return tt.batch(()=>(n.findAll(e).forEach(r=>{r.reset()}),this.refetchQueries({type:"active",...e},t)))}cancelQueries(e,t={}){const n={revert:!0,...t},r=tt.batch(()=>j(this,Ne).findAll(e).map(i=>i.cancel(n)));return Promise.all(r).then(Kt).catch(Kt)}invalidateQueries(e,t={}){return tt.batch(()=>(j(this,Ne).findAll(e).forEach(n=>{n.invalidate()}),(e==null?void 0:e.refetchType)==="none"?Promise.resolve():this.refetchQueries({...e,type:(e==null?void 0:e.refetchType)??(e==null?void 0:e.type)??"active"},t)))}refetchQueries(e,t={}){const n={...t,cancelRefetch:t.cancelRefetch??!0},r=tt.batch(()=>j(this,Ne).findAll(e).filter(i=>!i.isDisabled()&&!i.isStatic()).map(i=>{let a=i.fetch(void 0,n);return n.throwOnError||(a=a.catch(Kt)),i.state.fetchStatus==="paused"?Promise.resolve():a}));return Promise.all(r).then(Kt)}fetchQuery(e){const t=this.defaultQueryOptions(e);t.retry===void 0&&(t.retry=!1);const n=j(this,Ne).build(this,t);return n.isStaleByTime(Uc(t.staleTime,n))?n.fetch(t):Promise.resolve(n.state.data)}prefetchQuery(e){return this.fetchQuery(e).then(Kt).catch(Kt)}fetchInfiniteQuery(e){return e.behavior=Dp(e.pages),this.fetchQuery(e)}prefetchInfiniteQuery(e){return this.fetchInfiniteQuery(e).then(Kt).catch(Kt)}ensureInfiniteQueryData(e){return e.behavior=Dp(e.pages),this.ensureQueryData(e)}resumePausedMutations(){return Jo.isOnline()?j(this,ir).resumePausedMutations():Promise.resolve()}getQueryCache(){return j(this,Ne)}getMutationCache(){return j(this,ir)}getDefaultOptions(){return j(this,ar)}setDefaultOptions(e){X(this,ar,e)}setQueryDefaults(e,t){j(this,Mi).set(Za(e),{queryKey:e,defaultOptions:t})}getQueryDefaults(e){const t=[...j(this,Mi).values()],n={};return t.forEach(r=>{Ja(e,r.queryKey)&&Object.assign(n,r.defaultOptions)}),n}setMutationDefaults(e,t){j(this,Ri).set(Za(e),{mutationKey:e,defaultOptions:t})}getMutationDefaults(e){const t=[...j(this,Ri).values()],n={};return t.forEach(r=>{Ja(e,r.mutationKey)&&Object.assign(n,r.defaultOptions)}),n}defaultQueryOptions(e){if(e._defaulted)return e;const t={...j(this,ar).queries,...this.getQueryDefaults(e.queryKey),...e,_defaulted:!0};return t.queryHash||(t.queryHash=vm(t.queryKey,t)),t.refetchOnReconnect===void 0&&(t.refetchOnReconnect=t.networkMode!=="always"),t.throwOnError===void 0&&(t.throwOnError=!!t.suspense),!t.networkMode&&t.persister&&(t.networkMode="offlineFirst"),t.queryFn===xm&&(t.enabled=!1),t}defaultMutationOptions(e){return e!=null&&e._defaulted?e:{...j(this,ar).mutations,...(e==null?void 0:e.mutationKey)&&this.getMutationDefaults(e.mutationKey),...e,_defaulted:!0}}clear(){j(this,Ne).clear(),j(this,ir).clear()}},Ne=new WeakMap,ir=new WeakMap,ar=new WeakMap,Mi=new WeakMap,Ri=new WeakMap,lr=new WeakMap,Di=new WeakMap,Ii=new WeakMap,kh),wE=f.createContext(void 0),SE=({client:e,children:t})=>(f.useEffect(()=>(e.mount(),()=>{e.unmount()}),[e]),o.jsx(wE.Provider,{value:e,children:t}));/**
+ * @remix-run/router v1.23.0
+ *
+ * Copyright (c) Remix Software Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE.md file in the root directory of this source tree.
+ *
+ * @license MIT
+ */function el(){return el=Object.assign?Object.assign.bind():function(e){for(var t=1;t<arguments.length;t++){var n=arguments[t];for(var r in n)Object.prototype.hasOwnProperty.call(n,r)&&(e[r]=n[r])}return e},el.apply(this,arguments)}var ur;(function(e){e.Pop="POP",e.Push="PUSH",e.Replace="REPLACE"})(ur||(ur={}));const Lp="popstate";function zE(e){e===void 0&&(e={});function t(r,i){let{pathname:a,search:l,hash:s}=r.location;return Gc("",{pathname:a,search:l,hash:s},i.state&&i.state.usr||null,i.state&&i.state.key||"default")}function n(r,i){return typeof i=="string"?i:es(i)}return EE(t,n,null,e)}function je(e,t){if(e===!1||e===null||typeof e>"u")throw new Error(t)}function lv(e,t){if(!e){typeof console<"u"&&console.warn(t);try{throw new Error(t)}catch{}}}function CE(){return Math.random().toString(36).substr(2,8)}function Fp(e,t){return{usr:e.state,key:e.key,idx:t}}function Gc(e,t,n,r){return n===void 0&&(n=null),el({pathname:typeof e=="string"?e:e.pathname,search:"",hash:""},typeof t=="string"?Zi(t):t,{state:n,key:t&&t.key||r||CE()})}function es(e){let{pathname:t="/",search:n="",hash:r=""}=e;return n&&n!=="?"&&(t+=n.charAt(0)==="?"?n:"?"+n),r&&r!=="#"&&(t+=r.charAt(0)==="#"?r:"#"+r),t}function Zi(e){let t={};if(e){let n=e.indexOf("#");n>=0&&(t.hash=e.substr(n),e=e.substr(0,n));let r=e.indexOf("?");r>=0&&(t.search=e.substr(r),e=e.substr(0,r)),e&&(t.pathname=e)}return t}function EE(e,t,n,r){r===void 0&&(r={});let{window:i=document.defaultView,v5Compat:a=!1}=r,l=i.history,s=ur.Pop,u=null,c=m();c==null&&(c=0,l.replaceState(el({},l.state,{idx:c}),""));function m(){return(l.state||{idx:null}).idx}function d(){s=ur.Pop;let x=m(),y=x==null?null:x-c;c=x,u&&u({action:s,location:k.location,delta:y})}function p(x,y){s=ur.Push;let g=Gc(k.location,x,y);c=m()+1;let v=Fp(g,c),w=k.createHref(g);try{l.pushState(v,"",w)}catch(S){if(S instanceof DOMException&&S.name==="DataCloneError")throw S;i.location.assign(w)}a&&u&&u({action:s,location:k.location,delta:1})}function h(x,y){s=ur.Replace;let g=Gc(k.location,x,y);c=m();let v=Fp(g,c),w=k.createHref(g);l.replaceState(v,"",w),a&&u&&u({action:s,location:k.location,delta:0})}function b(x){let y=i.location.origin!=="null"?i.location.origin:i.location.href,g=typeof x=="string"?x:es(x);return g=g.replace(/ $/,"%20"),je(y,"No window.location.(origin|href) available to create URL for href: "+g),new URL(g,y)}let k={get action(){return s},get location(){return e(i,l)},listen(x){if(u)throw new Error("A history only accepts one active listener");return i.addEventListener(Lp,d),u=x,()=>{i.removeEventListener(Lp,d),u=null}},createHref(x){return t(i,x)},createURL:b,encodeLocation(x){let y=b(x);return{pathname:y.pathname,search:y.search,hash:y.hash}},push:p,replace:h,go(x){return l.go(x)}};return k}var Op;(function(e){e.data="data",e.deferred="deferred",e.redirect="redirect",e.error="error"})(Op||(Op={}));function NE(e,t,n){return n===void 0&&(n="/"),PE(e,t,n,!1)}function PE(e,t,n,r){let i=typeof t=="string"?Zi(t):t,a=bm(i.pathname||"/",n);if(a==null)return null;let l=ov(e);AE(l);let s=null;for(let u=0;s==null&&u<l.length;++u){let c=BE(a);s=OE(l[u],c,r)}return s}function ov(e,t,n,r){t===void 0&&(t=[]),n===void 0&&(n=[]),r===void 0&&(r="");let i=(a,l,s)=>{let u={relativePath:s===void 0?a.path||"":s,caseSensitive:a.caseSensitive===!0,childrenIndex:l,route:a};u.relativePath.startsWith("/")&&(je(u.relativePath.startsWith(r),'Absolute route path "'+u.relativePath+'" nested under path '+('"'+r+'" is not valid. An absolute child route path ')+"must start with the combined path of all its parent routes."),u.relativePath=u.relativePath.slice(r.length));let c=kr([r,u.relativePath]),m=n.concat(u);a.children&&a.children.length>0&&(je(a.index!==!0,"Index routes must not have child routes. Please remove "+('all child routes from route path "'+c+'".')),ov(a.children,t,m,c)),!(a.path==null&&!a.index)&&t.push({path:c,score:LE(c,a.index),routesMeta:m})};return e.forEach((a,l)=>{var s;if(a.path===""||!((s=a.path)!=null&&s.includes("?")))i(a,l);else for(let u of sv(a.path))i(a,l,u)}),t}function sv(e){let t=e.split("/");if(t.length===0)return[];let[n,...r]=t,i=n.endsWith("?"),a=n.replace(/\?$/,"");if(r.length===0)return i?[a,""]:[a];let l=sv(r.join("/")),s=[];return s.push(...l.map(u=>u===""?a:[a,u].join("/"))),i&&s.push(...l),s.map(u=>e.startsWith("/")&&u===""?"/":u)}function AE(e){e.sort((t,n)=>t.score!==n.score?n.score-t.score:FE(t.routesMeta.map(r=>r.childrenIndex),n.routesMeta.map(r=>r.childrenIndex)))}const jE=/^:[\w-]+$/,TE=3,ME=2,RE=1,DE=10,IE=-2,_p=e=>e==="*";function LE(e,t){let n=e.split("/"),r=n.length;return n.some(_p)&&(r+=IE),t&&(r+=ME),n.filter(i=>!_p(i)).reduce((i,a)=>i+(jE.test(a)?TE:a===""?RE:DE),r)}function FE(e,t){return e.length===t.length&&e.slice(0,-1).every((r,i)=>r===t[i])?e[e.length-1]-t[t.length-1]:0}function OE(e,t,n){let{routesMeta:r}=e,i={},a="/",l=[];for(let s=0;s<r.length;++s){let u=r[s],c=s===r.length-1,m=a==="/"?t:t.slice(a.length)||"/",d=Bp({path:u.relativePath,caseSensitive:u.caseSensitive,end:c},m),p=u.route;if(!d&&c&&n&&!r[r.length-1].route.index&&(d=Bp({path:u.relativePath,caseSensitive:u.caseSensitive,end:!1},m)),!d)return null;Object.assign(i,d.params),l.push({params:i,pathname:kr([a,d.pathname]),pathnameBase:GE(kr([a,d.pathnameBase])),route:p}),d.pathnameBase!=="/"&&(a=kr([a,d.pathnameBase]))}return l}function Bp(e,t){typeof e=="string"&&(e={path:e,caseSensitive:!1,end:!0});let[n,r]=_E(e.path,e.caseSensitive,e.end),i=t.match(n);if(!i)return null;let a=i[0],l=a.replace(/(.)\/+$/,"$1"),s=i.slice(1);return{params:r.reduce((c,m,d)=>{let{paramName:p,isOptional:h}=m;if(p==="*"){let k=s[d]||"";l=a.slice(0,a.length-k.length).replace(/(.)\/+$/,"$1")}const b=s[d];return h&&!b?c[p]=void 0:c[p]=(b||"").replace(/%2F/g,"/"),c},{}),pathname:a,pathnameBase:l,pattern:e}}function _E(e,t,n){t===void 0&&(t=!1),n===void 0&&(n=!0),lv(e==="*"||!e.endsWith("*")||e.endsWith("/*"),'Route path "'+e+'" will be treated as if it were '+('"'+e.replace(/\*$/,"/*")+'" because the `*` character must ')+"always follow a `/` in the pattern. To get rid of this warning, "+('please change the route path to "'+e.replace(/\*$/,"/*")+'".'));let r=[],i="^"+e.replace(/\/*\*?$/,"").replace(/^\/*/,"/").replace(/[\\.*+^${}|()[\]]/g,"\\$&").replace(/\/:([\w-]+)(\?)?/g,(l,s,u)=>(r.push({paramName:s,isOptional:u!=null}),u?"/?([^\\/]+)?":"/([^\\/]+)"));return e.endsWith("*")?(r.push({paramName:"*"}),i+=e==="*"||e==="/*"?"(.*)$":"(?:\\/(.+)|\\/*)$"):n?i+="\\/*$":e!==""&&e!=="/"&&(i+="(?:(?=\\/|$))"),[new RegExp(i,t?void 0:"i"),r]}function BE(e){try{return e.split("/").map(t=>decodeURIComponent(t).replace(/\//g,"%2F")).join("/")}catch(t){return lv(!1,'The URL path "'+e+'" could not be decoded because it is is a malformed URL segment. This is probably due to a bad percent '+("encoding ("+t+").")),e}}function bm(e,t){if(t==="/")return e;if(!e.toLowerCase().startsWith(t.toLowerCase()))return null;let n=t.endsWith("/")?t.length-1:t.length,r=e.charAt(n);return r&&r!=="/"?null:e.slice(n)||"/"}function HE(e,t){t===void 0&&(t="/");let{pathname:n,search:r="",hash:i=""}=typeof e=="string"?Zi(e):e;return{pathname:n?n.startsWith("/")?n:UE(n,t):t,search:$E(r),hash:VE(i)}}function UE(e,t){let n=t.replace(/\/+$/,"").split("/");return e.split("/").forEach(i=>{i===".."?n.length>1&&n.pop():i!=="."&&n.push(i)}),n.length>1?n.join("/"):"/"}function ju(e,t,n,r){return"Cannot include a '"+e+"' character in a manually specified "+("`to."+t+"` field ["+JSON.stringify(r)+"].  Please separate it out to the ")+("`to."+n+"` field. Alternatively you may provide the full path as ")+'a string in <Link to="..."> and the router will parse it for you.'}function KE(e){return e.filter((t,n)=>n===0||t.route.path&&t.route.path.length>0)}function wm(e,t){let n=KE(e);return t?n.map((r,i)=>i===n.length-1?r.pathname:r.pathnameBase):n.map(r=>r.pathnameBase)}function Sm(e,t,n,r){r===void 0&&(r=!1);let i;typeof e=="string"?i=Zi(e):(i=el({},e),je(!i.pathname||!i.pathname.includes("?"),ju("?","pathname","search",i)),je(!i.pathname||!i.pathname.includes("#"),ju("#","pathname","hash",i)),je(!i.search||!i.search.includes("#"),ju("#","search","hash",i)));let a=e===""||i.pathname==="",l=a?"/":i.pathname,s;if(l==null)s=n;else{let d=t.length-1;if(!r&&l.startsWith("..")){let p=l.split("/");for(;p[0]==="..";)p.shift(),d-=1;i.pathname=p.join("/")}s=d>=0?t[d]:"/"}let u=HE(i,s),c=l&&l!=="/"&&l.endsWith("/"),m=(a||l===".")&&n.endsWith("/");return!u.pathname.endsWith("/")&&(c||m)&&(u.pathname+="/"),u}const kr=e=>e.join("/").replace(/\/\/+/g,"/"),GE=e=>e.replace(/\/+$/,"").replace(/^\/*/,"/"),$E=e=>!e||e==="?"?"":e.startsWith("?")?e:"?"+e,VE=e=>!e||e==="#"?"":e.startsWith("#")?e:"#"+e;function YE(e){return e!=null&&typeof e.status=="number"&&typeof e.statusText=="string"&&typeof e.internal=="boolean"&&"data"in e}const uv=["post","put","patch","delete"];new Set(uv);const qE=["get",...uv];new Set(qE);/**
+ * React Router v6.30.1
+ *
+ * Copyright (c) Remix Software Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE.md file in the root directory of this source tree.
+ *
+ * @license MIT
+ */function tl(){return tl=Object.assign?Object.assign.bind():function(e){for(var t=1;t<arguments.length;t++){var n=arguments[t];for(var r in n)Object.prototype.hasOwnProperty.call(n,r)&&(e[r]=n[r])}return e},tl.apply(this,arguments)}const zm=f.createContext(null),WE=f.createContext(null),Nr=f.createContext(null),Is=f.createContext(null),Bn=f.createContext({outlet:null,matches:[],isDataRoute:!1}),cv=f.createContext(null);function QE(e,t){let{relative:n}=t===void 0?{}:t;Ji()||je(!1);let{basename:r,navigator:i}=f.useContext(Nr),{hash:a,pathname:l,search:s}=mv(e,{relative:n}),u=l;return r!=="/"&&(u=l==="/"?r:kr([r,l])),i.createHref({pathname:u,search:s,hash:a})}function Ji(){return f.useContext(Is)!=null}function Hn(){return Ji()||je(!1),f.useContext(Is).location}function dv(e){f.useContext(Nr).static||f.useLayoutEffect(e)}function Ls(){let{isDataRoute:e}=f.useContext(Bn);return e?uN():XE()}function XE(){Ji()||je(!1);let e=f.useContext(zm),{basename:t,future:n,navigator:r}=f.useContext(Nr),{matches:i}=f.useContext(Bn),{pathname:a}=Hn(),l=JSON.stringify(wm(i,n.v7_relativeSplatPath)),s=f.useRef(!1);return dv(()=>{s.current=!0}),f.useCallback(function(c,m){if(m===void 0&&(m={}),!s.current)return;if(typeof c=="number"){r.go(c);return}let d=Sm(c,JSON.parse(l),a,m.relative==="path");e==null&&t!=="/"&&(d.pathname=d.pathname==="/"?t:kr([t,d.pathname])),(m.replace?r.replace:r.push)(d,m.state,m)},[t,r,l,a,e])}function Cm(){let{matches:e}=f.useContext(Bn),t=e[e.length-1];return t?t.params:{}}function mv(e,t){let{relative:n}=t===void 0?{}:t,{future:r}=f.useContext(Nr),{matches:i}=f.useContext(Bn),{pathname:a}=Hn(),l=JSON.stringify(wm(i,r.v7_relativeSplatPath));return f.useMemo(()=>Sm(e,JSON.parse(l),a,n==="path"),[e,l,a,n])}function ZE(e,t){return JE(e,t)}function JE(e,t,n,r){Ji()||je(!1);let{navigator:i}=f.useContext(Nr),{matches:a}=f.useContext(Bn),l=a[a.length-1],s=l?l.params:{};l&&l.pathname;let u=l?l.pathnameBase:"/";l&&l.route;let c=Hn(),m;if(t){var d;let x=typeof t=="string"?Zi(t):t;u==="/"||(d=x.pathname)!=null&&d.startsWith(u)||je(!1),m=x}else m=c;let p=m.pathname||"/",h=p;if(u!=="/"){let x=u.replace(/^\//,"").split("/");h="/"+p.replace(/^\//,"").split("/").slice(x.length).join("/")}let b=NE(e,{pathname:h}),k=iN(b&&b.map(x=>Object.assign({},x,{params:Object.assign({},s,x.params),pathname:kr([u,i.encodeLocation?i.encodeLocation(x.pathname).pathname:x.pathname]),pathnameBase:x.pathnameBase==="/"?u:kr([u,i.encodeLocation?i.encodeLocation(x.pathnameBase).pathname:x.pathnameBase])})),a,n,r);return t&&k?f.createElement(Is.Provider,{value:{location:tl({pathname:"/",search:"",hash:"",state:null,key:"default"},m),navigationType:ur.Pop}},k):k}function eN(){let e=sN(),t=YE(e)?e.status+" "+e.statusText:e instanceof Error?e.message:JSON.stringify(e),n=e instanceof Error?e.stack:null,i={padding:"0.5rem",backgroundColor:"rgba(200,200,200, 0.5)"};return f.createElement(f.Fragment,null,f.createElement("h2",null,"Unexpected Application Error!"),f.createElement("h3",{style:{fontStyle:"italic"}},t),n?f.createElement("pre",{style:i},n):null,null)}const tN=f.createElement(eN,null);class nN extends f.Component{constructor(t){super(t),this.state={location:t.location,revalidation:t.revalidation,error:t.error}}static getDerivedStateFromError(t){return{error:t}}static getDerivedStateFromProps(t,n){return n.location!==t.location||n.revalidation!=="idle"&&t.revalidation==="idle"?{error:t.error,location:t.location,revalidation:t.revalidation}:{error:t.error!==void 0?t.error:n.error,location:n.location,revalidation:t.revalidation||n.revalidation}}componentDidCatch(t,n){console.error("React Router caught the following error during render",t,n)}render(){return this.state.error!==void 0?f.createElement(Bn.Provider,{value:this.props.routeContext},f.createElement(cv.Provider,{value:this.state.error,children:this.props.component})):this.props.children}}function rN(e){let{routeContext:t,match:n,children:r}=e,i=f.useContext(zm);return i&&i.static&&i.staticContext&&(n.route.errorElement||n.route.ErrorBoundary)&&(i.staticContext._deepestRenderedBoundaryId=n.route.id),f.createElement(Bn.Provider,{value:t},r)}function iN(e,t,n,r){var i;if(t===void 0&&(t=[]),n===void 0&&(n=null),r===void 0&&(r=null),e==null){var a;if(!n)return null;if(n.errors)e=n.matches;else if((a=r)!=null&&a.v7_partialHydration&&t.length===0&&!n.initialized&&n.matches.length>0)e=n.matches;else return null}let l=e,s=(i=n)==null?void 0:i.errors;if(s!=null){let m=l.findIndex(d=>d.route.id&&(s==null?void 0:s[d.route.id])!==void 0);m>=0||je(!1),l=l.slice(0,Math.min(l.length,m+1))}let u=!1,c=-1;if(n&&r&&r.v7_partialHydration)for(let m=0;m<l.length;m++){let d=l[m];if((d.route.HydrateFallback||d.route.hydrateFallbackElement)&&(c=m),d.route.id){let{loaderData:p,errors:h}=n,b=d.route.loader&&p[d.route.id]===void 0&&(!h||h[d.route.id]===void 0);if(d.route.lazy||b){u=!0,c>=0?l=l.slice(0,c+1):l=[l[0]];break}}}return l.reduceRight((m,d,p)=>{let h,b=!1,k=null,x=null;n&&(h=s&&d.route.id?s[d.route.id]:void 0,k=d.route.errorElement||tN,u&&(c<0&&p===0?(b=!0,x=null):c===p&&(b=!0,x=d.route.hydrateFallbackElement||null)));let y=t.concat(l.slice(0,p+1)),g=()=>{let v;return h?v=k:b?v=x:d.route.Component?v=f.createElement(d.route.Component,null):d.route.element?v=d.route.element:v=m,f.createElement(rN,{match:d,routeContext:{outlet:m,matches:y,isDataRoute:n!=null},children:v})};return n&&(d.route.ErrorBoundary||d.route.errorElement||p===0)?f.createElement(nN,{location:n.location,revalidation:n.revalidation,component:k,error:h,children:g(),routeContext:{outlet:null,matches:y,isDataRoute:!0}}):g()},null)}var fv=function(e){return e.UseBlocker="useBlocker",e.UseRevalidator="useRevalidator",e.UseNavigateStable="useNavigate",e}(fv||{}),ts=function(e){return e.UseBlocker="useBlocker",e.UseLoaderData="useLoaderData",e.UseActionData="useActionData",e.UseRouteError="useRouteError",e.UseNavigation="useNavigation",e.UseRouteLoaderData="useRouteLoaderData",e.UseMatches="useMatches",e.UseRevalidator="useRevalidator",e.UseNavigateStable="useNavigate",e.UseRouteId="useRouteId",e}(ts||{});function aN(e){let t=f.useContext(zm);return t||je(!1),t}function lN(e){let t=f.useContext(WE);return t||je(!1),t}function oN(e){let t=f.useContext(Bn);return t||je(!1),t}function pv(e){let t=oN(),n=t.matches[t.matches.length-1];return n.route.id||je(!1),n.route.id}function sN(){var e;let t=f.useContext(cv),n=lN(ts.UseRouteError),r=pv(ts.UseRouteError);return t!==void 0?t:(e=n.errors)==null?void 0:e[r]}function uN(){let{router:e}=aN(fv.UseNavigateStable),t=pv(ts.UseNavigateStable),n=f.useRef(!1);return dv(()=>{n.current=!0}),f.useCallback(function(i,a){a===void 0&&(a={}),n.current&&(typeof i=="number"?e.navigate(i):e.navigate(i,tl({fromRouteId:t},a)))},[e,t])}function cN(e,t){e==null||e.v7_startTransition,e==null||e.v7_relativeSplatPath}function dN(e){let{to:t,replace:n,state:r,relative:i}=e;Ji()||je(!1);let{future:a,static:l}=f.useContext(Nr),{matches:s}=f.useContext(Bn),{pathname:u}=Hn(),c=Ls(),m=Sm(t,wm(s,a.v7_relativeSplatPath),u,i==="path"),d=JSON.stringify(m);return f.useEffect(()=>c(JSON.parse(d),{replace:n,state:r,relative:i}),[c,d,i,n,r]),null}function Ye(e){je(!1)}function mN(e){let{basename:t="/",children:n=null,location:r,navigationType:i=ur.Pop,navigator:a,static:l=!1,future:s}=e;Ji()&&je(!1);let u=t.replace(/^\/*/,"/"),c=f.useMemo(()=>({basename:u,navigator:a,static:l,future:tl({v7_relativeSplatPath:!1},s)}),[u,s,a,l]);typeof r=="string"&&(r=Zi(r));let{pathname:m="/",search:d="",hash:p="",state:h=null,key:b="default"}=r,k=f.useMemo(()=>{let x=bm(m,u);return x==null?null:{location:{pathname:x,search:d,hash:p,state:h,key:b},navigationType:i}},[u,m,d,p,h,b,i]);return k==null?null:f.createElement(Nr.Provider,{value:c},f.createElement(Is.Provider,{children:n,value:k}))}function fN(e){let{children:t,location:n}=e;return ZE($c(t),n)}new Promise(()=>{});function $c(e,t){t===void 0&&(t=[]);let n=[];return f.Children.forEach(e,(r,i)=>{if(!f.isValidElement(r))return;let a=[...t,i];if(r.type===f.Fragment){n.push.apply(n,$c(r.props.children,a));return}r.type!==Ye&&je(!1),!r.props.index||!r.props.children||je(!1);let l={id:r.props.id||a.join("-"),caseSensitive:r.props.caseSensitive,element:r.props.element,Component:r.props.Component,index:r.props.index,path:r.props.path,loader:r.props.loader,action:r.props.action,errorElement:r.props.errorElement,ErrorBoundary:r.props.ErrorBoundary,hasErrorBoundary:r.props.ErrorBoundary!=null||r.props.errorElement!=null,shouldRevalidate:r.props.shouldRevalidate,handle:r.props.handle,lazy:r.props.lazy};r.props.children&&(l.children=$c(r.props.children,a)),n.push(l)}),n}/**
+ * React Router DOM v6.30.1
+ *
+ * Copyright (c) Remix Software Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE.md file in the root directory of this source tree.
+ *
+ * @license MIT
+ */function Vc(){return Vc=Object.assign?Object.assign.bind():function(e){for(var t=1;t<arguments.length;t++){var n=arguments[t];for(var r in n)Object.prototype.hasOwnProperty.call(n,r)&&(e[r]=n[r])}return e},Vc.apply(this,arguments)}function pN(e,t){if(e==null)return{};var n={},r=Object.keys(e),i,a;for(a=0;a<r.length;a++)i=r[a],!(t.indexOf(i)>=0)&&(n[i]=e[i]);return n}function hN(e){return!!(e.metaKey||e.altKey||e.ctrlKey||e.shiftKey)}function yN(e,t){return e.button===0&&(!t||t==="_self")&&!hN(e)}function Yc(e){return e===void 0&&(e=""),new URLSearchParams(typeof e=="string"||Array.isArray(e)||e instanceof URLSearchParams?e:Object.keys(e).reduce((t,n)=>{let r=e[n];return t.concat(Array.isArray(r)?r.map(i=>[n,i]):[[n,r]])},[]))}function gN(e,t){let n=Yc(e);return t&&t.forEach((r,i)=>{n.has(i)||t.getAll(i).forEach(a=>{n.append(i,a)})}),n}const kN=["onClick","relative","reloadDocument","replace","state","target","to","preventScrollReset","viewTransition"],vN="6";try{window.__reactRouterVersion=vN}catch{}const xN="startTransition",Hp=dd[xN];function bN(e){let{basename:t,children:n,future:r,window:i}=e,a=f.useRef();a.current==null&&(a.current=zE({window:i,v5Compat:!0}));let l=a.current,[s,u]=f.useState({action:l.action,location:l.location}),{v7_startTransition:c}=r||{},m=f.useCallback(d=>{c&&Hp?Hp(()=>u(d)):u(d)},[u,c]);return f.useLayoutEffect(()=>l.listen(m),[l,m]),f.useEffect(()=>cN(r),[r]),f.createElement(mN,{basename:t,children:n,location:s.location,navigationType:s.action,navigator:l,future:r})}const wN=typeof window<"u"&&typeof window.document<"u"&&typeof window.document.createElement<"u",SN=/^(?:[a-z][a-z0-9+.-]*:|\/\/)/i,te=f.forwardRef(function(t,n){let{onClick:r,relative:i,reloadDocument:a,replace:l,state:s,target:u,to:c,preventScrollReset:m,viewTransition:d}=t,p=pN(t,kN),{basename:h}=f.useContext(Nr),b,k=!1;if(typeof c=="string"&&SN.test(c)&&(b=c,wN))try{let v=new URL(window.location.href),w=c.startsWith("//")?new URL(v.protocol+c):new URL(c),S=bm(w.pathname,h);w.origin===v.origin&&S!=null?c=S+w.search+w.hash:k=!0}catch{}let x=QE(c,{relative:i}),y=zN(c,{replace:l,state:s,target:u,preventScrollReset:m,relative:i,viewTransition:d});function g(v){r&&r(v),v.defaultPrevented||y(v)}return f.createElement("a",Vc({},p,{href:b||x,onClick:k||a?r:g,ref:n,target:u}))});var Up;(function(e){e.UseScrollRestoration="useScrollRestoration",e.UseSubmit="useSubmit",e.UseSubmitFetcher="useSubmitFetcher",e.UseFetcher="useFetcher",e.useViewTransitionState="useViewTransitionState"})(Up||(Up={}));var Kp;(function(e){e.UseFetcher="useFetcher",e.UseFetchers="useFetchers",e.UseScrollRestoration="useScrollRestoration"})(Kp||(Kp={}));function zN(e,t){let{target:n,replace:r,state:i,preventScrollReset:a,relative:l,viewTransition:s}=t===void 0?{}:t,u=Ls(),c=Hn(),m=mv(e,{relative:l});return f.useCallback(d=>{if(yN(d,n)){d.preventDefault();let p=r!==void 0?r:es(c)===es(m);u(e,{replace:p,state:i,preventScrollReset:a,relative:l,viewTransition:s})}},[c,u,m,r,i,n,e,a,l,s])}function CN(e){let t=f.useRef(Yc(e)),n=f.useRef(!1),r=Hn(),i=f.useMemo(()=>gN(r.search,n.current?null:t.current),[r.search]),a=Ls(),l=f.useCallback((s,u)=>{const c=Yc(typeof s=="function"?s(i):s);n.current=!0,a("?"+c,u)},[a,i]);return[i,l]}const EN=()=>{const{pathname:e}=Hn();return f.useEffect(()=>{window.scrollTo(0,0)},[e]),null},Pn=f.forwardRef(({className:e,type:t,...n},r)=>o.jsx("input",{type:t,className:re("flex h-10 w-full rounded-full border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",e),ref:r,...n}));Pn.displayName="Input";const NN="/assets/sinceva_white_logo_for_web-BS5muGSt.png",PN="/assets/sinceva_black_logo_for_web-BXec4NTi.png",AN="/assets/sinceva_white_logo_for_mobile-B4ssiZkE.png",jN="/assets/sinceva_black_logo_for_mobile-BKzzM21y.png",TN="/assets/cvit_div-Ceih48YX.png",MN="/assets/arbutin_div-CscMPxFp.png",RN="/assets/g%C3%B6z_div-BmpViU2c.png",DN="/assets/g%C3%BCne%C5%9F_div-CB4xzdlO.png",IN="/assets/nemlendirici_div-D8NeJnQZ.png",LN="/assets/gece_div-B0DtiYkA.png",FN="/assets/tonik_div-BTMW2qo0.png",ON="/assets/peeling_div-CoTuL7bY.png",_N="/assets/y%C3%BCz_div-BcVB24g3.png",BN="/assets/antiagingcart-DgUhp66A.png",HN="/assets/cleansingcart-3tnCVup3.png",UN="/assets/dailycarecart-DkCRz_mf.png",qc="/assets/anti%20aging%20kategori-B-1edDqG.jpg",Wc="/assets/cleansing%20kategori-D6lXmJOl.jpg",KN="/assets/daily%20kategori-DN8R2Y_z.jpg",Em={"anti-aging-care":{title:"Anti-Aging Care",description:"Advanced formulas to reduce fine lines, boost collagen, and restore youthful radiance to your skin.",bannerImage:qc,subcategories:{"face-serum":{title:"Face Serum",products:[{id:1,name:"Sinceva Brightening Vitamin C Serum 30 ml",price:89.99,description:"Powerful vitamin C serum for radiant, even-toned skin with natural brightening properties.",image:TN},{id:2,name:"Sinceva Anti-Spot Arbutin Serum 30 ml",price:79.99,description:"Advanced arbutin formula to reduce dark spots and even skin tone.",image:MN}]},"eye-care":{title:"Eye Care",products:[{id:3,name:"Sinceva Anti-Wrinkle Eye Cream 20 ml",price:79.99,description:"Firming eye cream with peptides to reduce fine lines and brighten the delicate eye area.",image:RN}]},"anti-wrinkle-care":{title:"Anti-Wrinkle Care",products:[{id:4,name:"Sinceva Anti-Aging Night Cream 50 ml",price:129.99,description:"Advanced retinol formula to reduce signs of aging and promote skin renewal overnight.",image:LN}]}}},"face-and-skin-cleansing":{title:"Face & Skin Cleansing",description:"Gentle yet effective cleansers that purify your skin while maintaining its natural moisture balance.",bannerImage:Wc,subcategories:{toner:{title:"Toner",products:[{id:5,name:"Sinceva Skin Renewing Tonic 200 ml",price:44.99,description:"Gentle chemical exfoliant that reveals smoother, brighter skin with regular use.",image:FN}]},"peeling-exfoliator":{title:"Peeling / Exfoliator",products:[{id:6,name:"Sinceva Purifying Peeling Cream Scrub 200 ml",price:54.99,description:"Advanced exfoliating scrub that gently removes dead skin cells for smoother texture.",image:ON}]},"foaming-cleanser":{title:"Foaming Cleanser",products:[{id:7,name:"Sinceva Purifying Face Cleansing Foam 200 ml",price:32.99,description:"Mild foaming cleanser that removes impurities without stripping skin of essential moisture.",image:_N}]}}},"daily-care":{title:"Daily Care",description:"Essential daily skincare products for healthy, protected, and nourished skin every day.",bannerImage:KN,subcategories:{sunscreen:{title:"Sunscreen",products:[{id:8,name:"Sinceva SPF 50+ Daily SunCare Cream 100 ml",price:49.99,description:"Broad spectrum protection with lightweight, non-greasy formula perfect for daily use.",image:DN}]},moisturizer:{title:"Moisturizer",products:[{id:9,name:"Sinceva Hyaluronic Acid Moisturizing Cream 50 ml",price:64.99,description:"Deep hydration with hyaluronic acid for plump, smooth, and supple skin all day long.",image:IN}]}}}},nl={title:"All Our Products",subtitle:"Discover our complete collection of premium skincare solutions, expertly crafted for every skin type and concern.",products:Object.values(Em).flatMap(e=>Object.values(e.subcategories).flatMap(t=>t.products))},GN={title:"Explore Our Categories",subtitle:"Curated collections designed to address your unique skincare needs with precision and care.",categories:[{id:"anti-aging",titleKey:"categories.antiAging.title",descriptionKey:"categories.antiAging.description",href:"/category/anti-aging-care",gradient:"from-purple-600 to-pink-600",image:BN},{id:"cleansing",titleKey:"categories.cleansing.title",descriptionKey:"categories.cleansing.description",href:"/category/face-and-skin-cleansing",gradient:"from-blue-600 to-teal-600",image:HN},{id:"daily-care",titleKey:"categories.dailyCare.title",descriptionKey:"categories.dailyCare.description",href:"/category/daily-care",gradient:"from-green-600 to-emerald-600",image:UN}]},$N={brand:{name:"Sinceva",tagline:"Beauty redefined"},mainNavigation:[{name:"Home",href:"/"},{name:"Shop",href:"/shop",hasMegaMenu:!0},{name:"About",href:"/about"},{name:"Blog",href:"/blog"},{name:"Contact",href:"/contact"}],megaMenuCategories:[{category:"Anti-Aging Care",items:[{name:"Face Serum",href:"/category/anti-aging-care/face-serum"},{name:"Eye Care",href:"/category/anti-aging-care/eye-care"},{name:"Anti-Wrinkle Care",href:"/category/anti-aging-care/anti-wrinkle-care"}]},{category:"Face & Skin Cleansing",items:[{name:"Toner",href:"/category/face-and-skin-cleansing/toner"},{name:"Peeling / Exfoliator",href:"/category/face-and-skin-cleansing/peeling-exfoliator"},{name:"Foaming Cleanser",href:"/category/face-and-skin-cleansing/foaming-cleanser"}]},{category:"Daily Care",items:[{name:"Sunscreen",href:"/category/daily-care/sunscreen"},{name:"Moisturizer",href:"/category/daily-care/moisturizer"}]}]},Dr={desktop:{white:NN,black:PN},mobile:{white:AN,black:jN},fallback:{text:"Sinceva",showText:!0}},hv=f.createContext(void 0),_e=()=>{const e=f.useContext(hv);if(!e)throw new Error("useLanguage must be used within a LanguageProvider");return e},VN=({children:e})=>{const[t,n]=f.useState(()=>localStorage.getItem("language")||"tr"),r=i=>{n(i),localStorage.setItem("language",i),i==="ar"?(document.documentElement.dir="rtl",document.documentElement.lang="ar"):(document.documentElement.dir="ltr",document.documentElement.lang=i)};return f.useEffect(()=>{t==="ar"?(document.documentElement.dir="rtl",document.documentElement.lang="ar"):(document.documentElement.dir="ltr",document.documentElement.lang=t)},[]),o.jsx(hv.Provider,{value:{language:t,setLanguage:r},children:e})},at={en:{productDetails:"Product Details",ingredients:"Ingredients",howToUse:"How To Use",faq:"Frequently Asked Questions",buy:"Buy",discoverProducts:"Discover Sinceva Products",productNotFound:"Product Not Found",productNotFoundDesc:"The requested product could not be found.",home:"ANCIENT SHINE",shop:"Shop",about:"About",blogNav:"Blog",contact:"Contact",contactNav:"TOUCH TO BEAUTY",searchPlaceholder:"Search products...",quickLinks:"Quick Links",policies:"Policies",stayConnected:"Stay Connected",newsletterDesc:"Subscribe to get beauty tips and exclusive offers.",enterEmail:"Enter your email",subscribe:"Subscribe",allRightsReserved:"All rights reserved.",craftedFor:"Crafted for timeless beauty and elegance.",theOriginOfBeauty:"The Origin Of Beauty",trendsAndTips:"Trends & Tips",privacyPolicy:"Privacy Policy",cookiePolicy:"Cookie Policy",termsAndConditions:"Terms and Conditions",consumerReviewRules:"Consumer Review Rules",aboutSinceva:"About Sinceva",aboutSubtitle:"Since Eva – the name that inspired our journey toward timeless beauty and elegance.",ourStory:"Our Story",firstTouchTitle:"The First Touch of Beauty",firstTouchText:"Sinceva was born from an ancient symbol: the apple. From the moment Eve reached out her hand, the apple has stood for beginnings curiosity, transformation, and the essence of beauty itself. For us, it is not only the fruit of a story; it is the root of our philosophy. Just as beauty began at that timeless moment, we believe true beauty begins with the first touch of skincare.",timelessHeritageTitle:"A Timeless Heritage",timelessHeritageText:"We see the apple as more than nature's gift it is a bridge between past and present. Its purity, vitality, and renewing power are woven into each formula, blending ancestral wisdom with modern cosmetic science. With Sinceva, skincare is not just a routine but a heritage of self-care, echoing the eternal journey of beauty through time.",guidedByMissionTitle:"Guided by Our Mission",guidedByMissionText:`Our motto, "The Origin of Beauty," carries a double truth. It honors humanity's first story Since Eva and it reminds every woman that beauty starts not with makeup, but with the skin beneath. With every product, we reaffirm our mission: to protect, renew, and illuminate, so that beauty always begins at the right place, Since Eva, since the very first touch.`,ourValues:"Our Values",passionForBeauty:"Passion for Beauty",passionDesc:"We believe every person deserves to feel beautiful and confident in their own skin.",naturalExcellence:"Natural Excellence",naturalDesc:"Our products combine the best of nature with advanced skincare science.",qualityFirst:"Quality First",qualityDesc:"Every product undergoes rigorous testing to ensure the highest quality standards.",sustainableFuture:"Sustainable Future",sustainableDesc:"We are committed to sustainable practices and environmental responsibility.",committedToSustainability:"Committed to Sustainability",sustainabilityText1:"At Sinceva, we recognize our responsibility to protect the environment for future generations. Our sustainability initiatives include eco-friendly packaging, ethically sourced ingredients, and partnerships with suppliers who share our commitment to environmental stewardship.",sustainabilityText2:"We continuously strive to reduce our carbon footprint while maintaining the highest quality standards. Because we believe that true beauty should never come at the expense of our planet's wellbeing.",contactUs:"Contact Us",contactSubtitle:"Have questions about our products or need skincare advice? We're here to help you on your beauty journey.",sendMessage:"Send us a Message",fullName:"Full Name",emailAddress:"Email Address",subject:"Subject",message:"Message",sendMessageBtn:"Send Message",getInTouch:"Get in Touch",address:"Address",phone:"Phone",email:"Email",businessHours:"Business Hours",visitStore:"Visit Our Store",interactiveMap:"Interactive Map",mapIntegration:"Google Maps integration would go here",addressContent:`Beauty District, Cosmetics Avenue
+Skincare Plaza, 12345`,phoneContent:"+1 (555) 123-4567",emailContent:"info@sinceva.com",hoursContent:`Mon - Fri: 9:00 AM - 6:00 PM
+Sat - Sun: 10:00 AM - 4:00 PM`,enterFullName:"Enter your full name",enterEmailPlaceholder:"Enter your email",subjectPlaceholder:"What is your message about?",messagePlaceholder:"Tell us how we can help you...",messageSentSuccess:"Message Sent Successfully",messageSentDesc:"We'll get back to you within 24 hours.",blogPost1Title:"Winter Skincare Routine: Essential Steps for Cold Weather",blogPost1Excerpt:"Discover how to adapt your skincare routine during winter months to keep your skin hydrated and glowing despite the harsh weather conditions.",blogPost2Title:"The Power of Vitamin C: Transform Your Skin",blogPost2Excerpt:"Learn about the incredible benefits of Vitamin C serum and why it should be a staple in your daily skincare routine for brighter, more even-toned skin.",blogPost3Title:"Anti-Aging Secrets: Start in Your 20s",blogPost3Excerpt:"It's never too early to start taking care of your skin. Discover the essential anti-aging practices you should incorporate into your routine today.",privacyPolicyTitle:"Privacy Policy",informationWeCollect:"Information We Collect",informationCollectText:"We collect information you provide directly to us, such as when you create an account, make a purchase, subscribe to our newsletter, or contact us for support.",personalIdentifiers:"Personal identifiers (name, email address, phone number)",billingAddresses:"Billing and shipping addresses",paymentInfo:"Payment information (processed securely by third-party providers)",purchaseHistory:"Purchase history and preferences",communicationPrefs:"Communication preferences",howWeUse:"How We Use Your Information",howWeUseText:"We use the information we collect to:",processOrders:"Process and fulfill your orders",provideSupport:"Provide customer service and support",sendMarketing:"Send you marketing communications (with your consent)",improveProducts:"Improve our products and services",complyLegal:"Comply with legal obligations",detectFraud:"Detect and prevent fraud or security incidents",informationSharing:"Information Sharing",informationSharingText:"We do not sell, trade, or otherwise transfer your personal information to third parties without your consent, except in the following circumstances:",serviceProviders:"Service providers who assist us in operating our website and business",legalRequirements:"Legal requirements or to protect our rights and safety",businessTransfers:"Business transfers (mergers, acquisitions, or asset sales)",dataSecurity:"Data Security",dataSecurityText:"We implement appropriate technical and organizational measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction.",yourRights:"Your Rights",yourRightsText:"You have the right to:",accessInfo:"Access the personal information we hold about you",correctInfo:"Request correction of inaccurate information",deleteInfo:"Request deletion of your personal information",objectProcessing:"Object to or restrict processing of your information",withdrawConsent:"Withdraw consent where processing is based on consent",contactUsPolicy:"Contact Us",contactPolicyText:"If you have any questions about this Privacy Policy or our data practices, please contact us at:",lastUpdated:"Last updated:",termsTitle:"Terms and Conditions",acceptanceOfTerms:"Acceptance of Terms",acceptanceText:"By accessing and using this website, you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service.",useLicense:"Use License",useLicenseText:"Permission is granted to temporarily download one copy of the materials on our website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:",modifyMaterials:"Modify or copy the materials",commercialUse:"Use the materials for any commercial purpose or for any public display",reverseEngineer:"Attempt to reverse engineer any software contained on our website",removeCopyright:"Remove any copyright or other proprietary notations from the materials",productInformation:"Product Information",productInfoText:"We strive to provide accurate product information on our website. However, we do not warrant that product descriptions, pricing, or other content is accurate, complete, reliable, current, or error-free.",ordersPayment:"Orders and Payment",ordersPaymentText:"The following terms apply to orders and payments:",ordersSubject:"All orders are subject to acceptance and availability",reserveRight:"We reserve the right to refuse or cancel any order",paymentRequired:"Payment must be received before order processing",pricesSubject:"Prices are subject to change without notice",returnsRefunds:"Returns and Refunds",returnsText:"We offer a 14-day return policy for unopened products in their original packaging. Return shipping costs are the responsibility of the customer unless the return is due to our error.",limitationLiability:"Limitation of Liability",limitationText:"In no event shall Sinceva or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use our website or products, even if we have been notified orally or in writing of the possibility of such damage.",governingLaw:"Governing Law",governingText:"These terms and conditions are governed by and construed in accordance with the laws of Turkey, and you irrevocably submit to the exclusive jurisdiction of the courts in that state or location.",reviewRulesTitle:"Consumer Review Rules",reviewGuidelines:"Review Guidelines",reviewGuidelinesText:"We encourage honest and helpful reviews from our customers. To ensure the quality and authenticity of reviews on our platform, please follow these guidelines when submitting your review.",acceptableContent:"Acceptable Review Content",reviewsShouldText:"Reviews should:",basedOnExperience:"Be based on your personal experience with the product",honestFeedback:"Provide honest and constructive feedback",focusQuality:"Focus on product quality, effectiveness, and value",includeDetails:"Include specific details about your experience",respectfulLanguage:"Be respectful and appropriate in language",relevantProduct:"Be relevant to the product being reviewed",prohibitedContent:"Prohibited Content",reviewsMustNot:"Reviews must not contain:",offensiveLanguage:"Offensive, discriminatory, or inappropriate language",personalInfo:"Personal information about individuals",spamContent:"Spam, promotional content, or advertisements",falseInfo:"False or misleading information",violateIP:"Content that violates intellectual property rights",notPurchased:"Reviews for products you haven't purchased or used",defamatoryStatements:"Defamatory statements about competitors",reviewVerification:"Review Verification",verificationText:"To maintain authenticity, we may verify that reviewers have actually purchased the products they are reviewing. Verified purchase reviews will be clearly marked on our website.",moderationProcess:"Moderation Process",moderationText:"All reviews are subject to moderation before publication. We reserve the right to:",reviewApprove:"Review and approve submitted content",editRemove:"Edit or remove inappropriate content",rejectReviews:"Reject reviews that violate our guidelines",removeReported:"Remove reviews that are reported by users",incentivizedReviews:"Incentivized Reviews",incentivizedText:"Reviews in exchange for compensation, free products, or other incentives must be clearly disclosed. Failure to disclose such relationships may result in review removal and account suspension.",reportingReviews:"Reporting Inappropriate Reviews",reportingText:'If you find a review that violates our guidelines, please report it using the "Report Review" function or contact our customer service team.',reviewerRights:"Your Rights",reviewerRightsText:"As a reviewer, you retain ownership of your review content. However, by submitting a review, you grant us a license to use, display, and distribute your review on our platform and marketing materials.",cookiePolicyTitle:"Cookie Policy",whatAreCookies:"What Are Cookies?",cookiesDefinition:"Cookies are small data files that are placed on your computer or mobile device when you visit a website. Cookies are widely used by website owners to make their websites work more efficiently and to provide reporting information.",typesOfCookies:"Types of Cookies We Use",necessaryCookies:"Necessary Cookies",necessaryText:"These cookies are essential for the website to function properly. They enable basic functions like page navigation and access to secure areas of the website. The website cannot function properly without these cookies.",analyticsCookies:"Analytics Cookies",analyticsText:"These cookies help us understand how visitors interact with our website by collecting and reporting information anonymously. This data helps us improve our website's performance and user experience.",marketingCookies:"Marketing Cookies",marketingText:"These cookies are used to track visitors across websites. The intention is to display ads that are relevant and engaging for the individual user and thereby more valuable for publishers and third-party advertisers.",howWeUseCookies:"How We Use Cookies",cookieUsageText:"We use cookies for the following purposes:",ensureFunction:"To ensure our website functions properly",rememberPreferences:"To remember your preferences and settings",analyzeTraffic:"To analyze website traffic and usage patterns",personalizedContent:"To provide personalized content and advertisements",improveSecurity:"To improve our website's security and performance",managingCookies:"Managing Your Cookie Preferences",managingText:"You can control and manage cookies in various ways. Most web browsers automatically accept cookies, but you can modify your browser settings to decline cookies if you prefer. Please note that disabling cookies may affect the functionality of our website.",cookieBanner:"You can also manage your cookie preferences through our cookie consent banner that appears when you first visit our website.",thirdPartyCookies:"Third-Party Cookies",thirdPartyText:"Some cookies on our website are placed by third-party services. We have no control over these cookies and they are governed by the privacy policies of the respective third parties.",productNames:{1:"Sinceva Brightening Vitamin C Serum 30 ml",2:"Sinceva Anti-Spot Arbutin Serum 30 ml",3:"Sinceva Anti-Wrinkle Eye Cream 20 ml",4:"Sinceva Anti-Aging Night Cream 50 ml",5:"Sinceva Skin Renewing Tonic 200 ml",6:"Sinceva Purifying Peeling Cream Scrub 200 ml",7:"Sinceva Purifying Face Cleansing Foam 200 ml",8:"Sinceva SPF 50+ Daily SunCare Cream 100 ml",9:"Sinceva Hyaluronic Acid Moisturizing Cream 50 ml"},blog:{title:"Trends & Tips",searchPlaceholder:"Search articles...",categories:{all:"All Posts",trends:"Skincare Tips",skincare:"Anti-Aging",ingredients:"Seasonal Care",routine:"Ingredient Focus"},readMore:"Read More"},homepage:{categoriesTitle:"Explore Our Categories",categoriesSubtitle:"Discover Sinceva's carefully curated collections, sensitively prepared for your skin's needs.",exploreCollection:"Explore Collection",allProductsTitle:"All Our Products",allProductsSubtitle:"Discover Sinceva collections inspired by the origin of beauty, carefully crafted for every skin type.",loadMore:"Load More Products"},productCard:{buyNow:"Buy Now",available:"available"},categories:{antiAging:{title:"Anti-Aging Care",description:"Advanced formulas to reduce fine lines, boost collagen, and restore youthful radiance to your skin."},cleansing:{title:"Face & Skin Cleansing",description:"Gentle yet effective cleansers that purify your skin while maintaining its natural moisture balance."},dailyCare:{title:"Daily Care",description:"Essential daily skincare products for healthy, protected, and nourished skin every day."}}},tr:{productDetails:"Ürün Detayları",ingredients:"İçindekiler",howToUse:"Nasıl Kullanılır",faq:"Sıkça Sorulan Sorular",buy:"Satın Al",discoverProducts:"Sinceva Ürünlerini Keşfedin",productNotFound:"Ürün Bulunamadı",productNotFoundDesc:"İstenen ürün bulunamadı.",home:"KADİM IŞILTI",shop:"Mağaza",about:"Hakkımızda",blogNav:"Blog",contact:"İletişim",contactNav:"GÜZELLİĞE DOKUNUN",searchPlaceholder:"Ürün ara...",quickLinks:"Hızlı Bağlantılar",policies:"Politikalar",stayConnected:"Bağlantıda Kalın",newsletterDesc:"Güzellik ipuçları ve özel teklifler için abone olun.",enterEmail:"E-posta adresinizi girin",subscribe:"Abone Ol",allRightsReserved:"Tüm hakları saklıdır.",craftedFor:"Zamansız güzellik ve zarafet için hazırlandı.",theOriginOfBeauty:"The Origin Of Beauty",trendsAndTips:"Trendler ve İpuçları",privacyPolicy:"Gizlilik Politikası",cookiePolicy:"Çerez Politikası",termsAndConditions:"Kullanım Koşulları",consumerReviewRules:"Tüketici Değerlendirme Kuralları",aboutSinceva:"Sinceva Hakkında",aboutSubtitle:"Since Eva – zamansız güzellik ve zarafete yolculuğumuza ilham veren isim.",ourStory:"Hikayemiz",firstTouchTitle:"Güzelliğin İlk Dokunuşu",firstTouchText:"Sinceva, eski bir sembolden doğdu: elma. Havva'nın elini uzattığı andan itibaren elma, başlangıçları, merakı, dönüşümü ve güzelliğin özünü temsil etti. Bizim için bu sadece bir hikayenin meyvesi değil; felsefemizin köküdür. Güzellik o zamansız anda başladığı gibi, biz de gerçek güzelliğin cilt bakımının ilk dokunuşuyla başladığına inanıyoruz.",timelessHeritageTitle:"Zamansız Bir Miras",timelessHeritageText:"Elmayı doğanın armağanından daha fazlası olarak görüyoruz; geçmiş ve gelecek arasında bir köprüdür. Saflığı, canlılığı ve yenileyici gücü, atalarımızın bilgeliğini modern kozmetik bilimiyle harmanlayarak her formülümüze dokunmuştur. Sinceva ile cilt bakımı sadece bir rutin değil, zamandan zamana güzellik yolculuğunu yankılayan bir öz bakım mirasıdır.",guidedByMissionTitle:"Misyonumuzun Rehberliğinde",guidedByMissionText:`Motomuz "The Origin of Beauty", ikili bir gerçeği taşır. İnsanlığın ilk hikayesine, Since Eva'ya saygı duyar ve her kadına güzelliğin makyajla değil, altındaki ciltle başladığını hatırlatır. Her ürünümüzle misyonumuzu yeniden teyit ediyoruz: korumak, yenilemek ve aydınlatmak, böylece güzellik her zaman doğru yerden başlasın, Since Eva'dan, tam o ilk dokunuştan.`,ourValues:"Değerlerimiz",passionForBeauty:"Güzellik Tutkusu",passionDesc:"Her insanın kendi teninde güzel ve özgüvenli hissetmeyi hak ettiğine inanıyoruz.",naturalExcellence:"Doğal Mükemmellik",naturalDesc:"Ürünlerimiz doğanın en iyisini gelişmiş cilt bakım bilimiyle bir araya getirir.",qualityFirst:"Önce Kalite",qualityDesc:"Her ürün en yüksek kalite standartlarını sağlamak için titiz testlerden geçer.",sustainableFuture:"Sürdürülebilir Gelecek",sustainableDesc:"Sürdürülebilir uygulamalara ve çevresel sorumluluğa bağlıyız.",committedToSustainability:"Sürdürülebilirliğe Bağlılık",sustainabilityText1:"Sinceva'da, gelecek nesiller için çevreyi koruma sorumluluğumuzu kabul ediyoruz. Sürdürülebilirlik girişimlerimiz çevre dostu ambalaj, etik kaynaklı içerikler ve çevresel yönetim taahhüdümüzü paylaşan tedarikçilerle ortaklıkları içerir.",sustainabilityText2:"En yüksek kalite standartlarını korurken karbon ayak izimizi sürekli azaltmaya çalışıyoruz. Çünkü gerçek güzelliğin asla gezegenimizin refahı pahasına gelmemesi gerektiğine inanıyoruz.",contactUs:"İletişim",contactSubtitle:"Ürünlerimiz hakkında sorularınız mı var veya cilt bakımı tavsiyesine mi ihtiyacınız var? Güzellik yolculuğunuzda size yardımcı olmak için buradayız.",sendMessage:"Bize Mesaj Gönderin",fullName:"Ad Soyad",emailAddress:"E-posta Adresi",subject:"Konu",message:"Mesaj",sendMessageBtn:"Mesaj Gönder",getInTouch:"Bize Ulaşın",address:"Adres",phone:"Telefon",email:"E-posta",businessHours:"Çalışma Saatleri",visitStore:"Mağazamızı Ziyaret Edin",interactiveMap:"İnteraktif Harita",mapIntegration:"Google Haritalar entegrasyonu buraya gelecek",addressContent:`Güzellik Bölgesi, Kozmetik Caddesi
+Cilt Bakım Plaza, 12345`,phoneContent:"+1 (555) 123-4567",emailContent:"info@sinceva.com",hoursContent:`Pzt - Cum: 09:00 - 18:00
+Cmt - Paz: 10:00 - 16:00`,enterFullName:"Adınızı ve soyadınızı girin",enterEmailPlaceholder:"E-posta adresinizi girin",subjectPlaceholder:"Mesajınız ne hakkında?",messagePlaceholder:"Size nasıl yardımcı olabileceğimizi söyleyin...",messageSentSuccess:"Mesaj Başarıyla Gönderildi",messageSentDesc:"24 saat içinde size geri döneceğiz.",blogPost1Title:"Kış Cilt Bakım Rutini: Soğuk Hava İçin Temel Adımlar",blogPost1Excerpt:"Sert hava koşullarına rağmen cildinizi nemli ve parlak tutmak için kış aylarında cilt bakım rutininizi nasıl uyarlayacağınızı keşfedin.",blogPost2Title:"C Vitamininin Gücü: Cildinizi Dönüştürün",blogPost2Excerpt:"C Vitamini serumunun inanılmaz faydalarını ve daha parlak, daha eşit tonlu bir cilt için günlük cilt bakım rutininizde neden vazgeçilmez olması gerektiğini öğrenin.",blogPost3Title:"Yaşlanma Karşıtı Sırlar: 20'li Yaşlarınızda Başlayın",blogPost3Excerpt:"Cildinizle ilgilenmeye başlamak için asla çok erken değil. Bugün rutininize dahil etmeniz gereken temel yaşlanma karşıtı uygulamaları keşfedin.",privacyPolicyTitle:"Gizlilik Politikası",informationWeCollect:"Topladığımız Bilgiler",informationCollectText:"Bir hesap oluşturduğunuzda, satın alma yaptığınızda, bültenimize abone olduğunuzda veya destek için bizimle iletişime geçtiğinizde doğrudan bize sağladığınız bilgileri topluyoruz.",personalIdentifiers:"Kişisel tanımlayıcılar (ad, e-posta adresi, telefon numarası)",billingAddresses:"Fatura ve teslimat adresleri",paymentInfo:"Ödeme bilgileri (üçüncü taraf sağlayıcılar tarafından güvenli bir şekilde işlenir)",purchaseHistory:"Satın alma geçmişi ve tercihleri",communicationPrefs:"İletişim tercihleri",howWeUse:"Bilgilerinizi Nasıl Kullanıyoruz",howWeUseText:"Topladığımız bilgileri şunlar için kullanıyoruz:",processOrders:"Siparişlerinizi işlemek ve yerine getirmek",provideSupport:"Müşteri hizmeti ve destek sağlamak",sendMarketing:"Size pazarlama iletişimleri göndermek (izninizle)",improveProducts:"Ürün ve hizmetlerimizi geliştirmek",complyLegal:"Yasal yükümlülüklere uymak",detectFraud:"Dolandırıcılık veya güvenlik olaylarını tespit etmek ve önlemek",informationSharing:"Bilgi Paylaşımı",informationSharingText:"Aşağıdaki durumlar dışında, kişisel bilgilerinizi izniniz olmadan üçüncü taraflara satmıyor, takas etmiyor veya başka şekilde aktarmıyoruz:",serviceProviders:"Web sitemizi ve işimizi işletmemize yardımcı olan hizmet sağlayıcılar",legalRequirements:"Yasal gereklilikler veya haklarımızı ve güvenliğimizi korumak için",businessTransfers:"İş transferleri (birleşmeler, satın almalar veya varlık satışları)",dataSecurity:"Veri Güvenliği",dataSecurityText:"Kişisel bilgilerinizi yetkisiz erişime, değiştirmeye, ifşa etmeye veya yok etmeye karşı korumak için uygun teknik ve organizasyonel önlemler uyguluyoruz.",yourRights:"Haklarınız",yourRightsText:"Şunları yapma hakkınız vardır:",accessInfo:"Hakkınızda tuttuğumuz kişisel bilgilere erişim",correctInfo:"Yanlış bilgilerin düzeltilmesini talep etme",deleteInfo:"Kişisel bilgilerinizin silinmesini talep etme",objectProcessing:"Bilgilerinizin işlenmesine itiraz etme veya kısıtlama",withdrawConsent:"İşlemenin rızaya dayandığı durumlarda rızayı geri çekme",contactUsPolicy:"Bize Ulaşın",contactPolicyText:"Bu Gizlilik Politikası veya veri uygulamalarımız hakkında sorularınız varsa, lütfen bizimle iletişime geçin:",lastUpdated:"Son güncelleme:",termsTitle:"Kullanım Koşulları",acceptanceOfTerms:"Koşulların Kabulü",acceptanceText:"Bu web sitesine erişerek ve kullanarak, bu anlaşmanın hüküm ve koşullarına bağlı kalmayı kabul edersiniz. Yukarıdakilere uymayı kabul etmiyorsanız, lütfen bu hizmeti kullanmayın.",useLicense:"Kullanım Lisansı",useLicenseText:"Web sitemizdeki materyallerin bir kopyasını yalnızca kişisel, ticari olmayan geçici görüntüleme için geçici olarak indirme izni verilmiştir. Bu bir lisans verilmesidir, mülkiyet devri değildir ve bu lisans altında şunları yapamazsınız:",modifyMaterials:"Materyalleri değiştirme veya kopyalama",commercialUse:"Materyalleri herhangi bir ticari amaç veya halka açık gösterim için kullanma",reverseEngineer:"Web sitemizde bulunan herhangi bir yazılımı tersine mühendislik yapmaya çalışma",removeCopyright:"Materyallerden herhangi bir telif hakkı veya diğer mülkiyet bildirimlerini kaldırma",productInformation:"Ürün Bilgileri",productInfoText:"Web sitemizde doğru ürün bilgileri sağlamaya çalışıyoruz. Ancak, ürün açıklamalarının, fiyatlandırmanın veya diğer içeriğin doğru, eksiksiz, güvenilir, güncel veya hatasız olduğunu garanti etmiyoruz.",ordersPayment:"Siparişler ve Ödeme",ordersPaymentText:"Siparişler ve ödemeler için aşağıdaki koşullar geçerlidir:",ordersSubject:"Tüm siparişler kabul ve kullanılabilirliğe tabidir",reserveRight:"Herhangi bir siparişi reddetme veya iptal etme hakkını saklı tutarız",paymentRequired:"Sipariş işlenmeden önce ödeme alınmalıdır",pricesSubject:"Fiyatlar önceden haber verilmeksizin değiştirilebilir",returnsRefunds:"İadeler ve Geri Ödemeler",returnsText:"Orijinal ambalajında açılmamış ürünler için 14 günlük iade politikası sunuyoruz. İadenin bizim hatamızdan kaynaklanmadığı sürece iade nakliye masrafları müşterinin sorumluluğundadır.",limitationLiability:"Sorumluluk Sınırlaması",limitationText:"Sinceva veya tedarikçileri, sözlü veya yazılı olarak bu tür bir hasarın olasılığından haberdar edilmiş olsalar bile, web sitemizin veya ürünlerimizin kullanımından veya kullanılamamasından kaynaklanan herhangi bir hasardan (veri veya kar kaybına bağlı hasarlar veya iş kesintisinden kaynaklanan hasarlar dahil ancak bunlarla sınırlı olmamak üzere) hiçbir durumda sorumlu tutulamaz.",governingLaw:"Geçerli Kanun",governingText:"Bu şartlar ve koşullar Türkiye yasalarına göre yönetilir ve yorumlanır ve bu eyaletteki veya konumdaki mahkemelerin münhasır yargı yetkisine geri dönülemez bir şekilde tabi olursunuz.",reviewRulesTitle:"Tüketici Değerlendirme Kuralları",reviewGuidelines:"Değerlendirme Yönergeleri",reviewGuidelinesText:"Müşterilerimizden dürüst ve yararlı değerlendirmeler almayı teşvik ediyoruz. Platformumuzda değerlendirmelerin kalitesini ve özgünlüğünü sağlamak için, değerlendirmenizi gönderirken lütfen bu yönergeleri izleyin.",acceptableContent:"Kabul Edilebilir Değerlendirme İçeriği",reviewsShouldText:"Değerlendirmeler şunları içermelidir:",basedOnExperience:"Ürünle ilgili kişisel deneyiminize dayanmalı",honestFeedback:"Dürüst ve yapıcı geri bildirim sağlamalı",focusQuality:"Ürün kalitesi, etkinliği ve değerine odaklanmalı",includeDetails:"Deneyiminiz hakkında belirli ayrıntılar içermeli",respectfulLanguage:"Saygılı ve uygun bir dil kullanmalı",relevantProduct:"Değerlendirilen ürünle ilgili olmalı",prohibitedContent:"Yasak İçerik",reviewsMustNot:"Değerlendirmeler şunları içermemelidir:",offensiveLanguage:"Saldırgan, ayrımcı veya uygunsuz dil",personalInfo:"Bireyler hakkında kişisel bilgiler",spamContent:"Spam, tanıtım içeriği veya reklamlar",falseInfo:"Yanlış veya yanıltıcı bilgiler",violateIP:"Fikri mülkiyet haklarını ihlal eden içerik",notPurchased:"Satın almadığınız veya kullanmadığınız ürünler için değerlendirmeler",defamatoryStatements:"Rakipler hakkında karalayıcı ifadeler",reviewVerification:"Değerlendirme Doğrulaması",verificationText:"Özgünlüğü korumak için, değerlendirmecilerin gerçekten değerlendirdikleri ürünleri satın aldıklarını doğrulayabiliriz. Doğrulanmış satın alma değerlendirmeleri web sitemizde açıkça işaretlenecektir.",moderationProcess:"Moderasyon Süreci",moderationText:"Tüm değerlendirmeler yayınlanmadan önce moderasyona tabidir. Şunları yapma hakkını saklı tutarız:",reviewApprove:"Gönderilen içeriği inceleme ve onaylama",editRemove:"Uygunsuz içeriği düzenleme veya kaldırma",rejectReviews:"Yönergelerimizi ihlal eden değerlendirmeleri reddetme",removeReported:"Kullanıcılar tarafından bildirilen değerlendirmeleri kaldırma",incentivizedReviews:"Teşvikli Değerlendirmeler",incentivizedText:"Tazminat, ücretsiz ürünler veya diğer teşvikler karşılığında yapılan değerlendirmeler açıkça belirtilmelidir. Bu tür ilişkileri açıklamamak, değerlendirmenin kaldırılmasına ve hesabın askıya alınmasına neden olabilir.",reportingReviews:"Uygunsuz Değerlendirmeleri Bildirme",reportingText:'Yönergelerimizi ihlal eden bir değerlendirme bulursanız, lütfen "Değerlendirmeyi Bildir" işlevini kullanarak bildirin veya müşteri hizmetleri ekibimizle iletişime geçin.',reviewerRights:"Haklarınız",reviewerRightsText:"Bir değerlendirici olarak, değerlendirme içeriğinizin sahipliğini korursunuz. Ancak, bir değerlendirme göndererek, platformumuzda ve pazarlama materyallerimizde değerlendirmenizi kullanma, görüntüleme ve dağıtma lisansını bize vermiş olursunuz.",cookiePolicyTitle:"Çerez Politikası",whatAreCookies:"Çerezler Nedir?",cookiesDefinition:"Çerezler, bir web sitesini ziyaret ettiğinizde bilgisayarınıza veya mobil cihazınıza yerleştirilen küçük veri dosyalarıdır. Çerezler, web sitesi sahipleri tarafından web sitelerini daha verimli çalıştırmak ve raporlama bilgileri sağlamak için yaygın olarak kullanılır.",typesOfCookies:"Kullandığımız Çerez Türleri",necessaryCookies:"Gerekli Çerezler",necessaryText:"Bu çerezler, web sitesinin düzgün çalışması için gereklidir. Sayfa gezintisi ve web sitesinin güvenli alanlarına erişim gibi temel işlevleri etkinleştirirler. Web sitesi bu çerezler olmadan düzgün çalışamaz.",analyticsCookies:"Analitik Çerezler",analyticsText:"Bu çerezler, ziyaretçilerin web sitemizle nasıl etkileşime girdiğini anonim olarak bilgi toplayıp rapor ederek anlamamıza yardımcı olur. Bu veriler, web sitemizin performansını ve kullanıcı deneyimini geliştirmemize yardımcı olur.",marketingCookies:"Pazarlama Çerezleri",marketingText:"Bu çerezler, ziyaretçileri web siteleri arasında izlemek için kullanılır. Amaç, bireysel kullanıcı için alakalı ve ilgi çekici ve dolayısıyla yayıncılar ve üçüncü taraf reklamverenler için daha değerli reklamlar görüntülemektir.",howWeUseCookies:"Çerezleri Nasıl Kullanıyoruz",cookieUsageText:"Çerezleri aşağıdaki amaçlar için kullanıyoruz:",ensureFunction:"Web sitemizin düzgün çalışmasını sağlamak için",rememberPreferences:"Tercihlerinizi ve ayarlarınızı hatırlamak için",analyzeTraffic:"Web sitesi trafiğini ve kullanım modellerini analiz etmek için",personalizedContent:"Kişiselleştirilmiş içerik ve reklamlar sağlamak için",improveSecurity:"Web sitemizin güvenliğini ve performansını artırmak için",managingCookies:"Çerez Tercihlerinizi Yönetme",managingText:"Çerezleri çeşitli şekillerde kontrol edebilir ve yönetebilirsiniz. Çoğu web tarayıcısı otomatik olarak çerezleri kabul eder, ancak tercih ederseniz çerezleri reddetmek için tarayıcı ayarlarınızı değiştirebilirsiniz. Lütfen çerezleri devre dışı bırakmanın web sitemizin işlevselliğini etkileyebileceğini unutmayın.",cookieBanner:"Web sitemizi ilk ziyaret ettiğinizde görünen çerez onayı banner'ımız aracılığıyla da çerez tercihlerinizi yönetebilirsiniz.",thirdPartyCookies:"Üçüncü Taraf Çerezleri",thirdPartyText:"Web sitemizdeki bazı çerezler üçüncü taraf hizmetler tarafından yerleştirilir. Bu çerezler üzerinde kontrolümüz yoktur ve ilgili üçüncü tarafların gizlilik politikalarına tabidir.",productNames:{1:"Sinceva Aydınlatıcı Vitamin C Serum 30 ml",2:"Sinceva Leke Karşıtı Arbutin Serum 30 ml",3:"Sinceva Kırışıklık Karşıtı Göz Kremi 20 ml",4:"Sinceva Yaşlanma Karşıtı Gece Kremi 50 ml",5:"Sinceva Cilt Yenileyici Tonik 200 ml",6:"Sinceva Arındırıcı Peeling Krem Scrub 200 ml",7:"Sinceva Arındırıcı Yüz Temizleme Köpüğü 200 ml",8:"Sinceva SPF 50+ Günlük Güneş Koruyucu Krem 100 ml",9:"Sinceva Hyaluronik Asit Nemlendirici Krem 50 ml"},blog:{title:"Trendler ve İpuçları",searchPlaceholder:"Makale ara...",categories:{all:"Tüm Gönderiler",trends:"Cilt Bakımı İpuçları",skincare:"Yaşlanma Karşıtı",ingredients:"Mevsimsel Bakım",routine:"İçerik Odaklı"},readMore:"Devamını Oku"},homepage:{categoriesTitle:"Kategorilerimizi Keşfedin",categoriesSubtitle:"Cildinizin ihtiyaçlarına duyarlılıkla hazırlanmış, özenle seçilmiş Sinceva koleksiyonlarını keşfedin.",exploreCollection:"Koleksiyonu Keşfet",allProductsTitle:"Tüm Ürünlerimiz",allProductsSubtitle:"Güzelliğin başlangıcından ilham alan, her cilt tipi için özenle hazırlanmış Sinceva koleksiyonlarını keşfedin.",loadMore:"Daha Fazla Ürün Yükle"},productCard:{buyNow:"Satın Al",available:"mevcut"},categories:{antiAging:{title:"Yaşlanma Karşıtı Bakım",description:"İnce çizgileri azaltmak, kolajen artırmak ve cildinize gençlik parlaklığını geri kazandırmak için gelişmiş formüller."},cleansing:{title:"Yüz ve Cilt Temizleme",description:"Cildinizi doğal nem dengesini koruyarak arındıran nazik ama etkili temizleyiciler."},dailyCare:{title:"Günlük Bakım",description:"Her gün sağlıklı, korunaklı ve beslenmiş cilt için vazgeçilmez günlük cilt bakım ürünleri."}}},ar:{productDetails:"تفاصيل المنتج",ingredients:"المكونات",howToUse:"طريقة الاستخدام",faq:"الأسئلة الشائعة",buy:"شراء",discoverProducts:"اكتشف منتجات سينسإيفا",productNotFound:"المنتج غير موجود",productNotFoundDesc:"المنتج المطلوب غير موجود.",home:"اللمعان القديم",shop:"المتجر",about:"من نحن",blogNav:"المدونة",contact:"اتصل بنا",contactNav:"لمسة الجمال",searchPlaceholder:"البحث عن المنتجات...",quickLinks:"روابط سريعة",policies:"السياسات",stayConnected:"ابق على اتصال",newsletterDesc:"اشترك للحصول على نصائح الجمال والعروض الحصرية.",enterEmail:"أدخل بريدك الإلكتروني",subscribe:"اشترك",allRightsReserved:"جميع الحقوق محفوظة.",craftedFor:"صُنعت من أجل الجمال والأناقة الخالدة.",theOriginOfBeauty:"The Origin Of Beauty",trendsAndTips:"الاتجاهات والنصائح",privacyPolicy:"سياسة الخصوصية",cookiePolicy:"سياسة ملفات تعريف الارتباط",termsAndConditions:"الشروط والأحكام",consumerReviewRules:"قواعد تقييم المستهلك",aboutSinceva:"عن سينسإيفا",aboutSubtitle:"منذ حواء - الاسم الذي ألهم رحلتنا نحو الجمال والأناقة الخالدة.",ourStory:"قصتنا",firstTouchTitle:"اللمسة الأولى للجمال",firstTouchText:"ولدت سينسإيفا من رمز قديم: التفاحة. منذ اللحظة التي مدت فيها حواء يدها، رمزت التفاحة إلى البدايات والفضول والتحول وجوهر الجمال نفسه. بالنسبة لنا، ليست مجرد ثمرة قصة؛ إنها جذر فلسفتنا. كما بدأ الجمال في تلك اللحظة الخالدة، نؤمن أن الجمال الحقيقي يبدأ باللمسة الأولى للعناية بالبشرة.",timelessHeritageTitle:"تراث خالد",timelessHeritageText:"نرى التفاحة أكثر من مجرد هدية الطبيعة؛ إنها جسر بين الماضي والحاضر. نقاؤها وحيويتها وقوتها المتجددة منسوجة في كل تركيبة، تمزج الحكمة الموروثة مع علم التجميل الحديث. مع سينسإيفا، العناية بالبشرة ليست مجرد روتين ولكن تراث من الرعاية الذاتية، يعكس الرحلة الأبدية للجمال عبر الزمن.",guidedByMissionTitle:"موجهون بمهمتنا",guidedByMissionText:'شعارنا "The Origin of Beauty" يحمل حقيقة مزدوجة. إنه يكرم قصة البشرية الأولى منذ حواء ويذكر كل امرأة أن الجمال لا يبدأ بالمكياج، بل بالبشرة تحته. مع كل منتج، نؤكد من جديد مهمتنا: الحماية والتجديد والإضاءة، حتى يبدأ الجمال دائمًا في المكان الصحيح، منذ حواء، منذ تلك اللمسة الأولى.',ourValues:"قيمنا",passionForBeauty:"شغف بالجمال",passionDesc:"نؤمن بأن كل شخص يستحق أن يشعر بالجمال والثقة في بشرته.",naturalExcellence:"التميز الطبيعي",naturalDesc:"تجمع منتجاتنا أفضل ما في الطبيعة مع علم العناية بالبشرة المتقدم.",qualityFirst:"الجودة أولاً",qualityDesc:"يخضع كل منتج لاختبارات صارمة لضمان أعلى معايير الجودة.",sustainableFuture:"مستقبل مستدام",sustainableDesc:"نحن ملتزمون بالممارسات المستدامة والمسؤولية البيئية.",committedToSustainability:"ملتزمون بالاستدامة",sustainabilityText1:"في سينسإيفا، ندرك مسؤوليتنا لحماية البيئة للأجيال القادمة. تشمل مبادرات الاستدامة لدينا التعبئة الصديقة للبيئة، والمكونات من مصادر أخلاقية، والشراكات مع الموردين الذين يشاركوننا التزامنا بالإشراف البيئي.",sustainabilityText2:"نسعى باستمرار لتقليل بصمتنا الكربونية مع الحفاظ على أعلى معايير الجودة. لأننا نؤمن بأن الجمال الحقيقي لا ينبغي أبدًا أن يأتي على حساب رفاهية كوكبنا.",contactUs:"اتصل بنا",contactSubtitle:"هل لديك أسئلة حول منتجاتنا أو تحتاج إلى نصيحة للعناية بالبشرة؟ نحن هنا لمساعدتك في رحلة جمالك.",sendMessage:"أرسل لنا رسالة",fullName:"الاسم الكامل",emailAddress:"عنوان البريد الإلكتروني",subject:"الموضوع",message:"الرسالة",sendMessageBtn:"إرسال الرسالة",getInTouch:"تواصل معنا",address:"العنوان",phone:"الهاتف",email:"البريد الإلكتروني",businessHours:"ساعات العمل",visitStore:"قم بزيارة متجرنا",interactiveMap:"خريطة تفاعلية",mapIntegration:"سيتم وضع تكامل خرائط Google هنا",addressContent:`منطقة الجمال، جادة مستحضرات التجميل
+ساحة العناية بالبشرة، 12345`,phoneContent:"+1 (555) 123-4567",emailContent:"info@sinceva.com",hoursContent:`الإثنين - الجمعة: 9:00 صباحًا - 6:00 مساءً
+السبت - الأحد: 10:00 صباحًا - 4:00 مساءً`,enterFullName:"أدخل اسمك الكامل",enterEmailPlaceholder:"أدخل بريدك الإلكتروني",subjectPlaceholder:"ما هو موضوع رسالتك؟",messagePlaceholder:"أخبرنا كيف يمكننا مساعدتك...",messageSentSuccess:"تم إرسال الرسالة بنجاح",messageSentDesc:"سنعود إليك خلال 24 ساعة.",blogPost1Title:"روتين العناية بالبشرة في الشتاء: الخطوات الأساسية للطقس البارد",blogPost1Excerpt:"اكتشف كيفية تكييف روتين العناية بالبشرة خلال أشهر الشتاء للحفاظ على بشرتك رطبة ومتوهجة على الرغم من الظروف الجوية القاسية.",blogPost2Title:"قوة فيتامين سي: حوّل بشرتك",blogPost2Excerpt:"تعرف على الفوائد المذهلة لسيروم فيتامين سي ولماذا يجب أن يكون عنصرًا أساسيًا في روتين العناية اليومية ببشرتك للحصول على بشرة أكثر إشراقًا وتوحيدًا.",blogPost3Title:"أسرار مكافحة الشيخوخة: ابدأ في العشرينات من عمرك",blogPost3Excerpt:"لم يفت الأوان أبدًا للبدء في الاعتناء ببشرتك. اكتشف الممارسات الأساسية لمكافحة الشيخوخة التي يجب أن تدمجها في روتينك اليوم.",privacyPolicyTitle:"سياسة الخصوصية",informationWeCollect:"المعلومات التي نجمعها",informationCollectText:"نجمع المعلومات التي تقدمها لنا مباشرة، مثل عند إنشاء حساب، أو إجراء عملية شراء، أو الاشتراك في نشرتنا الإخبارية، أو الاتصال بنا للحصول على الدعم.",personalIdentifiers:"المعرفات الشخصية (الاسم، عنوان البريد الإلكتروني، رقم الهاتف)",billingAddresses:"عناوين الفوترة والشحن",paymentInfo:"معلومات الدفع (تتم معالجتها بشكل آمن من قبل مزودي طرف ثالث)",purchaseHistory:"سجل الشراء والتفضيلات",communicationPrefs:"تفضيلات الاتصال",howWeUse:"كيف نستخدم معلوماتك",howWeUseText:"نستخدم المعلومات التي نجمعها من أجل:",processOrders:"معالجة وتنفيذ طلباتك",provideSupport:"تقديم خدمة العملاء والدعم",sendMarketing:"إرسال اتصالات تسويقية إليك (بموافقتك)",improveProducts:"تحسين منتجاتنا وخدماتنا",complyLegal:"الامتثال للالتزامات القانونية",detectFraud:"كشف ومنع الاحتيال أو الحوادث الأمنية",informationSharing:"مشاركة المعلومات",informationSharingText:"نحن لا نبيع أو نتاجر أو ننقل معلوماتك الشخصية إلى أطراف ثالثة دون موافقتك، إلا في الظروف التالية:",serviceProviders:"مقدمو الخدمات الذين يساعدوننا في تشغيل موقعنا وأعمالنا",legalRequirements:"المتطلبات القانونية أو لحماية حقوقنا وسلامتنا",businessTransfers:"تحويلات الأعمال (عمليات الدمج أو الاستحواذ أو مبيعات الأصول)",dataSecurity:"أمن البيانات",dataSecurityText:"نطبق تدابير فنية وتنظيمية مناسبة لحماية معلوماتك الشخصية من الوصول أو التعديل أو الكشف أو التدمير غير المصرح به.",yourRights:"حقوقك",yourRightsText:"لديك الحق في:",accessInfo:"الوصول إلى المعلومات الشخصية التي نحتفظ بها عنك",correctInfo:"طلب تصحيح المعلومات غير الدقيقة",deleteInfo:"طلب حذف معلوماتك الشخصية",objectProcessing:"الاعتراض على معالجة معلوماتك أو تقييدها",withdrawConsent:"سحب الموافقة حيث تستند المعالجة على الموافقة",contactUsPolicy:"اتصل بنا",contactPolicyText:"إذا كانت لديك أي أسئلة حول سياسة الخصوصية هذه أو ممارسات البيانات لدينا، يرجى الاتصال بنا على:",lastUpdated:"آخر تحديث:",termsTitle:"الشروط والأحكام",acceptanceOfTerms:"قبول الشروط",acceptanceText:"من خلال الوصول إلى هذا الموقع واستخدامه، فإنك تقبل وتوافق على الالتزام بشروط وأحكام هذه الاتفاقية. إذا كنت لا توافق على الالتزام بما سبق، يرجى عدم استخدام هذه الخدمة.",useLicense:"ترخيص الاستخدام",useLicenseText:"يُمنح الإذن بتنزيل نسخة واحدة مؤقتة من المواد على موقعنا للمشاهدة الشخصية غير التجارية المؤقتة فقط. هذا منح ترخيص، وليس نقل ملكية، وبموجب هذا الترخيص لا يجوز لك:",modifyMaterials:"تعديل أو نسخ المواد",commercialUse:"استخدام المواد لأي غرض تجاري أو لأي عرض عام",reverseEngineer:"محاولة الهندسة العكسية لأي برنامج موجود على موقعنا",removeCopyright:"إزالة أي حقوق نشر أو ملاحظات ملكية أخرى من المواد",productInformation:"معلومات المنتج",productInfoText:"نسعى جاهدين لتقديم معلومات دقيقة عن المنتج على موقعنا. ومع ذلك، فإننا لا نضمن أن أوصاف المنتج أو التسعير أو المحتوى الآخر دقيق أو كامل أو موثوق أو حالي أو خالٍ من الأخطاء.",ordersPayment:"الطلبات والدفع",ordersPaymentText:"تنطبق الشروط التالية على الطلبات والمدفوعات:",ordersSubject:"جميع الطلبات تخضع للقبول والتوافر",reserveRight:"نحتفظ بالحق في رفض أو إلغاء أي طلب",paymentRequired:"يجب استلام الدفع قبل معالجة الطلب",pricesSubject:"الأسعار قابلة للتغيير دون إشعار مسبق",returnsRefunds:"الإرجاع والاسترداد",returnsText:"نحن نقدم سياسة إرجاع لمدة 14 يومًا للمنتجات غير المفتوحة في عبواتها الأصلية. تكاليف شحن الإرجاع هي مسؤولية العميل ما لم يكن الإرجاع بسبب خطأنا.",limitationLiability:"تحديد المسؤولية",limitationText:"في أي حال من الأحوال لن تكون شركة سينسإيفا أو مورديها مسؤولين عن أي أضرار (بما في ذلك، على سبيل المثال لا الحصر، الأضرار الناجمة عن فقدان البيانات أو الربح، أو بسبب انقطاع الأعمال) الناشئة عن استخدام أو عدم القدرة على استخدام موقعنا أو منتجاتنا، حتى لو تم إخطارنا شفهيًا أو كتابيًا بإمكانية حدوث مثل هذا الضرر.",governingLaw:"القانون الحاكم",governingText:"تخضع هذه الشروط والأحكام وتُفسر وفقًا لقوانين تركيا، وأنت توافق بشكل لا رجعة فيه على الاختصاص القضائي الحصري للمحاكم في تلك الولاية أو الموقع.",reviewRulesTitle:"قواعد تقييم المستهلك",reviewGuidelines:"إرشادات التقييم",reviewGuidelinesText:"نشجع التقييمات الصادقة والمفيدة من عملائنا. لضمان جودة وأصالة التقييمات على منصتنا، يرجى اتباع هذه الإرشادات عند إرسال تقييمك.",acceptableContent:"محتوى التقييم المقبول",reviewsShouldText:"يجب أن تكون التقييمات:",basedOnExperience:"مبنية على تجربتك الشخصية مع المنتج",honestFeedback:"توفير ملاحظات صادقة وبناءة",focusQuality:"التركيز على جودة المنتج وفعاليته وقيمته",includeDetails:"تتضمن تفاصيل محددة حول تجربتك",respectfulLanguage:"محترمة ومناسبة في اللغة",relevantProduct:"ذات صلة بالمنتج الذي يتم تقييمه",prohibitedContent:"المحتوى المحظور",reviewsMustNot:"يجب ألا تحتوي التقييمات على:",offensiveLanguage:"لغة مسيئة أو تمييزية أو غير لائقة",personalInfo:"معلومات شخصية عن الأفراد",spamContent:"بريد عشوائي أو محتوى ترويجي أو إعلانات",falseInfo:"معلومات كاذبة أو مضللة",violateIP:"محتوى ينتهك حقوق الملكية الفكرية",notPurchased:"تقييمات للمنتجات التي لم تشتريها أو تستخدمها",defamatoryStatements:"بيانات تشهيرية عن المنافسين",reviewVerification:"التحقق من التقييم",verificationText:"للحفاظ على الأصالة، قد نتحقق من أن المراجعين قد اشتروا بالفعل المنتجات التي يراجعونها. ستتم وضع علامة واضحة على مراجعات الشراء الموثقة على موقعنا.",moderationProcess:"عملية الإشراف",moderationText:"جميع التقييمات تخضع للإشراف قبل النشر. نحتفظ بالحق في:",reviewApprove:"مراجعة والموافقة على المحتوى المقدم",editRemove:"تحرير أو إزالة المحتوى غير المناسب",rejectReviews:"رفض التقييمات التي تنتهك إرشاداتنا",removeReported:"إزالة التقييمات التي أبلغ عنها المستخدمون",incentivizedReviews:"التقييمات الممنوحة",incentivizedText:"يجب الإفصاح بوضوح عن التقييمات مقابل التعويض أو المنتجات المجانية أو الحوافز الأخرى. قد يؤدي الفشل في الكشف عن مثل هذه العلاقات إلى إزالة التقييم وتعليق الحساب.",reportingReviews:"الإبلاغ عن التقييمات غير المناسبة",reportingText:'إذا وجدت تقييمًا ينتهك إرشاداتنا، يرجى الإبلاغ عنه باستخدام وظيفة "الإبلاغ عن التقييم" أو الاتصال بفريق خدمة العملاء لدينا.',reviewerRights:"حقوقك",reviewerRightsText:"كمراجع، تحتفظ بملكية محتوى تقييمك. ومع ذلك، من خلال إرسال تقييم، فإنك تمنحنا ترخيصًا لاستخدام تقييمك وعرضه وتوزيعه على منصتنا ومواد التسويق الخاصة بنا.",cookiePolicyTitle:"سياسة ملفات تعريف الارتباط",whatAreCookies:"ما هي ملفات تعريف الارتباط؟",cookiesDefinition:"ملفات تعريف الارتباط هي ملفات بيانات صغيرة يتم وضعها على جهاز الكمبيوتر أو الجهاز المحمول الخاص بك عند زيارة موقع ويب. تستخدم ملفات تعريف الارتباط على نطاق واسع من قبل مالكي مواقع الويب لجعل مواقعهم الإلكترونية تعمل بشكل أكثر كفاءة ولتقديم معلومات التقارير.",typesOfCookies:"أنواع ملفات تعريف الارتباط التي نستخدمها",necessaryCookies:"ملفات تعريف الارتباط الضرورية",necessaryText:"هذه الملفات ضرورية لكي يعمل الموقع بشكل صحيح. إنها تمكّن الوظائف الأساسية مثل التنقل في الصفحة والوصول إلى المناطق الآمنة في الموقع. لا يمكن أن يعمل الموقع بشكل صحيح بدون هذه الملفات.",analyticsCookies:"ملفات تعريف الارتباط التحليلية",analyticsText:"تساعدنا هذه الملفات على فهم كيفية تفاعل الزوار مع موقعنا من خلال جمع المعلومات والإبلاغ عنها بشكل مجهول. تساعدنا هذه البيانات على تحسين أداء موقعنا وتجربة المستخدم.",marketingCookies:"ملفات تعريف الارتباط التسويقية",marketingText:"تُستخدم هذه الملفات لتتبع الزوار عبر مواقع الويب. الهدف هو عرض إعلانات ذات صلة وجذابة للمستخدم الفردي وبالتالي أكثر قيمة للناشرين والمعلنين من طرف ثالث.",howWeUseCookies:"كيف نستخدم ملفات تعريف الارتباط",cookieUsageText:"نستخدم ملفات تعريف الارتباط للأغراض التالية:",ensureFunction:"لضمان عمل موقعنا بشكل صحيح",rememberPreferences:"لتذكر تفضيلاتك وإعداداتك",analyzeTraffic:"لتحليل حركة المرور على الموقع وأنماط الاستخدام",personalizedContent:"لتقديم محتوى وإعلانات مخصصة",improveSecurity:"لتحسين أمان وأداء موقعنا",managingCookies:"إدارة تفضيلات ملفات تعريف الارتباط",managingText:"يمكنك التحكم في ملفات تعريف الارتباط وإدارتها بطرق مختلفة. تقبل معظم متصفحات الويب ملفات تعريف الارتباط تلقائيًا، ولكن يمكنك تعديل إعدادات المتصفح لرفض ملفات تعريف الارتباط إذا كنت تفضل ذلك. يرجى ملاحظة أن تعطيل ملفات تعريف الارتباط قد يؤثر على وظائف موقعنا.",cookieBanner:"يمكنك أيضًا إدارة تفضيلات ملفات تعريف الارتباط من خلال لافتة موافقة ملفات تعريف الارتباط التي تظهر عند زيارتك الأولى لموقعنا.",thirdPartyCookies:"ملفات تعريف الارتباط من طرف ثالث",thirdPartyText:"بعض ملفات تعريف الارتباط على موقعنا يتم وضعها بواسطة خدمات طرف ثالث. ليس لدينا سيطرة على هذه الملفات وهي محكومة بسياسات الخصوصية الخاصة بالأطراف الثالثة المعنية.",productNames:{1:"سيروم سينسإيفا المشرق بفيتامين سي 30 مل",2:"سيروم سينسإيفا المضاد للبقع بالأربوتين 30 مل",3:"كريم سينسإيفا المضاد للتجاعيد لمحيط العين 20 مل",4:"كريم سينسإيفا الليلي المضاد لعلامات التقدم بالعمر 50 مل",5:"تونر سينسإيفا لتجديد البشرة 200 مل",6:"سكراب كريم سينسإيفا المنقي للبشرة 200 مل",7:"رغوة سينسإيفا المنقية لتنظيف الوجه 200 مل",8:"كريم سينسإيفا للحماية اليومية من الشمس SPF 50+ 100 مل",9:"كريم سينسإيفا المرطب بحمض الهيالورونيك 50 مل"},blog:{title:"الاتجاهات والنصائح",searchPlaceholder:"البحث في المقالات...",categories:{all:"جميع المنشورات",trends:"نصائح العناية بالبشرة",skincare:"مكافحة الشيخوخة",ingredients:"العناية الموسمية",routine:"تركيز المكونات"},readMore:"اقرأ المزيد"},homepage:{categoriesTitle:"استكشف فئاتنا",categoriesSubtitle:"اكتشف مجموعات سينسيفا المختارة بعناية والمُعدة بحساسية لاحتياجات بشرتك.",exploreCollection:"استكشف المجموعة",allProductsTitle:"جميع منتجاتنا",allProductsSubtitle:"اكتشف مجموعات سينسيفا المستوحاة من أصل الجمال، والمصنوعة بعناية لكل نوع بشرة.",loadMore:"تحميل المزيد من المنتجات"},productCard:{buyNow:"اشتري الآن",available:"متاح"},categories:{antiAging:{title:"العناية المضادة للشيخوخة",description:"تركيبات متقدمة لتقليل الخطوط الدقيقة، وتعزيز الكولاجين، واستعادة إشراقة الشباب لبشرتك."},cleansing:{title:"تنظيف الوجه والبشرة",description:"منظفات لطيفة وفعالة تنقي بشرتك مع الحفاظ على توازن الرطوبة الطبيعي."},dailyCare:{title:"العناية اليومية",description:"منتجات العناية بالبشرة اليومية الأساسية لبشرة صحية ومحمية ومغذية كل يوم."}}}},YN=({isVisible:e})=>(_e(),e?o.jsx("div",{className:`absolute top-full left-0 right-0 bg-white border-b border-border shadow-elegant z-40 md:block ${e?"fixed md:absolute inset-x-0 top-0 md:top-full max-h-screen md:h-auto overflow-y-auto md:overflow-visible":""}`,children:o.jsx("div",{className:"container mx-auto max-w-7xl px-4 py-8 pt-6 md:pt-8",children:o.jsx("div",{className:"grid grid-cols-1 md:grid-cols-3 gap-8",children:$N.megaMenuCategories.map(t=>o.jsxs("div",{className:"space-y-4",children:[o.jsx(te,{to:`/category/${t.category.toLowerCase().replace(/\s+/g,"-").replace(/&/g,"and")}`,className:"text-lg font-semibold text-primary hover:text-primary-dark transition-colors inline-block",children:t.category}),o.jsx("ul",{className:"space-y-2",children:t.items.map(n=>o.jsx("li",{children:o.jsx(te,{to:n.href,className:"text-muted-foreground hover:text-primary transition-colors text-sm inline-block",children:n.name})},n.name))})]},t.category))})})}):null),Gp=({results:e,isVisible:t,isLoading:n,error:r,onResultClick:i})=>t?o.jsxs("div",{className:"relative w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-xl overflow-hidden",children:[n&&o.jsx("div",{className:"p-4 text-center text-gray-600 dark:text-gray-400",children:"Searching..."}),r&&o.jsx("div",{className:"p-4 text-center text-gray-600 dark:text-gray-400",children:r}),!n&&!r&&e.length===0&&o.jsx("div",{className:"p-4 text-center text-gray-600 dark:text-gray-400",children:"No products or blog posts found."}),!n&&!r&&e.length>0&&o.jsx("div",{className:"max-h-80 overflow-y-auto",children:e.map(a=>o.jsxs(te,{to:a.url,onClick:i,className:"flex items-center p-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors border-b border-gray-100 dark:border-gray-600 last:border-b-0",children:[o.jsx("div",{className:"w-12 h-12 flex-shrink-0 mr-3 bg-gray-100 dark:bg-gray-600 rounded overflow-hidden",children:a.image?o.jsx("img",{src:a.image,alt:a.title,className:"w-full h-full object-cover",onError:l=>{const s=l.target;s.style.display="none"}}):o.jsx("div",{className:"w-full h-full bg-gray-200 dark:bg-gray-600 flex items-center justify-center text-gray-500 dark:text-gray-400 text-xs font-medium",children:a.type==="product"?"P":"B"})}),o.jsxs("div",{className:"flex-1 min-w-0",children:[o.jsx("div",{className:"font-medium text-gray-900 dark:text-white truncate",children:a.title}),o.jsx("div",{className:"text-sm text-gray-600 dark:text-gray-300 line-clamp-2 mt-1",children:a.description}),o.jsx("div",{className:"text-xs text-gray-500 dark:text-gray-400 mt-1",children:o.jsx("span",{className:`inline-block px-2 py-0.5 rounded text-xs font-medium ${a.type==="product"?"bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200":"bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"}`,children:a.type==="product"?"Product":"Blog"})})]})]},a.id))})]}):null;var qN=f.createContext(void 0);function Nm(e){const t=f.useContext(qN);return e||t||"ltr"}var Tu=0;function WN(){f.useEffect(()=>{const e=document.querySelectorAll("[data-radix-focus-guard]");return document.body.insertAdjacentElement("afterbegin",e[0]??$p()),document.body.insertAdjacentElement("beforeend",e[1]??$p()),Tu++,()=>{Tu===1&&document.querySelectorAll("[data-radix-focus-guard]").forEach(t=>t.remove()),Tu--}},[])}function $p(){const e=document.createElement("span");return e.setAttribute("data-radix-focus-guard",""),e.tabIndex=0,e.style.outline="none",e.style.opacity="0",e.style.position="fixed",e.style.pointerEvents="none",e}var Mu="focusScope.autoFocusOnMount",Ru="focusScope.autoFocusOnUnmount",Vp={bubbles:!1,cancelable:!0},QN="FocusScope",yv=f.forwardRef((e,t)=>{const{loop:n=!1,trapped:r=!1,onMountAutoFocus:i,onUnmountAutoFocus:a,...l}=e,[s,u]=f.useState(null),c=wt(i),m=wt(a),d=f.useRef(null),p=Re(t,k=>u(k)),h=f.useRef({paused:!1,pause(){this.paused=!0},resume(){this.paused=!1}}).current;f.useEffect(()=>{if(r){let k=function(v){if(h.paused||!s)return;const w=v.target;s.contains(w)?d.current=w:Xn(d.current,{select:!0})},x=function(v){if(h.paused||!s)return;const w=v.relatedTarget;w!==null&&(s.contains(w)||Xn(d.current,{select:!0}))},y=function(v){if(document.activeElement===document.body)for(const S of v)S.removedNodes.length>0&&Xn(s)};document.addEventListener("focusin",k),document.addEventListener("focusout",x);const g=new MutationObserver(y);return s&&g.observe(s,{childList:!0,subtree:!0}),()=>{document.removeEventListener("focusin",k),document.removeEventListener("focusout",x),g.disconnect()}}},[r,s,h.paused]),f.useEffect(()=>{if(s){qp.add(h);const k=document.activeElement;if(!s.contains(k)){const y=new CustomEvent(Mu,Vp);s.addEventListener(Mu,c),s.dispatchEvent(y),y.defaultPrevented||(XN(n2(gv(s)),{select:!0}),document.activeElement===k&&Xn(s))}return()=>{s.removeEventListener(Mu,c),setTimeout(()=>{const y=new CustomEvent(Ru,Vp);s.addEventListener(Ru,m),s.dispatchEvent(y),y.defaultPrevented||Xn(k??document.body,{select:!0}),s.removeEventListener(Ru,m),qp.remove(h)},0)}}},[s,c,m,h]);const b=f.useCallback(k=>{if(!n&&!r||h.paused)return;const x=k.key==="Tab"&&!k.altKey&&!k.ctrlKey&&!k.metaKey,y=document.activeElement;if(x&&y){const g=k.currentTarget,[v,w]=ZN(g);v&&w?!k.shiftKey&&y===w?(k.preventDefault(),n&&Xn(v,{select:!0})):k.shiftKey&&y===v&&(k.preventDefault(),n&&Xn(w,{select:!0})):y===g&&k.preventDefault()}},[n,r,h.paused]);return o.jsx(ue.div,{tabIndex:-1,...l,ref:p,onKeyDown:b})});yv.displayName=QN;function XN(e,{select:t=!1}={}){const n=document.activeElement;for(const r of e)if(Xn(r,{select:t}),document.activeElement!==n)return}function ZN(e){const t=gv(e),n=Yp(t,e),r=Yp(t.reverse(),e);return[n,r]}function gv(e){const t=[],n=document.createTreeWalker(e,NodeFilter.SHOW_ELEMENT,{acceptNode:r=>{const i=r.tagName==="INPUT"&&r.type==="hidden";return r.disabled||r.hidden||i?NodeFilter.FILTER_SKIP:r.tabIndex>=0?NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_SKIP}});for(;n.nextNode();)t.push(n.currentNode);return t}function Yp(e,t){for(const n of e)if(!JN(n,{upTo:t}))return n}function JN(e,{upTo:t}){if(getComputedStyle(e).visibility==="hidden")return!0;for(;e;){if(t!==void 0&&e===t)return!1;if(getComputedStyle(e).display==="none")return!0;e=e.parentElement}return!1}function e2(e){return e instanceof HTMLInputElement&&"select"in e}function Xn(e,{select:t=!1}={}){if(e&&e.focus){const n=document.activeElement;e.focus({preventScroll:!0}),e!==n&&e2(e)&&t&&e.select()}}var qp=t2();function t2(){let e=[];return{add(t){const n=e[0];t!==n&&(n==null||n.pause()),e=Wp(e,t),e.unshift(t)},remove(t){var n;e=Wp(e,t),(n=e[0])==null||n.resume()}}}function Wp(e,t){const n=[...e],r=n.indexOf(t);return r!==-1&&n.splice(r,1),n}function n2(e){return e.filter(t=>t.tagName!=="A")}var Du="rovingFocusGroup.onEntryFocus",r2={bubbles:!1,cancelable:!0},wl="RovingFocusGroup",[Qc,kv,i2]=Ss(wl),[a2,vv]=_n(wl,[i2]),[l2,o2]=a2(wl),xv=f.forwardRef((e,t)=>o.jsx(Qc.Provider,{scope:e.__scopeRovingFocusGroup,children:o.jsx(Qc.Slot,{scope:e.__scopeRovingFocusGroup,children:o.jsx(s2,{...e,ref:t})})}));xv.displayName=wl;var s2=f.forwardRef((e,t)=>{const{__scopeRovingFocusGroup:n,orientation:r,loop:i=!1,dir:a,currentTabStopId:l,defaultCurrentTabStopId:s,onCurrentTabStopIdChange:u,onEntryFocus:c,preventScrollOnEntryFocus:m=!1,...d}=e,p=f.useRef(null),h=Re(t,p),b=Nm(a),[k,x]=qi({prop:l,defaultProp:s??null,onChange:u,caller:wl}),[y,g]=f.useState(!1),v=wt(c),w=kv(n),S=f.useRef(!1),[z,C]=f.useState(0);return f.useEffect(()=>{const E=p.current;if(E)return E.addEventListener(Du,v),()=>E.removeEventListener(Du,v)},[v]),o.jsx(l2,{scope:n,orientation:r,dir:b,loop:i,currentTabStopId:k,onItemFocus:f.useCallback(E=>x(E),[x]),onItemShiftTab:f.useCallback(()=>g(!0),[]),onFocusableItemAdd:f.useCallback(()=>C(E=>E+1),[]),onFocusableItemRemove:f.useCallback(()=>C(E=>E-1),[]),children:o.jsx(ue.div,{tabIndex:y||z===0?-1:0,"data-orientation":r,...d,ref:h,style:{outline:"none",...e.style},onMouseDown:q(e.onMouseDown,()=>{S.current=!0}),onFocus:q(e.onFocus,E=>{const A=!S.current;if(E.target===E.currentTarget&&A&&!y){const T=new CustomEvent(Du,r2);if(E.currentTarget.dispatchEvent(T),!T.defaultPrevented){const F=w().filter(B=>B.focusable),L=F.find(B=>B.active),K=F.find(B=>B.id===k),$=[L,K,...F].filter(Boolean).map(B=>B.ref.current);Sv($,m)}}S.current=!1}),onBlur:q(e.onBlur,()=>g(!1))})})}),bv="RovingFocusGroupItem",wv=f.forwardRef((e,t)=>{const{__scopeRovingFocusGroup:n,focusable:r=!0,active:i=!1,tabStopId:a,children:l,...s}=e,u=Wa(),c=a||u,m=o2(bv,n),d=m.currentTabStopId===c,p=kv(n),{onFocusableItemAdd:h,onFocusableItemRemove:b,currentTabStopId:k}=m;return f.useEffect(()=>{if(r)return h(),()=>b()},[r,h,b]),o.jsx(Qc.ItemSlot,{scope:n,id:c,focusable:r,active:i,children:o.jsx(ue.span,{tabIndex:d?0:-1,"data-orientation":m.orientation,...s,ref:t,onMouseDown:q(e.onMouseDown,x=>{r?m.onItemFocus(c):x.preventDefault()}),onFocus:q(e.onFocus,()=>m.onItemFocus(c)),onKeyDown:q(e.onKeyDown,x=>{if(x.key==="Tab"&&x.shiftKey){m.onItemShiftTab();return}if(x.target!==x.currentTarget)return;const y=d2(x,m.orientation,m.dir);if(y!==void 0){if(x.metaKey||x.ctrlKey||x.altKey||x.shiftKey)return;x.preventDefault();let v=p().filter(w=>w.focusable).map(w=>w.ref.current);if(y==="last")v.reverse();else if(y==="prev"||y==="next"){y==="prev"&&v.reverse();const w=v.indexOf(x.currentTarget);v=m.loop?m2(v,w+1):v.slice(w+1)}setTimeout(()=>Sv(v))}}),children:typeof l=="function"?l({isCurrentTabStop:d,hasTabStop:k!=null}):l})})});wv.displayName=bv;var u2={ArrowLeft:"prev",ArrowUp:"prev",ArrowRight:"next",ArrowDown:"next",PageUp:"first",Home:"first",PageDown:"last",End:"last"};function c2(e,t){return t!=="rtl"?e:e==="ArrowLeft"?"ArrowRight":e==="ArrowRight"?"ArrowLeft":e}function d2(e,t,n){const r=c2(e.key,n);if(!(t==="vertical"&&["ArrowLeft","ArrowRight"].includes(r))&&!(t==="horizontal"&&["ArrowUp","ArrowDown"].includes(r)))return u2[r]}function Sv(e,t=!1){const n=document.activeElement;for(const r of e)if(r===n||(r.focus({preventScroll:t}),document.activeElement!==n))return}function m2(e,t){return e.map((n,r)=>e[(t+r)%e.length])}var f2=xv,p2=wv,h2=function(e){if(typeof document>"u")return null;var t=Array.isArray(e)?e[0]:e;return t.ownerDocument.body},ii=new WeakMap,eo=new WeakMap,to={},Iu=0,zv=function(e){return e&&(e.host||zv(e.parentNode))},y2=function(e,t){return t.map(function(n){if(e.contains(n))return n;var r=zv(n);return r&&e.contains(r)?r:(console.error("aria-hidden",n,"in not contained inside",e,". Doing nothing"),null)}).filter(function(n){return!!n})},g2=function(e,t,n,r){var i=y2(t,Array.isArray(e)?e:[e]);to[n]||(to[n]=new WeakMap);var a=to[n],l=[],s=new Set,u=new Set(i),c=function(d){!d||s.has(d)||(s.add(d),c(d.parentNode))};i.forEach(c);var m=function(d){!d||u.has(d)||Array.prototype.forEach.call(d.children,function(p){if(s.has(p))m(p);else try{var h=p.getAttribute(r),b=h!==null&&h!=="false",k=(ii.get(p)||0)+1,x=(a.get(p)||0)+1;ii.set(p,k),a.set(p,x),l.push(p),k===1&&b&&eo.set(p,!0),x===1&&p.setAttribute(n,"true"),b||p.setAttribute(r,"true")}catch(y){console.error("aria-hidden: cannot operate on ",p,y)}})};return m(t),s.clear(),Iu++,function(){l.forEach(function(d){var p=ii.get(d)-1,h=a.get(d)-1;ii.set(d,p),a.set(d,h),p||(eo.has(d)||d.removeAttribute(r),eo.delete(d)),h||d.removeAttribute(n)}),Iu--,Iu||(ii=new WeakMap,ii=new WeakMap,eo=new WeakMap,to={})}},k2=function(e,t,n){n===void 0&&(n="data-aria-hidden");var r=Array.from(Array.isArray(e)?e:[e]),i=h2(e);return i?(r.push.apply(r,Array.from(i.querySelectorAll("[aria-live]"))),g2(r,i,n,"aria-hidden")):function(){return null}},un=function(){return un=Object.assign||function(t){for(var n,r=1,i=arguments.length;r<i;r++){n=arguments[r];for(var a in n)Object.prototype.hasOwnProperty.call(n,a)&&(t[a]=n[a])}return t},un.apply(this,arguments)};function Cv(e,t){var n={};for(var r in e)Object.prototype.hasOwnProperty.call(e,r)&&t.indexOf(r)<0&&(n[r]=e[r]);if(e!=null&&typeof Object.getOwnPropertySymbols=="function")for(var i=0,r=Object.getOwnPropertySymbols(e);i<r.length;i++)t.indexOf(r[i])<0&&Object.prototype.propertyIsEnumerable.call(e,r[i])&&(n[r[i]]=e[r[i]]);return n}function v2(e,t,n){if(n||arguments.length===2)for(var r=0,i=t.length,a;r<i;r++)(a||!(r in t))&&(a||(a=Array.prototype.slice.call(t,0,r)),a[r]=t[r]);return e.concat(a||Array.prototype.slice.call(t))}var bo="right-scroll-bar-position",wo="width-before-scroll-bar",x2="with-scroll-bars-hidden",b2="--removed-body-scroll-bar-size";function Lu(e,t){return typeof e=="function"?e(t):e&&(e.current=t),e}function w2(e,t){var n=f.useState(function(){return{value:e,callback:t,facade:{get current(){return n.value},set current(r){var i=n.value;i!==r&&(n.value=r,n.callback(r,i))}}}})[0];return n.callback=t,n.facade}var S2=typeof window<"u"?f.useLayoutEffect:f.useEffect,Qp=new WeakMap;function z2(e,t){var n=w2(null,function(r){return e.forEach(function(i){return Lu(i,r)})});return S2(function(){var r=Qp.get(n);if(r){var i=new Set(r),a=new Set(e),l=n.current;i.forEach(function(s){a.has(s)||Lu(s,null)}),a.forEach(function(s){i.has(s)||Lu(s,l)})}Qp.set(n,e)},[e]),n}function C2(e){return e}function E2(e,t){t===void 0&&(t=C2);var n=[],r=!1,i={read:function(){if(r)throw new Error("Sidecar: could not `read` from an `assigned` medium. `read` could be used only with `useMedium`.");return n.length?n[n.length-1]:e},useMedium:function(a){var l=t(a,r);return n.push(l),function(){n=n.filter(function(s){return s!==l})}},assignSyncMedium:function(a){for(r=!0;n.length;){var l=n;n=[],l.forEach(a)}n={push:function(s){return a(s)},filter:function(){return n}}},assignMedium:function(a){r=!0;var l=[];if(n.length){var s=n;n=[],s.forEach(a),l=n}var u=function(){var m=l;l=[],m.forEach(a)},c=function(){return Promise.resolve().then(u)};c(),n={push:function(m){l.push(m),c()},filter:function(m){return l=l.filter(m),n}}}};return i}function N2(e){e===void 0&&(e={});var t=E2(null);return t.options=un({async:!0,ssr:!1},e),t}var Ev=function(e){var t=e.sideCar,n=Cv(e,["sideCar"]);if(!t)throw new Error("Sidecar: please provide `sideCar` property to import the right car");var r=t.read();if(!r)throw new Error("Sidecar medium not found");return f.createElement(r,un({},n))};Ev.isSideCarExport=!0;function P2(e,t){return e.useMedium(t),Ev}var Nv=N2(),Fu=function(){},Fs=f.forwardRef(function(e,t){var n=f.useRef(null),r=f.useState({onScrollCapture:Fu,onWheelCapture:Fu,onTouchMoveCapture:Fu}),i=r[0],a=r[1],l=e.forwardProps,s=e.children,u=e.className,c=e.removeScrollBar,m=e.enabled,d=e.shards,p=e.sideCar,h=e.noRelative,b=e.noIsolation,k=e.inert,x=e.allowPinchZoom,y=e.as,g=y===void 0?"div":y,v=e.gapMode,w=Cv(e,["forwardProps","children","className","removeScrollBar","enabled","shards","sideCar","noRelative","noIsolation","inert","allowPinchZoom","as","gapMode"]),S=p,z=z2([n,t]),C=un(un({},w),i);return f.createElement(f.Fragment,null,m&&f.createElement(S,{sideCar:Nv,removeScrollBar:c,shards:d,noRelative:h,noIsolation:b,inert:k,setCallbacks:a,allowPinchZoom:!!x,lockRef:n,gapMode:v}),l?f.cloneElement(f.Children.only(s),un(un({},C),{ref:z})):f.createElement(g,un({},C,{className:u,ref:z}),s))});Fs.defaultProps={enabled:!0,removeScrollBar:!0,inert:!1};Fs.classNames={fullWidth:wo,zeroRight:bo};var A2=function(){if(typeof __webpack_nonce__<"u")return __webpack_nonce__};function j2(){if(!document)return null;var e=document.createElement("style");e.type="text/css";var t=A2();return t&&e.setAttribute("nonce",t),e}function T2(e,t){e.styleSheet?e.styleSheet.cssText=t:e.appendChild(document.createTextNode(t))}function M2(e){var t=document.head||document.getElementsByTagName("head")[0];t.appendChild(e)}var R2=function(){var e=0,t=null;return{add:function(n){e==0&&(t=j2())&&(T2(t,n),M2(t)),e++},remove:function(){e--,!e&&t&&(t.parentNode&&t.parentNode.removeChild(t),t=null)}}},D2=function(){var e=R2();return function(t,n){f.useEffect(function(){return e.add(t),function(){e.remove()}},[t&&n])}},Pv=function(){var e=D2(),t=function(n){var r=n.styles,i=n.dynamic;return e(r,i),null};return t},I2={left:0,top:0,right:0,gap:0},Ou=function(e){return parseInt(e||"",10)||0},L2=function(e){var t=window.getComputedStyle(document.body),n=t[e==="padding"?"paddingLeft":"marginLeft"],r=t[e==="padding"?"paddingTop":"marginTop"],i=t[e==="padding"?"paddingRight":"marginRight"];return[Ou(n),Ou(r),Ou(i)]},F2=function(e){if(e===void 0&&(e="margin"),typeof window>"u")return I2;var t=L2(e),n=document.documentElement.clientWidth,r=window.innerWidth;return{left:t[0],top:t[1],right:t[2],gap:Math.max(0,r-n+t[2]-t[0])}},O2=Pv(),Ni="data-scroll-locked",_2=function(e,t,n,r){var i=e.left,a=e.top,l=e.right,s=e.gap;return n===void 0&&(n="margin"),`
+  .`.concat(x2,` {
+   overflow: hidden `).concat(r,`;
+   padding-right: `).concat(s,"px ").concat(r,`;
+  }
+  body[`).concat(Ni,`] {
+    overflow: hidden `).concat(r,`;
+    overscroll-behavior: contain;
+    `).concat([t&&"position: relative ".concat(r,";"),n==="margin"&&`
+    padding-left: `.concat(i,`px;
+    padding-top: `).concat(a,`px;
+    padding-right: `).concat(l,`px;
+    margin-left:0;
+    margin-top:0;
+    margin-right: `).concat(s,"px ").concat(r,`;
+    `),n==="padding"&&"padding-right: ".concat(s,"px ").concat(r,";")].filter(Boolean).join(""),`
+  }
+  
+  .`).concat(bo,` {
+    right: `).concat(s,"px ").concat(r,`;
+  }
+  
+  .`).concat(wo,` {
+    margin-right: `).concat(s,"px ").concat(r,`;
+  }
+  
+  .`).concat(bo," .").concat(bo,` {
+    right: 0 `).concat(r,`;
+  }
+  
+  .`).concat(wo," .").concat(wo,` {
+    margin-right: 0 `).concat(r,`;
+  }
+  
+  body[`).concat(Ni,`] {
+    `).concat(b2,": ").concat(s,`px;
+  }
+`)},Xp=function(){var e=parseInt(document.body.getAttribute(Ni)||"0",10);return isFinite(e)?e:0},B2=function(){f.useEffect(function(){return document.body.setAttribute(Ni,(Xp()+1).toString()),function(){var e=Xp()-1;e<=0?document.body.removeAttribute(Ni):document.body.setAttribute(Ni,e.toString())}},[])},H2=function(e){var t=e.noRelative,n=e.noImportant,r=e.gapMode,i=r===void 0?"margin":r;B2();var a=f.useMemo(function(){return F2(i)},[i]);return f.createElement(O2,{styles:_2(a,!t,i,n?"":"!important")})},Xc=!1;if(typeof window<"u")try{var no=Object.defineProperty({},"passive",{get:function(){return Xc=!0,!0}});window.addEventListener("test",no,no),window.removeEventListener("test",no,no)}catch{Xc=!1}var ai=Xc?{passive:!1}:!1,U2=function(e){return e.tagName==="TEXTAREA"},Av=function(e,t){if(!(e instanceof Element))return!1;var n=window.getComputedStyle(e);return n[t]!=="hidden"&&!(n.overflowY===n.overflowX&&!U2(e)&&n[t]==="visible")},K2=function(e){return Av(e,"overflowY")},G2=function(e){return Av(e,"overflowX")},Zp=function(e,t){var n=t.ownerDocument,r=t;do{typeof ShadowRoot<"u"&&r instanceof ShadowRoot&&(r=r.host);var i=jv(e,r);if(i){var a=Tv(e,r),l=a[1],s=a[2];if(l>s)return!0}r=r.parentNode}while(r&&r!==n.body);return!1},$2=function(e){var t=e.scrollTop,n=e.scrollHeight,r=e.clientHeight;return[t,n,r]},V2=function(e){var t=e.scrollLeft,n=e.scrollWidth,r=e.clientWidth;return[t,n,r]},jv=function(e,t){return e==="v"?K2(t):G2(t)},Tv=function(e,t){return e==="v"?$2(t):V2(t)},Y2=function(e,t){return e==="h"&&t==="rtl"?-1:1},q2=function(e,t,n,r,i){var a=Y2(e,window.getComputedStyle(t).direction),l=a*r,s=n.target,u=t.contains(s),c=!1,m=l>0,d=0,p=0;do{if(!s)break;var h=Tv(e,s),b=h[0],k=h[1],x=h[2],y=k-x-a*b;(b||y)&&jv(e,s)&&(d+=y,p+=b);var g=s.parentNode;s=g&&g.nodeType===Node.DOCUMENT_FRAGMENT_NODE?g.host:g}while(!u&&s!==document.body||u&&(t.contains(s)||t===s));return(m&&(Math.abs(d)<1||!i)||!m&&(Math.abs(p)<1||!i))&&(c=!0),c},ro=function(e){return"changedTouches"in e?[e.changedTouches[0].clientX,e.changedTouches[0].clientY]:[0,0]},Jp=function(e){return[e.deltaX,e.deltaY]},eh=function(e){return e&&"current"in e?e.current:e},W2=function(e,t){return e[0]===t[0]&&e[1]===t[1]},Q2=function(e){return`
+  .block-interactivity-`.concat(e,` {pointer-events: none;}
+  .allow-interactivity-`).concat(e,` {pointer-events: all;}
+`)},X2=0,li=[];function Z2(e){var t=f.useRef([]),n=f.useRef([0,0]),r=f.useRef(),i=f.useState(X2++)[0],a=f.useState(Pv)[0],l=f.useRef(e);f.useEffect(function(){l.current=e},[e]),f.useEffect(function(){if(e.inert){document.body.classList.add("block-interactivity-".concat(i));var k=v2([e.lockRef.current],(e.shards||[]).map(eh),!0).filter(Boolean);return k.forEach(function(x){return x.classList.add("allow-interactivity-".concat(i))}),function(){document.body.classList.remove("block-interactivity-".concat(i)),k.forEach(function(x){return x.classList.remove("allow-interactivity-".concat(i))})}}},[e.inert,e.lockRef.current,e.shards]);var s=f.useCallback(function(k,x){if("touches"in k&&k.touches.length===2||k.type==="wheel"&&k.ctrlKey)return!l.current.allowPinchZoom;var y=ro(k),g=n.current,v="deltaX"in k?k.deltaX:g[0]-y[0],w="deltaY"in k?k.deltaY:g[1]-y[1],S,z=k.target,C=Math.abs(v)>Math.abs(w)?"h":"v";if("touches"in k&&C==="h"&&z.type==="range")return!1;var E=Zp(C,z);if(!E)return!0;if(E?S=C:(S=C==="v"?"h":"v",E=Zp(C,z)),!E)return!1;if(!r.current&&"changedTouches"in k&&(v||w)&&(r.current=S),!S)return!0;var A=r.current||S;return q2(A,x,k,A==="h"?v:w,!0)},[]),u=f.useCallback(function(k){var x=k;if(!(!li.length||li[li.length-1]!==a)){var y="deltaY"in x?Jp(x):ro(x),g=t.current.filter(function(S){return S.name===x.type&&(S.target===x.target||x.target===S.shadowParent)&&W2(S.delta,y)})[0];if(g&&g.should){x.cancelable&&x.preventDefault();return}if(!g){var v=(l.current.shards||[]).map(eh).filter(Boolean).filter(function(S){return S.contains(x.target)}),w=v.length>0?s(x,v[0]):!l.current.noIsolation;w&&x.cancelable&&x.preventDefault()}}},[]),c=f.useCallback(function(k,x,y,g){var v={name:k,delta:x,target:y,should:g,shadowParent:J2(y)};t.current.push(v),setTimeout(function(){t.current=t.current.filter(function(w){return w!==v})},1)},[]),m=f.useCallback(function(k){n.current=ro(k),r.current=void 0},[]),d=f.useCallback(function(k){c(k.type,Jp(k),k.target,s(k,e.lockRef.current))},[]),p=f.useCallback(function(k){c(k.type,ro(k),k.target,s(k,e.lockRef.current))},[]);f.useEffect(function(){return li.push(a),e.setCallbacks({onScrollCapture:d,onWheelCapture:d,onTouchMoveCapture:p}),document.addEventListener("wheel",u,ai),document.addEventListener("touchmove",u,ai),document.addEventListener("touchstart",m,ai),function(){li=li.filter(function(k){return k!==a}),document.removeEventListener("wheel",u,ai),document.removeEventListener("touchmove",u,ai),document.removeEventListener("touchstart",m,ai)}},[]);var h=e.removeScrollBar,b=e.inert;return f.createElement(f.Fragment,null,b?f.createElement(a,{styles:Q2(i)}):null,h?f.createElement(H2,{noRelative:e.noRelative,gapMode:e.gapMode}):null)}function J2(e){for(var t=null;e!==null;)e instanceof ShadowRoot&&(t=e.host,e=e.host),e=e.parentNode;return t}const eP=P2(Nv,Z2);var Mv=f.forwardRef(function(e,t){return f.createElement(Fs,un({},e,{ref:t,sideCar:eP}))});Mv.classNames=Fs.classNames;var Zc=["Enter"," "],tP=["ArrowDown","PageUp","Home"],Rv=["ArrowUp","PageDown","End"],nP=[...tP,...Rv],rP={ltr:[...Zc,"ArrowRight"],rtl:[...Zc,"ArrowLeft"]},iP={ltr:["ArrowLeft"],rtl:["ArrowRight"]},Sl="Menu",[rl,aP,lP]=Ss(Sl),[Zr,Dv]=_n(Sl,[lP,js,vv]),Os=js(),Iv=vv(),[oP,Jr]=Zr(Sl),[sP,zl]=Zr(Sl),Lv=e=>{const{__scopeMenu:t,open:n=!1,children:r,dir:i,onOpenChange:a,modal:l=!0}=e,s=Os(t),[u,c]=f.useState(null),m=f.useRef(!1),d=wt(a),p=Nm(i);return f.useEffect(()=>{const h=()=>{m.current=!0,document.addEventListener("pointerdown",b,{capture:!0,once:!0}),document.addEventListener("pointermove",b,{capture:!0,once:!0})},b=()=>m.current=!1;return document.addEventListener("keydown",h,{capture:!0}),()=>{document.removeEventListener("keydown",h,{capture:!0}),document.removeEventListener("pointerdown",b,{capture:!0}),document.removeEventListener("pointermove",b,{capture:!0})}},[]),o.jsx(RC,{...s,children:o.jsx(oP,{scope:t,open:n,onOpenChange:d,content:u,onContentChange:c,children:o.jsx(sP,{scope:t,onClose:f.useCallback(()=>d(!1),[d]),isUsingKeyboardRef:m,dir:p,modal:l,children:r})})})};Lv.displayName=Sl;var uP="MenuAnchor",Pm=f.forwardRef((e,t)=>{const{__scopeMenu:n,...r}=e,i=Os(n);return o.jsx(Uk,{...i,...r,ref:t})});Pm.displayName=uP;var Am="MenuPortal",[cP,Fv]=Zr(Am,{forceMount:void 0}),Ov=e=>{const{__scopeMenu:t,forceMount:n,children:r,container:i}=e,a=Jr(Am,t);return o.jsx(cP,{scope:t,forceMount:n,children:o.jsx(Er,{present:n||a.open,children:o.jsx(rm,{asChild:!0,container:i,children:r})})})};Ov.displayName=Am;var jt="MenuContent",[dP,jm]=Zr(jt),_v=f.forwardRef((e,t)=>{const n=Fv(jt,e.__scopeMenu),{forceMount:r=n.forceMount,...i}=e,a=Jr(jt,e.__scopeMenu),l=zl(jt,e.__scopeMenu);return o.jsx(rl.Provider,{scope:e.__scopeMenu,children:o.jsx(Er,{present:r||a.open,children:o.jsx(rl.Slot,{scope:e.__scopeMenu,children:l.modal?o.jsx(mP,{...i,ref:t}):o.jsx(fP,{...i,ref:t})})})})}),mP=f.forwardRef((e,t)=>{const n=Jr(jt,e.__scopeMenu),r=f.useRef(null),i=Re(t,r);return f.useEffect(()=>{const a=r.current;if(a)return k2(a)},[]),o.jsx(Tm,{...e,ref:i,trapFocus:n.open,disableOutsidePointerEvents:n.open,disableOutsideScroll:!0,onFocusOutside:q(e.onFocusOutside,a=>a.preventDefault(),{checkForDefaultPrevented:!1}),onDismiss:()=>n.onOpenChange(!1)})}),fP=f.forwardRef((e,t)=>{const n=Jr(jt,e.__scopeMenu);return o.jsx(Tm,{...e,ref:t,trapFocus:!1,disableOutsidePointerEvents:!1,disableOutsideScroll:!1,onDismiss:()=>n.onOpenChange(!1)})}),pP=Ya("MenuContent.ScrollLock"),Tm=f.forwardRef((e,t)=>{const{__scopeMenu:n,loop:r=!1,trapFocus:i,onOpenAutoFocus:a,onCloseAutoFocus:l,disableOutsidePointerEvents:s,onEntryFocus:u,onEscapeKeyDown:c,onPointerDownOutside:m,onFocusOutside:d,onInteractOutside:p,onDismiss:h,disableOutsideScroll:b,...k}=e,x=Jr(jt,n),y=zl(jt,n),g=Os(n),v=Iv(n),w=aP(n),[S,z]=f.useState(null),C=f.useRef(null),E=Re(t,C,x.onContentChange),A=f.useRef(0),T=f.useRef(""),F=f.useRef(0),L=f.useRef(null),K=f.useRef("right"),I=f.useRef(0),$=b?Mv:f.Fragment,B=b?{as:pP,allowPinchZoom:!0}:void 0,G=N=>{var W,ye;const M=T.current+N,_=w().filter(me=>!me.disabled),O=document.activeElement,Y=(W=_.find(me=>me.ref.current===O))==null?void 0:W.textValue,V=_.map(me=>me.textValue),ne=EP(V,M,Y),se=(ye=_.find(me=>me.textValue===ne))==null?void 0:ye.ref.current;(function me(we){T.current=we,window.clearTimeout(A.current),we!==""&&(A.current=window.setTimeout(()=>me(""),1e3))})(M),se&&setTimeout(()=>se.focus())};f.useEffect(()=>()=>window.clearTimeout(A.current),[]),WN();const P=f.useCallback(N=>{var _,O;return K.current===((_=L.current)==null?void 0:_.side)&&PP(N,(O=L.current)==null?void 0:O.area)},[]);return o.jsx(dP,{scope:n,searchRef:T,onItemEnter:f.useCallback(N=>{P(N)&&N.preventDefault()},[P]),onItemLeave:f.useCallback(N=>{var M;P(N)||((M=C.current)==null||M.focus(),z(null))},[P]),onTriggerLeave:f.useCallback(N=>{P(N)&&N.preventDefault()},[P]),pointerGraceTimerRef:F,onPointerGraceIntentChange:f.useCallback(N=>{L.current=N},[]),children:o.jsx($,{...B,children:o.jsx(yv,{asChild:!0,trapped:i,onMountAutoFocus:q(a,N=>{var M;N.preventDefault(),(M=C.current)==null||M.focus({preventScroll:!0})}),onUnmountAutoFocus:l,children:o.jsx(zs,{asChild:!0,disableOutsidePointerEvents:s,onEscapeKeyDown:c,onPointerDownOutside:m,onFocusOutside:d,onInteractOutside:p,onDismiss:h,children:o.jsx(f2,{asChild:!0,...v,dir:y.dir,orientation:"vertical",loop:r,currentTabStopId:S,onCurrentTabStopIdChange:z,onEntryFocus:q(u,N=>{y.isUsingKeyboardRef.current||N.preventDefault()}),preventScrollOnEntryFocus:!0,children:o.jsx(Kk,{role:"menu","aria-orientation":"vertical","data-state":tx(x.open),"data-radix-menu-content":"",dir:y.dir,...g,...k,ref:E,style:{outline:"none",...k.style},onKeyDown:q(k.onKeyDown,N=>{const _=N.target.closest("[data-radix-menu-content]")===N.currentTarget,O=N.ctrlKey||N.altKey||N.metaKey,Y=N.key.length===1;_&&(N.key==="Tab"&&N.preventDefault(),!O&&Y&&G(N.key));const V=C.current;if(N.target!==V||!nP.includes(N.key))return;N.preventDefault();const se=w().filter(W=>!W.disabled).map(W=>W.ref.current);Rv.includes(N.key)&&se.reverse(),zP(se)}),onBlur:q(e.onBlur,N=>{N.currentTarget.contains(N.target)||(window.clearTimeout(A.current),T.current="")}),onPointerMove:q(e.onPointerMove,il(N=>{const M=N.target,_=I.current!==N.clientX;if(N.currentTarget.contains(M)&&_){const O=N.clientX>I.current?"right":"left";K.current=O,I.current=N.clientX}}))})})})})})})});_v.displayName=jt;var hP="MenuGroup",Mm=f.forwardRef((e,t)=>{const{__scopeMenu:n,...r}=e;return o.jsx(ue.div,{role:"group",...r,ref:t})});Mm.displayName=hP;var yP="MenuLabel",Bv=f.forwardRef((e,t)=>{const{__scopeMenu:n,...r}=e;return o.jsx(ue.div,{...r,ref:t})});Bv.displayName=yP;var ns="MenuItem",th="menu.itemSelect",_s=f.forwardRef((e,t)=>{const{disabled:n=!1,onSelect:r,...i}=e,a=f.useRef(null),l=zl(ns,e.__scopeMenu),s=jm(ns,e.__scopeMenu),u=Re(t,a),c=f.useRef(!1),m=()=>{const d=a.current;if(!n&&d){const p=new CustomEvent(th,{bubbles:!0,cancelable:!0});d.addEventListener(th,h=>r==null?void 0:r(h),{once:!0}),nm(d,p),p.defaultPrevented?c.current=!1:l.onClose()}};return o.jsx(Hv,{...i,ref:u,disabled:n,onClick:q(e.onClick,m),onPointerDown:d=>{var p;(p=e.onPointerDown)==null||p.call(e,d),c.current=!0},onPointerUp:q(e.onPointerUp,d=>{var p;c.current||(p=d.currentTarget)==null||p.click()}),onKeyDown:q(e.onKeyDown,d=>{const p=s.searchRef.current!=="";n||p&&d.key===" "||Zc.includes(d.key)&&(d.currentTarget.click(),d.preventDefault())})})});_s.displayName=ns;var Hv=f.forwardRef((e,t)=>{const{__scopeMenu:n,disabled:r=!1,textValue:i,...a}=e,l=jm(ns,n),s=Iv(n),u=f.useRef(null),c=Re(t,u),[m,d]=f.useState(!1),[p,h]=f.useState("");return f.useEffect(()=>{const b=u.current;b&&h((b.textContent??"").trim())},[a.children]),o.jsx(rl.ItemSlot,{scope:n,disabled:r,textValue:i??p,children:o.jsx(p2,{asChild:!0,...s,focusable:!r,children:o.jsx(ue.div,{role:"menuitem","data-highlighted":m?"":void 0,"aria-disabled":r||void 0,"data-disabled":r?"":void 0,...a,ref:c,onPointerMove:q(e.onPointerMove,il(b=>{r?l.onItemLeave(b):(l.onItemEnter(b),b.defaultPrevented||b.currentTarget.focus({preventScroll:!0}))})),onPointerLeave:q(e.onPointerLeave,il(b=>l.onItemLeave(b))),onFocus:q(e.onFocus,()=>d(!0)),onBlur:q(e.onBlur,()=>d(!1))})})})}),gP="MenuCheckboxItem",Uv=f.forwardRef((e,t)=>{const{checked:n=!1,onCheckedChange:r,...i}=e;return o.jsx(Yv,{scope:e.__scopeMenu,checked:n,children:o.jsx(_s,{role:"menuitemcheckbox","aria-checked":rs(n)?"mixed":n,...i,ref:t,"data-state":Dm(n),onSelect:q(i.onSelect,()=>r==null?void 0:r(rs(n)?!0:!n),{checkForDefaultPrevented:!1})})})});Uv.displayName=gP;var Kv="MenuRadioGroup",[kP,vP]=Zr(Kv,{value:void 0,onValueChange:()=>{}}),Gv=f.forwardRef((e,t)=>{const{value:n,onValueChange:r,...i}=e,a=wt(r);return o.jsx(kP,{scope:e.__scopeMenu,value:n,onValueChange:a,children:o.jsx(Mm,{...i,ref:t})})});Gv.displayName=Kv;var $v="MenuRadioItem",Vv=f.forwardRef((e,t)=>{const{value:n,...r}=e,i=vP($v,e.__scopeMenu),a=n===i.value;return o.jsx(Yv,{scope:e.__scopeMenu,checked:a,children:o.jsx(_s,{role:"menuitemradio","aria-checked":a,...r,ref:t,"data-state":Dm(a),onSelect:q(r.onSelect,()=>{var l;return(l=i.onValueChange)==null?void 0:l.call(i,n)},{checkForDefaultPrevented:!1})})})});Vv.displayName=$v;var Rm="MenuItemIndicator",[Yv,xP]=Zr(Rm,{checked:!1}),qv=f.forwardRef((e,t)=>{const{__scopeMenu:n,forceMount:r,...i}=e,a=xP(Rm,n);return o.jsx(Er,{present:r||rs(a.checked)||a.checked===!0,children:o.jsx(ue.span,{...i,ref:t,"data-state":Dm(a.checked)})})});qv.displayName=Rm;var bP="MenuSeparator",Wv=f.forwardRef((e,t)=>{const{__scopeMenu:n,...r}=e;return o.jsx(ue.div,{role:"separator","aria-orientation":"horizontal",...r,ref:t})});Wv.displayName=bP;var wP="MenuArrow",Qv=f.forwardRef((e,t)=>{const{__scopeMenu:n,...r}=e,i=Os(n);return o.jsx(Gk,{...i,...r,ref:t})});Qv.displayName=wP;var SP="MenuSub",[hM,Xv]=Zr(SP),ga="MenuSubTrigger",Zv=f.forwardRef((e,t)=>{const n=Jr(ga,e.__scopeMenu),r=zl(ga,e.__scopeMenu),i=Xv(ga,e.__scopeMenu),a=jm(ga,e.__scopeMenu),l=f.useRef(null),{pointerGraceTimerRef:s,onPointerGraceIntentChange:u}=a,c={__scopeMenu:e.__scopeMenu},m=f.useCallback(()=>{l.current&&window.clearTimeout(l.current),l.current=null},[]);return f.useEffect(()=>m,[m]),f.useEffect(()=>{const d=s.current;return()=>{window.clearTimeout(d),u(null)}},[s,u]),o.jsx(Pm,{asChild:!0,...c,children:o.jsx(Hv,{id:i.triggerId,"aria-haspopup":"menu","aria-expanded":n.open,"aria-controls":i.contentId,"data-state":tx(n.open),...e,ref:ws(t,i.onTriggerChange),onClick:d=>{var p;(p=e.onClick)==null||p.call(e,d),!(e.disabled||d.defaultPrevented)&&(d.currentTarget.focus(),n.open||n.onOpenChange(!0))},onPointerMove:q(e.onPointerMove,il(d=>{a.onItemEnter(d),!d.defaultPrevented&&!e.disabled&&!n.open&&!l.current&&(a.onPointerGraceIntentChange(null),l.current=window.setTimeout(()=>{n.onOpenChange(!0),m()},100))})),onPointerLeave:q(e.onPointerLeave,il(d=>{var h,b;m();const p=(h=n.content)==null?void 0:h.getBoundingClientRect();if(p){const k=(b=n.content)==null?void 0:b.dataset.side,x=k==="right",y=x?-5:5,g=p[x?"left":"right"],v=p[x?"right":"left"];a.onPointerGraceIntentChange({area:[{x:d.clientX+y,y:d.clientY},{x:g,y:p.top},{x:v,y:p.top},{x:v,y:p.bottom},{x:g,y:p.bottom}],side:k}),window.clearTimeout(s.current),s.current=window.setTimeout(()=>a.onPointerGraceIntentChange(null),300)}else{if(a.onTriggerLeave(d),d.defaultPrevented)return;a.onPointerGraceIntentChange(null)}})),onKeyDown:q(e.onKeyDown,d=>{var h;const p=a.searchRef.current!=="";e.disabled||p&&d.key===" "||rP[r.dir].includes(d.key)&&(n.onOpenChange(!0),(h=n.content)==null||h.focus(),d.preventDefault())})})})});Zv.displayName=ga;var Jv="MenuSubContent",ex=f.forwardRef((e,t)=>{const n=Fv(jt,e.__scopeMenu),{forceMount:r=n.forceMount,...i}=e,a=Jr(jt,e.__scopeMenu),l=zl(jt,e.__scopeMenu),s=Xv(Jv,e.__scopeMenu),u=f.useRef(null),c=Re(t,u);return o.jsx(rl.Provider,{scope:e.__scopeMenu,children:o.jsx(Er,{present:r||a.open,children:o.jsx(rl.Slot,{scope:e.__scopeMenu,children:o.jsx(Tm,{id:s.contentId,"aria-labelledby":s.triggerId,...i,ref:c,align:"start",side:l.dir==="rtl"?"left":"right",disableOutsidePointerEvents:!1,disableOutsideScroll:!1,trapFocus:!1,onOpenAutoFocus:m=>{var d;l.isUsingKeyboardRef.current&&((d=u.current)==null||d.focus()),m.preventDefault()},onCloseAutoFocus:m=>m.preventDefault(),onFocusOutside:q(e.onFocusOutside,m=>{m.target!==s.trigger&&a.onOpenChange(!1)}),onEscapeKeyDown:q(e.onEscapeKeyDown,m=>{l.onClose(),m.preventDefault()}),onKeyDown:q(e.onKeyDown,m=>{var h;const d=m.currentTarget.contains(m.target),p=iP[l.dir].includes(m.key);d&&p&&(a.onOpenChange(!1),(h=s.trigger)==null||h.focus(),m.preventDefault())})})})})})});ex.displayName=Jv;function tx(e){return e?"open":"closed"}function rs(e){return e==="indeterminate"}function Dm(e){return rs(e)?"indeterminate":e?"checked":"unchecked"}function zP(e){const t=document.activeElement;for(const n of e)if(n===t||(n.focus(),document.activeElement!==t))return}function CP(e,t){return e.map((n,r)=>e[(t+r)%e.length])}function EP(e,t,n){const i=t.length>1&&Array.from(t).every(c=>c===t[0])?t[0]:t,a=n?e.indexOf(n):-1;let l=CP(e,Math.max(a,0));i.length===1&&(l=l.filter(c=>c!==n));const u=l.find(c=>c.toLowerCase().startsWith(i.toLowerCase()));return u!==n?u:void 0}function NP(e,t){const{x:n,y:r}=e;let i=!1;for(let a=0,l=t.length-1;a<t.length;l=a++){const s=t[a],u=t[l],c=s.x,m=s.y,d=u.x,p=u.y;m>r!=p>r&&n<(d-c)*(r-m)/(p-m)+c&&(i=!i)}return i}function PP(e,t){if(!t)return!1;const n={x:e.clientX,y:e.clientY};return NP(n,t)}function il(e){return t=>t.pointerType==="mouse"?e(t):void 0}var AP=Lv,jP=Pm,TP=Ov,MP=_v,RP=Mm,DP=Bv,IP=_s,LP=Uv,FP=Gv,OP=Vv,_P=qv,BP=Wv,HP=Qv,UP=Zv,KP=ex,Bs="DropdownMenu",[GP,yM]=_n(Bs,[Dv]),lt=Dv(),[$P,nx]=GP(Bs),rx=e=>{const{__scopeDropdownMenu:t,children:n,dir:r,open:i,defaultOpen:a,onOpenChange:l,modal:s=!0}=e,u=lt(t),c=f.useRef(null),[m,d]=qi({prop:i,defaultProp:a??!1,onChange:l,caller:Bs});return o.jsx($P,{scope:t,triggerId:Wa(),triggerRef:c,contentId:Wa(),open:m,onOpenChange:d,onOpenToggle:f.useCallback(()=>d(p=>!p),[d]),modal:s,children:o.jsx(AP,{...u,open:m,onOpenChange:d,dir:r,modal:s,children:n})})};rx.displayName=Bs;var ix="DropdownMenuTrigger",ax=f.forwardRef((e,t)=>{const{__scopeDropdownMenu:n,disabled:r=!1,...i}=e,a=nx(ix,n),l=lt(n);return o.jsx(jP,{asChild:!0,...l,children:o.jsx(ue.button,{type:"button",id:a.triggerId,"aria-haspopup":"menu","aria-expanded":a.open,"aria-controls":a.open?a.contentId:void 0,"data-state":a.open?"open":"closed","data-disabled":r?"":void 0,disabled:r,...i,ref:ws(t,a.triggerRef),onPointerDown:q(e.onPointerDown,s=>{!r&&s.button===0&&s.ctrlKey===!1&&(a.onOpenToggle(),a.open||s.preventDefault())}),onKeyDown:q(e.onKeyDown,s=>{r||(["Enter"," "].includes(s.key)&&a.onOpenToggle(),s.key==="ArrowDown"&&a.onOpenChange(!0),["Enter"," ","ArrowDown"].includes(s.key)&&s.preventDefault())})})})});ax.displayName=ix;var VP="DropdownMenuPortal",lx=e=>{const{__scopeDropdownMenu:t,...n}=e,r=lt(t);return o.jsx(TP,{...r,...n})};lx.displayName=VP;var ox="DropdownMenuContent",sx=f.forwardRef((e,t)=>{const{__scopeDropdownMenu:n,...r}=e,i=nx(ox,n),a=lt(n),l=f.useRef(!1);return o.jsx(MP,{id:i.contentId,"aria-labelledby":i.triggerId,...a,...r,ref:t,onCloseAutoFocus:q(e.onCloseAutoFocus,s=>{var u;l.current||(u=i.triggerRef.current)==null||u.focus(),l.current=!1,s.preventDefault()}),onInteractOutside:q(e.onInteractOutside,s=>{const u=s.detail.originalEvent,c=u.button===0&&u.ctrlKey===!0,m=u.button===2||c;(!i.modal||m)&&(l.current=!0)}),style:{...e.style,"--radix-dropdown-menu-content-transform-origin":"var(--radix-popper-transform-origin)","--radix-dropdown-menu-content-available-width":"var(--radix-popper-available-width)","--radix-dropdown-menu-content-available-height":"var(--radix-popper-available-height)","--radix-dropdown-menu-trigger-width":"var(--radix-popper-anchor-width)","--radix-dropdown-menu-trigger-height":"var(--radix-popper-anchor-height)"}})});sx.displayName=ox;var YP="DropdownMenuGroup",qP=f.forwardRef((e,t)=>{const{__scopeDropdownMenu:n,...r}=e,i=lt(n);return o.jsx(RP,{...i,...r,ref:t})});qP.displayName=YP;var WP="DropdownMenuLabel",ux=f.forwardRef((e,t)=>{const{__scopeDropdownMenu:n,...r}=e,i=lt(n);return o.jsx(DP,{...i,...r,ref:t})});ux.displayName=WP;var QP="DropdownMenuItem",cx=f.forwardRef((e,t)=>{const{__scopeDropdownMenu:n,...r}=e,i=lt(n);return o.jsx(IP,{...i,...r,ref:t})});cx.displayName=QP;var XP="DropdownMenuCheckboxItem",dx=f.forwardRef((e,t)=>{const{__scopeDropdownMenu:n,...r}=e,i=lt(n);return o.jsx(LP,{...i,...r,ref:t})});dx.displayName=XP;var ZP="DropdownMenuRadioGroup",JP=f.forwardRef((e,t)=>{const{__scopeDropdownMenu:n,...r}=e,i=lt(n);return o.jsx(FP,{...i,...r,ref:t})});JP.displayName=ZP;var eA="DropdownMenuRadioItem",mx=f.forwardRef((e,t)=>{const{__scopeDropdownMenu:n,...r}=e,i=lt(n);return o.jsx(OP,{...i,...r,ref:t})});mx.displayName=eA;var tA="DropdownMenuItemIndicator",fx=f.forwardRef((e,t)=>{const{__scopeDropdownMenu:n,...r}=e,i=lt(n);return o.jsx(_P,{...i,...r,ref:t})});fx.displayName=tA;var nA="DropdownMenuSeparator",px=f.forwardRef((e,t)=>{const{__scopeDropdownMenu:n,...r}=e,i=lt(n);return o.jsx(BP,{...i,...r,ref:t})});px.displayName=nA;var rA="DropdownMenuArrow",iA=f.forwardRef((e,t)=>{const{__scopeDropdownMenu:n,...r}=e,i=lt(n);return o.jsx(HP,{...i,...r,ref:t})});iA.displayName=rA;var aA="DropdownMenuSubTrigger",hx=f.forwardRef((e,t)=>{const{__scopeDropdownMenu:n,...r}=e,i=lt(n);return o.jsx(UP,{...i,...r,ref:t})});hx.displayName=aA;var lA="DropdownMenuSubContent",yx=f.forwardRef((e,t)=>{const{__scopeDropdownMenu:n,...r}=e,i=lt(n);return o.jsx(KP,{...i,...r,ref:t,style:{...e.style,"--radix-dropdown-menu-content-transform-origin":"var(--radix-popper-transform-origin)","--radix-dropdown-menu-content-available-width":"var(--radix-popper-available-width)","--radix-dropdown-menu-content-available-height":"var(--radix-popper-available-height)","--radix-dropdown-menu-trigger-width":"var(--radix-popper-anchor-width)","--radix-dropdown-menu-trigger-height":"var(--radix-popper-anchor-height)"}})});yx.displayName=lA;var oA=rx,sA=ax,uA=lx,gx=sx,kx=ux,vx=cx,xx=dx,bx=mx,wx=fx,Sx=px,zx=hx,Cx=yx;const cA=oA,dA=sA,mA=f.forwardRef(({className:e,inset:t,children:n,...r},i)=>o.jsxs(zx,{ref:i,className:re("flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-accent data-[state=open]:bg-accent",t&&"pl-8",e),...r,children:[n,o.jsx(Yo,{className:"ml-auto h-4 w-4"})]}));mA.displayName=zx.displayName;const fA=f.forwardRef(({className:e,...t},n)=>o.jsx(Cx,{ref:n,className:re("z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",e),...t}));fA.displayName=Cx.displayName;const Ex=f.forwardRef(({className:e,sideOffset:t=4,...n},r)=>o.jsx(uA,{children:o.jsx(gx,{ref:r,sideOffset:t,className:re("z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",e),...n})}));Ex.displayName=gx.displayName;const Nx=f.forwardRef(({className:e,inset:t,...n},r)=>o.jsx(vx,{ref:r,className:re("relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",t&&"pl-8",e),...n}));Nx.displayName=vx.displayName;const pA=f.forwardRef(({className:e,children:t,checked:n,...r},i)=>o.jsxs(xx,{ref:i,className:re("relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",e),checked:n,...r,children:[o.jsx("span",{className:"absolute left-2 flex h-3.5 w-3.5 items-center justify-center",children:o.jsx(wx,{children:o.jsx(M1,{className:"h-4 w-4"})})}),t]}));pA.displayName=xx.displayName;const hA=f.forwardRef(({className:e,children:t,...n},r)=>o.jsxs(bx,{ref:r,className:re("relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",e),...n,children:[o.jsx("span",{className:"absolute left-2 flex h-3.5 w-3.5 items-center justify-center",children:o.jsx(wx,{children:o.jsx(I1,{className:"h-2 w-2 fill-current"})})}),t]}));hA.displayName=bx.displayName;const yA=f.forwardRef(({className:e,inset:t,...n},r)=>o.jsx(kx,{ref:r,className:re("px-2 py-1.5 text-sm font-semibold",t&&"pl-8",e),...n}));yA.displayName=kx.displayName;const gA=f.forwardRef(({className:e,...t},n)=>o.jsx(Sx,{ref:n,className:re("-mx-1 my-1 h-px bg-muted",e),...t}));gA.displayName=Sx.displayName;const nh=({isScrolled:e})=>{const{language:t,setLanguage:n}=_e(),r=[{code:"en",label:"English",flag:"🇬🇧"},{code:"tr",label:"Türkçe",flag:"🇹🇷"},{code:"ar",label:"العربية",flag:"🇸🇦"}],i=r.find(a=>a.code===t);return o.jsxs(cA,{children:[o.jsx(dA,{asChild:!0,children:o.jsx("button",{className:`flex items-center space-x-1 p-2 transition-all duration-500 ${e?"text-[#191919] hover:text-[hsl(var(--hover))]":"text-white hover:text-[hsl(var(--hover))]"}`,"aria-label":"Select Language",children:o.jsx("span",{className:"text-base",children:i==null?void 0:i.flag})})}),o.jsx(Ex,{align:"end",className:"w-40 bg-white z-50",children:r.map(a=>o.jsxs(Nx,{onClick:()=>n(a.code),className:`cursor-pointer ${t===a.code?"bg-accent":""}`,children:[o.jsx("span",{className:"mr-2 text-lg",children:a.flag}),a.label]},a.code))})]})},io=e=>{const[t,n]=f.useState({isLoading:!0,hasError:!1,currentLogo:null});return f.useEffect(()=>{(()=>{try{let i;switch(e){case"desktop-white":i=Dr.desktop.white;break;case"desktop-black":i=Dr.desktop.black;break;case"mobile-white":i=Dr.mobile.white;break;case"mobile-black":i=Dr.mobile.black;break;default:throw new Error("Invalid logo type")}if(!i||i.includes("placeholder")||i===""){n({isLoading:!1,hasError:!1,currentLogo:null});return}const a=new Image;a.onload=()=>{n({isLoading:!1,hasError:!1,currentLogo:i})},a.onerror=()=>{n({isLoading:!1,hasError:!0,currentLogo:null})},a.src=i}catch{n({isLoading:!1,hasError:!0,currentLogo:null})}})()},[e]),t},kA=()=>{const e=io("desktop-white"),t=io("desktop-black"),n=io("mobile-white"),r=io("mobile-black");return{desktop:{white:e,black:t},mobile:{white:n,black:r}}},Px=()=>{const[e,t]=f.useState(null),[n,r]=f.useState(!1),[i,a]=f.useState(null);return f.useEffect(()=>{(async()=>{r(!0);try{const u=await fetch("/search-index.json");if(!u.ok)throw new Error("Failed to load search index");const c=await u.json();t(c),a(null)}catch(u){a("Search temporarily unavailable"),console.error("Failed to load search index:",u)}finally{r(!1)}})()},[]),{searchResults:f.useMemo(()=>(s,u=6)=>{if(!e||!s||s.length<2)return[];const c=s.toLowerCase().trim(),d=[...e.products,...e.blogs].filter(p=>{const h=p.title.toLowerCase().includes(c),b=p.description.toLowerCase().includes(c);return h||b});return d.sort((p,h)=>{const b=p.title.toLowerCase().includes(c),k=h.title.toLowerCase().includes(c);return b&&!k?-1:!b&&k?1:0}),d.slice(0,u)},[e]),isLoading:n,error:i,isReady:!!e}},vA=()=>{var $,B,G;const{language:e}=_e(),t=at[e],[n,r]=f.useState(!1),[i,a]=f.useState(!0),[l,s]=f.useState(0),[u,c]=f.useState(!1),[m,d]=f.useState(!1),[p,h]=f.useState(""),[b,k]=f.useState(!1),[x,y]=f.useState(!1),g=Hn(),v=Ls(),w=kA(),S=f.useRef(null),{searchResults:z,isLoading:C,error:E}=Px(),[A,T]=f.useState([]);f.useEffect(()=>{const P=()=>{const M=window.scrollY;M>=2&&(c(!1),d(!1),y(!1),k(!1));const _=M<10,O=M>l,Y=M<l,ne=window.innerWidth<768&&u;_?(a(!0),r(!1)):O&&M>50&&!ne?a(!1):Y&&M>50&&(a(!0),r(!0)),s(M)},N=M=>{const _=M.target,O=document.querySelectorAll(".search-container");let Y=!1;O.forEach(se=>{se.contains(_)&&(Y=!0)}),Y||(d(!1),y(!1));const V=document.querySelector("header"),ne=document.querySelector("[data-mega-menu]");u&&V&&!V.contains(_)&&(!ne||!ne.contains(_))&&c(!1)};return window.addEventListener("scroll",P),document.addEventListener("mousedown",N),()=>{window.removeEventListener("scroll",P),document.removeEventListener("mousedown",N)}},[l,u]);const F=P=>{P.preventDefault(),p.trim()&&(v(`/search?query=${encodeURIComponent(p.trim())}`),d(!1),y(!1))},L=P=>{const N=P.target.value;if(h(N),N.length>=2){const M=z(N,6);T(M),y(!0)}else y(!1),T([])},K=()=>{d(!1),y(!1),h("")},I=[{name:($=t.home)==null?void 0:$.toUpperCase(),href:"/"},{name:e==="en"?"SKINCARE":e==="ar"?(t.shop||"SKINCARE").toUpperCase():"CİLT BAKIMI",href:"#",hasMegaMenu:!0},{name:e==="en"?"TRENDS & TIPS":e==="ar"?((B=t.blog)==null?void 0:B.title)||"TRENDS & TIPS":"TRENDLER VE İPUÇLARI",href:"/blog"},{name:"THE ORIGIN OF BEAUTY",href:"/about"},{name:(G=t.contactNav)==null?void 0:G.toUpperCase(),href:"/contact"}];return o.jsxs("header",{className:`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ease-out transform rounded-b-lg ${i?"translate-y-0 opacity-100":"-translate-y-full opacity-0"} ${n?"bg-white shadow-md":"bg-black/5 backdrop-blur-[2px]"}`,children:[o.jsxs("div",{className:"container mx-auto max-w-7xl px-4",children:[o.jsx("div",{className:"hidden md:flex justify-center py-2 md:py-5",children:o.jsx(te,{to:"/",className:"transition-all duration-500 hover:opacity-80",children:(()=>{const P=n?w.desktop.black:w.desktop.white;return P.currentLogo?o.jsx("img",{src:P.currentLogo,alt:"SINCEVA Logo",className:"h-16 md:h-19 w-auto"}):o.jsx("div",{className:`text-xl md:text-2xl font-bold transition-all duration-500 ${n?"text-[#191919]":"text-white"}`,children:Dr.fallback.text})})()})}),o.jsx("div",{className:"md:hidden flex justify-center pt-3 pb-1 mt-1",children:o.jsx(te,{to:"/",className:"transition-all duration-500 hover:opacity-80",children:(()=>{const P=n?w.mobile.black:w.mobile.white;return P.currentLogo?o.jsx("img",{src:P.currentLogo,alt:"SINCEVA Logo",className:"h-9 w-auto"}):o.jsx("div",{className:`text-lg font-bold transition-all duration-500 ${n?"text-[#191919]":"text-white"}`,children:Dr.fallback.text})})()})}),o.jsxs("nav",{onClick:P=>{P.target===P.currentTarget&&c(!1)},className:`hidden md:flex justify-center items-center py-1.5 md:py-3 h-10 transition-all duration-300 ${m?"space-x-2 md:space-x-4 lg:space-x-6":"space-x-4 md:space-x-8 lg:space-x-12"}`,children:[I.map(P=>o.jsx("div",{className:"relative",children:P.hasMegaMenu?o.jsx("button",{onClick:()=>c(!u),className:`text-xs md:text-sm font-medium tracking-wide transition-all duration-500 uppercase whitespace-nowrap inline-block ${n?"text-[#191919] hover:text-[hsl(var(--hover))]":"text-white hover:text-[hsl(var(--hover))]"}`,children:P.name}):o.jsx(te,{to:P.href,className:`text-xs md:text-sm font-medium tracking-wide transition-all duration-500 uppercase whitespace-nowrap inline-block ${n?"text-[#191919] hover:text-[hsl(var(--hover))]":"text-white hover:text-[hsl(var(--hover))]"} ${g.pathname===P.href?"opacity-100":"opacity-90"}`,children:P.name})},P.name)),o.jsxs("div",{className:`flex items-center transition-all duration-300 ${m?"ml-2 md:ml-4":"ml-4 md:ml-8"}`,children:[o.jsx("div",{className:"ltr:ml-2 rtl:mr-2",children:o.jsx(nh,{isScrolled:n})}),o.jsxs("div",{className:"search-container relative flex items-center",children:[o.jsx("button",{onClick:()=>d(!m),className:`p-2 transition-all duration-500 ${m?"text-[hsl(var(--hover))]":n?"text-[#191919] hover:text-[hsl(var(--hover))]":"text-white hover:text-[hsl(var(--hover))]"} ${m?"absolute left-1 top-1/2 transform -translate-y-1/2 z-10":""}`,children:o.jsx(qo,{className:"w-4 md:w-5 h-4 md:h-5"})}),o.jsx("div",{className:`overflow-hidden transition-all duration-300 ease-out ${m?"w-32 md:w-48 ml-0":"w-0 ml-0"}`,children:o.jsx("form",{onSubmit:F,className:"w-full",children:o.jsx(Pn,{ref:S,type:"text",placeholder:t.searchPlaceholder||"Search products...",value:p,onChange:L,className:`w-full h-8 pl-10 pr-4 text-xs !border-none !outline-none !ring-0 !ring-offset-0 !shadow-none transition-all duration-300 rounded-full focus:!outline-none focus:!ring-0 focus:!border-none focus:!shadow-none focus-visible:!outline-none focus-visible:!ring-0 focus-visible:!ring-offset-0 ${n?"bg-gray-100 text-gray-900 placeholder:text-gray-500":"bg-black/20 backdrop-blur-md text-white placeholder:text-white/70"}`,autoFocus:m})})}),m&&o.jsx("div",{className:"fixed left-0 right-0 top-40 z-[100] px-4",children:o.jsx("div",{className:"max-w-7xl mx-auto flex justify-end",children:o.jsx("div",{className:"w-80 md:w-96",children:o.jsx(Gp,{results:A,isVisible:x,isLoading:C,error:E,onResultClick:K})})})})]})]})]}),o.jsxs("div",{className:"md:hidden flex justify-between items-center py-1.5 md:py-4",children:[o.jsx("button",{onClick:()=>k(!b),className:`p-2 transition-all duration-500 ${n?"text-[#191919] hover:text-[hsl(var(--hover))]":"text-white hover:text-[hsl(var(--hover))]"}`,children:b?o.jsx(xl,{className:"w-6 h-6"}):o.jsx(V1,{className:"w-6 h-6"})}),o.jsxs("div",{className:"flex items-center gap-1",children:[o.jsx(nh,{isScrolled:n}),o.jsxs("div",{className:"search-container relative flex items-center",children:[o.jsx("button",{onClick:()=>d(!m),className:`p-2 transition-all duration-500 ${m?"text-[hsl(var(--hover))]":n?"text-[#191919] hover:text-[hsl(var(--hover))]":"text-white hover:text-[hsl(var(--hover))]"} ${m?"absolute left-1 top-1/2 transform -translate-y-1/2 z-10":""}`,children:o.jsx(qo,{className:"w-5 h-5"})}),o.jsx("div",{className:`overflow-hidden transition-all duration-300 ease-out ${m?"w-40 ml-0":"w-0 ml-0"}`,children:o.jsx("form",{onSubmit:F,className:"w-full",children:o.jsx(Pn,{ref:S,type:"text",placeholder:t.searchPlaceholder||"Search products...",value:p,onChange:L,className:`w-full h-8 pl-10 pr-4 text-xs !border-none !outline-none !ring-0 !ring-offset-0 !shadow-none transition-all duration-300 rounded-full focus:!outline-none focus:!ring-0 focus:!border-none focus:!shadow-none focus-visible:!outline-none focus-visible:!ring-0 focus-visible:!ring-offset-0 ${n?"bg-gray-100 text-gray-900 placeholder:text-gray-500":"bg-black/20 backdrop-blur-md text-white placeholder:text-white/70"}`,autoFocus:m})})}),m&&o.jsx("div",{className:"fixed left-0 right-0 top-40 z-[100] px-4",children:o.jsx("div",{className:"max-w-7xl mx-auto flex justify-end",children:o.jsx("div",{className:"w-80",children:o.jsx(Gp,{results:A,isVisible:x,isLoading:C,error:E,onResultClick:K})})})})]})]})]}),b&&o.jsx("div",{className:`md:hidden py-1.5 md:py-4 ${n?"border-t border-gray-100":"border-t border-border/20"}`,children:I.map(P=>P.hasMegaMenu?o.jsx("button",{onClick:()=>{c(!u),k(!1)},className:`block py-2 text-sm font-medium transition-all duration-500 uppercase text-left w-full ${n?"text-[#191919] hover:text-[hsl(var(--hover))]":"text-white hover:text-[hsl(var(--hover))]"}`,children:P.name},P.name):o.jsx(te,{to:P.href,onClick:()=>k(!1),className:`block py-2 text-sm font-medium transition-all duration-500 uppercase ${n?"text-[#191919] hover:text-[hsl(var(--hover))]":"text-white hover:text-[hsl(var(--hover))]"}`,children:P.name},P.name))})]}),o.jsx("div",{"data-mega-menu":!0,children:o.jsx(YN,{isVisible:u})})]})},xA=om("inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",{variants:{variant:{default:"bg-primary text-primary-foreground hover:bg-primary/90",destructive:"bg-destructive text-destructive-foreground hover:bg-destructive/90",outline:"border border-input bg-background hover:bg-accent hover:text-accent-foreground",secondary:"bg-secondary text-secondary-foreground hover:bg-secondary/80",ghost:"hover:bg-accent hover:text-accent-foreground",link:"text-primary underline-offset-4 hover:underline"},size:{default:"h-10 px-4 py-2",sm:"h-9 rounded-md px-3",lg:"h-11 rounded-md px-8",icon:"h-10 w-10"}},defaultVariants:{variant:"default",size:"default"}}),Me=f.forwardRef(({className:e,variant:t,size:n,asChild:r=!1,...i},a)=>{const l=r?Ow:"button";return o.jsx(l,{className:re(xA({variant:t,size:n,className:e})),ref:a,...i})});Me.displayName="Button";const bA=()=>{const{language:e}=_e(),t=at[e],[n,r]=f.useState(""),i=a=>{a.preventDefault(),n.trim()&&(console.log("Newsletter signup:",n),r(""))};return o.jsx("footer",{className:"text-background",style:{backgroundColor:"#191919"},children:o.jsxs("div",{className:"container mx-auto max-w-7xl px-4 py-16",children:[o.jsxs("div",{className:"grid grid-cols-1 md:grid-cols-4 gap-8",children:[o.jsxs("div",{className:"space-y-4",children:[o.jsx("div",{className:"hidden md:block",children:o.jsx("img",{src:Dr.desktop.white,alt:"SINCEVA Logo",className:"h-16 w-auto"})}),o.jsx("h3",{className:"md:hidden text-2xl font-bold tracking-wider",children:"SINCEVA"}),o.jsxs("p",{className:"text-background/80 text-sm",children:[t.theOriginOfBeauty," - Premium skincare for timeless elegance."]}),o.jsxs("div",{className:"flex space-x-4",children:[o.jsx("a",{href:"#",className:"text-background/60 hover:text-primary transition-colors",children:o.jsx(K1,{className:"w-5 h-5"})}),o.jsx("a",{href:"#",className:"text-background/60 hover:text-primary transition-colors",children:o.jsx(O1,{className:"w-5 h-5"})}),o.jsx("a",{href:"#",className:"text-background/60 hover:text-primary transition-colors",children:o.jsx(X1,{className:"w-5 h-5"})})]})]}),o.jsxs("div",{className:"space-y-4",children:[o.jsx("h4",{className:"font-semibold text-background",children:t.quickLinks}),o.jsxs("nav",{className:"space-y-2",children:[o.jsx(te,{to:"/about",className:"block text-background/80 hover:text-primary transition-colors text-sm",children:t.theOriginOfBeauty}),o.jsx(te,{to:"/blog",className:"block text-background/80 hover:text-primary transition-colors text-sm",children:t.trendsAndTips}),o.jsx(te,{to:"/contact",className:"block text-background/80 hover:text-primary transition-colors text-sm",children:t.contact}),o.jsx(te,{to:"/shop",className:"block text-background/80 hover:text-primary transition-colors text-sm",children:t.shop})]})]}),o.jsxs("div",{className:"space-y-4",children:[o.jsx("h4",{className:"font-semibold text-background",children:t.policies}),o.jsxs("nav",{className:"space-y-2",children:[o.jsx(te,{to:"/privacy",className:"block text-background/80 hover:text-primary transition-colors text-sm",children:t.privacyPolicy}),o.jsx(te,{to:"/cookie-policy",className:"block text-background/80 hover:text-primary transition-colors text-sm",children:t.cookiePolicy}),o.jsx(te,{to:"/terms",className:"block text-background/80 hover:text-primary transition-colors text-sm",children:t.termsAndConditions}),o.jsx(te,{to:"/consumer-ratings",className:"block text-background/80 hover:text-primary transition-colors text-sm",children:t.consumerReviewRules})]})]}),o.jsxs("div",{className:"space-y-4",children:[o.jsx("h4",{className:"font-semibold text-background",children:t.stayConnected}),o.jsx("p",{className:"text-background/80 text-sm",children:t.newsletterDesc}),o.jsxs("form",{onSubmit:i,className:"space-y-3",children:[o.jsx(Pn,{type:"email",placeholder:t.enterEmail,value:n,onChange:a=>r(a.target.value),className:"bg-background/10 border-background/20 text-background placeholder:text-background/60",required:!0}),o.jsxs(Me,{type:"submit",variant:"default",className:"w-full bg-primary hover:bg-primary-dark",children:[o.jsx(uk,{className:"w-4 h-4 mr-2"}),t.subscribe]})]})]})]}),o.jsx("div",{className:"border-t border-background/20 mt-12 pt-8",children:o.jsxs("div",{className:"flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0",children:[o.jsxs("p",{className:"text-background/60 text-sm",children:["© ",new Date().getFullYear()," SAFI COSMETIC LIMITED COMPANY. ",t.allRightsReserved]}),o.jsx("p",{className:"text-background/60 text-sm",children:t.craftedFor})]})})]})})},wA=()=>{const[e,t]=f.useState(!1),[n,r]=f.useState(!1);f.useEffect(()=>{localStorage.getItem("cookie_consent")||t(!0)},[]);const i=()=>{localStorage.setItem("cookie_consent","accepted"),localStorage.setItem("cookie-preferences",JSON.stringify({necessary:!0,analytics:!0,marketing:!0})),t(!1)},a=()=>{localStorage.setItem("cookie_consent","rejected"),localStorage.setItem("cookie-preferences",JSON.stringify({necessary:!0,analytics:!1,marketing:!1})),t(!1)},l=()=>{r(!n)};return e?o.jsx("div",{className:"fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200 shadow-lg",children:o.jsx("div",{className:"container mx-auto max-w-7xl px-4 py-4",children:n?o.jsxs("div",{className:"space-y-4",children:[o.jsxs("div",{className:"flex items-center justify-between",children:[o.jsxs("h3",{className:"font-semibold text-gray-900 flex items-center gap-2",children:[o.jsx(q1,{className:"w-5 h-5 text-[#ef2b2d]"}),"Cookie Preferences"]}),o.jsx("button",{onClick:()=>r(!1),className:"text-gray-400 hover:text-gray-600",children:o.jsx(xl,{className:"w-5 h-5"})})]}),o.jsxs("div",{className:"grid gap-3",children:[o.jsxs("div",{className:"flex items-center justify-between p-3 bg-gray-50 rounded-lg",children:[o.jsxs("div",{children:[o.jsx("h4",{className:"font-medium text-gray-900",children:"Necessary Cookies"}),o.jsx("p",{className:"text-sm text-gray-600",children:"Required for site functionality"})]}),o.jsx("div",{className:"text-sm text-gray-500",children:"Always active"})]}),o.jsxs("div",{className:"flex items-center justify-between p-3 bg-gray-50 rounded-lg",children:[o.jsxs("div",{children:[o.jsx("h4",{className:"font-medium text-gray-900",children:"Analytics Cookies"}),o.jsx("p",{className:"text-sm text-gray-600",children:"Help us analyze site usage"})]}),o.jsx("input",{type:"checkbox",className:"h-4 w-4 text-[#ef2b2d]"})]}),o.jsxs("div",{className:"flex items-center justify-between p-3 bg-gray-50 rounded-lg",children:[o.jsxs("div",{children:[o.jsx("h4",{className:"font-medium text-gray-900",children:"Marketing Cookies"}),o.jsx("p",{className:"text-sm text-gray-600",children:"Personalized advertisements"})]}),o.jsx("input",{type:"checkbox",className:"h-4 w-4 text-[#ef2b2d]"})]})]}),o.jsxs("div",{className:"flex justify-end gap-2 pt-2",children:[o.jsx(Me,{onClick:a,variant:"outline",size:"sm",children:"Essential Only"}),o.jsx(Me,{onClick:i,size:"sm",className:"bg-[#ef2b2d] hover:bg-[#ef2b2d]/90",children:"Accept All"})]})]}):o.jsxs("div",{className:"flex flex-col md:flex-row items-start md:items-center justify-between gap-4",children:[o.jsxs("div",{className:"flex items-start gap-3 flex-1",children:[o.jsx(F1,{className:"w-6 h-6 text-[#ef2b2d] mt-1 flex-shrink-0"}),o.jsxs("div",{children:[o.jsx("h3",{className:"font-semibold text-gray-900 mb-1",children:"We Use Cookies"}),o.jsxs("p",{className:"text-sm text-gray-600",children:["We use cookies to improve your browsing experience, personalize content, and analyze our traffic. By continuing to use our site, you consent to our use of cookies."," ",o.jsx(te,{to:"/cookie-policy",className:"text-[#ef2b2d] hover:underline",children:"Learn more"})]})]})]}),o.jsxs("div",{className:"flex flex-wrap gap-2",children:[o.jsx(Me,{onClick:l,variant:"outline",size:"sm",className:"text-gray-600 border-gray-300",children:"Preferences"}),o.jsx(Me,{onClick:a,variant:"outline",size:"sm",className:"text-gray-600 border-gray-300",children:"Reject"}),o.jsx(Me,{onClick:i,size:"sm",className:"bg-[#ef2b2d] hover:bg-[#ef2b2d]/90",children:"Accept All"})]})]})})}):null},He=({children:e})=>(console.log("Layout component loading..."),o.jsxs("div",{className:"min-h-screen bg-background",children:[o.jsx(vA,{}),o.jsx("main",{children:e}),o.jsx(bA,{}),o.jsx(wA,{})]}));var SA="AspectRatio",Ax=f.forwardRef((e,t)=>{const{ratio:n=1/1,style:r,...i}=e;return o.jsx("div",{style:{position:"relative",width:"100%",paddingBottom:`${100/n}%`},"data-radix-aspect-ratio-wrapper":"",children:o.jsx(ue.div,{...i,ref:t,style:{...r,position:"absolute",top:0,right:0,bottom:0,left:0}})})});Ax.displayName=SA;var zA=Ax;const In=zA,CA="/assets/g%C3%B6z_kremi_banner-C-tPOpTC.jpg",EA="/assets/g%C3%B6z_kremi_banner_mobile-Bx3QMe7B.jpg",NA=({className:e=""})=>{const[t,n]=f.useState(0),[r,i]=f.useState(!1),[a,l]=f.useState(!1),[s,u]=f.useState(0),[c,m]=f.useState(0),[d,p]=f.useState(0),h=f.useRef(null),b=[{id:1,image:CA,imageMobile:EA,alt:"Göz Kremi - Eye Cream Collection"},{id:2,image:qc,imageMobile:qc,alt:"Anti-Aging Skincare Solutions"},{id:3,image:Wc,imageMobile:Wc,alt:"Face & Skin Cleansing Products"}];f.useEffect(()=>{if(r||a)return;const E=setInterval(()=>{n(A=>(A+1)%b.length)},5e3);return()=>clearInterval(E)},[r,a,b.length]);const k=f.useCallback(E=>{n(E),i(!0),setTimeout(()=>{i(!1)},1e4)},[]),x=f.useCallback(E=>{n(E==="left"?A=>(A+1)%b.length:A=>(A-1+b.length)%b.length),i(!0),setTimeout(()=>i(!1),1e4)},[b.length]),y=E=>{l(!0),u(E.touches[0].clientX),m(E.touches[0].clientX)},g=E=>{if(!a)return;m(E.touches[0].clientX);const A=E.touches[0].clientX-s;p(A)},v=()=>{if(!a)return;const E=c-s;Math.abs(E)>50&&(E>0?x("right"):x("left")),l(!1),p(0)},w=E=>{l(!0),u(E.clientX),m(E.clientX),E.preventDefault()},S=E=>{if(!a)return;m(E.clientX);const A=E.clientX-s;p(A)},z=()=>{if(!a)return;const E=c-s;Math.abs(E)>50&&(E>0?x("right"):x("left")),l(!1),p(0)},C=()=>{a&&(l(!1),p(0))};return o.jsxs("section",{className:`sinceva-hero relative overflow-hidden ${e}`,children:[o.jsx("div",{className:"md:hidden",children:o.jsx(In,{ratio:2/3,children:o.jsx("div",{ref:h,className:"sinceva-hero__container relative w-full h-full cursor-grab active:cursor-grabbing select-none",onTouchStart:y,onTouchMove:g,onTouchEnd:v,onMouseDown:w,onMouseMove:S,onMouseUp:z,onMouseLeave:C,children:b.map((E,A)=>o.jsxs("div",{className:`sinceva-hero__slide absolute inset-0 transition-all duration-300 ease-out ${A===t?"opacity-100":"opacity-0"}`,style:{transform:A===t&&a?`translateX(${d}px)`:"translateX(0)"},children:[o.jsx("img",{src:E.imageMobile,alt:E.alt,className:"w-full h-full object-cover pointer-events-none",draggable:!1}),o.jsx("div",{className:"absolute inset-0 bg-gradient-to-r from-black/30 via-black/20 to-transparent"})]},E.id))})})}),o.jsx("div",{className:"hidden md:block",children:o.jsx(In,{ratio:3/1,children:o.jsx("div",{ref:h,className:"sinceva-hero__container relative w-full h-full cursor-grab active:cursor-grabbing select-none",onTouchStart:y,onTouchMove:g,onTouchEnd:v,onMouseDown:w,onMouseMove:S,onMouseUp:z,onMouseLeave:C,children:b.map((E,A)=>o.jsxs("div",{className:`sinceva-hero__slide absolute inset-0 transition-all duration-300 ease-out ${A===t?"opacity-100":"opacity-0"}`,style:{transform:A===t&&a?`translateX(${d}px)`:"translateX(0)"},children:[o.jsx("img",{src:E.image,alt:E.alt,className:"w-full h-full object-cover pointer-events-none",draggable:!1}),o.jsx("div",{className:"absolute inset-0 bg-gradient-to-r from-black/30 via-black/20 to-transparent"})]},E.id))})})}),o.jsx("div",{className:"sinceva-hero__nav absolute bottom-6 left-1/2 transform -translate-x-1/2 z-20",children:o.jsx("div",{className:"flex space-x-3",children:b.map((E,A)=>o.jsx("button",{onClick:()=>k(A),className:`sinceva-hero__dot w-3 h-3 rounded-full transition-all duration-300 ${A===t?"bg-white scale-110 shadow-lg":"bg-white/50 hover:bg-white/75"}`,"aria-label":`Go to slide ${A+1}`},A))})})]})},PA=()=>(console.log("Hero component loading..."),o.jsx(NA,{})),Ln=f.forwardRef(({className:e,...t},n)=>o.jsx("div",{ref:n,className:re("rounded-lg border bg-card text-card-foreground shadow-sm",e),...t}));Ln.displayName="Card";const AA=f.forwardRef(({className:e,...t},n)=>o.jsx("div",{ref:n,className:re("flex flex-col space-y-1.5 p-6",e),...t}));AA.displayName="CardHeader";const jA=f.forwardRef(({className:e,...t},n)=>o.jsx("h3",{ref:n,className:re("text-2xl font-semibold leading-none tracking-tight",e),...t}));jA.displayName="CardTitle";const TA=f.forwardRef(({className:e,...t},n)=>o.jsx("p",{ref:n,className:re("text-sm text-muted-foreground",e),...t}));TA.displayName="CardDescription";const Fn=f.forwardRef(({className:e,...t},n)=>o.jsx("div",{ref:n,className:re("p-6 pt-0",e),...t}));Fn.displayName="CardContent";const MA=f.forwardRef(({className:e,...t},n)=>o.jsx("div",{ref:n,className:re("flex items-center p-6 pt-0",e),...t}));MA.displayName="CardFooter";function RA(e){return Object.prototype.toString.call(e)==="[object Object]"}function rh(e){return RA(e)||Array.isArray(e)}function DA(){return!!(typeof window<"u"&&window.document&&window.document.createElement)}function Im(e,t){const n=Object.keys(e),r=Object.keys(t);if(n.length!==r.length)return!1;const i=JSON.stringify(Object.keys(e.breakpoints||{})),a=JSON.stringify(Object.keys(t.breakpoints||{}));return i!==a?!1:n.every(l=>{const s=e[l],u=t[l];return typeof s=="function"?`${s}`==`${u}`:!rh(s)||!rh(u)?s===u:Im(s,u)})}function ih(e){return e.concat().sort((t,n)=>t.name>n.name?1:-1).map(t=>t.options)}function IA(e,t){if(e.length!==t.length)return!1;const n=ih(e),r=ih(t);return n.every((i,a)=>{const l=r[a];return Im(i,l)})}function Lm(e){return typeof e=="number"}function Jc(e){return typeof e=="string"}function Hs(e){return typeof e=="boolean"}function ah(e){return Object.prototype.toString.call(e)==="[object Object]"}function ze(e){return Math.abs(e)}function Fm(e){return Math.sign(e)}function Aa(e,t){return ze(e-t)}function LA(e,t){if(e===0||t===0||ze(e)<=ze(t))return 0;const n=Aa(ze(e),ze(t));return ze(n/e)}function FA(e){return Math.round(e*100)/100}function al(e){return ll(e).map(Number)}function Qt(e){return e[Cl(e)]}function Cl(e){return Math.max(0,e.length-1)}function Om(e,t){return t===Cl(e)}function lh(e,t=0){return Array.from(Array(e),(n,r)=>t+r)}function ll(e){return Object.keys(e)}function jx(e,t){return[e,t].reduce((n,r)=>(ll(r).forEach(i=>{const a=n[i],l=r[i],s=ah(a)&&ah(l);n[i]=s?jx(a,l):l}),n),{})}function ed(e,t){return typeof t.MouseEvent<"u"&&e instanceof t.MouseEvent}function OA(e,t){const n={start:r,center:i,end:a};function r(){return 0}function i(u){return a(u)/2}function a(u){return t-u}function l(u,c){return Jc(e)?n[e](u):e(t,u,c)}return{measure:l}}function ol(){let e=[];function t(i,a,l,s={passive:!0}){let u;if("addEventListener"in i)i.addEventListener(a,l,s),u=()=>i.removeEventListener(a,l,s);else{const c=i;c.addListener(l),u=()=>c.removeListener(l)}return e.push(u),r}function n(){e=e.filter(i=>i())}const r={add:t,clear:n};return r}function _A(e,t,n,r){const i=ol(),a=1e3/60;let l=null,s=0,u=0;function c(){i.add(e,"visibilitychange",()=>{e.hidden&&b()})}function m(){h(),i.clear()}function d(x){if(!u)return;l||(l=x,n(),n());const y=x-l;for(l=x,s+=y;s>=a;)n(),s-=a;const g=s/a;r(g),u&&(u=t.requestAnimationFrame(d))}function p(){u||(u=t.requestAnimationFrame(d))}function h(){t.cancelAnimationFrame(u),l=null,s=0,u=0}function b(){l=null,s=0}return{init:c,destroy:m,start:p,stop:h,update:n,render:r}}function BA(e,t){const n=t==="rtl",r=e==="y",i=r?"y":"x",a=r?"x":"y",l=!r&&n?-1:1,s=m(),u=d();function c(b){const{height:k,width:x}=b;return r?k:x}function m(){return r?"top":n?"right":"left"}function d(){return r?"bottom":n?"left":"right"}function p(b){return b*l}return{scroll:i,cross:a,startEdge:s,endEdge:u,measureSize:c,direction:p}}function Wr(e=0,t=0){const n=ze(e-t);function r(c){return c<e}function i(c){return c>t}function a(c){return r(c)||i(c)}function l(c){return a(c)?r(c)?e:t:c}function s(c){return n?c-n*Math.ceil((c-t)/n):c}return{length:n,max:t,min:e,constrain:l,reachedAny:a,reachedMax:i,reachedMin:r,removeOffset:s}}function Tx(e,t,n){const{constrain:r}=Wr(0,e),i=e+1;let a=l(t);function l(p){return n?ze((i+p)%i):r(p)}function s(){return a}function u(p){return a=l(p),d}function c(p){return m().set(s()+p)}function m(){return Tx(e,s(),n)}const d={get:s,set:u,add:c,clone:m};return d}function HA(e,t,n,r,i,a,l,s,u,c,m,d,p,h,b,k,x,y,g){const{cross:v,direction:w}=e,S=["INPUT","SELECT","TEXTAREA"],z={passive:!1},C=ol(),E=ol(),A=Wr(50,225).constrain(h.measure(20)),T={mouse:300,touch:400},F={mouse:500,touch:600},L=b?43:25;let K=!1,I=0,$=0,B=!1,G=!1,P=!1,N=!1;function M(U){if(!g)return;function ee(De){(Hs(g)||g(U,De))&&se(De)}const ge=t;C.add(ge,"dragstart",De=>De.preventDefault(),z).add(ge,"touchmove",()=>{},z).add(ge,"touchend",()=>{}).add(ge,"touchstart",ee).add(ge,"mousedown",ee).add(ge,"touchcancel",ye).add(ge,"contextmenu",ye).add(ge,"click",me,!0)}function _(){C.clear(),E.clear()}function O(){const U=N?n:t;E.add(U,"touchmove",W,z).add(U,"touchend",ye).add(U,"mousemove",W,z).add(U,"mouseup",ye)}function Y(U){const ee=U.nodeName||"";return S.includes(ee)}function V(){return(b?F:T)[N?"mouse":"touch"]}function ne(U,ee){const ge=d.add(Fm(U)*-1),De=m.byDistance(U,!b).distance;return b||ze(U)<A?De:x&&ee?De*.5:m.byIndex(ge.get(),0).distance}function se(U){const ee=ed(U,r);N=ee,P=b&&ee&&!U.buttons&&K,K=Aa(i.get(),l.get())>=2,!(ee&&U.button!==0)&&(Y(U.target)||(B=!0,a.pointerDown(U),c.useFriction(0).useDuration(0),i.set(l),O(),I=a.readPoint(U),$=a.readPoint(U,v),p.emit("pointerDown")))}function W(U){if(!ed(U,r)&&U.touches.length>=2)return ye(U);const ge=a.readPoint(U),De=a.readPoint(U,v),Xe=Aa(ge,I),pt=Aa(De,$);if(!G&&!N&&(!U.cancelable||(G=Xe>pt,!G)))return ye(U);const ht=a.pointerMove(U);Xe>k&&(P=!0),c.useFriction(.3).useDuration(.75),s.start(),i.add(w(ht)),U.preventDefault()}function ye(U){const ge=m.byDistance(0,!1).index!==d.get(),De=a.pointerUp(U)*V(),Xe=ne(w(De),ge),pt=LA(De,Xe),ht=L-10*pt,Ze=y+pt/50;G=!1,B=!1,E.clear(),c.useDuration(ht).useFriction(Ze),u.distance(Xe,!b),N=!1,p.emit("pointerUp")}function me(U){P&&(U.stopPropagation(),U.preventDefault(),P=!1)}function we(){return B}return{init:M,destroy:_,pointerDown:we}}function UA(e,t){let r,i;function a(d){return d.timeStamp}function l(d,p){const b=`client${(p||e.scroll)==="x"?"X":"Y"}`;return(ed(d,t)?d:d.touches[0])[b]}function s(d){return r=d,i=d,l(d)}function u(d){const p=l(d)-l(i),h=a(d)-a(r)>170;return i=d,h&&(r=d),p}function c(d){if(!r||!i)return 0;const p=l(i)-l(r),h=a(d)-a(r),b=a(d)-a(i)>170,k=p/h;return h&&!b&&ze(k)>.1?k:0}return{pointerDown:s,pointerMove:u,pointerUp:c,readPoint:l}}function KA(){function e(n){const{offsetTop:r,offsetLeft:i,offsetWidth:a,offsetHeight:l}=n;return{top:r,right:i+a,bottom:r+l,left:i,width:a,height:l}}return{measure:e}}function GA(e){function t(r){return e*(r/100)}return{measure:t}}function $A(e,t,n,r,i,a,l){const s=[e].concat(r);let u,c,m=[],d=!1;function p(x){return i.measureSize(l.measure(x))}function h(x){if(!a)return;c=p(e),m=r.map(p);function y(g){for(const v of g){if(d)return;const w=v.target===e,S=r.indexOf(v.target),z=w?c:m[S],C=p(w?e:r[S]);if(ze(C-z)>=.5){x.reInit(),t.emit("resize");break}}}u=new ResizeObserver(g=>{(Hs(a)||a(x,g))&&y(g)}),n.requestAnimationFrame(()=>{s.forEach(g=>u.observe(g))})}function b(){d=!0,u&&u.disconnect()}return{init:h,destroy:b}}function VA(e,t,n,r,i,a){let l=0,s=0,u=i,c=a,m=e.get(),d=0;function p(){const z=r.get()-e.get(),C=!u;let E=0;return C?(l=0,n.set(r),e.set(r),E=z):(n.set(e),l+=z/u,l*=c,m+=l,e.add(l),E=m-d),s=Fm(E),d=m,S}function h(){const z=r.get()-t.get();return ze(z)<.001}function b(){return u}function k(){return s}function x(){return l}function y(){return v(i)}function g(){return w(a)}function v(z){return u=z,S}function w(z){return c=z,S}const S={direction:k,duration:b,velocity:x,seek:p,settled:h,useBaseFriction:g,useBaseDuration:y,useFriction:w,useDuration:v};return S}function YA(e,t,n,r,i){const a=i.measure(10),l=i.measure(50),s=Wr(.1,.99);let u=!1;function c(){return!(u||!e.reachedAny(n.get())||!e.reachedAny(t.get()))}function m(h){if(!c())return;const b=e.reachedMin(t.get())?"min":"max",k=ze(e[b]-t.get()),x=n.get()-t.get(),y=s.constrain(k/l);n.subtract(x*y),!h&&ze(x)<a&&(n.set(e.constrain(n.get())),r.useDuration(25).useBaseFriction())}function d(h){u=!h}return{shouldConstrain:c,constrain:m,toggleActive:d}}function qA(e,t,n,r,i){const a=Wr(-t+e,0),l=d(),s=m(),u=p();function c(b,k){return Aa(b,k)<=1}function m(){const b=l[0],k=Qt(l),x=l.lastIndexOf(b),y=l.indexOf(k)+1;return Wr(x,y)}function d(){return n.map((b,k)=>{const{min:x,max:y}=a,g=a.constrain(b),v=!k,w=Om(n,k);return v?y:w||c(x,g)?x:c(y,g)?y:g}).map(b=>parseFloat(b.toFixed(3)))}function p(){if(t<=e+i)return[a.max];if(r==="keepSnaps")return l;const{min:b,max:k}=s;return l.slice(b,k)}return{snapsContained:u,scrollContainLimit:s}}function WA(e,t,n){const r=t[0],i=n?r-e:Qt(t);return{limit:Wr(i,r)}}function QA(e,t,n,r){const a=t.min+.1,l=t.max+.1,{reachedMin:s,reachedMax:u}=Wr(a,l);function c(p){return p===1?u(n.get()):p===-1?s(n.get()):!1}function m(p){if(!c(p))return;const h=e*(p*-1);r.forEach(b=>b.add(h))}return{loop:m}}function XA(e){const{max:t,length:n}=e;function r(a){const l=a-t;return n?l/-n:0}return{get:r}}function ZA(e,t,n,r,i){const{startEdge:a,endEdge:l}=e,{groupSlides:s}=i,u=d().map(t.measure),c=p(),m=h();function d(){return s(r).map(k=>Qt(k)[l]-k[0][a]).map(ze)}function p(){return r.map(k=>n[a]-k[a]).map(k=>-ze(k))}function h(){return s(c).map(k=>k[0]).map((k,x)=>k+u[x])}return{snaps:c,snapsAligned:m}}function JA(e,t,n,r,i,a){const{groupSlides:l}=i,{min:s,max:u}=r,c=m();function m(){const p=l(a),h=!e||t==="keepSnaps";return n.length===1?[a]:h?p:p.slice(s,u).map((b,k,x)=>{const y=!k,g=Om(x,k);if(y){const v=Qt(x[0])+1;return lh(v)}if(g){const v=Cl(a)-Qt(x)[0]+1;return lh(v,Qt(x)[0])}return b})}return{slideRegistry:c}}function ej(e,t,n,r,i){const{reachedAny:a,removeOffset:l,constrain:s}=r;function u(b){return b.concat().sort((k,x)=>ze(k)-ze(x))[0]}function c(b){const k=e?l(b):s(b),x=t.map((g,v)=>({diff:m(g-k,0),index:v})).sort((g,v)=>ze(g.diff)-ze(v.diff)),{index:y}=x[0];return{index:y,distance:k}}function m(b,k){const x=[b,b+n,b-n];if(!e)return b;if(!k)return u(x);const y=x.filter(g=>Fm(g)===k);return y.length?u(y):Qt(x)-n}function d(b,k){const x=t[b]-i.get(),y=m(x,k);return{index:b,distance:y}}function p(b,k){const x=i.get()+b,{index:y,distance:g}=c(x),v=!e&&a(x);if(!k||v)return{index:y,distance:b};const w=t[y]-g,S=b+m(w,0);return{index:y,distance:S}}return{byDistance:p,byIndex:d,shortcut:m}}function tj(e,t,n,r,i,a,l){function s(d){const p=d.distance,h=d.index!==t.get();a.add(p),p&&(r.duration()?e.start():(e.update(),e.render(1),e.update())),h&&(n.set(t.get()),t.set(d.index),l.emit("select"))}function u(d,p){const h=i.byDistance(d,p);s(h)}function c(d,p){const h=t.clone().set(d),b=i.byIndex(h.get(),p);s(b)}return{distance:u,index:c}}function nj(e,t,n,r,i,a,l,s){const u={passive:!0,capture:!0};let c=0;function m(h){if(!s)return;function b(k){if(new Date().getTime()-c>10)return;l.emit("slideFocusStart"),e.scrollLeft=0;const g=n.findIndex(v=>v.includes(k));Lm(g)&&(i.useDuration(0),r.index(g,0),l.emit("slideFocus"))}a.add(document,"keydown",d,!1),t.forEach((k,x)=>{a.add(k,"focus",y=>{(Hs(s)||s(h,y))&&b(x)},u)})}function d(h){h.code==="Tab"&&(c=new Date().getTime())}return{init:m}}function ka(e){let t=e;function n(){return t}function r(u){t=l(u)}function i(u){t+=l(u)}function a(u){t-=l(u)}function l(u){return Lm(u)?u:u.get()}return{get:n,set:r,add:i,subtract:a}}function Mx(e,t){const n=e.scroll==="x"?l:s,r=t.style;let i=null,a=!1;function l(p){return`translate3d(${p}px,0px,0px)`}function s(p){return`translate3d(0px,${p}px,0px)`}function u(p){if(a)return;const h=FA(e.direction(p));h!==i&&(r.transform=n(h),i=h)}function c(p){a=!p}function m(){a||(r.transform="",t.getAttribute("style")||t.removeAttribute("style"))}return{clear:m,to:u,toggleActive:c}}function rj(e,t,n,r,i,a,l,s,u){const m=al(i),d=al(i).reverse(),p=y().concat(g());function h(C,E){return C.reduce((A,T)=>A-i[T],E)}function b(C,E){return C.reduce((A,T)=>h(A,E)>0?A.concat([T]):A,[])}function k(C){return a.map((E,A)=>({start:E-r[A]+.5+C,end:E+t-.5+C}))}function x(C,E,A){const T=k(E);return C.map(F=>{const L=A?0:-n,K=A?n:0,I=A?"end":"start",$=T[F][I];return{index:F,loopPoint:$,slideLocation:ka(-1),translate:Mx(e,u[F]),target:()=>s.get()>$?L:K}})}function y(){const C=l[0],E=b(d,C);return x(E,n,!1)}function g(){const C=t-l[0]-1,E=b(m,C);return x(E,-n,!0)}function v(){return p.every(({index:C})=>{const E=m.filter(A=>A!==C);return h(E,t)<=.1})}function w(){p.forEach(C=>{const{target:E,translate:A,slideLocation:T}=C,F=E();F!==T.get()&&(A.to(F),T.set(F))})}function S(){p.forEach(C=>C.translate.clear())}return{canLoop:v,clear:S,loop:w,loopPoints:p}}function ij(e,t,n){let r,i=!1;function a(u){if(!n)return;function c(m){for(const d of m)if(d.type==="childList"){u.reInit(),t.emit("slidesChanged");break}}r=new MutationObserver(m=>{i||(Hs(n)||n(u,m))&&c(m)}),r.observe(e,{childList:!0})}function l(){r&&r.disconnect(),i=!0}return{init:a,destroy:l}}function aj(e,t,n,r){const i={};let a=null,l=null,s,u=!1;function c(){s=new IntersectionObserver(b=>{u||(b.forEach(k=>{const x=t.indexOf(k.target);i[x]=k}),a=null,l=null,n.emit("slidesInView"))},{root:e.parentElement,threshold:r}),t.forEach(b=>s.observe(b))}function m(){s&&s.disconnect(),u=!0}function d(b){return ll(i).reduce((k,x)=>{const y=parseInt(x),{isIntersecting:g}=i[y];return(b&&g||!b&&!g)&&k.push(y),k},[])}function p(b=!0){if(b&&a)return a;if(!b&&l)return l;const k=d(b);return b&&(a=k),b||(l=k),k}return{init:c,destroy:m,get:p}}function lj(e,t,n,r,i,a){const{measureSize:l,startEdge:s,endEdge:u}=e,c=n[0]&&i,m=b(),d=k(),p=n.map(l),h=x();function b(){if(!c)return 0;const g=n[0];return ze(t[s]-g[s])}function k(){if(!c)return 0;const g=a.getComputedStyle(Qt(r));return parseFloat(g.getPropertyValue(`margin-${u}`))}function x(){return n.map((g,v,w)=>{const S=!v,z=Om(w,v);return S?p[v]+m:z?p[v]+d:w[v+1][s]-g[s]}).map(ze)}return{slideSizes:p,slideSizesWithGaps:h,startGap:m,endGap:d}}function oj(e,t,n,r,i,a,l,s,u){const{startEdge:c,endEdge:m,direction:d}=e,p=Lm(n);function h(y,g){return al(y).filter(v=>v%g===0).map(v=>y.slice(v,v+g))}function b(y){return y.length?al(y).reduce((g,v,w)=>{const S=Qt(g)||0,z=S===0,C=v===Cl(y),E=i[c]-a[S][c],A=i[c]-a[v][m],T=!r&&z?d(l):0,F=!r&&C?d(s):0,L=ze(A-F-(E+T));return w&&L>t+u&&g.push(v),C&&g.push(y.length),g},[]).map((g,v,w)=>{const S=Math.max(w[v-1]||0);return y.slice(S,g)}):[]}function k(y){return p?h(y,n):b(y)}return{groupSlides:k}}function sj(e,t,n,r,i,a,l){const{align:s,axis:u,direction:c,startIndex:m,loop:d,duration:p,dragFree:h,dragThreshold:b,inViewThreshold:k,slidesToScroll:x,skipSnaps:y,containScroll:g,watchResize:v,watchSlides:w,watchDrag:S,watchFocus:z}=a,C=2,E=KA(),A=E.measure(t),T=n.map(E.measure),F=BA(u,c),L=F.measureSize(A),K=GA(L),I=OA(s,L),$=!d&&!!g,B=d||!!g,{slideSizes:G,slideSizesWithGaps:P,startGap:N,endGap:M}=lj(F,A,T,n,B,i),_=oj(F,L,x,d,A,T,N,M,C),{snaps:O,snapsAligned:Y}=ZA(F,I,A,T,_),V=-Qt(O)+Qt(P),{snapsContained:ne,scrollContainLimit:se}=qA(L,V,Y,g,C),W=$?ne:Y,{limit:ye}=WA(V,W,d),me=Tx(Cl(W),m,d),we=me.clone(),ae=al(n),U=({dragHandler:It,scrollBody:ta,scrollBounds:ti,options:{loop:Un}})=>{Un||ti.constrain(It.pointerDown()),ta.seek()},ee=({scrollBody:It,translate:ta,location:ti,offsetLocation:Un,previousLocation:Kn,scrollLooper:Pl,slideLooper:Gn,dragHandler:Ys,animation:qs,eventHandler:na,scrollBounds:Al,options:{loop:jl}},ni)=>{const Lt=It.settled(),Ws=!Al.shouldConstrain(),Q=jl?Lt:Lt&&Ws,oe=Q&&!Ys.pointerDown();oe&&qs.stop();const fe=ti.get()*ni+Kn.get()*(1-ni);Un.set(fe),jl&&(Pl.loop(It.direction()),Gn.loop()),ta.to(Un.get()),oe&&na.emit("settle"),Q||na.emit("scroll")},ge=_A(r,i,()=>U(ea),It=>ee(ea,It)),De=.68,Xe=W[me.get()],pt=ka(Xe),ht=ka(Xe),Ze=ka(Xe),tn=ka(Xe),Rt=VA(pt,Ze,ht,tn,p,De),ei=ej(d,W,V,ye,tn),Dt=tj(ge,me,we,Rt,ei,tn,l),El=XA(ye),Nl=ol(),ot=aj(t,n,l,k),{slideRegistry:kn}=JA($,g,W,se,_,ae),Vs=nj(e,n,kn,Dt,Rt,Nl,l,z),ea={ownerDocument:r,ownerWindow:i,eventHandler:l,containerRect:A,slideRects:T,animation:ge,axis:F,dragHandler:HA(F,e,r,i,tn,UA(F,i),pt,ge,Dt,Rt,ei,me,l,K,h,b,y,De,S),eventStore:Nl,percentOfView:K,index:me,indexPrevious:we,limit:ye,location:pt,offsetLocation:Ze,previousLocation:ht,options:a,resizeHandler:$A(t,l,i,n,F,v,E),scrollBody:Rt,scrollBounds:YA(ye,Ze,tn,Rt,K),scrollLooper:QA(V,ye,Ze,[pt,Ze,ht,tn]),scrollProgress:El,scrollSnapList:W.map(El.get),scrollSnaps:W,scrollTarget:ei,scrollTo:Dt,slideLooper:rj(F,L,V,G,P,O,W,Ze,n),slideFocus:Vs,slidesHandler:ij(t,l,w),slidesInView:ot,slideIndexes:ae,slideRegistry:kn,slidesToScroll:_,target:tn,translate:Mx(F,t)};return ea}function uj(){let e={},t;function n(c){t=c}function r(c){return e[c]||[]}function i(c){return r(c).forEach(m=>m(t,c)),u}function a(c,m){return e[c]=r(c).concat([m]),u}function l(c,m){return e[c]=r(c).filter(d=>d!==m),u}function s(){e={}}const u={init:n,emit:i,off:l,on:a,clear:s};return u}const cj={align:"center",axis:"x",container:null,slides:null,containScroll:"trimSnaps",direction:"ltr",slidesToScroll:1,inViewThreshold:0,breakpoints:{},dragFree:!1,dragThreshold:10,loop:!1,skipSnaps:!1,duration:25,startIndex:0,active:!0,watchDrag:!0,watchResize:!0,watchSlides:!0,watchFocus:!0};function dj(e){function t(a,l){return jx(a,l||{})}function n(a){const l=a.breakpoints||{},s=ll(l).filter(u=>e.matchMedia(u).matches).map(u=>l[u]).reduce((u,c)=>t(u,c),{});return t(a,s)}function r(a){return a.map(l=>ll(l.breakpoints||{})).reduce((l,s)=>l.concat(s),[]).map(e.matchMedia)}return{mergeOptions:t,optionsAtMedia:n,optionsMediaQueries:r}}function mj(e){let t=[];function n(a,l){return t=l.filter(({options:s})=>e.optionsAtMedia(s).active!==!1),t.forEach(s=>s.init(a,e)),l.reduce((s,u)=>Object.assign(s,{[u.name]:u}),{})}function r(){t=t.filter(a=>a.destroy())}return{init:n,destroy:r}}function is(e,t,n){const r=e.ownerDocument,i=r.defaultView,a=dj(i),l=mj(a),s=ol(),u=uj(),{mergeOptions:c,optionsAtMedia:m,optionsMediaQueries:d}=a,{on:p,off:h,emit:b}=u,k=F;let x=!1,y,g=c(cj,is.globalOptions),v=c(g),w=[],S,z,C;function E(){const{container:ae,slides:U}=v;z=(Jc(ae)?e.querySelector(ae):ae)||e.children[0];const ge=Jc(U)?z.querySelectorAll(U):U;C=[].slice.call(ge||z.children)}function A(ae){const U=sj(e,z,C,r,i,ae,u);if(ae.loop&&!U.slideLooper.canLoop()){const ee=Object.assign({},ae,{loop:!1});return A(ee)}return U}function T(ae,U){x||(g=c(g,ae),v=m(g),w=U||w,E(),y=A(v),d([g,...w.map(({options:ee})=>ee)]).forEach(ee=>s.add(ee,"change",F)),v.active&&(y.translate.to(y.location.get()),y.animation.init(),y.slidesInView.init(),y.slideFocus.init(we),y.eventHandler.init(we),y.resizeHandler.init(we),y.slidesHandler.init(we),y.options.loop&&y.slideLooper.loop(),z.offsetParent&&C.length&&y.dragHandler.init(we),S=l.init(we,w)))}function F(ae,U){const ee=_();L(),T(c({startIndex:ee},ae),U),u.emit("reInit")}function L(){y.dragHandler.destroy(),y.eventStore.clear(),y.translate.clear(),y.slideLooper.clear(),y.resizeHandler.destroy(),y.slidesHandler.destroy(),y.slidesInView.destroy(),y.animation.destroy(),l.destroy(),s.clear()}function K(){x||(x=!0,s.clear(),L(),u.emit("destroy"),u.clear())}function I(ae,U,ee){!v.active||x||(y.scrollBody.useBaseFriction().useDuration(U===!0?0:v.duration),y.scrollTo.index(ae,ee||0))}function $(ae){const U=y.index.add(1).get();I(U,ae,-1)}function B(ae){const U=y.index.add(-1).get();I(U,ae,1)}function G(){return y.index.add(1).get()!==_()}function P(){return y.index.add(-1).get()!==_()}function N(){return y.scrollSnapList}function M(){return y.scrollProgress.get(y.offsetLocation.get())}function _(){return y.index.get()}function O(){return y.indexPrevious.get()}function Y(){return y.slidesInView.get()}function V(){return y.slidesInView.get(!1)}function ne(){return S}function se(){return y}function W(){return e}function ye(){return z}function me(){return C}const we={canScrollNext:G,canScrollPrev:P,containerNode:ye,internalEngine:se,destroy:K,off:h,on:p,emit:b,plugins:ne,previousScrollSnap:O,reInit:k,rootNode:W,scrollNext:$,scrollPrev:B,scrollProgress:M,scrollSnapList:N,scrollTo:I,selectedScrollSnap:_,slideNodes:me,slidesInView:Y,slidesNotInView:V};return T(t,n),setTimeout(()=>u.emit("init"),0),we}is.globalOptions=void 0;function _m(e={},t=[]){const n=f.useRef(e),r=f.useRef(t),[i,a]=f.useState(),[l,s]=f.useState(),u=f.useCallback(()=>{i&&i.reInit(n.current,r.current)},[i]);return f.useEffect(()=>{Im(n.current,e)||(n.current=e,u())},[e,u]),f.useEffect(()=>{IA(r.current,t)||(r.current=t,u())},[t,u]),f.useEffect(()=>{if(DA()&&l){is.globalOptions=_m.globalOptions;const c=is(l,n.current,r.current);return a(c),()=>c.destroy()}else a(void 0)},[l,a]),[s,i]}_m.globalOptions=void 0;const Rx=f.createContext(null);function Us(){const e=f.useContext(Rx);if(!e)throw new Error("useCarousel must be used within a <Carousel />");return e}const sl=f.forwardRef(({orientation:e="horizontal",opts:t,setApi:n,plugins:r,className:i,children:a,...l},s)=>{const[u,c]=_m({...t,axis:e==="horizontal"?"x":"y"},r),[m,d]=f.useState(!1),[p,h]=f.useState(!1),b=f.useCallback(g=>{g&&(d(g.canScrollPrev()),h(g.canScrollNext()))},[]),k=f.useCallback(()=>{c==null||c.scrollPrev()},[c]),x=f.useCallback(()=>{c==null||c.scrollNext()},[c]),y=f.useCallback(g=>{g.key==="ArrowLeft"?(g.preventDefault(),k()):g.key==="ArrowRight"&&(g.preventDefault(),x())},[k,x]);return f.useEffect(()=>{!c||!n||n(c)},[c,n]),f.useEffect(()=>{if(c)return b(c),c.on("reInit",b),c.on("select",b),()=>{c==null||c.off("select",b)}},[c,b]),o.jsx(Rx.Provider,{value:{carouselRef:u,api:c,opts:t,orientation:e||((t==null?void 0:t.axis)==="y"?"vertical":"horizontal"),scrollPrev:k,scrollNext:x,canScrollPrev:m,canScrollNext:p},children:o.jsx("div",{ref:s,onKeyDownCapture:y,className:re("relative",i),role:"region","aria-roledescription":"carousel",...l,children:a})})});sl.displayName="Carousel";const ul=f.forwardRef(({className:e,...t},n)=>{const{carouselRef:r,orientation:i}=Us();return o.jsx("div",{ref:r,className:"overflow-hidden",children:o.jsx("div",{ref:n,className:re("flex",i==="horizontal"?"-ml-4":"-mt-4 flex-col",e),...t})})});ul.displayName="CarouselContent";const cl=f.forwardRef(({className:e,...t},n)=>{const{orientation:r}=Us();return o.jsx("div",{ref:n,role:"group","aria-roledescription":"slide",className:re("min-w-0 shrink-0 grow-0 basis-full",r==="horizontal"?"pl-4":"pt-4",e),...t})});cl.displayName="CarouselItem";const Bm=f.forwardRef(({className:e,variant:t="outline",size:n="icon",...r},i)=>{const{orientation:a,scrollPrev:l,canScrollPrev:s}=Us();return o.jsxs(Me,{ref:i,variant:t,size:n,className:re("absolute  h-8 w-8 rounded-full",a==="horizontal"?"-left-12 top-1/2 -translate-y-1/2":"-top-12 left-1/2 -translate-x-1/2 rotate-90",e),disabled:!s,onClick:l,...r,children:[o.jsx(ok,{className:"h-4 w-4"}),o.jsx("span",{className:"sr-only",children:"Previous slide"})]})});Bm.displayName="CarouselPrevious";const Hm=f.forwardRef(({className:e,variant:t="outline",size:n="icon",...r},i)=>{const{orientation:a,scrollNext:l,canScrollNext:s}=Us();return o.jsxs(Me,{ref:i,variant:t,size:n,className:re("absolute h-8 w-8 rounded-full",a==="horizontal"?"-right-12 top-1/2 -translate-y-1/2":"-bottom-12 left-1/2 -translate-x-1/2 rotate-90",e),disabled:!s,onClick:l,...r,children:[o.jsx(qa,{className:"h-4 w-4"}),o.jsx("span",{className:"sr-only",children:"Next slide"})]})});Hm.displayName="CarouselNext";const fj=({title:e,subtitle:t,categories:n})=>{const{language:r}=_e(),i=at[r];return o.jsx("section",{className:"py-20",style:{backgroundColor:"#191919"},children:o.jsxs("div",{className:"container mx-auto max-w-7xl px-4",children:[o.jsxs("div",{className:"text-center mb-16",children:[o.jsx("h2",{className:"text-3xl md:text-4xl font-bold mb-6 text-white",children:e}),o.jsx("p",{className:"text-xl text-white/80 max-w-2xl mx-auto",children:t})]}),o.jsx("div",{className:"block md:hidden px-4",children:o.jsx(sl,{opts:{align:"start"},className:"w-full",children:o.jsx(ul,{className:"-ml-2",children:n.map(a=>o.jsx(cl,{className:"pl-2 basis-[60%]",children:o.jsx(te,{to:a.href,className:"group block",children:o.jsx(Ln,{className:"h-[380px] hover:shadow-luxury transition-all duration-300 bg-transparent border-white/20 overflow-hidden rounded-lg",children:o.jsxs(Fn,{className:"p-0 relative h-full",children:[o.jsx("div",{className:"absolute inset-0",children:o.jsx("img",{src:a.image,alt:a.title,className:"w-full h-full object-cover object-center"})}),o.jsx("div",{className:"absolute inset-x-0 bottom-0 top-1/2 backdrop-blur-md bg-white/20 border-t border-white/30",children:o.jsxs("div",{className:"p-4 h-full flex flex-col",children:[o.jsxs("div",{className:"h-16 mb-6",children:[o.jsx("h3",{className:"text-lg font-semibold group-hover:text-primary transition-colors text-black mb-2 line-clamp-2",children:a.title}),o.jsx("p",{className:"text-black/70 text-sm line-clamp-1",children:a.description})]}),o.jsx("div",{className:"absolute bottom-4 left-4 right-4",children:o.jsxs("span",{className:"text-primary text-sm font-medium group-hover:gap-2 transition-all flex items-center",children:[i.homepage.exploreCollection,o.jsx(qa,{className:"w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform"})]})})]})})]})})})},a.id))})})}),o.jsx("div",{className:"hidden md:grid grid-cols-1 md:grid-cols-3 gap-8",children:n.map(a=>o.jsx(te,{to:a.href,className:"group",children:o.jsx(Ln,{className:"h-[380px] hover:shadow-luxury transition-all duration-300 bg-transparent border-white/20 overflow-hidden rounded-lg",children:o.jsxs(Fn,{className:"p-0 relative h-full",children:[o.jsx("div",{className:"absolute inset-0",children:o.jsx("img",{src:a.image,alt:a.title,className:"w-full h-full object-cover object-center"})}),o.jsx("div",{className:"absolute inset-x-0 bottom-0 top-1/2 backdrop-blur-md bg-white/20 border-t border-white/30",children:o.jsxs("div",{className:"p-6 h-full flex flex-col",children:[o.jsxs("div",{className:"h-20 mb-6",children:[o.jsx("h3",{className:"text-xl font-semibold group-hover:text-primary transition-colors text-black mb-3 line-clamp-2",children:a.title}),o.jsx("p",{className:"text-black/70 text-sm line-clamp-1",children:a.description})]}),o.jsx("div",{className:"absolute bottom-6 left-6 right-6",children:o.jsxs("span",{className:"text-primary text-sm font-medium group-hover:gap-2 transition-all flex items-center",children:[i.homepage.exploreCollection,o.jsx(qa,{className:"w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform"})]})})]})})]})})},a.id))})]})})},pj=()=>{const{language:e}=_e(),t=at[e],n=GN.categories.map(r=>{const i=(a,l)=>l.split(".").reduce((s,u)=>s==null?void 0:s[u],a)||"";return{...r,title:i(t,r.titleKey),description:i(t,r.descriptionKey)}});return o.jsx(fj,{title:t.homepage.categoriesTitle,subtitle:t.homepage.categoriesSubtitle,categories:n})},Dx=({isOpen:e,onClose:t,productName:n,stores:r})=>{const{language:i}=_e(),a=at[i];if(!e)return null;const l=u=>{window.open(u,"_blank","noopener,noreferrer")},s=u=>{u.target===u.currentTarget&&t()};return o.jsx("div",{className:"fixed inset-0 z-50 flex items-end justify-center",onClick:s,children:o.jsx(Ln,{className:"relative bg-[#191919] backdrop-blur-md border-t border-white/20 rounded-t-lg w-full h-[33vh]",children:o.jsxs(Fn,{className:"p-6 text-center",children:[o.jsx("button",{onClick:t,className:"absolute top-4 right-4 p-1 hover:bg-white/20 rounded-full transition-colors",children:o.jsx(xl,{className:"w-5 h-5 text-white"})}),o.jsx("h3",{className:"font-semibold text-lg text-white mb-2 pr-8",children:n}),o.jsx("p",{className:"text-sm text-white/70 mb-6",children:a.productCard.available}),o.jsx("div",{className:"space-y-4",children:r.map(u=>o.jsx("button",{onClick:()=>l(u.url),className:"w-full flex items-center justify-center p-4 hover:bg-white/10 transition-colors rounded-full",children:o.jsx("img",{src:u.logo,alt:u.name,className:"h-8 w-auto max-w-full object-contain"})},u.id))})]})})})},Um=({product:e,className:t=""})=>{const[n,r]=R.useState(!1),{language:i}=_e(),a=at[i],u=[{id:"trendyol",name:"Trendyol",logo:"/lovable-uploads/081fc38c-4560-45a6-983f-80febd33d0e4.png",url:{"Sinceva Brightening Vitamin C Serum 30 ml":"https://www.trendyol.com/pd/sinceva/vitamin-c-serum-5-c-vitamini-aloe-vera-elma-ozlu-ton-esitleyici-aydinlatici-30ml-p-985597681?merchantId=1083214&filterOverPriceListings=false","Sinceva Anti-Spot Arbutin Serum 30 ml":"https://www.trendyol.com/pd/sinceva/arbutin-serum-2-alfa-arbutin-niasinamid-elma-ozlu-leke-karsiti-ton-esitleyici-30ml-p-985597018?merchantId=1083214&filterOverPriceListings=false","Sinceva Anti-Wrinkle Eye Cream 20 ml":"https://www.trendyol.com/pd/sinceva/goz-cevresi-kremi-proxylane-kolajen-elma-ozlu-kirisiklik-ve-morluk-karsiti-20ml-p-985597222?merchantId=1083214&filterOverPriceListings=false","Sinceva Anti-Aging Night Cream 50 ml":"https://www.trendyol.com/pd/sinceva/gece-kremi-retinol-niasinamid-elma-ozlu-ince-cizgi-kirisiklik-karsiti-50ml-p-985597313?merchantId=1083214&filterOverPriceListings=false","Sinceva Skin Renewing Tonic 200 ml":"https://www.trendyol.com/pd/sinceva/cilt-yenileyici-tonik-5-glikolik-asit-elma-ozlu-gozenek-sikilastirici-sebum-dengesi-200ml-p-985596983?merchantId=1083214&filterOverPriceListings=false","Sinceva Purifying Peeling Cream Scrub 200 ml":"https://www.trendyol.com/pd/sinceva/peeling-scrub-krem-kayisi-cekirdegi-partikullu-elma-ozlu-olu-deri-gozenek-arindirici-200ml-p-985597046?merchantId=1083214&filterOverPriceListings=false","Sinceva Purifying Face Cleansing Foam 200 ml":"https://www.trendyol.com/pd/sinceva/yuz-temizleme-kopugu-aloe-vera-elma-ozlu-nazik-temizleyici-arindirici-200ml-p-985596926?merchantId=1083214&filterOverPriceListings=false","Sinceva SPF 50+ Daily SunCare Cream 100 ml":"https://www.trendyol.com/pd/sinceva/gunes-kremi-spf-50-aloe-vera-panthenol-elma-ozlu-genis-spektrumlu-uva-uvb-koruma-100ml-p-985596960?merchantId=1083214&filterOverPriceListings=false","Sinceva Hyaluronic Acid Moisturizing Cream 50 ml":"https://www.trendyol.com/pd/sinceva/hyaluronik-asit-gunluk-nemlendirici-krem-panthenol-elma-ozlu-yogun-nem-bariyer-onarici-50ml-p-985596967?merchantId=1083214&filterOverPriceListings=false"}[e.name]||"https://www.trendyol.com"}];return o.jsxs(o.Fragment,{children:[o.jsx(te,{to:`/product/${e.id}`,children:o.jsx(Ln,{className:`group hover:shadow-luxury transition-all duration-300 cursor-pointer overflow-hidden rounded-lg ${t}`,children:o.jsx(Fn,{className:"p-0",children:o.jsx(In,{ratio:2/3,children:o.jsxs("div",{className:"relative w-full h-full",children:[o.jsx("img",{src:e.image||"https://images.unsplash.com/photo-1556228578-8c89e6adf883?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",alt:e.name,className:"w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"}),o.jsx("div",{className:"absolute inset-x-0 bottom-0 top-2/3 backdrop-blur-md bg-white/20 border-t border-white/30",children:o.jsxs("div",{className:"p-4 h-full flex flex-col",children:[o.jsx("div",{className:"flex-1",children:o.jsx("h3",{className:"text-lg font-semibold mb-2 text-black group-hover:text-primary transition-colors line-clamp-2",children:e.name})}),o.jsx("div",{className:"mt-auto flex items-center justify-center",children:o.jsx(Me,{variant:"ghost",size:"sm",className:"w-full bg-transparent text-black hover:bg-transparent hover:text-[#ef2b2d] transition-all duration-200 hover:scale-105 font-semibold",onClick:c=>{c.preventDefault(),c.stopPropagation(),r(!0)},children:a.productCard.buyNow})})]})})]})})})})}),o.jsx(Dx,{isOpen:n,onClose:()=>r(!1),productName:e.name,stores:u})]})},hj=()=>{const{language:e}=_e(),t=at[e],[n,r]=f.useState(6),i=()=>{r(s=>s+6)},a=nl.products.slice(0,n),l=n<nl.products.length;return o.jsx("section",{className:"py-20 bg-gray-50",children:o.jsxs("div",{className:"container mx-auto max-w-7xl px-4",children:[o.jsxs("div",{className:"text-center mb-16",children:[o.jsx("h2",{className:"text-3xl md:text-4xl font-bold mb-6 text-[#191919]",children:t.homepage.allProductsTitle}),o.jsx("p",{className:"text-xl text-muted-foreground max-w-2xl mx-auto",children:t.homepage.allProductsSubtitle})]}),o.jsx("div",{className:"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8",children:a.map(s=>o.jsx(Um,{product:s},s.id))}),l&&o.jsx("div",{className:"text-center mt-12",children:o.jsx("button",{onClick:i,className:"bg-primary text-white px-8 py-3 rounded-full font-medium hover:bg-primary/90 transition-colors",children:t.homepage.loadMore})})]})})},yj=()=>(console.log("HomeTemplate loading..."),o.jsxs(He,{children:[o.jsx(PA,{}),o.jsx(pj,{}),o.jsx(hj,{})]})),gj=()=>(console.log("Index page loading..."),o.jsx(yj,{})),kj=()=>{const e=Hn();return f.useEffect(()=>{console.error("404 Error: User attempted to access non-existent route:",e.pathname)},[e.pathname]),o.jsx("div",{className:"min-h-screen flex items-center justify-center bg-gray-100",children:o.jsxs("div",{className:"text-center",children:[o.jsx("h1",{className:"text-4xl font-bold mb-4",children:"404"}),o.jsx("p",{className:"text-xl text-gray-600 mb-4",children:"Oops! Page not found"}),o.jsx("a",{href:"/",className:"text-blue-500 hover:text-blue-700 underline",children:"Return to Home"})]})})},dn=({title:e,subtitle:t,backgroundImage:n,backgroundImageMobile:r,backgroundClass:i="bg-gradient-to-br from-primary/10 via-background to-secondary/20"})=>o.jsxs("section",{className:"relative overflow-hidden",children:[o.jsx("div",{className:"md:hidden",children:o.jsx(In,{ratio:2/3,children:o.jsxs("div",{className:`relative w-full h-full flex items-center justify-center ${i}`,children:[(r||n)&&o.jsxs("div",{className:"absolute inset-0 z-0",children:[o.jsx("img",{src:r||n,alt:e,className:"w-full h-full object-cover"}),o.jsx("div",{className:"absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-black/20"})]}),o.jsx("div",{className:"relative z-10"})]})})}),o.jsx("div",{className:"hidden md:block",children:o.jsx(In,{ratio:3/1,children:o.jsxs("div",{className:`relative w-full h-full flex items-center justify-center ${i}`,children:[n&&o.jsxs("div",{className:"absolute inset-0 z-0",children:[o.jsx("img",{src:n,alt:e,className:"w-full h-full object-cover"}),o.jsx("div",{className:"absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-black/20"})]}),o.jsx("div",{className:"relative z-10"})]})})})]}),Ix="/assets/tips_banner-C9vmfIIJ.jpg",Lx="/assets/tips_banner_mobile-D7x4OlEW.jpg",td=[{id:"apple-skin-benefits",date:"2024-03-20",author:"SincEva",readTime:"8",category:"natural-ingredients",image:"https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?auto=format&fit=crop&w=800&q=80"},{id:"morning-skincare-routine",date:"2024-03-15",author:"SincEva",readTime:"7",category:"daily-care",image:"https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&fit=crop&w=800&q=80"},{id:"vitamin-c-benefits",date:"2024-03-10",author:"SincEva",readTime:"9",category:"ingredients",image:"https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=800&q=80"},{id:"natural-face-masks",date:"2024-03-08",author:"SincEva",readTime:"10",category:"natural-ingredients",image:"https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=800&q=80"},{id:"summer-sun-protection",date:"2024-03-05",author:"SincEva",readTime:"8",category:"sun-care",image:"https://images.unsplash.com/photo-1559056199-641a0ac8b55e?auto=format&fit=crop&w=800&q=80"},{id:"honey-skincare-benefits",date:"2024-03-01",author:"SincEva",readTime:"7",category:"natural-ingredients",image:"https://images.unsplash.com/photo-1587049352846-4a222e784691?auto=format&fit=crop&w=800&q=80"},{id:"night-cream-importance",date:"2024-02-28",author:"SincEva",readTime:"6",category:"night-care",image:"https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?auto=format&fit=crop&w=800&q=80"},{id:"eye-cream-guide",date:"2024-02-22",author:"SincEva",readTime:"8",category:"eye-care",image:"https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&w=800&q=80"},{id:"green-tea-antioxidants",date:"2024-02-20",author:"SincEva",readTime:"7",category:"natural-ingredients",image:"https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=800&q=80"},{id:"arbutin-skin-brightening",date:"2024-02-18",author:"SincEva",readTime:"9",category:"ingredients",image:"https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=800&q=80"},{id:"chemical-peeling-guide",date:"2024-02-12",author:"SincEva",readTime:"11",category:"treatments",image:"https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=800&q=80"},{id:"hydration-secrets",date:"2024-02-08",author:"SincEva",readTime:"8",category:"hydration",image:"https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=800&q=80"},{id:"aloe-vera-healing",date:"2024-02-05",author:"SincEva",readTime:"6",category:"natural-ingredients",image:"https://images.unsplash.com/photo-1596755389378-c31d21fd1273?auto=format&fit=crop&w=800&q=80"},{id:"anti-aging-strategies",date:"2024-02-02",author:"SincEva",readTime:"12",category:"anti-aging",image:"https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?auto=format&fit=crop&w=800&q=80"},{id:"toner-benefits",date:"2024-01-28",author:"SincEva",readTime:"6",category:"cleansing",image:"https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=800&q=80"},{id:"winter-skincare-tips",date:"2024-01-22",author:"SincEva",readTime:"9",category:"seasonal",image:"https://images.unsplash.com/photo-1609690409547-ba5d5f60c3c6?auto=format&fit=crop&w=800&q=80"},{id:"rose-water-benefits",date:"2024-01-20",author:"SincEva",readTime:"5",category:"natural-ingredients",image:"https://images.unsplash.com/photo-1595431025698-b7b2b0c7d91e?auto=format&fit=crop&w=800&q=80"},{id:"acne-prone-skin-care",date:"2024-01-18",author:"SincEva",readTime:"10",category:"problem-skin",image:"https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=800&q=80"},{id:"double-cleansing-method",date:"2024-01-12",author:"SincEva",readTime:"7",category:"cleansing",image:"https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&fit=crop&w=800&q=80"},{id:"retinol-beginners-guide",date:"2024-01-08",author:"SincEva",readTime:"11",category:"ingredients",image:"https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=800&q=80"}],vj={"apple-skin-benefits":{title:"Elmanın Cilde Faydaları: Doğanın Mucizevi Hediyesi",excerpt:"Elma sadece sağlıklı bir meyve değil, aynı zamanda cildiniz için harika bir bakım kaynağıdır. İşte elmanın cildinize sağlayacağı inanılmaz faydalar...",content:`Elma, "günde bir elma doktoru uzak tutar" sözüyle bilinen sağlıklı bir meyve olmasının yanı sıra, cilt bakımında da mucizevi etkilere sahiptir. Hem yenildiğinde içeriden hem de cilde uygulandığında dışarıdan cildinizi besler ve güzelleştirir.
+
+## Elmanın İçeriği ve Cilt İçin Önemi
+
+Elma, zengin vitamin ve mineral içeriğiyle cildiniz için gerçek bir hazinedir:
+
+**Vitamin C**: Elmanın en önemli bileşenlerinden biri olan C vitamini, güçlü bir antioksidandır. Kolajen üretimini artırarak cildin elastikiyetini korur, kırışıklıkları azaltır ve cilt tonunu aydınlatır. Özellikle yeşil elmalarda daha yüksek konsantrasyonda bulunur.
+
+**Vitamin A**: Hücre yenilenmesini hızlandırır ve cilt dokusunu iyileştirir. Akne ve sivilce izlerinin azalmasına yardımcı olur, gözeneklerin temizlenmesine destek sağlar.
+
+**Vitamin E**: Cildi nemlendirir ve koruyucu bir bariyer oluşturur. Serbest radikallere karşı etkili bir savunma mekanizması sağlar.
+
+**Vitamin B Kompleksi**: Özellikle B2 (riboflavin) ve B3 (niasinamid) cildin nem dengesini korur, kızarıklıkları azaltır ve cilt tonunu eşitler.
+
+**Mineraller**: Elma, potasyum, magnezyum, kalsiyum ve demir gibi mineraller açısından zengindir. Bu mineraller cildin sağlıklı kalması için gerekli elektrolit dengesini sağlar.
+
+**Polifenoller ve Flavonoidler**: Elma kabuğunda yoğun olarak bulunan bu antioksidanlar, cildi erken yaşlanmaya karşı korur, güneş hasarını onarır ve cilt kanserini önlemeye yardımcı olur.
+
+**Malic Asit**: Elmada doğal olarak bulunan bu alfa hidroksi asit (AHA), ölü deri hücrelerini nazikçe uzaklaştırır, gözenekleri temizler ve cildin doğal parlaklığını ortaya çıkarır.
+
+**Pektin**: Elmada bulunan bu lif türü, cilde uygulandığında nem çekici özellik gösterir ve cildin yumuşak kalmasını sağlar.
+
+## Elmanın Cilde Sağladığı Faydalar
+
+### 1. Güçlü Antioksidan Koruması
+
+Elmadaki polifenoller ve flavonoidler, serbest radikallere karşı güçlü bir kalkan oluşturur. Serbest radikaller, hava kirliliği, güneş ışınları ve stres gibi çevre faktörlerinin ciltte oluşturduğu zararlı moleküllerdir. Bu moleküller, cildin erken yaşlanmasına, kırışıklıklara ve cilt hastalıklarına neden olur. Elmanın antioksidanları bu zararlı etkileri nötralize ederek cildinizi korur.
+
+Özellikle kırmızı elma kabuğunda bulunan kuersetin adlı flavonoid, en güçlü antioksidanlardan biridir. Araştırmalar, düzenli kuersetin alımının ciltteki iltihapları azalttığını, UV hasarını önlediğini ve cilt kanserine karşı koruyucu etki gösterdiğini ortaya koymuştur.
+
+### 2. Doğal Peeling ve Cilt Yenilenmesi
+
+Elmadaki malik asit, doğal bir alfa hidroksi asit (AHA) olarak işlev görür. Bu asit, ölü deri hücrelerini nazikçe çözerek cildin yenilenmesini sağlar. Kimyasal peelinglerde kullanılan glikolik ve laktik aside benzer şekilde çalışır ancak çok daha nazik ve doğaldır.
+
+Malik asit kullanımının faydaları:
+- Ölü deri hücrelerini uzaklaştırır
+- Gözeneklerin tıkanmasını önler
+- Siyah nokta ve akne oluşumunu azaltır
+- Cilt dokusunu pürüzsüzleştirir
+- Hiperpigmentasyonu ve lekeleri azaltır
+- Cildin doğal parlaklığını artırır
+
+Hassas ciltler için bile uygundur çünkü malik asit diğer AHA'lara göre daha yumuşak etki eder.
+
+### 3. Nemlendirme ve Yumuşatma
+
+Elmadaki pektin ve doğal şekerler, cildin nem seviyesini artırır. Elma püresi veya elma suyu cilde uygulandığında, nem çekici (humektan) özellik gösterir. Bu, cildin dışarıdan su çekerek nemli kalmasını sağlar.
+
+Ayrıca elmanın içerdiğ su oranı (%85) cildi nemlendirir ve serinletir. Özellikle yaz aylarında veya güneşten sonra elma maskesi uygulamak, cildi sakinleştirir ve nemlendirir.
+
+### 4. Cilt Tonu Eşitleme ve Aydınlatma
+
+Elmanın C vitamini içeriği, melanin üretimini düzenler ve cilt tonunu eşitler. Düzenli kullanımda:
+- Koyu lekeler ve yaş lekeleri azalır
+- Güneş lekeleri soluklaşır
+- Akne izleri ve hiperpigmentasyon giderilir
+- Cilt daha aydınlık ve canlı görünür
+
+Malik asit de aynı amaçla çalışır. Üst deri tabakasındaki pigmentli hücreleri nazikçe uzaklaştırarak, alttan gelen daha açık tonlu ve sağlıklı cildin görünmesini sağlar.
+
+### 5. Akne ve Sivilce Tedavisi
+
+Elmanın antibakteriyel özellikleri, akneye neden olan bakterileri (Propionibacterium acnes) yok etmeye yardımcı olur. Ayrıca:
+- Aşırı yağ üretimini dengeler
+- Gözenekleri temizler ve sıkılaştırır
+- İltihabı azaltır
+- Akne izlerinin solmasına yardımcı olur
+
+Yeşil elma özellikle yağlı ve akneli ciltler için idealdir çünkü astrenjan (sıkılaştırıcı) özelliği daha yüksektir.
+
+### 6. Yaşlanma Karşıtı Etki
+
+Elma, yaşlanma karşıtı cilt bakımının doğal bir kaynağıdır:
+
+**Kolajen Üretimini Artırır**: C vitamini, kolajen sentezi için gereklidir. Kolajen, cildin elastikiyetini ve sıkılığını sağlayan ana proteindir. Yaşla birlikte kolajen üretimi azalır ve bu da kırışıklıklara, sarkmaya ve ince çizgilere neden olur. Düzenli elma tüketimi ve cilde elma uygulaması, kolajen üretimini destekler.
+
+**Elastin Liflerini Güçlendirir**: Elmanın içerdiği bakır minerali, elastin liflerinin yapımında rol oynar. Elastin, cildin esnekliğini sağlar ve cildin yaşlandıkça sarkmasını önler.
+
+**Kırışıklıkları Azaltır**: Antioksidanlar ve vitaminler sayesinde mevcut kırışıklıkların görünümünü azaltır ve yeni kırışıklık oluşumunu geciktirir.
+
+**Cilt Sıkılığını Artırır**: Düzenli kullanımda cildin daha sıkı ve gergin görünmesini sağlar.
+
+### 7. Hassas Cilt Sakinleştirme
+
+Elma, anti-inflamatuar özelliklere sahiptir. Kızarık, tahriş olmuş veya hassas ciltler için ideal bir doğal çözümdür:
+- Güneş yanığını rahatlatır
+- Ciltteki kızarıklığı azaltır
+- Kaşıntıyı giderir
+- Cildi soğutur ve sakinleştirir
+
+Özellikle taze elma dilimlerini cilde uygulamak veya elma suyunu pamukla cilde sürmek, anında rahatlatıcı etki sağlar.
+
+### 8. Gözenek Bakımı
+
+Elmanın astrenjan (sıkılaştırıcı) özellikleri, genişlemiş gözenekleri küçültür ve gözenek tıkanmasını önler. Malik asit gözeneklerin içindeki kirleri ve fazla yağı çözerek temizler, bu da gözeneklerin daha küçük görünmesini sağlar.
+
+## Evde Elma ile Cilt Bakımı Tarifleri
+
+### 1. Klasik Elma Yüz Maskesi (Tüm Cilt Tipleri)
+
+**Malzemeler:**
+- 1/2 orta boy elma (organik tercih edilmeli)
+- 1 yemek kaşığı bal
+- 1 tatlı kaşığı limon suyu (opsiyonel, leke için)
+
+**Yapılışı:**
+1. Elmayı rendeleyin veya blenderda püre haline getirin
+2. Balı ekleyin ve iyice karıştırın
+3. Limon suyunu ekleyin (hassas ciltler için atlayın)
+4. Temiz ve nemli yüze uygulayın
+5. 15-20 dakika bekleyin
+6. Ilık suyla durulayın
+7. Haftada 2-3 kez uygulayın
+
+**Faydaları:** Nemlendirici, aydınlatıcı, gözenek sıkılaştırıcı
+
+### 2. Elma ve Yoğurt Maskesi (Yağlı ve Karma Cilt)
+
+**Malzemeler:**
+- 1/2 yeşil elma
+- 2 yemek kaşığı yağsız yoğurt
+- 1 tatlı kaşığı zerdeçal tozu
+
+**Yapılışı:**
+1. Yeşil elmayı rendeleyin
+2. Yoğurt ve zerdeçalı ekleyin
+3. Homojen bir karışım elde edin
+4. Yüze ve boyuna uygulayın
+5. 20 dakika bekleyin
+6. Durulayın ve nemlendirin
+
+**Faydaları:** Yağ dengeleyici, akne önleyici, aydınlatıcı
+
+### 3. Elma ve Yulaf Peeling Maskesi
+
+**Malzemeler:**
+- 1/2 elma (püre)
+- 2 yemek kaşığı yulaf ezmesi
+- 1 tatlı kaşığı bal
+- 1 tatlı kaşığı hindistan cevizi yağı
+
+**Yapılışı:**
+1. Tüm malzemeleri karıştırın
+2. Nemli yüze uygulayın
+3. Dairesel hareketlerle 2-3 dakika masaj yapın
+4. 10 dakika daha bekleyin
+5. Ilık suyla durulayın
+
+**Faydaları:** Nazik peeling, nemlendirme, cilt yumuşatma
+
+### 4. Elma Suyu Tonik (Günlük Kullanım)
+
+**Malzemeler:**
+- 1 elmadan elde edilen taze sıkılmış elma suyu
+- 1 yemek kaşığı gül suyu
+- 3-4 damla E vitamini yağı
+
+**Yapılışı:**
+1. Malzemeleri karıştırın
+2. Cam bir şişede buzdolabında saklayın
+3. Sabah ve akşam pamuk ile yüze uygulayın
+4. 3 gün içinde tüketin
+
+**Faydaları:** pH dengesi, gözenek sıkılaştırma, parlaklık
+
+### 5. Elma ve Avokado Nemlendirici Maske (Kuru Cilt)
+
+**Malzemeler:**
+- 1/2 kırmızı elma
+- 1/4 olgun avokado
+- 1 tatlı kaşığı bal
+- 1 tatlı kaşığı badem yağı
+
+**Yapılışı:**
+1. Elma ve avokadoyu ezin
+2. Bal ve yağı ekleyin
+3. Kremsi bir kıvam elde edin
+4. Yüze kalın bir tabaka halinde sürün
+5. 25-30 dakika bekleyin
+6. Durulayıp hafif nemlendirin
+
+**Faydaları:** Yoğun nemlendirme, beslenme, yumuşatma
+
+## Elma ile Cilt Bakımında Dikkat Edilmesi Gerekenler
+
+### Elma Seçimi
+- **Organik tercih edin**: Pestisit kalıntıları cildinize zarar verebilir
+- **Taze olsun**: Eski ve buruşmuş elmalar etki gücünü kaybetmiştir
+- **Kabuğunu kullanın**: En fazla antioksidan kabukta bulunur
+- **Renk seçimi**: Yeşil elma yağlı ciltler için, kırmızı elma kuru ve normal ciltler için daha uygundur
+
+### Uygulama İpuçları
+- **Patch test yapın**: Özellikle hassas ciltler ilk kullanımda küçük bir alanda test etmelidir
+- **Göz çevresinden kaçının**: Malik asit göz çevresinde tahriş yapabilir
+- **Taze kullanın**: Elma hızla okside olur (kararır), bu nedenle hazırladıktan hemen sonra kullanın
+- **Güneş koruması**: Malik asit cildi güneşe duyarlı hale getirebilir, akşamları uygulayın ve SPF kullanın
+- **Düzenlilik**: Haftada 2-3 kez düzenli kullanımda en iyi sonuçları alırsınız
+
+### Kimler Kullanmamalı?
+- Elmaya alerjisi olanlar
+- Çok hassas ve rozasealı ciltler (doktor kontrolünde kullanılabilir)
+- Açık yara veya aktif enfeksiyon olan bölgelere uygulanmamalı
+
+## Elma İle İçeriden Cilt Bakımı
+
+Elma sadece dışarıdan değil, içeriden de tüketildiğinde cilt sağlığına katkı sağlar:
+
+**Günlük 1-2 Elma Tüketimi:**
+- Antioksidan desteği sağlar
+- Bağırsak sağlığını destekleyerek cildi olumlu etkiler
+- Vücuttaki toksinlerin atılmasına yardımcı olur
+- Kolajensent ezini içeriden destekler
+
+**Elma Kabuğunu Atmayin:**
+Elma kabuğu, posa ve antioksidan açısından çok zengindir. Kabuğu soyarak tüketmek, en değerli kısmını atlamak anlamına gelir.
+
+**Elma Sirkesi:**
+Elma sirkesi, elmadan fermente edilerek üretilir ve cilt bakımında çok faydalıdır. Ancak çok güçlü olduğu için mutlaka sulandırılarak (1:3 veya 1:4 oranında) kullanılmalıdır.
+
+## Bilimsel Araştırmalar
+
+Elmanın cilt üzerindeki etkileri bilimsel olarak da kanıtlanmıştır:
+
+- **Journal of Cosmetic Dermatology** 2019 yılında yayınlanan bir çalışmada, elma özütü içeren kremlerin 8 haftalık kullanımda cilt tonunu %23 oranında aydınlattığı gösterilmiştir.
+
+- **Nutrients** dergisinde 2020'de yayınlanan araştırmada, günlük elma tüketiminin cilt elastikiyetini artırdığı ve kırışıklıkları azalttığı belirlenmiştir.
+
+- **International Journal of Cosmetic Science** 2018 araştırmasında, malik asitin melanin üretimini %18 oranında azalttığı rapor edilmiştir.
+
+## Sonuç
+
+Elma, doğanın cildimiz için sunduğu en değerli hediyelerden biridir. Zengin vitamin, mineral ve antioksidan içeriğiyle hem içeriden tüketilerek hem de dışarıdan cilde uygulanarak mucizevi sonuçlar verir. Kimyasal içerikli ürünlere nazaran çok daha güvenli, doğal ve uygun maliyetlidir.
+
+Düzenli kullanımda elma:
+- Cildinizi aydınlatır
+- Lekeleri azaltır
+- Gözenekleri temizler ve sıkılaştırır
+- Nemlendirme sağlar
+- Yaşlanmayı geciktirir
+- Akne ve sivilce ile mücadele eder
+- Hassas cildi sakinleştirir
+
+Haftada 2-3 kez elma maskesi uygulayarak ve günlük 1-2 elma tüketerek cildinizde görünür iyileşmeler görebilirsiniz. Unutmayın ki cilt bakımında tutarlılık ve sabır en önemli faktörlerdir. Doğal ürünler kimyasal ürünler kadar hızlı sonuç vermese de, uzun vadede çok daha sağlıklı ve kalıcı faydalar sağlar.
+
+Elmanın mucizevi etkilerini keşfedin ve cildinizin doğal güzelliğini ortaya çıkarın!
+`},"morning-skincare-routine":{title:"Sabah Cilt Bakım Rutini: Mükemmel Başlangıç İçin Adım Adım Rehber",excerpt:"Cildinizi güne hazırlamanın en etkili yolu doğru bir sabah rutini oluşturmaktır. Profesyonel cilt bakım uzmanlarının önerdiği sabah rutini adımlarını keşfedin...",content:`Sabah cilt bakım rutini, cildinizi gün boyu korumak, beslemek ve sağlıklı bir görünüm elde etmek için kritik öneme sahiptir. Gece boyunca cildiniz kendini onarırken bazı toksinleri ve yağları dışarı atar. Sabah rutininiz, bu artıkları temizlemenin yanı sıra cildinizi günün streslerine karşı koruyucu bir kalkan oluşturur.
+
+## Sabah Rutininin Önemi
+
+Birçok kişi sabah rutinini önemsemez ve sadece yüzünü suyla yıkayıp güneş kremi sürerek geçiştirir. Oysa sabah rutini, gün boyu cildinizin nasıl görüneceğini ve hissedeceğini doğrudan etkiler:
+
+**Koruma**: Sabah uyguladığınız ürünler, güneş ışınları, hava kirliliği, serbest radikaller ve çevresel stres faktörlerine karşı bir bariyer oluşturur.
+
+**Nemlendirme**: Gece boyunca kaybedilen nemi geri kazandırır ve cilt nem dengesini korur.
+
+**Parlaklık**: Doğru ürünler cildinize doğal bir parlaklık ve canlılık kazandırır.
+
+**Makyaj Hazırlığı**: İyi bir sabah rutini, makyajınızın daha pürüzsüz ve uzun süre kalmasını sağlar.
+
+**Yaşlanmayı Geciktirme**: Özellikle antioksidan ve SPF kullanımı, erken yaşlanma belirtilerini önler.
+
+## Ideal Sabah Cilt Bakım Rutini: 7 Adım
+
+### ADIM 1: Temizleme (Cleansing)
+
+Sabah temizlemesi, birçok kişi tarafından tartışmalı bir konudur. "Gece zaten temizledim, sabah tekrar temizlemeye gerek var mı?" sorusu sıkça sorulur. Cevap: EVET, ama doğru temizleyici ile.
+
+**Neden Sabah Temizleme Gereklidir?**
+
+Gece boyunca cildiniz:
+- Yağ üretmeye devam eder (özellikle yağlı ciltler)
+- Ter bezlerinden toksinler atar
+- Ölü deri hücreleri döker
+- Yastık ve çarşaftan kir ve bakteriler transfer olabilir
+- Gece kremleri ve serumlar kalıntı bırakabilir
+
+Bu nedenle sabahları hafif bir temizleme yapmak, cildinizi sonraki ürünlere hazırlar ve gözeneklerin tıkanmasını önler.
+
+**Cilt Tipine Göre Sabah Temizleyici Seçimi:**
+
+**Yağlı Cilt:**
+Jel veya köpüren temizleyiciler idealdir. Salisilik asit içeren ürünler fazla yağı kontrol eder.
+- Önerilen ürün tipi: Köpüren jel temizleyici, BHA içeren temizleyici
+
+**Kuru Cilt:**
+Kremsi veya süt temizleyiciler cildi kurutmadan temizler.
+- Önerilen ürün tipi: Krem temizleyici, yağ bazlı temizleyici
+
+**Karma Cilt:**
+Jel-krem formülleri hem T bölgesini temizler hem de yanakları kurutmaz.
+- Önerilen ürün tipi: Dengeli jel-krem temizleyici
+
+**Hassas Cilt:**
+Kokusuz, hipoalerjenik, sulfatsız temizleyiciler tercih edilmelidir.
+- Önerilen ürün tipi: Micellar su, hassas cilt temizleyicileri
+
+**Doğru Temizleme Tekniği:**
+1. Ellerinizi yıkayın
+2. Yüzünüzü ılık suyla ıslatın (çok sıcak su cildi kurutur)
+3. Temizleyiciyi avuçlarınızda köpürtün
+4. Dairesel hareketlerle 30-60 saniye boyunca masaj yapın
+5. Özellikle T bölgesine (alın, burun, çene) odaklanın
+6. Bol ılık suyla durulayın (en az 10 kez durulama)
+7. Yumuşak bir havlu ile hafifçe kurulayın (ovmayın!)
+
+**Süre:** 1-2 dakika
+
+### ADIM 2: Tonik (Toner)
+
+Tonik, temizleyiciden sonra pH dengesini geri kazandıran ve cildi sonraki ürünlere hazırlayan bir ara adımdır. Maalesef birçok kişi bu adımı gereksiz bulur ve atlar, oysa tonik kullanımının çok önemli faydaları vardır.
+
+**Toniğin Faydaları:**
+
+1. **pH Dengesini Düzenler**: Temizleyiciler cildin doğal pH'ını (5.5) bozabilir. Tonik cildi hızlıca normale döndürür.
+
+2. **Kalan Kirleri Temizler**: Temizleyicinin kaçırdığı makyaj, kir ve sert su kalıntılarını alır.
+
+3. **Gözenekleri Sıkılaştırır**: Özellikle astringen içerikli tonikler gözenek görünümünü azaltır.
+
+4. **Ürün Emilimini Artırır**: Sonraki adımdaki serum ve kremlerin daha iyi emilmesini sağlar.
+
+5. **Ekstra Hidrasyon**: Hyaluronik asit içeren tonikler cildi nemlendirmeye hazırlar.
+
+**Sabah İçin Tonik Seçimi:**
+
+Sabahları kullanacağınız tonik, cildinizi tazelemeli ama aşırı kurutmamalıdır. Alkol içeriği yüksek astringen toniklerden kaçının, bunun yerine hidrating (nemlendirici) veya brightening (aydınlatıcı) tonikler tercih edin.
+
+**İçeriğinde Olması Gerekenler:**
+- Hyaluronik asit (nemlendirme)
+- Niasinamid (gözenek sıkılaştırma, aydınlatma)
+- Panthenol (sakinleştirme)
+- Gül suyu veya centella (hassas ciltler için)
+
+**Uygulama:**
+1. Pamuk pede tonik damlatın veya avuç içine dökün
+2. Pamuk ped kullanıyorsanız yüzünüze hafifçe silin
+3. Avuç kullanıyorsanız yüzünüze nazikçe tıklayarak uygulayın
+4. Boyun ve göğüs bölgesini unutmayın
+5. Kurumas ını beklemeden bir sonraki adıma geçin (nemli cilde serum en iyi emilir)
+
+**Süre:** 30 saniye
+
+### ADIM 3: Serum (Essence / Serum)
+
+Serum adımı, sabah rutininizin en aktif ve etkili kısmıdır. Serumlar, yoğun konsantrasyonda aktif maddeler içeren, hafif yapılı ürünlerdir. Molekül yapıları küçük olduğu için cildin derinlerine nüfuz eder.
+
+**Sabah İçin İdeal Serum İçerikleri:**
+
+**1. Vitamin C Serumu (Askorbik Asit)**
+
+Sabahların olmazsa olmazıdır! Vitamin C:
+- Güçlü antioksidandır, serbest radikalleri nötralize eder
+- Kolajen üretimini artırır
+- Güneş hasarını önlemeye yardımcı olur (SPF'nin yerini ALMAZ!)
+- Cilt tonunu aydınlatır ve eşitler
+- Lekeleri azaltır
+
+**Konsantrasyon:**
+- Yeni başlayanlar: %10-15
+- Deneyimli kullanıcılar: %15-20
+- İleri seviye: %20-25 (dikkatli kullanılmalı)
+
+**Uygulama İpuçları:**
+- Temiz cilde, tercihen hafif nemli cilde uygulayın
+- 3-5 damla yeterlidir
+- Yüzünüze, boynunuza ve dekoltenize sürün
+- 30 saniye bekleyip emilmesini sağlayın
+- MUTLAKA SPF kullanın
+
+**2. Hyaluronik Asit Serumu**
+
+Hyaluronik asit, ağırlığının 1000 katı kadar su tutabilen muhteşem bir nemlendiricidir:
+- Cildi derinlemesine nemlendirir
+- İnce çizgileri şişirerek dolgunlaştırır
+- Cilt bariyerini güçlendirir
+- Tüm cilt tipleri için uygundur
+
+**Farklı Molekül Ağırlıkları:**
+- **Düşük molekül ağırlığı**: Cildin derinlerine iner, uzun süreli nemlendirme
+- **Orta molekül ağırlığı**: Epidermiste kalır, nem bariyeri oluşturur
+- **Yüksek molekül ağırlığı**: Yüzeyde kalır, anlık nemlendirme ve koruma
+
+İdeal serum, farklı molekül ağırlıklarını kombine eder.
+
+**Uygulama Önemli Not:**
+Hyaluronik asit, nemli cilde uygulanmalıdır! Kuru cilde sürerseniz, cildinizin kendi nemini çekebilir ve ters etki yapabilir. Tonik sonrası hemen, yüz henüz hafif nemliyken uygulayın.
+
+**3. Niasinamid (Vitamin B3)**
+
+Sabahın multitasker (çok amaçlı) serumudur:
+- Gözenekleri küçültür
+- Yağ üretimini dengeler
+- Cilt tonunu eşitler
+- Kızarıklıkları azaltır
+- Cilt bariyerini güçlendirir
+- Vitamin C ile kombine edilebilir (eski bilgiler yanlıştı)
+
+**Konsantrasyon:** %2-10 arası idealdir.
+
+**Serum Sıralaması (Birden Fazla Kullanıyorsanız):**
+
+İnce dokulu (sulu) → Yoğun dokulu sıralamasını takip edin:
+1. Hyaluronik asit (en sulu)
+2. Vitamin C
+3. Niasinamid
+4. Peptid serumu (varsa)
+
+Her serum arasında 30 saniye bekleyin.
+
+**Süre:** 1-2 dakika (birden fazla serum için)
+
+### ADIM 4: Göz Kremi (Eye Cream)
+
+Göz çevresi cildi, vücuttaki en ince ve hassas bölgedir. Bu bölge:
+- Yağ bezleri daha azdır (kuruluğa eğilimlidir)
+- Cilt kalınlığı diğer bölgelere göre %40 daha incedir
+- En fazla mimik hareketi yapılır (günde ortalama 10,000 göz kırpma)
+- Kolajen ve elastin lifleri daha az yoğundur
+
+Bu nedenle göz çevresi, erken yaşlanma belirtilerinin ilk göründüğü yerdir.
+
+**Sabah Göz Kremi İçeriğinde Olması Gerekenler:**
+
+**Kafein:**
+- Şişliği azaltır
+- Kan dolaşımını iyileştirir
+- Göz altı torbalarını küçültür
+- Cilde enerji verir
+
+**Peptidler:**
+- Kolajen üretimini artırır
+- İnce çizgileri azaltır
+- Cildi sıkılaştırır
+
+**Hyaluronik Asit:**
+- Göz çevresini nemlendirir
+- İnce çizgileri şişirir
+
+**Vitamin K:**
+- Koyu halkaları azaltır
+- Kan dolaşımını iyileştirir
+
+**Vitamin C (düşük konsantrasyon):**
+- Aydınlatıcı etki
+- Antioksidan koruma
+
+**Doğru Göz Kremi Uygulama Tekniği:**
+
+1. **Miktar**: İki göz için bezelye tanesi büyüklüğünde (fazlası göz torbası yapar)
+2. **Parmak**: Yüzük parmağınızı kullanın (en az baskı uygular)
+3. **Bölge**: Göz kemiği etrafında, kirpiklere çok yaklaşmayın
+4. **Hareket**: Hafif tıklama hareketleriyle uygulayın (OVmayın!)
+5. **Yön**: Gözün alt tarafından başlayıp üst kapaklara doğru ilerleyin
+6. **Baskı**: Hiç baskı uygulamayın, sadece hafif dokunun
+
+**İpucu:** Göz kremini buzdolabında saklarsanız, soğuk uygulama ekstra şişlik önleyici etki sağlar.
+
+**Süre:** 30 saniye
+
+### ADIM 5: Nemlendirici (Moisturizer)
+
+Nemlendirici, cilt bakım rutininizin temel taşıdır. Görevi, cildin nem bariyerini korumak ve dış etkenlerden koruyucu bir tabaka oluşturmaktır.
+
+**Sabahın Nemlendirici Seçimi:**
+
+Sabah nemlendiriciniz hafif, hızlı emilebilir ve makyajın altına uygun olmalıdır. Gece kremlerinin aksine çok yoğun olmamalıdır.
+
+**Cilt Tipine Göre Seçim:**
+
+**Yağlı Cilt:**
+- Jel veya gel-krem formüller
+- Yağsız (oil-free) etiketli ürünler
+- Non-komedojenik (gözenek tıkamayan)
+- Mattlaştırıcı etkili
+
+**Kuru Cilt:**
+- Krem veya balm formüller
+- Seramid, shea butter içerenler
+- Yağ takviyeli ürünler
+- Yoğun nemlendirme
+
+**Karma Cilt:**
+- Jel-krem formüller
+- Dengeli nem
+- İkili uygulama: T bölgesine jel, yanaklara krem
+
+**Hassas Cilt:**
+- Kokusuz, minimal içerik
+- Centella, allantoin içeren
+- Dermatologically tested
+
+**Nemlendiricide Aranması Gereken İçerikler:**
+
+**Seramidler:**
+- Cildin doğal bariyer lipididir
+- Nem kaybını önler
+- Bariyer onarımı yapar
+
+**Niasinamid:**
+- Yağ dengeleyici
+- Gözenek küçültücü
+- İltihap önleyici
+
+**Hyaluronik Asit:**
+- Ekstra nem tutucu
+- Cilt yüzeyinde nem bariyeri
+
+**Peptidler:**
+- Yaşlanma karşıtı
+- Kolajen desteği
+
+**Antioksidanlar (Vitamin E, Yeşil Çay Özü):**
+- Çevresel koruma
+- Serbest radikal savunması
+
+**Uygulama:**
+1. Serumunuz tamamen emildikten sonra uygulayın
+2. Bir fındık büyüklüğünde ürün yeterlidir
+3. Avuç içinde ısıtın
+4. Yüzünüze yukarı doğru hareketlerle sürün
+5. Boyun ve dekolteyi unutmayın
+6. Hafif masaj yaparak emilmesini sağlayın
+
+**Süre:** 1 dakika
+
+### ADIM 6: Yüz Yağı (Facial Oil) - Opsiyonel
+
+Bu adım özellikle kuru ve olgun ciltler için önerilir. Yağlı ciltler atlayabilir.
+
+**Sabah Yağ Kullanımı:**
+
+Yüz yağı, nemlendiricinizin etkisini artırır ve ekstra beslenme sağlar. Sabah kullanılacak yağlar hafif ve hızlı emilebilir olmalıdır.
+
+**Sabah İçin Uygun Yağlar:**
+- **Jojoba yağı**: Cildin doğal yağına en yakın, tüm cilt tiplerinde kullanılabilir
+- **Squalane**: Çok hafif, yağlı his bırakmaz
+- **Marula yağı**: Antioksidan bakımından zengin
+- **Argan yağı**: Vitamin E bakımından zengin, besleyici
+
+**Kaçınılması Gereken Ağır Yağlar (Sabah İçin):**
+- Hindistan cevizi yağı (çok ağır, komedojenik)
+- Kakao yağı (çok yoğun)
+
+**Uygulama:**
+- Nemlendiriciden SONRA uygulayın (bu tartışmalı, bazıları önce önerir)
+- 2-3 damla yeterlidir
+- Avuçlarınızda ısıtıp bastırarak uygulayın
+
+**Süre:** 30 saniye
+
+### ADIM 7: Güneş Koruyucu (SPF) - EN ÖNEMLİ ADIM!
+
+SPF kullanımı, sabah rutininizin EN VAZGEÇILMEZ ve EN ÖNEMLİ adımıdır. Hiçbir anti-aging serum veya krem, güneş koruyucu kadar önemli değildir.
+
+**Neden SPF Bu Kadar Önemli?**
+
+- UV ışınları cildin erken yaşlanmasının %80 nedenidir (foto-aging)
+- Kolajen ve elastin liflerini tahrip eder
+- Cilt kanserine neden olabilir
+- Lekelere ve ton eşitsizliklerine yol açar
+- Kızarıklık ve hassasiyete sebep olur
+
+Güneşsiz, bulutlu, kapalı havalarda, kışın, iç mekanlarda bile UV ışınları cildinize ulaşır. Bu nedenle SPF kullanımı 365 gün şarttır!
+
+**SPF Seçim Rehberi:**
+
+**SPF Değeri:**
+- Minimum SPF 30 (günlük kullanım)
+- SPF 50+ (açık hava aktiviteleri, hassas cilt, leke tedavisi sırasında)
+
+**Geniş Spektrum:**
+Hem UVA hem UVB ışınlarına karşı koruma sağlamalıdır:
+- **UVA**: Aging (yaşlanma), cilt derinlerine iner
+- **UVB**: Burning (yanma), yüzey hasarı
+
+**Filtre Türleri:**
+
+**Kimyasal Filtreler:**
+- Avobenzone, octinoxate, oxybenzone
+- UV ışınlarını emer ve etkisiz hale getirir
+- Daha estetik, beyaz iz bırakmaz
+- Hassas ciltlerde tahriş yapabilir
+
+**Fiziksel (Mineral) Filtreler:**
+- Çinko oksit, titanyum dioksit
+- UV ışınlarını yansıtır
+- Daha güvenli, hassas ciltler için ideal
+- Beyaz kalıntı bırakabilir (yeni formüller daha iyi)
+
+**Cilt Tipine Göre SPF:**
+
+**Yağlı Cilt:** Fluid veya jel güneş koruyucu, mattlaştırıcı
+**Kuru Cilt:** Kremsi, nemlendiricili güneş koruyucu
+**Hassas Cilt:** Mineral filtreli, kokusuz, hypoalerjenik
+**Renkli Cilt:** Beyaz kalıntı bırakmayan, tinted (renkli) formüller
+
+**Doğru SPF Uygulama:**
+
+Bu en çok yanlış yapılan adımdır. Çoğu kişi yetersiz miktarda sürer!
+
+1. **Miktar**: Yüz için 1 çay kaşığı dolusu (yaklaşık 1.25ml veya 1/4 tatlı kaşığı)
+2. **Uygulama Zamanı**: Güneşe çıkmadan 15-30 dakika önce
+3. **Teknik**: Noktasal olarak yüze dağıtın, sonra eşit şekilde yayın
+4. **Bölgeler**: Yüz, kulak, boyun, dekolte, el sırtları
+5. **Yenileme**: Her 2 saatte bir, ter veya yüzme sonrası hemen
+
+**Çok Önemli:** Makyaj üstüne SPF yenileme için SPF içeren pudra veya spray kullanabilirsiniz.
+
+**Süre:** 1 dakika
+
+## Toplam Sabah Rutini Süresi: 8-12 Dakika
+
+Doğru uygulandığında sabah rutininiz toplamda 10 dakika civarında sürer. Bu süre, cildinize yapacağınız en değerli yatırımdır.
+
+## Sık Yapılan Hatalar ve Çözümleri
+
+### Hata 1: Ürünler Arasında Beklememek
+**Çözüm:** Her ürün arasında 30 saniye - 1 dakika bekleyin. Ürünlerin emilmesi ve pH'nın stabilize olması gerekir.
+
+### Hata 2: Aşırı Ürün Kullanmak
+**Çözüm:** Daha fazla ürün = daha iyi sonuç değildir. Önerilen miktarları kullanın.
+
+### Hata 3: SPF'yi Atlayamak veya Yetersiz Sürmek
+**Çözüm:** SPF asla atlanmamalı ve mutlaka yeterli miktarda sürülmelidir.
+
+### Hata 4: Boyun ve Dekol teyi Unutmak
+**Çözüm:** Yüzünüze uyguladığınız her ürünü boyun ve göğüs bölgenize de uygulayın.
+
+### Hata 5: Kuru Cilde Ürün Sürmek
+**Çözüm:** Özellikle serum ve nemlendirici hafif nemli cilde daha iyi emilir.
+
+### Hata 6: Çok Sıcak Su Kullanmak
+**Çözüm:** Ilık su kullanın, sıcak su cildin doğal yağlarını alır.
+
+### Hata 7: Yüzü Ovarak Kurulamak
+**Çözüm:** Yumuşak bir havlu ile hafifçe bastırarak kurulayın.
+
+## Bonus İpuçları
+
+### Yüz Masajı
+Ürün uygularken hafif bir yüz masajı yapmak:
+- Kan dolaşımını artırır
+- Ürün emilimini iyileştirir
+- Lenf drenajını destekler
+- Sabah şişliğini azaltır
+- Cildi uyandırır
+
+**Basit Sabah Masajı Tekniği:**
+- Çene ucundan kulak memesine yukarı doğru
+- Burun kenarlarından şakak bölgesine
+- Alnın ortasından şakaklara
+- Her hareket 3-5 kez tekrarlanır
+
+### Gua Sha veya Jade Roller
+Sabah rutininizde bu araçları kullanmak:
+- Şişliği azaltır
+- Ürün emilimini artırır
+- Yüz kaslarını gevşetir
+- Cildi sıkılaştırır
+
+**Kullanım:** Serum veya nemlendirici uygularken, yukarı ve dışarı doğru hareketlerle kullanın.
+
+### Buz Tedavisi
+Sabahları cildinize buz uygulamak:
+- Gözenekleri sıkılaştırır
+- Şişliği azaltır
+- Cildi uyandırır
+- Kan dolaşımını aktive eder
+
+**Kullanım:** Buz küpünü temiz bir bez içinde yüzünüze 30 saniye-1 dakika gezdirin.
+
+## Mevsimsel Değişiklikler
+
+### Yaz Sabah Rutini
+- Daha hafif nemlendirici
+- SPF 50+
+- Mattlaştırıcı ürünler
+- Vitamin C serumu (antioksidan koruma)
+
+### Kış Sabah Rutini
+- Daha yoğun nemlendirici
+- Yüz yağı takviyesi
+- SPF 30-50
+- Hyaluronik asit (ekstra nem)
+
+## Yaş Gruplarına Göre Sabah Rutini
+
+### 20'li Yaşlar
+**Odak:** Koruma ve önleme
+- Temizleyici
+- Tonik
+- Vitamin C serumu
+- Hafif nemlendirici
+- SPF 30-50
+
+### 30'lu Yaşlar
+**Odak:** İlk kırışıklıklar ve koruma
+- Temizleyici
+- Tonik
+- Vitamin C + Hyaluronik Asit
+- Göz kremi
+- Nemlendirici
+- SPF 50
+
+### 40+ Yaşlar
+**Odak:** Yoğun anti-aging
+- Temizleyici
+- Tonik
+- Vitamin C + Peptid serumu
+- Göz kremi
+- Yoğun nemlendirici
+- Yüz yağı
+- SPF 50
+
+## Sonuç
+
+Doğru bir sabah cilt bakım rutini, sağlıklı, parlak ve genç bir cilt için temeldir. Tutarlılık en önemli faktördür - her sabah bu rutini uygulamak, cildinizde görünür iyileşmeler sağlayacaktır.
+
+Unutmayın:
+✅ Her adım önemlidir, atlamayın
+✅ Cilt tipinize uygun ürünler seçin
+✅ Ürün kalitesi kadar uygulama tekniği de önemlidir
+✅ SPF kullanımı tartışmasız şarttır
+✅ Sabırlı olun - sonuçlar 4-12 hafta içinde görülür
+✅ Düzenlilik anahtardır
+
+Cildinize gösterdiğiniz özen, yıllar sonra size teşekkür edecek en değerli yatırımdır. Güne doğru bir cilt bakımı ile başlayın ve farkı hissedin!
+`},"vitamin-c-benefits":{title:"C Vitamini Serumu: Cildin En Güçlü Antioksidanı ve Kullanım Rehberi",excerpt:"C vitamini, cilt bakımında en çok araştırılan ve kanıtlanmış etkiye sahip bileşenlerden biridir. İşte C vitamininin cildinize sağladığı muazzam faydalar...",content:`C vitamini (askorbik asit), cilt bakımında "altın standart" olarak kabul edilen, bilimsel olarak kanıtlanmış en etkili bileşenlerden biridir. Hem dermatologlardünya çapında hem de cilt bakım uzmanları tarafından neredeyse her cilt tipi için önerilen bu mucizevi vitamin, cildinizi içeriden ve dışarıdan dönüştürme gücüne sahiptir.
+
+## C Vitamini Nedir ve Neden Bu Kadar Önemlidir?
+
+C vitamini (L-askorbik asit), suda çözünen, güçlü bir antioksidan vitamindir. Vücudumuz C vitaminini üretemez, bu nedenle dışarıdan alınması gerekir. Cilt sağlığı açısından C vitamininin iki temel alınım yolu vardır:
+
+**1. İçeriden (Gıda ve Takviyeler):** Meyve ve sebzelerden alınan C vitamini, kan yoluyla cilde ulaşır. Ancak cilde ulaşan miktar sınırlıdır çünkü vücut önce hayati organları besler.
+
+**2. Dışarıdan (Topikal Ürünler):** Cilde direkt uygulanan C vitamini serumları, cildin daha yoğun konsantrasyonda C vitamini almasını sağlar. Bu nedenle hem içeriden hem dışarıdan C vitamini almak idealdir.
+
+### C Vitamininin Cilt İçin Önemi
+
+Ciltte C vitamini:
+- Kolajen ve elastin sentezi için gereklidir
+- Serbest radikallere karşı en güçlü savunmadır
+- Melanin üretimini düzenler
+- Güneş hasarını onarır
+- Cilt bariyerini güçlendirir
+- Yara iyileşmesini hızlandırır
+
+## C Vitamininin Cilde Bilimsel Olarak Kanıtlanmış Faydaları
+
+### 1. Güçlü Antioksidan Koruması
+
+C vitamini, cildinizin karşılaştığı en büyük tehditlerden biri olan serbest radikallere karşı en etkili doğal savunmadır.
+
+**Serbest Radikaller Nedir?**
+Serbest radikaller, güneş ışınları (UV), hava kirliliği, sigara dumanı, stres ve kötü beslenme gibi faktörlerin ciltte oluşturduğu dengesiz moleküllerdir. Bu moleküller, sağlıklı hücrelere saldırır, DNA'ya zarar verir ve:
+- Kolajen ve elastini yok eder
+- Kırışıklıklara neden olur
+- Cilt tonunu bozar
+- Hiperpigmentasyon oluşturur
+- Cilt kanserine zemin hazırlar
+
+**C Vitamini Nasıl Korur?**
+C vitamini, serbest radikallere elektron vererek onları nötralize eder. Bu sayede serbest radikaller hücrelere zarar veremez. Journal of Investigative Dermatology'de yayınlanan araştırmalar, topikal C vitamini kullanımının UV hasarını %90'a kadar azalttığını göstermiştir.
+
+Önemli Not: C vitamini güneş kremi DEĞİLDİR ama SPF ile birlikte kullanıldığında güneş korumasını %4 kat artırır.
+
+### 2. Kolajen Üretimini Artırır
+
+Kolajen, cildin yapı taşıdır. Cildinizin %75'ini oluşturan bu protein, cildin sıkılığını, elastikiyetini ve genç görünümünü sağlar.
+
+**Yaşla Birlikte Kolajen Kaybı:**
+- 20'li yaşlardan itibaren yılda %1 kolajen kaybı
+- 30'lu yaşlarda kolajensent ezi %25 azalır
+- 50'li yaşlarda %50'den fazla kolajen kaybı
+
+Bu kayıp, kırışıklıklara, ince çizgilere ve cilt sarkmalarına neden olur.
+
+**C Vitamininin Rolü:**
+C vitamini, kolajen sentezi için mutlak gereklidir. Fibroblast hücrelerini uyararak:
+- Yeni kolajen üretimini 8 kat artırır
+- Mevcut kolajeni stabilize eder
+- Kolajen parçalanmasını engeller
+
+Dermatologic Surgery dergisinde yayınlanan 12 haftalık bir çalışmada, %10 C vitamini serumu kullananların cilt sıkılığında %73 artış gözlemlenmiştir.
+
+### 3. Kırışıklık ve İnce Çizgileri Azaltır
+
+C vitamininin kolajen artırıcı ve antioksidan özellikleri, doğrudan kırışıklık ve yaşlanma belirtilerini hedef alır.
+
+**Klinik Sonuçlar:**
+- 3 aylık kullanımda kırışıklıklarda %50'ye kadar azalma
+- İnce çizgilerin derinliğinde %30 azalma
+- Cilt dokusunda %45 iyileşme
+- Cilt tonunda %25 düzelme
+
+Özellikle göz çevresi, alın ve ağız çevresi gibi kırışıklığa yatkın bölgelerde dramatik iyileşmeler görülür.
+
+### 4. Leke ve Hiperpigmentasyonu Giderir
+
+C vitamini, cilt tonu eşitsizliklerini düzelten en etkili bileşenlerden biridir.
+
+**Melanin Üretimini Düzenler:**
+C vitamini, melanin üretiminden sorumlu olan tirosinaz enzimini inhibe eder. Bu sayede:
+- Güneş lekeleri azalır
+- Yaş lekeleri soluklaşır
+- Akne izleri ve PIH (post-inflammatory hyperpigmentation) giderilir
+- Melasma tedavisinde destek sağlar
+
+**Bilimsel Kanıt:**
+Journal of Clinical and Aesthetic Dermatology'de yayınlanan çalışmada, 12 hafta boyunca %20 C vitamini serumu kullanan katılımcılarda hiperpigmentasyonda %60 azalma görülmüştür.
+
+### 5. Cilt Tonunu Aydınlatır ve Parlaklık Verir
+
+C vitamini, cildin doğal ışıltısını geri kazandırır.
+
+**Aydınlatma Mekanizmaları:**
+1. **Melanin Azaltma:** Mevcut lekeleri açar
+2. **Hücre Yenileme:** Ölü deri hücrelerinin atılmasını hızlandırır
+3. **Mikrosirkülasyon:** Cilt altı kan akışını artırarak canlılık verir
+4. **Işık Yansıtma:** Cilt yüzeyini düzeltir, ışığı daha iyi yansıtır
+
+Sonuç olarak, cilt daha parlak, canlı ve genç görünür. "Cam cilt" (glass skin) etkisi için C vitamini olmazsa olmazdır.
+
+### 6. Güneş Hasarını Onarır ve Korur
+
+C vitamini, UV hasarına karşı hem koruyucu hem de onarıcı etki gösterir.
+
+**Fotoaging (Güneş Kaynaklı Yaşlanma) ile Mücadele:**
+- DNA hasarını onarır
+- Sunburn hücrelerini azaltır
+- Eritemi (kızarıklık) hafifletir
+- Cilt kanseri riskini azaltır
+
+**Önemli:** C vitamini asla SPF'nin yerini alamaz! Ancak SPF altına uygulandığında koruma gücünü önemli ölçüde artırır. SPF + C vitamini kombinasyonu, "güneş korumasında altın standart" olarak kabul edilir.
+
+### 7. Cilt Bariyerini Güçlendirir
+
+Cilt bariyeri, cildinizin en dış koruyucu tabakasıdır. Nemli tutulması, enfeksiyonların önlenmesi ve dış etkenlerden korunma için kritik öneme sahiptir.
+
+**C Vitamininin Bariyer Fonksiyonları:**
+- Seramid sentezini artırır
+- Lipit tabakasını güçlendirir
+- Trans-epidermal su kaybını (TEWL) azaltır
+- Cilt direncini artırır
+
+Güçlü bariyer:
+- Daha nemli cilt
+- Daha az hassasiyet
+- Daha iyi enfeksiyon koruması
+- Daha az tahriş ve kızarıklık
+
+### 8. Akne İzlerini ve İltihab Gider
+
+C vitamini, anti-inflamatuar özelliklere sahiptir ve akneye eğilimli ciltler için mükemmeldir.
+
+**Akne ile Mücadele:**
+- Sebum üretimini dengeler
+- Bakterilerin neden olduğu iltihabı azaltır
+- Akne sonrası hiperpigmentasyonu tedavi eder
+- Yara iyileşmesini hızlandırır
+
+Niasinamid ile kombine edildiğinde, akne izlerinin giderilmesinde %80 başarı oranı gösterir.
+
+### 9. Cildi Sıkılaştırır ve Elastikiyet Kazandırır
+
+Kolajen ve elastin artışı sayesinde, C vitamini cildin fiziksel yapısını iyileştirir.
+
+**Görünür Değişimler:**
+- Yanak ve çene çizgisinde sıkılaşma
+- Göz çevresinde gerginlik
+- Boyun bölgesinde iyileşme
+- Gözeneklerin küçülmesi
+
+## C Vitamini Türleri ve Hangisini Seçmelisiniz?
+
+C vitamini, farklı formlarda bulunur ve her birinin avantajları ve dezavantajları vardır.
+
+### 1. L-Askorbik Asit (Pure Vitamin C)
+
+**Özellikleri:**
+- En saf ve en etkili form
+- En çok araştırılmış form
+- pH 3.5 ve altında stabil kalır
+- %10-20 konsantrasyonda kullanılır
+
+**Avantajları:**
+- Maksimum etkinlik
+- Hızlı sonuç
+- Bilimsel olarak kanıtlanmış
+
+**Dezavantajları:**
+- Hassas ciltlerde tahriş yapabilir
+- Oksitlenmeye çok duyarlı
+- Düşük pH nedeniyle cilt yanması hissi verebilir
+
+**Kimin Kullanmalı:** Normal ve yağlı ciltler, C vitaminine alışık olanlar
+
+### 2. Magnezyum Askorbil Fosfat (MAP)
+
+**Özellikleri:**
+- Suda çözünen, stabil form
+- Daha yüksek pH'da çalışır (5-7)
+- Daha az tahriş edici
+
+**Avantajları:**
+- Hassas ciltler için ideal
+- Stabilite sorunu yok
+- Tahriş riski minimum
+
+**Dezavantajları:**
+- L-askorbik aside göre daha yavaş etki
+- Penetrasyon gücü biraz daha düşük
+
+**Kimin Kullanmalı:** Hassas, kuru ve reaktif ciltler
+
+### 3. Askorbil Glikozit
+
+**Özellikleri:**
+- Şeker molekülüne bağlı C vitamini
+- Çok stabil
+- Ciltte enzimatik olarak saf C vitamine dönüşür
+
+**Avantajları:**
+- Son derece stabil
+- Tahriş yapmaz
+- Uzun raf ömrü
+
+**Dezavantajları:**
+- Dönüşüm süreci nedeniyle daha yavaş etki
+
+**Kimin Kullanmalı:** Tüm cilt tipleri, özellikle başlangıç seviyesi
+
+### 4. Sodium Askorbil Fosfat (SAP)
+
+**Özellikleri:**
+- Tuz formu, suda çözünen
+- Anti-bakteriyel özelliği var
+
+**Avantajları:**
+- Akneye eğilimli ciltler için mükemmel
+- Stabilite
+- Anti-bakteriyel etki
+
+**Kimin Kullanmalı:** Akne ve yağlı ciltler
+
+### 5. Tetrahexyldecyl Askorbat (THDA)
+
+**Özellikleri:**
+- Yağda çözünen form
+- Çok stabil
+- Cilt bariyerini kolayca geçer
+
+**Avantajları:**
+- Daha derin penetrasyon
+- Stabilite
+- Yağlı formüllerde kullanılabilir
+
+**Dezavantajları:**
+- Daha pahalı
+- Daha az araştırılmış
+
+**Kimin Kullanmalı:** Olgun ve kuru ciltler
+
+## C Vitamini Serumu Nasıl Kullanılır?
+
+### Doğru Uygulama Sırası
+
+**Sabah Rutini (ÖNERİLİR):**
+1. Temizleyici
+2. Tonik
+3. **C Vitamini Serumu** ← BURAYA
+4. Hyaluronik asit (opsiyonel)
+5. Göz kremi
+6. Nemlendirici
+7. SPF (MUTLAKA!)
+
+**Neden Sabah?**
+C vitamini, gün boyunca cildi antioksidan ile korur ve SPF ile sinerjik etki gösterir. Akşam kullanımı da mümkündür ama sabah daha etkilidir.
+
+### Uygulama Tekniği
+
+1. **Temiz ve Nemli Cilt:** C vitamini nemli cilde daha iyi emilir
+2. **3-4 Damla Yeterli:** Tüm yüz ve boyun için
+3. **Bastırma Tekniği:** Ovmak yerine ciltte hafifçe bastırarak uygulayın
+4. **Bekleyin:** 1-2 dakika emilmesini bekleyin
+5. **SPF Şart:** C vitamini sonrası SPF kullanımı kritiktir
+
+### İlk Kullanımlarda Dikkat
+
+**Başlangıç İçin:**
+- Düşük konsantrasyonla başlayın (%5-10)
+- Günde bir kez (sabah veya akşam)
+- Her iki günde bir kullanarak cildikonyavaş alıştırın
+- 2 hafta sonra günlük kullanıma geçin
+
+**Tahriş Belirtileri:**
+- Hafif kızarıklık (ilk 1-2 hafta normal)
+- Karıncalanma hissi (genellikle geçici)
+- Kuruma (nemlendirici artırın)
+
+Eğer şiddetli yanma, kaşıntı veya döküntü olursa kullanımı durdurun ve dermatoloğa başvurun.
+
+## C Vitamini Seçerken Nelere Dikkat Edilmeli?
+
+### 1. Konsantrasyon
+
+- **%5-10:** Başlangıç, hassas ciltler
+- **%15-20:** Standart, genel ciltler
+- **%20-25:** İleri seviye, direnç gösteren problemler
+
+%20'nin üzeri gereksizdir ve tahriş riskini artırır. "Daha fazla daha iyi" mantığı C vitamini için geçerli değildir.
+
+### 2. pH Değeri
+
+L-askorbik asit için ideal pH: **2.0-3.5**
+
+pH çok düşükse tahriş yapar, çok yüksekse etkisiz kalır. Ürün etiketinde pH değerinin belirtilmesi önemlidir.
+
+### 3. Formülasyon
+
+**En İyi Kombinasyonlar:**
+- **C Vitamini + E Vitamini + Ferulik Asit:** Bilimsel olarak en kanıtlanmış kombinasyon. Stabiliteyi artırır ve etkinliği %8 kat artırır.
+- **C Vitamini + Niasinamid:** Leke giderme için mükemmel (dikkatli kullanılmalı, bazı ciltlerde kızarıklık yapabilir)
+- **C Vitamini + Hyaluronik Asit:** Nemlendirme + aydınlatma
+
+### 4. Ambalaj
+
+C vitamini oksitlenmeye çok duyarlıdır. Doğru ambalaj kritiktir:
+
+**İdeal Ambalaj:**
+- Koyu renkli cam şişe (ışıktan korur)
+- Hava geçirmez pompa sistemi
+- Küçük hacim (30ml ideal, çabuk tüketilmeli)
+
+**Saklanma:**
+- Serin, karanlık yer
+- Buzdolabında saklanabilir
+- Banyo dolabı UYGUN DEĞİL (nem ve sıcaklık)
+
+### 5. Oksitlenme Kontrolü
+
+**Serum Bozulmuşsa Göstergeleri:**
+- Renk değişikliği (berrak/beyazdan sarıya, turuncuya veya kahverengiye)
+- Koku değişikliği
+- Tekstür değişikliği
+
+Bozulmuş serumu kullanmayın! Oksitlenmiş C vitamini serbest radikal gibi davranır ve zarar verir.
+
+### 6. Fiyat
+
+Kaliteli C vitamini serumu ucuz olmaz. Ortalama fiyat:
+- İyi kalite: 200-500 TL (15-30ml)
+- Lüks marka: 500-2000 TL
+
+Çok ucuz ürünler genellikle etkisiz konsantrasyonda veya kalitesiz formdadır.
+
+## C Vitamini ile Kullanılabilecek ve Kullanılamayacak Ürünler
+
+### ✅ C Vitamini ile GÜVENLİ Kombinasyonlar
+
+**1. Hyaluronik Asit**
+- Mükemmel kombinasyon
+- Nemlendirme + aydınlatma
+- Sinerjik etki
+
+**2. E Vitamini**
+- Birbirlerini güçlendirir
+- Stabilite artırır
+- Antioksidan gücünü katlar
+
+**3. Ferulik Asit**
+- C vitaminini stabilize eder
+- Etkinliği artırır
+- Güneş koruması güçlenir
+
+**4. SPF**
+- Mutlaka birlikte kullanılmalı
+- Güneş korumasını 4 kat artırır
+
+**5. Peptidler**
+- Güvenli kombinasyon
+- Anti-aging etkisini artırır
+
+**6. Niasinamid (DİKKATLİ!)**
+- Eski inanışın aksine birlikte kullanılabilir
+- Ancak bazı ciltlerde kızarıklık yapabilir
+- Farklı rutinlerde kullanılması daha güvenli (biri sabah, diğeri akşam)
+
+### ⛔ C Vitamini ile RİSKLİ Kombinasyonlar
+
+**1. AHA/BHA Asitler (Glikolik, Salisilik, Laktik)**
+- Aynı rutinde kullanılmamalı
+- İkisi de pH'ı düşürür, aşırı tahriş riski
+- Biri sabah (C vitamini), diğeri akşam (asitler) kullanılabilir
+
+**2. Retinol / Retinoide**
+- Her ikisi de güçlü aktif
+- Aynı anda kullanım tahriş riski
+- Alternatif: Sabah C vitamini, akşam retinol
+
+**3. Benzoyl Peroxide**
+- C vitaminini oksitler ve etkisiz hale getirir
+- Ayrı rutinlerde kullanılmalı
+
+## C Vitamini Kullanımında Sık Yapılan Hatalar
+
+### Hata 1: Güneş Koruyucu Kullanmamak
+
+C vitamini cildi güneşe daha duyarlı hale getirebilir. SPF kullanımı MUTLAKA gereklidir. C vitamini + SPF = Mükemmel koruma.
+
+### Hata 2: Bozulmuş Ürünü Kullanmaya Devam Etmek
+
+Sararmış, kahverengi veya turuncu renk alimış C vitamini oksitlenmiştir ve zararlıdır.
+
+### Hata 3: Çok Fazla Ürün Kullanmak
+
+3-4 damla yeterlidir. Fazlası emilmez ve israf olur.
+
+### Hata 4: Sabırsızlık
+
+C vitamini hızlı etki gösterir ama mucize değildir:
+- İlk ışıltı: 1-2 hafta
+- Leke azalması: 4-8 hafta
+- Kırışıklık azalması: 8-12 hafta
+
+### Hata 5: Yanlış Saklama
+
+Banyo dolabında saklanan C vitamini çok çabuk bozulur. Serin, karanlık yerde veya buzdolabında saklayın.
+
+## Cilt Tiplerine Göre C Vitamini Önerileri
+
+### Yağlı ve Akne Eğilimli Cilt
+
+- **Form:** L-askorbik asit veya SAP
+- **Konsantrasyon:** %15-20
+- **Formül:** Hafif, yağsız serum
+- **Kombinasyon:** Niasinamid, salisilik asit (farklı rutinlerde)
+
+### Kuru ve Hassas Cilt
+
+- **Form:** Magnezyum askorbil fosfat veya askorbil glikozit
+- **Konsantrasyon:** %5-10 (başlangıç), sonra %15
+- **Formül:** Kremsi, nemlendirici
+- **Kombinasyon:** Hyaluronik asit, seramidler
+
+### Normal ve Karma Cilt
+
+- **Form:** L-askorbik asit
+- **Konsantrasyon:** %15-20
+- **Formül:** Klasik serum
+- **Kombinasyon:** E vitamini, ferulik asit
+
+### Olgun Cilt (40+ Yaş)
+
+- **Form:** L-askorbik asit veya THDA
+- **Konsantrasyon:** %20
+- **Formül:** Zengin, peptid içeren
+- **Kombinasyon:** Retinol (akşam), peptidler, hyaluronik asit
+
+## C Vitamini Hakkında Bilimsel Araştırmalar
+
+**Journal of Dermatological Science (2021):**
+12 haftalık çalışmada %20 C vitamini kullanımı:
+- Kırışıklıklarda %57 azalma
+- Cilt tonunda %62 iyileşme
+- Cilt elastikiyetinde %72 artış
+
+**Dermatologic Surgery (2020):**
+Topikal C vitamininin kolajen sentezini %8 kat artırdığı kanıtlandı.
+
+**International Journal of Cosmetic Science (2019):**
+C vitamini + SPF kombinasyonunun UV hasarını %92 oranında önlediği gösterildi.
+
+## Sonuç
+
+C vitamini, cilt bakımında en güvenilir, en çok araştırılmış ve en etkili bileşenlerden biridir. Doğru form, konsantrasyon ve kullanımla:
+
+✅ Cildinizi güneş hasarından korur
+✅ Kırışıklıkları azaltır ve yaşlanmayı geciktirir
+✅ Lekeleri giderir ve cilt tonunu eşitler
+✅ Cildinize doğal parlaklık ve canlılık kazandırır
+✅ Kolajen üretimini artırarak cildi sıkılaştırır
+
+Ancak unutmayın:
+- Kaliteli ürün seçimi kritiktir
+- SPF kullanımı şarttır
+- Doğru saklama gereklidir
+- Sabır ve tutarlılık en önemli faktörlerdir
+
+C vitamini serumu, her cilt bakım rutin inde olması gereken temel bir üründür. Cildinize yapacağınız en değerli yatırımlardan biridir!
+`},"natural-face-masks":{title:"Doğal Yüz Maskeleri: Evde Yapabileceğiniz 20 Etkili Tarif",excerpt:"Mutfağınızda bulunan doğal malzemelerle profesyonel kalitede yüz maskeleri hazırlayın. Her cilt tipi için özel tarifler ve uygulama ipuçları...",content:`Doğal yüz maskeleri, binlerce yıldır güzellik rutinlerinin vazgeçilmez bir parçası olmuştur. Kleopatra'nın bal ve süt maskeleri, Japon geişaların pirinç su işlemleri, Hintli kadınların zerdeçal maskeleri... Tüm bu geleneksel yöntemler, modern bilimle de desteklenerek günümüzde yeniden popülerlik kazanmıştır.
+
+Doğal yüz maskeleri, kimyasal içeriklere alternatif olarak, cildinize zararlı maddeler bulaştırmadan etkili sonuçlar almanızı sağlar. Üstelik ekonomik, kolay hazırlanabilir ve içeriklerinin ne olduğunu tam olarak bildiğiniz güvenilir ürünlerdir.
+
+## Doğal Maskelerin Avantajları
+
+### 1. Kimyasal İçerik Yoktur
+Hazır maskeler genellikle koruyucular, parfümler, parabeler ve sülfatlar içerir. Doğal maskeler ise tamamen temizdir ve alerjik reaksiyon riski minimum düzeydedir.
+
+### 2. Taze ve Canlı İçerikler
+Doğal malzemeler, vitamin ve minerallerin bozulmamış, en taze halinde cildinize ulaşmasını sağlar.
+
+### 3. Ekonomik
+Bir kavanoz pahalı yüz maskesi yerine, mutfağınızda zaten bulunan malzemelerle onlarca maske yapabilirsiniz.
+
+### 4. Kişiselleştirilebilir
+Cildinizin ihtiyaçlarına göre malzemeleri değiştirebilir, kendi özel formülünüzü yaratabilirsiniz.
+
+### 5. Çevre Dostu
+Plastik ambalajlar, sentetik içerikler ve kargo taşımacılığı yoktur. Tamamen sürdürülebilirdir.
+
+## Maske Hazırlama ve Uygulama Kuralları
+
+### Temel Kurallar
+
+**1. Temizlik Her Şeydir:**
+- Ellerinizi yıkayın
+- Kullanacağınız kap, kaşık ve malzemeleri temiz tutun
+- Organik ve taze malzemeler tercih edin
+
+**2. Taze Hazırlayın:**
+- Maskeleri kullanmadan hemen önce hazırlayın
+- Doğal maskeler koruyucu içermez, saklanamaz
+- Maksimum 1-2 gün buzdolabında saklanabilir
+
+**3. Patch Test Yapın:**
+- Yeni bir malzemeyi ilk kez kullanacaksanız, önce küçük bir alana (kulak arkası veya iç bilek) uygulayın
+- 24 saat bekleyin ve reaksiyon olup olmadığını kontrol edin
+
+**4. Temiz Cilde Uygulayın:**
+- Önce yüzünüzü temizleyin
+- Hafif bir buharla gözeneklerinizi açın
+- Nemli cilde maske daha iyi emilir
+
+**5. Doğru Süre:**
+- Çoğu maske için 15-20 dakika idealdir
+- Kil maskeleri tamamen kurumamalı (çatlak oluşmadan önce durulayın)
+- Asit içeren maskeler 5-10 dakikayı geçmemeli
+
+**6. Nazikçe Durulayın:**
+- Ilık suyla nazikçe durulayın
+- Ovmayın, hafif masaj yaparak temizleyin
+- Yumuşak bir havlu ile hafifçe kurulayın
+
+**7. Nemlendirmeyi Unutmayın:**
+- Maske sonrası tonik uygulayın
+- Serum ve nemlendirici ile kapatın
+- Gündüz uyguladıysanız SPF kullanın
+
+## Cilt Tiplerine Göre Doğal Yüz Maskeleri
+
+## A. YAĞLI VE AKNE EĞİLİMLİ CİLT MASKELERİ
+
+### 1. Kil ve Çay Ağacı Yağı Maskesi
+
+**Malzemeler:**
+- 2 yemek kaşığı yeşil veya beyaz kil
+- 1-2 damla çay ağacı yağı
+- 1 tatlı kaşığı elma sirkesi
+- Gül suyu (kıvam ayarlamak için)
+
+**Yapılışı:**
+1. Kili cam bir kapta gül suyu ile yoğun bir hamur kıvamına getirin
+2. Elma sirkesi ve çay ağacı yağını ekleyin
+3. Temiz yüze kalın bir tabaka halinde sürün
+4. Gözenek problemlerinin yoğun olduğu T bölgesine daha kalın uygulayın
+5. 10-15 dakika bekleyin (TAMAMEN kurumasını beklemeyin!)
+6. Ilık suyla durulayın
+
+**Faydaları:**
+- Fazla yağı emer
+- Gözenekleri temizler ve sıkılaştırır
+- Akneye neden olan bakterileri öldürür
+- İltihabı azaltır
+
+**Uygulama Sıklığı:** Haftada 2-3 kez
+
+### 2. Yoğurt ve Limon Maskesi
+
+**Malzemeler:**
+- 3 yemek kaşığı yağsız yoğurt
+- 1 tatlı kaşığı taze sıkılmış limon suyu
+- 1 tatlı kaşığı bal
+
+**Yapılışı:**
+1. Tüm malzemeleri karıştırın
+2. Yüze ve boyuna uygulayın
+3. Göz çevresinden kaçının (limon tahrişyapabilir)
+4. 15 dakika bekleyin
+5. Durulayın ve nemlendirin
+
+**Faydaları:**
+- Yağ dengesini sağlar
+- Gözenekleri temizler
+- Hafif peeling etkisi
+- Cilt tonu eşitler
+
+**Uygulama Sıklığı:** Haftada 2 kez
+
+**DİKKAT:** Hassas ciltler limon miktarını yarıya indirsin veya tamamen atlasın.
+
+### 3. Yulaf ve Domates Maskesi
+
+**Malzemeler:**
+- 2 yemek kaşığı yulaf ezmesi
+- 1 orta boy domates (püre)
+- 1 tatlı kaşığı bal
+
+**Yapılışı:**
+1. Domatesi blender'da püre yapın
+2. Yulaf ve balı ekleyin
+3. 5 dakika bekleyip yulafsın şişmesini sağlayın
+4. Yüze uygulayın
+5. 20 dakika bekleyin
+6. Dairesel hareketlerle masaj yaparak durulayın
+
+**Faydaları:**
+- Sebum üretimini dengeler
+- Gözenekleri temizler
+- Antioksidan koruması
+- Nazik peeling
+
+**Uygulama Sıklığı:** Haftada 2 kez
+
+## B. KURU VE HASSAS CİLT MASKELERİ
+
+### 4. Avokado ve Bal Maskesi
+
+**Malzemeler:**
+- 1/2 olgun avokado
+- 1 yemek kaşığı ham bal
+- 1 tatlı kaşığı badem yağı
+- 1 tatlı kaşığı yoğurt (opsiyonel)
+
+**Yapılışı:**
+1. Avokadoyu ezin
+2. Bal ve badem yağını ekleyin
+3. Pürüzsüz bir kıvam elde edin
+4. Yüze kalın bir tabaka halinde sürün
+5. 20-25 dakika bekleyin
+6. Ilık suyla durulayın
+
+**Faydaları:**
+- Yoğun nemlendirme
+- Esansiyel yağ asitleri sağlar
+- Cildi yumuşatır
+- Kızarıklığı azaltır
+
+**Uygulama Sıklığı:** Haftada 2-3 kez
+
+### 5. Yulaf ve Süt Maskesi
+
+**Malzemeler:**
+- 3 yemek kaşığı yulaf ezmesi
+- 4 yemek kaşığı sıcak süt (bitkisel süt de olabilir)
+- 1 yemek kaşığı bal
+- 1 tatlı kaşığı E vitamini yağı (opsiyonel)
+
+**Yapılışı:**
+1. Yulaları sıcak sütle ıslatın ve 5 dakika bekletin
+2. Bal ve E vitamini ekleyin
+3. Ezilmiş bir kıvam elde edin
+4. Yüze uygulayın
+5. 20 dakika bekleyin
+6. Ilık suyla durulayın
+
+**Faydaları:**
+- Hassas cildi sakinleştirir
+- Kızarıklığı azaltır
+- Nemlendirme sağlar
+- Cildi yumuşatır
+
+**Uygulama Sıklığı:** Haftada 2-3 kez
+
+### 6. Salatalık ve Aloe Vera Maskesi
+
+**Malzemeler:**
+- 1/2 salatalık (püre)
+- 2 yemek kaşığı saf aloe vera jeli
+- 1 tatlı kaşığı gül suyu
+
+**Yapılışı:**
+1. Salatalığı blenderdan geçirin
+2. Aloe vera ve gül suyunu ekleyin
+3. Soğuk bir kıvam elde edin
+4. Yüze uygulayın (göz çevresine de uygulanabilir)
+5. 20 dakika bekleyin
+6. Durulayın
+
+**Faydaları:**
+- Serinletici etki
+- Güneş yanıklarını rahatlatır
+- Kızarıklığı azaltır
+- Nemlendirme sağlar
+
+**Uygulama Sıklığı:** Günlük kullanılabilir
+
+## C. KARMA CİLT MASKELERİ
+
+### 7. Elma ve Bal Maskesi
+
+**Malzemeler:**
+- 1/2 yeşil elma (rendeli)
+- 1 yemek kaşığı bal
+- 1 tatlı kaşığı limon suyu
+- 1 tatlı kaşığı yoğurt
+
+**Yapılışı:**
+- (Elma maskesini daha önce detaylıca anlattık)
+- T bölgesinde daha uzun (20 dk), yanakta daha kısa (15 dk) tutabilirsiniz
+
+**Faydaları:**
+- T bölgesini dengeler
+- Yanakları nemlendiri
+- Gözenekleri temizler
+- Aydınlatıcı etki
+
+**Uygulama Sıklığı:** Haftada 2 kez
+
+### 8. Muz ve Bal Maskesi
+
+**Malzemeler:**
+- 1 olgun muz
+- 1 yemek kaşığı bal
+- 1 tatlı kaşığı limon suyu (yağlı bölgeler için)
+- 1 tatlı kaşığı süt (kuru bölgeler için)
+
+**Yapılışı:**
+1. Muzu ezin
+2. Balı ekleyin
+3. T bölgesi için limon, yanaklar için süt ekleyebilirsiniz
+4. Yüze uygulayın
+5. 15-20 dakika bekleyin
+6. Durulayın
+
+**Faydaları:**
+- Her iki bölgeyi de dengeler
+- Nemlendirici ve yumuşatıcı
+- Vitamin ve mineral sağlar
+
+**Uygulama Sıklığı:** Haftada 2 kez
+
+## D. OLGUN VE YAŞLANMA BELİRTİLERİ OLAN CİLT MASKELERİ
+
+### 9. Zerdeçal ve Bal Maskesi
+
+**Malzemeler:**
+- 1 tatlı kaşığı zerdeçal tozu
+- 2 yemek kaşığı bal
+- 1 yemek kaşığı yoğurt veya süt
+- 1 damla gül yağı (opsiyonel)
+
+**Yapılışı:**
+1. Tüm malzemeleri karıştırın
+2. Yüze uygulayın (UYARI: Zerdeçal geçici sarı leke bırakabilir)
+3. 15 dakika bekleyin
+4. Ilık suyla durulayın
+5. Gerekirse süt ile pamukla silin
+
+**Faydaları:**
+- Güçlü anti-aging etki
+- Anti-inflamatuar
+- Cilt tonunu eşitler
+- Parlaklık verir
+
+**Uygulama Sıklığı:** Haftada 2 kez
+
+**DİKKAT:** Çok açık tenli kişilerde geçici sarımtırak renk kalabilir (birkaç saat içinde geçer).
+
+### 10. Yumurta Akı ve Limon Maskesi
+
+**Malzemeler:**
+- 1 yumurta akı
+- 1 tatlı kaşığı limon suyu
+- 1/2 tatlı kaşığı bal
+
+**Yapılışı:**
+1. Yumurta akını köpürtün
+2. Limon ve balı ekleyin
+3. Fırça ile yüze uygulayın
+4. İlk kat kuruduktan sonra ikinci kat uygulayın
+5. Toplam 15 dakika bekleyin
+6. Ilık suyla durulayın
+
+**Faydaları:**
+- Cilt sıkılaştırma
+- Gözenek küçültme
+- Kırışıklık azaltma
+- Ton eşitleme
+
+**Uygulama Sıklığı:** Haftada 1-2 kez
+
+### 11. Kahve ve Kakao Maskesi
+
+**Malzemeler:**
+- 1 yemek kaşığı kahve telvesi (kullanılmış veya taze)
+- 1 yemek kaşığı kakao tozu
+- 2 yemek kaşığı yoğurt veya bal
+- 1 tatlı kaşığı hindistan cevizi yağı
+
+**Yapılışı:**
+1. Tüm malzemeleri karıştırın
+2. Yüze uygulayın
+3. Dairesel hareketlerle hafif masaj yapın
+4. 15-20 dakika bekleyin
+5. Masaj yaparak durulayın
+
+**Faydaları:**
+- Antioksidan bombardımanı
+- Kan dolaşımını artırır
+- Cildi sıkılaştırır
+- Peeling etkisi
+
+**Uygulama Sıklığı:** Haftada 1-2 kez
+
+## E. LEKE VE TON EŞİTSİZLİĞİ İÇİN MASKELER
+
+### 12. Patates ve Limon Maskesi
+
+**Malzemeler:**
+- 1 orta boy patates (çiğ, rendeli)
+- 1 tatlı kaşığı limon suyu
+- 1 tatlı kaşığı bal
+
+**Yapılışı:**
+1. Patatesi rendeleyin veya blenderdan geçirin
+2. Limon ve balı ekleyin
+3. Lekeli bölgelere kalın tabaka halinde uygulayın
+4. 20 dakika bekleyin
+5. Durulayın
+
+**Faydaları:**
+- Güneş lekelerini açar
+- Hiperpigmentasyonu azaltır
+- Aydınlatıcı etki
+- C vitamini desteği
+
+**Uygulama Sıklığı:** Haftada 3-4 kez (akşamları)
+
+### 13. Domates ve Bal Maskesi
+
+**Malzemeler:**
+- 1 orta boy domates (püre)
+- 1 yemek kaşığı bal
+- 1 tatlı kaşığı limon suyu
+
+**Yapılışı:**
+1. Domatesi püre yapın
+2. Bal ve limonu ekleyin
+3. Lekeli alanlara odaklanarak uygulayın
+4. 20 dakika bekleyin
+5. Durulayın
+
+**Faydaları:**
+- Likopen (güçlü antioksidan)
+- Leke açma
+- Güneş hasarı onarımı
+- Asit içeriği ile peeling
+
+**Uygulama Sıklığı:** Haftada 3 kez
+
+## F. GÖZENEKİŞLİ CİLT MASKELERİ
+
+### 14. Yumurta ve Limon Maskesi (Pore Strips)
+
+**Malzemeler:**
+- 1 yumurta akı
+- 1 tatlı kaşığı limon suyu
+- Tuvalet kağıdı veya ince kağıt havlu
+
+**Yapılışı:**
+1. Yumurta akı ve limonu karıştırın
+2. Buruna (veya gözenek problemli bölgeye) fırça ile sürün
+3. Üzerine ince kağıt havlu parçası yerleştirin
+4. Tekrar yumurta akı sürün
+5. Tamamen kurumasını bekleyin (15-20 dakika)
+6. Nazikçe çekerek kağıdı soyun
+
+**Faydaları:**
+- Siyah noktaları çıkarır
+- Gözenekleri temizler
+- Cilt sıkılaştırma
+
+**Uygulama Sıklığı:** Haftada 1 kez
+
+### 15. Aktif Kömür ve Jelatin Maskesi
+
+**Malzemeler:**
+- 1 tatlı kaşığı aktif kömür tozu
+- 1 yemek kaşığı jelatinsiz toz
+- 2 yemek kaşığı su
+
+**Yapılışı:**
+1. Jelatini soğuk suyla karıştırın
+2. Mikrodalgada 10 saniye ısıtın
+3. Aktif kömürü ekleyin
+4. Hemen buruna uygulayın (çabuk katılaşır!)
+5. 15 dakika bekleyin
+6. Soyarak çıkarın
+
+**Faydaları:**
+- Derin gözenek temizliği
+- Toksin çekme
+- Siyah nokta giderme
+
+**Uygulama Sıklığı:** Haftada 1 kez
+
+## G. AYDINLATICI VE CANLANDIRICI MASKELER
+
+### 16. Pirinç Suyu Maskesi
+
+**Malzemeler:**
+- 1/2 su bardağı pirinç
+- 1 su bardağı su
+- 2 yemek kaşığı bal
+- Pamuk ped
+
+**Yapılışı:**
+1. Pirinci iyice yıkayın
+2. Su ile 30 dakika bekletin
+3. Pirinç suyunu süzün
+4. Bal ekleyin
+5. Pamuk ped ile yüze uygulayın veya maske kağıdını ıslatıp yüze yerleştirin
+6. 20 dakika bekleyin
+7. Durulayın
+
+**Faydaları:**
+- Japon güzellik sırrı
+- Güçlü aydınlatma
+- İnositol ve vitaminler
+- Gözenek sıkılaştırma
+
+**Uygulama Sıklığı:** Haftada 2-3 kez
+
+### 17. Bal ve Tarçın Maskesi
+
+**Malzemeler:**
+- 2 yemek kaşığı ham bal
+- 1 tatlı kaşığı toz tarçın
+- 1 tatlı kaşığı hindistan cevizi yağı
+
+**Yapılışı:**
+1. Tüm malzemeleri karıştırın
+2. Yüze uygulayın
+3. 15-20 dakika bekleyin
+4. Ilık suyla durulayın
+
+**Faydaları:**
+- Antibakteriyel
+- Kan dolaşımını artırır
+- Parlaklık verir
+- Anti-aging
+
+**Uygulama Sıklığı:** Haftada 2 kez
+
+**DİKKAT:** Hassas ciltler tarçını atlayabilir veya yarı dozda kullanabilir.
+
+## H. HİDRATASYON VE NEMLENDİRME MASKELERİ
+
+### 18. Aloe Vera ve Hyaluronik Asit Maskesi
+
+**Malzemeler:**
+- 3 yemek kaşığı saf aloe vera jeli
+- 1 kapsül hyaluronik asit serumu veya tozu
+- 1 yemek kaşığı gül suyu
+- 1 tatlı kaşığı gliserin
+
+**Yapılışı:**
+1. Tüm malzemeleri karıştırın
+2. Buzdolabında 10 dakika soğutun
+3. Soğuk olarak yüze uygulayın
+4. 20-25 dakika bekleyin
+5. Durulayın (veya durulamamadan bırakabilirsiniz)
+
+**Faydaları:**
+- Yoğun nemlendirme
+- Nem kilitleme
+- Serinletici etki
+- Cilt bariyeri güçlendirme
+
+**Uygulama Sıklığı:** Haftada 2-3 kez
+
+### 19. Çilek ve Krema Maskesi
+
+**Malzemeler:**
+- 4-5 orta boy çilek
+- 2 yemek kaşığı yoğun krema veya mascarpone
+- 1 tatlı kaşığı bal
+
+**Yapılışı:**
+1. Çilekleri ezin
+2. Krema ve balı ekleyin
+3. Kremsi bir kıvam elde edin
+4. Yüze kalın tabaka halinde uygulayın
+5. 20 dakika bekleyin
+6. Durulayın
+
+**Faydaları:**
+- C vitamini
+- Nemlendirme
+- Aydınlatma
+- Anti-aging
+
+**Uygulama Sıklığı:** Haftada 2 kez
+
+## I. PEELİNG VE CANLANDIRMA MASKELERİ
+
+### 20. Bademve Gül Suyu Peeling Maskesi
+
+**Malzemeler:**
+- 3 yemek kaşığı badem unu (veya öğütülmüş badem)
+- 2 yemek kaşığı gül suyu
+- 1 yemek kaşığı bal
+- 1 tatlı kaşığı badem yağı
+
+**Yapılışı:**
+1. Tüm malzemeleri karıştırın
+2. Granüllü bir kıvam elde edin
+3. Nemli yüze uygulayın
+4. 2-3 dakika dairesel hareketlerle masaj yapın
+5. 10 dakika daha bekleyin
+6. Ilık suyla durulayın
+
+**Faydaları:**
+- Nazik peeling
+- Ölü deri hücrelerini uzaklaştırır
+- Besleyici
+- Yumuşatıcı
+
+**Uygulama Sıklığı:** Haftada 1-2 kez
+
+## Doğal Maske Malzemelerinin Faydaları
+
+### Bal
+- Antibakteriyel
+- Nemlendirici
+- Yara iyileştirici
+- Antioksidan
+
+### Yoğurt
+- Laktik asit (AHA)
+- Probiyotik
+- Nemlendirici
+- Ton eşitleme
+
+### Avokado
+- E vitamini
+- Sağlıklı yağlar
+- Nemlendirici
+- Anti-aging
+
+### Limon
+- C vitamini
+- Aydınlatıcı
+- Asit (peeling)
+- Ton eşitleme
+
+### Yulaf
+- Sakinleştirici
+- Anti-inflamatuar
+- Nazik peeling
+- Nemlendirici
+
+### Kil
+- Detoks
+- Yağ emici
+- Gözenek temizleyici
+- Mineraller
+
+## Sonuç
+
+Doğal yüz maskeleri, cilt bakımınızı hem etkili hem de güvenli hale getirmenin harika bir yoludur. Düzenli kullanımda:
+
+✅ Cilt sağlığını iyileştirir
+✅ Parlaklık ve canlılık kazandırır
+✅ Gözenekleri temizler
+✅ Yaşlanma belirtilerini azaltır
+✅ Ekonomik ve çevre dostudur
+
+Unutmayın:
+- Taze hazırlayın
+- Cilt tipinize uygun seçin
+- Düzenli uygulayın
+- Sabırlı olun
+- Patch test yapın
+
+Doğanın sunduğu bu muhteşem malzemeleri keşfedin ve cildinizin dönüşümüne tanık olun!
+`},"summer-sun-protection":{title:"Yaz Aylarında Güneş Koruması: Cildinizi Güneş Hasarından Koruyun",excerpt:"Yaz aylarında cildinizi güneşin zararlı etkilerinden korumak için bilmeniz gereken her şey. SPF seçiminden uygulama tekniklerine kadar kapsamlı rehber...",content:`Yaz ayları geldiğinde güneşin tadını çıkarmak isterken, cildinizi zararlı UV ışınlarından korumak hayati önem taşır. Güneş hasarı sadece yanıklara değil, erken yaşlanma, lekeler ve cilt kanserine de yol açabilir. Bu rehberde yaz aylarında cildinizi güneşten nasıl etkili bir şekilde koruyacağınızı öğreneceksiniz.
+
+## Güneşin Cilde Etkileri
+
+### UV Işınları
+
+**UVA Işınları:** UV ışınlarının %95'ini oluşturur, cildin derin katmanlarına nüfuz eder, erken yaşlanmaya neden olur, cam ve bulutlardan geçebilir.
+
+**UVB Işınları:** UV ışınlarının %5'ini oluşturur, güneş yanığına neden olur, cilt kanserinin ana tetikleyicisidir.
+
+### Güneş Hasarı Belirtileri
+
+**Kısa vadeli:** Güneş yanığı, kızarıklık, şişlik, soyulma
+**Uzun vadeli:** Kırışıklıklar, lekeler, elastisite kaybı, cilt kanseri
+
+## SPF Seçimi ve Kullanımı
+
+**SPF Değerleri:**
+- SPF 30: %97 UVB koruması
+- SPF 50: %98 UVB koruması
+
+**Miktar:** Yüz için 1/4 çay kaşığı, vücut için 30 ml
+**Yenileme:** Her 2 saatte bir, yüzme/terlemeden sonra hemen
+
+## Koruma İpuçları
+
+1. Geniş spektrum SPF 30-50 kullanın
+2. Her gün kullanın (bulutlu günler dahil)
+3. 10:00-16:00 arası gölgede kalın
+4. Şapka ve güneş gözlüğü takın
+5. UPF değerli kıyafetler giyin
+
+Cildinizi koruyun, uzun yıllar genç ve sağlıklı kalın!`},"honey-skincare-benefits":{title:"Balın Cilt Bakımındaki Faydaları: Doğanın Mucizevi Hediyesi",excerpt:"Balın cildinize sağladığı inanılmaz faydaları ve evde bal maskesi tarifleri. Antibakteriyel, nemlendirici ve yaşlanma karşıtı özellikleriyle bal, cilt bakımının vazgeçilmezi...",content:`Bal, binlerce yıldır cilt bakımında kullanılan doğal bir mucizedir. Kleopatra'nın bal banyoları yaptığı, antik Mısırlıların balı yara iyileştirmede kullandığı bilinir. Modern bilim de balın cilt bakımındaki faydalarını kanıtlamıştır.
+
+## Balın İçeriği
+
+**Şekerler:** Glikoz ve fruktoz, nem çekici özellik
+**Enzimler:** Glukoz oksidaz, antibakteriyel etki
+**Vitaminler:** B kompleksi, C vitamini
+**Mineraller:** Kalsiyum, demir, çinko, potasyum
+**Antioksidanlar:** Flavonoidler, fenolik asitler
+**Amino asitler:** Cilt onarımı
+
+## Balın Cilt Faydaları
+
+### 1. Antibakteriyel ve Antimikrobiyal
+
+Bal doğal hidrojen peroksit üretir, akne bakterilerini öldürür, sivilce oluşumunu önler, yara iyileşmesini hızlandırır.
+
+### 2. Nemlendirme
+
+Humektan özelliği sayesinde havadan nem çeker, cildi yumuşatır, kuruluğu önler, cilt bariyerini güçlendirir.
+
+### 3. Yaşlanma Karşıtı
+
+Antioksidanlar serbest radikalleri nötralize eder, kırışıklıkları azaltır, cildi sıkılaştırır, kolajen üretimini destekler.
+
+### 4. Leke Giderici
+
+Enzimler leke ve izleri soluklaştırır, cilt tonunu eşitler, parlaklık verir.
+
+### 5. Nazik Peeling
+
+Doğal asitler ölü hücreleri uzaklaştırır, gözenekleri temizler, cildi pürüzsüzleştirir.
+
+## Bal Maskeleri
+
+### Klasik Bal Maskesi
+- 2 yemek kaşığı ham bal
+- Temiz yüze uygulayın
+- 15-20 dakika bekleyin
+- Durulayın
+**Faydası:** Nemlendirme, antibakteriyel
+
+### Bal ve Yoğurt Maskesi
+- 1 yemek kaşığı bal
+- 2 yemek kaşığı yoğurt
+- Karıştırıp yüze sürün
+- 20 dakika bekleyin
+**Faydası:** Aydınlatma, leke giderme
+
+### Bal ve Tarçın (Akne İçin)
+- 2 yemek kaşığı bal
+- 1 tatlı kaşığı tarçın
+- Sivilce bölgesine sürün
+- 10-15 dakika bekleyin
+**Faydası:** Antibakteriyel, akne tedavisi
+
+## Bal Seçimi
+
+- **Ham bal tercih edin:** Pastörize bal enzimlerini kaybeder
+- **Manuka balı:** En güçlü antibakteriyel özellik
+- **Organik:** Pestisitsiz, saf
+- **Taze:** Kristalleşmemiş
+
+## Kullanım İpuçları
+
+- Temiz cilde uygulayın
+- Haftada 2-3 kez kullanın
+- Göz çevresinden kaçının
+- Alerjiniz varsa patch test yapın
+- Daima ılık suyla durulayın
+
+Bal, doğal, güvenli ve etkili bir cilt bakım malzemesidir. Düzenli kullanımda cildiniz daha nemli, parlak ve genç görünür!`},"night-cream-importance":{title:"Gece Kreminin Önemi: Cildiniz Uyurken Gençleşsin",excerpt:"Neden gece kremi kullanmalısınız ve nasıl seçmelisiniz? Gece kreminin faydaları, cilt tipine göre seçim rehberi ve uygulama teknikleri...",content:`Gece kremi, birçok kişinin cilt bakım rutininde atladığı ancak aslında en önemli adımlardan biridir. Gece boyunca cildiniz kendini onarır ve yeniler. Doğru gece kremi bu süreci destekler ve hızlandırır.
+
+## Gece ve Gündüz Kremi Farkı
+
+**Gündüz Kremi:** Koruyucu, SPF içerir, hafif doku, makyaj altına uygun, antioksidan içerir.
+
+**Gece Kremi:** Onarıcı, yoğun formül, aktif maddeler yüksek konsantrasyonda, retinol, peptid, AHA/BHA içerebilir.
+
+## Gece Cilt Onarımı
+
+Gece 23:00-04:00 arası cildinizde şunlar olur:
+- Hücre yenilenmesi en üst düzeyde
+- Kolajen üretimi artar
+- Kan dolaşımı hızlanır
+- Cilt geçirgenliği artar (ürünler daha iyi emilir)
+- Melatonin salgılanır (antioksidan etki)
+
+## Gece Kreminin Faydaları
+
+### 1. Yoğun Nemlendirme
+Gece kremleri daha yoğun ve zengindir, gece boyunca nem kaybını önler, sabah cildiniz yumuşak ve dolgun uyanır.
+
+### 2. Yaşlanma Karşıtı
+Retinol, peptidler, büyüme faktörleri içerir, kırışıklıkları azaltır, cildi sıkılaştırır, ince çizgileri giderir.
+
+### 3. Onarım ve Yenilenme
+DNA onarımını destekler, oksidatif stresi azaltır, gün boyunca oluşan hasarı giderir.
+
+### 4. Leke Giderme
+AHA, BHA, kojik asit, niasinamid içerebilir, geceleri leke tedavisi daha etkilidir.
+
+## Cilt Tipine Göre Gece Kremi
+
+**Yağlı Cilt:**
+- Jel krem formülü
+- Oil-free
+- Salisilik asit, niasinamid
+- Non-comedogenic
+
+**Kuru Cilt:**
+- Zengin, kremsi doku
+- Ceramidler, yağlar
+- Hyaluronik asit, shea butter
+- Onarıcı yağlar (argan, jojoba)
+
+**Karma Cilt:**
+- Jel-krem dengesi
+- Hafif ama besleyici
+- Niasinamid, peptidler
+
+**Hassas Cilt:**
+- Parfüm ve alkol içermeyen
+- Centella, panthenol
+- Minimal içerik
+- Hipoalerjenik
+
+**Olgun Cilt:**
+- Retinol, peptidler
+- Antioksidanlar
+- Zengin formül
+- Kolajen destekleyici
+
+## Gece Kremi İçeriği
+
+**Mutlaka Olması Gerekenler:**
+- Hyaluronik asit (nemlendirme)
+- Ceramidler (bariyer onarımı)
+- Peptidler (kolajen üretimi)
+- Antioksidanlar (vitamin E, C, resveratrol)
+
+**Yaşlanma Karşıtı İçin:**
+- Retinol (A vitamini)
+- Bakuchiol (doğal retinol alternatifi)
+- Niasinamid
+- Koenzim Q10
+
+**Aydınlatma İçin:**
+- Vitamin C
+- Kojik asit
+- Arbutin
+- Licorice extract
+
+## Doğru Uygulama
+
+1. **Temizlik:** Yüzünüzü iyice temizleyin
+2. **Tonik:** pH dengesini sağlayın
+3. **Serum:** Aktif serumunuzu uygulayın
+4. **Göz kremi:** Göz çevresine hafifçe
+5. **Gece kremi:** Bezelye tanesi kadar alın
+6. **Uygulama:** Yukarı ve dışa doğru masaj
+7. **Boyun:** Boyun ve dekoltede unutmayın
+
+**Miktar:** Bezelye tanesi kadar yeterli (çok fazla gözenekleri tıkar)
+
+## Gece Bakım Rutini
+
+**Minimum Rutin:**
+1. Temizleyici
+2. Gece kremi
+
+**İdeal Rutin:**
+1. Çift temizleme
+2. Tonik
+3. Essence/serum
+4. Göz kremi
+5. Gece kremi
+6. (Opsiyonel) Yüz yağı veya sleeping mask
+
+## Sonuç
+
+Gece kremi, cildinizin kendini onarma döngüsünü destekler. Doğru seçilmiş ve düzenli kullanılan bir gece kremi, sabah aynada daha genç, dinlenmiş ve parlak bir cilt görmenizi sağlar.
+
+Her gece gece kremi kullanarak cildinize yatırım yapın - sonuçları haftalar içinde göreceksiniz!`},"eye-cream-guide":{title:"Göz Kremi Rehberi: Göz Çevresi Bakımının Esasları",excerpt:"Göz kremi kullanımı hakkında bilmeniz gereken her şey. Doğru seçim, uygulama teknikleri ve yaygın hatalar. Göz altı torbalarından kırışıklıklara çözümler...",content:`Göz çevresi cildinizin en hassas ve en ince bölgesidir. Bu bölge yüzünüzün geri kalanından 10 kat daha incedir ve yaşlanma belirtileri ilk burada görünür. Göz kremi kullanımı, genç ve dinç bir görünüm için vazgeçilmezdir.
+
+## Göz Çevresi Neden Özeldir?
+
+**Anatomik Özellikler:**
+- Cilt kalınlığı sadece 0.5 mm (yüzün geri kalanı 2 mm)
+- Yağ bezleri çok azdır (kurumaya eğilimlidir)
+- Kolajen ve elastin lifleri daha az
+- Kas hareketleri çok fazla (günde 10,000+ göz kırpma)
+- Kan dolaşımı yavaştır
+
+**Sonuç:**
+- İlk kırışıklıklar burada çıkar
+- Kolay şişer ve morarmalar olur
+- Hızla kurur ve incelir
+- Çevresel faktörlerden en çok etkilenir
+
+## Yaygın Göz Çevresi Sorunları
+
+### 1. Göz Altı Torbaları (Puffiness)
+**Nedenleri:**
+- Sıvı birikimi
+- Uyku eksikliği
+- Alerji
+- Yaşlanma (yağ hernileri)
+- Tuz tüketimi
+
+**Çözüm:** Kafein, peptidler, soğuk uygulama
+
+### 2. Koyu Halkalar (Dark Circles)
+**Nedenleri:**
+- Genetik
+- İnce cilt (damarlar görünür)
+- Hiperpigmentasyon
+- Güneş hasarı
+- Yorgunluk
+
+**Çözüm:** Vitamin C, K, niasinamid, retinol
+
+### 3. Kırışıklıklar ve İnce Çizgiler
+**Nedenleri:**
+- Yaşlanma
+- Güneş hasarı
+- Kuru cilt
+- Tekrarlayan mimikler
+- Sigara
+
+**Çözüm:** Retinol, peptidler, hyaluronik asit
+
+### 4. Kurulukarşı ve Sertleşme
+**Nedenleri:**
+- Nem kaybı
+- Çevresel faktörler
+- Yağ bezi azlığı
+
+**Çözüm:** Zengin nemlendirme, ceramidler, yağlar
+
+## Göz Kremi İçeriği
+
+### En Etkili Aktif Maddeler
+
+**Kafein:**
+- Kan dolaşımını hızlandırır
+- Şişliği azaltır
+- Torbaları küçültür
+- Koyu halkaları hafifletir
+
+**Hyaluronik Asit:**
+- Yoğun nemlendirme
+- Kırışıklıkları doldurur
+- Cildi yumuşatır
+- Nem kilitleme
+
+**Retinol (A Vitamini):**
+- Hücre yenilenmesi
+- Kolajen üretimi
+- Kırışıklık azaltma
+- Leke giderme
+**DİKKAT:** Düşük konsantrasyonda kullanın
+
+**Peptidler:**
+- Kolajen sentezi
+- Cilt sıkılaştırma
+- Kırışıklık önleme
+- Elastikiyet artırma
+
+**Vitamin C:**
+- Aydınlatma
+- Koyu halka giderme
+- Antioksidan
+- Kolajen desteği
+
+**Vitamin K:**
+- Damar güçlendirme
+- Morluk azaltma
+- Kan dolaşımı
+- Koyu halka tedavisi
+
+**Niasinamid:**
+- Ton eşitleme
+- Leke giderme
+- Bariyer güçlendirme
+- İltihap azaltma
+
+**Ceramidler:**
+- Nem bariyeri
+- Kuruma önleme
+- Cilt onarımı
+
+## Göz Kremi Seçimi
+
+**20'li Yaşlar:**
+- Önleyici bakım
+- Hafif formül
+- Hyaluronik asit, kafein
+- Güneş koruması önemli
+
+**30'lu Yaşlar:**
+- İlk kırışıklıklar başlar
+- Peptidler, antioksidanlar
+- Hafif retinol
+- Nemlendirme odaklı
+
+**40+ Yaşlar:**
+- Yoğun onarım
+- Retinol, peptidler
+- Zengin formül
+- Sıkılaştırıcı içerikler
+
+### Soruna Göre Seçim
+
+**Şişlik:** Kafein, arnica, yeşil çay
+**Koyu Halka:** Vitamin C, K, niasinamid, kojik asit
+**Kırışıklık:** Retinol, peptidler, hyaluronik asit
+**Kuruлuk:** Ceramidler, squalane, shea butter
+
+## Doğru Uygulama Tekniği
+
+### Adım Adım Uygulama
+
+1. **Temiz Cilt:** Yüzünüzü temizleyin
+2. **Miktar:** Pirinç tanesi kadar (her göz için)
+3. **Isıtma:** Parmak ucunda hafifçe ısıtın
+4. **Noktalar:** Göz altına 3-4 nokta halinde koyun
+5. **Dağıtma:** Yüzük parmağıyla hafifçe tıklayarak yayın
+6. **Yön:** İçten dışa, alttan yukarı
+7. **Masaj:** Hafif dairesel hareketlerle
+8. **Bölge:** Göz kemik hattının 1 cm dışına kadar uygulayın
+
+### YAPILMAMASI GEREKENLER
+
+❌ Ovmayın veya çekmeyinİ (kırışıklık artışı)
+❌ Çok fazla ürün kullanmayın (şişliğe neden olur)
+❌ Kirpiklere çok yaklaşmayın (göze kaçabilir)
+❌ Yüz kremini göz çevresinde kullanmayın (çok ağırdır)
+❌ Günlük kullanımı atlatalım (tutarlılık gerekir)
+
+## Ne Zaman ve Ne Sıklıkta?
+
+**Sabah:**
+- Hafif formül
+- Kafein içerikli
+- Mattlaştırıcı (makyaj altı)
+- SPF içerebilir
+
+**Akşam:**
+- Yoğun formül
+- Retinol içerikli
+- Onarıcı peptidler
+- Zengin nemlendirme
+
+**Sıklık:** Günde 2 kez (sabah-akşam)
+
+## Ek Göz Bakım İpuçları
+
+### 1. Soğuk Kompres
+- Sabahları göz altına soğuk kaşık
+- Soğutulmuş çay poşetleri
+- Buz kalıpları (gazlı bezle sarılı)
+**Etki:** Şişlik azaltma, göz çevresi tazeleme
+
+### 2. Yeterli Uyku
+- 7-8 saat düzenli uyku
+- Başınızı hafif yüksekte tutun (sıvı birikimi azalır)
+**Etki:** Koyu halka ve torba önleme
+
+### 3. Güneş Koruması
+- SPF'li güneş gözlüğü
+- Göz çevresine SPF sürün
+**Etki:** Erken yaşlanma ve leke önleme
+
+### 4. Nem İçin Su Tüketimi
+- Günde 2-3 litre su
+**Etki:** Cildin nemli kalması
+
+### 5. Tuz Tüketimini Azaltın
+- Özellikle akşamları
+**Etki:** Sabah şişlik azalması
+
+## Doğal Göz Bakımı
+
+**Salatalık Dilimi:**
+- Soğutulmuş dilimler
+- 10-15 dakika uygulayın
+**Faydası:** Serinletme, şişlik azaltma
+
+**Yeşil Çay Poşetleri:**
+- Kullanılmış, soğutulmuş
+- 10 dakika uygulayın
+**Faydası:** Kafein, antioksidan, şişlik azaltma
+
+**Badem Yağı:**
+- Birkaç damla hafifçe sürün
+**Faydası:** Nemlendirme, E vitamini
+
+## Sonuç
+
+Göz kremi, 25 yaşından itibaren kullanılmalı, doğru seçim ve uygulama ile:
+- Kırışıklıkları azaltır
+- Koyu halkaları giderir
+- Şişliği önler
+- Cildi sıkılaştırır
+- Genç görünüm sağlar
+
+Göz çevrenize özel ilgi gösterin - sonuçları aynada hemen göreceksiniz!`},"green-tea-antioxidants":{title:"Yeşil Çayın Antioksidan Gücü: Cilt Bakımında Doğal Güç",excerpt:"Yeşil çayın cildinize sağladığı antioksidan faydalarını ve güzellik rutininizde nasıl kullanacağınızı öğrenin...",content:`Yeşil çay, binlerce yıldır Asya kültürlerinde hem içecek hem de tıbbi amaçlarla kullanılan mucizevi bir bitkidir. Modern bilim, yeşil çayın özellikle cilt sağlığı üzerindeki olağanüstü etkilerini kanıtlamış durumda. Güçlü antioksidan özellikleri sayesinde yeşil çay, cilt bakımında devrim yaratmakta ve doğal güzellik ürünlerinin vazgeçilmezi haline gelmektedir.
+
+## Yeşil Çayın Bileşimi: Güzelliğin Kimyası
+
+Yeşil çay (Camellia sinensis), siyah çaydan farklı olarak minimum işlemden geçtiği için doğal bileşenlerini korur. Bu sayede cilt için son derece değerli aktif maddeler içerir:
+
+### Ana Aktif Bileşenler
+
+**Polifenoller ve Kateşinler:**
+Yeşil çayın %30-40'ını oluşturan polifenoller, güçlü antioksidan özelliğe sahiptir. En önemli kateşin olan EGCG (epigallokateşin gallat), sıradan E vitamininden 100 kat daha güçlü bir antioksidandır.
+
+**Kafeİn:**
+Yeşil çayda bulunan kafein, ciltteki kan dolaşımını artırır, şişliği azaltır ve cildi canlandırır.
+
+**Vitamin ve Mineraller:**
+- Vitamin C: Kolajen üretimi ve aydınlatma
+- Vitamin E: Nem bariyeri ve antioksidan
+- Vitamin B2: Cilt tonunu eşitleme
+- Çinko: Akne kontrolü ve iyileşme
+- Mangan: Yaşlanma karşıtı etki
+
+**L-Teanin:**
+Cildi sakinleştiren, stresi azaltan ve anti-inflamatuar etki gösteren bir amino asit.
+
+## Yeşil Çayın Cilde Sağladığı Bilimsel Kanıtlanmış Faydalar
+
+### 1. Güçlü Antioksidan Koruması
+
+Yeşil çayın en önemli özelliği, serbest radikallere karşı sağladığı üstün korumadır. Serbest radikaller, UV ışınları, hava kirliliği, sigara dumanı ve stres gibi faktörlerin ciltte yarattığı zararlı moleküllerdir. Bu moleküller:
+- DNA hasarına yol açar
+- Kolajen ve elastin liflerini parçalar
+- Erken yaşlanmaya neden olur
+- Cilt kanserine zemin hazırlar
+
+Yeşil çaydaki EGCG, bu serbest radikalleri nötralize ederek cildi korur. Araştırmalar, yeşil çay kullanımının ciltteki oksidatif stresi %40'a kadar azalttığını göstermiştir.
+
+### 2. Yaşlanma Karşıtı Etki
+
+Yeşil çay, yaşlanma belirtilerine karşı çok yönlü bir savunma mekanizması sunar:
+
+**Kolajen Koruması:**
+EGCG, cildin yapı taşı olan kolajenin parçalanmasını önleyen enzimleri bloke eder. Aynı zamanda yeni kolajen üretimini teşvik eder.
+
+**Kırışıklık Azaltma:**
+Düzenli yeşil çay uygulaması (topikal veya oral), kırışıklıkların derinliğini %10-15 oranında azaltabilir.
+
+**Elastikiyet Artışı:**
+Antioksidanlar elastin liflerini koruyarak cildin esnekliğini artırır.
+
+**Telomer Koruması:**
+Araştırmalar, yeşil çay tüketiminin hücrelerin yaşlanma hızını belirleyen telomerleri koruduğunu göstermiştir.
+
+### 3. UV Hasarı ve Güneş Koruması
+
+Yeşil çay, güneşin zararlı etkilerine karşı ikinci bir savunma hattı oluşturur:
+
+- UV kaynaklı DNA hasarını %30-70 oranında azaltır
+- Güneş yanığı riskini düşürür
+- Güneş lekelerinin oluşumunu engeller
+- Cilt kanseri riskini azaltmaya yardımcı olur
+
+**ÖNEMLİ NOT:** Yeşil çay güneş kreminin yerini ALMAZ! SPF ile birlikte kullanıldığında ekstra koruma sağlar.
+
+### 4. Akne ve İltihap Kontrolü
+
+Yeşil çay, akne tedavisinde son derece etkilidir:
+
+**Antibakteriyel Etki:**
+Akneye neden olan Propionibacterium acnes bakterisini %89'a kadar öldürür.
+
+**Sebum Kontrolü:**
+Aşırı yağ üretimini %60'a kadar azaltır.
+
+**İltihap Azaltma:**
+Anti-inflamatuar özelliği kızarıklığı ve şişliği hızla azaltır.
+
+Araştırmalar, %2-3 konsantrasyondaki yeşil çay ekstraktının benzoil peroksit kadar etkili olduğunu ancak daha az tahriş edici olduğunu göstermiştir.
+
+### 5. Cilt Tonu Eşitleme ve Aydınlatma
+
+Yeşil çay, melanin üretimini düzenleyerek:
+- Koyu lekeleri azaltır
+- Güneş lekelerini soluklaştırır
+- Akne izlerini giderir
+- Genel cilt tonunu aydınlatır
+
+Düzenli kullanımda (8-12 hafta) cilt tonu %15-20 oranında aydınlanabilir.
+
+### 6. Göz Çevresi Bakımı
+
+Yeşil çay, göz çevresi sorunlarına özel çözüm sunar:
+
+**Göz Altı Şişliği:**
+Kafein ve tanen içeriği fazla sıvıyı boşaltarak şişliği azaltır.
+
+**Koyu Halkalar:**
+Kan dolaşımını artırarak koyu halkaları açar.
+
+**Kırışıklıklar:**
+İnce göz çizgilerini yumuşatır.
+
+### 7. Hassas Cilt Sakinleştirme
+
+Yeşil çay, hassas ve kızarık ciltler için idealdir:
+- Rozasea semptomlarını hafifletir
+- Ekzama ve sedef vücutünnde rahatlatır
+- Alerji olduğunu kızarıklıkları azaltır
+- Cildi soğutur ve sakinleştirir
+
+## Yeşil Çay ile Cilt Bakımı Nasıl Yapılır?
+
+### 1. Yeşil Çay Toniği (Günlük Kullanım)
+
+**Malzemeler:**
+- 2 yeşil çay poşeti veya 2 çay kaşığı yaprak yeşil çay
+- 1 su bardağı kaynar su
+- 3-4 damla E vitamini yağı (opsiyonel)
+
+**Yapılış:**
+1. Yeşil çayı demlayın ve soğumaya bırakın
+2. Süzün ve cam bir şişeye aktarın
+3. E vitamini ekleyin
+4. Buzdolabında saklayın (5 güne kadar taze kalır)
+5. Sabah-akşam pamukla yüzünüze sürün
+
+**Faydası:** Gözenek sıkılaştırma, antioksidan koruma, ton eşitleme
+
+### 2. Yeşil Çay ve Bal Maskesi (Haftada 2 Kez)
+
+**Malzemeler:**
+- 1 çay kaşığı yeşil çay tozu (matcha)
+- 1 yemek kaşığı organik bal
+- Birkaç damla limon suyu
+
+**Yapılış:**
+1. Malzemeleri karıştırarak pürüzsüz bir macun elde edin
+2. Temiz yüze uygulayın
+3. 15-20 dakika bekleyin
+4. Ilık suyla durulayın
+
+**Faydası:** Derin nemlendirme, aydınlatma, antibakteriyel etki
+
+### 3. Yeşil Çay Göz Kompresİ (Günlük)
+
+**Yapılış:**
+1. 2 yeşil çay poşetini sıcak suda demlayın
+2. Soğutun (buzdolabında 30 dakika)
+3. Kapalı gözlerin üzerine yerleştirin
+4. 10-15 dakika bekleyin
+
+**Faydası:** Şişlik azaltma, koyu halka tedavisi, dinlendirme
+
+### 4. Yeşil Çay Buhar Banyosu
+
+**Yapılış:**
+1. Bir kaseye kaynar su dökün
+2. 3-4 yeşil çay poşeti ekleyin
+3. Başınızı havlu ile örtün ve kaseye yaklaşın
+4. 10 dakika buharı alın
+
+**Faydası:** Gözenek açma, temizlik, kan dolaşımını artırma
+
+### 5. Yeşil Çay ve Yoğurt Peeling Maskesi
+
+**Malzemeler:**
+- 1 çay kaşığı yeşil çay tozu
+- 2 yemek kaşığı yoğurt
+- 1 tatlı kaşığı tuz veya şeker
+
+**Yapılış:**
+1. Malzemeleri karıştırın
+2. Nemli yüze uygulayın
+3. Dairesel hareketlerle 2-3 dakika masaj yapın
+4. 5 dakika daha bekleyin
+5. Durulayın
+
+**Faydası:** Nazik peeling, ölü hücre temizleme, parlaklık
+
+## Yeşil Çayı İçeriden Kullanmak
+
+Cildiniz için yeşil çayı sadece dışarıdan değil, içeriden de kullanabilirsiniz:
+
+**Günde 2-3 Fincan Yeşil Çay:**
+- Tüm vücut antioksidan desteği
+- Toksin atımı
+- İltihap azaltma
+- Hormon dengesini düzenleme
+- Stresi azaltma
+
+**Doğru Demleme:**
+- Su sıcaklığı 70-80°C olmalı (kaynar değil)
+- Demleme süresi 2-3 dakika
+- Fazla demleme acı tat verir ve kateşinleri azaltır
+
+### İçme Zamanı
+
+**Sabah:** Metabolizmayı hızlandırır, cildi uyandırır
+**Öğleden Sonra:** Antioksidan tepe noktası
+**Akşam (kahveinsiz):** Sakinleştirici ve rahatlatıcı
+
+## Hangi Cilt Tipi İçin Uygundur?
+
+Yeşil çay TÜM cilt tipleri için güvenlidir:
+
+**Yağlı Cilt:** Sebum kontrolü, gözenek sıkılaştırma
+**Kuru Cilt:** Antioksidan koruma, nemlendirme desteği
+**Karma Cilt:** Denge sağlama
+**Hassas Cilt:** Sakinleştirme, kızarıklık azaltma
+**Akne Cilt:** Antibakteriyel, iltihap azaltma
+**Olgun Cilt:** Yaşlanma karşıtı, kırışıklık önleme
+
+## Dikkat Edilmesi Gerekenler
+
+**Alerji Testi:**
+İlk kullanımda küçük bir alanda test yapın.
+
+**Taze Kullanım:**
+Hazırladığınız yeşil çay ürünlerini 5 gün içinde tüketin.
+
+**Güneş Hassasiyeti:**
+Yeşil çay cildi güneşe duyarlı hale getirmez ancak yine de SPF kullanımı şarttır.
+
+**Hamilelik:**
+Hamile ve emziren anneler yeşil çay tüketimini sınırlamalı (günde max 2 fincan) ancak cilde uygulaması güvenlidir.
+
+**İlaç Etkileşimi:**
+Kan sulandırıcı kullananlar doktorlarına danışmalıdır.
+
+## Ticari Ürünlerde Yeşil Çay
+
+Yeşil çay içeren ürünlerde dikkat edilmesi gerekenler:
+
+**İçerik Listesi:**
+- "Camellia Sinensis Leaf Extract" arayın
+- En az %1-3 konsantrasyonda olmalı
+- İlk 5 içerikte yer alması ideal
+
+**Ürün Çeşitleri:**
+- Temizleyiciler
+- Tonikler
+- Serumlar
+- Nemlendiriciler
+- Göz kremleri
+- Maskeler
+
+## Bilimsel Kanıtlar
+
+Yeşil çayın cilt faydaları çok sayıda bilimsel çalışmayla desteklenmiştir:
+
+- **Archives of Dermatology (2020):** Yeşil çay ekstraktının akneyi %58 oranında azalttığı gösterildi.
+- **Journal of the American Academy of Dermatology (2019):** UV hasarını %30 oranında azalttığı kanıtlandı.
+- **Antioxidants Journal (2021):** Yeşil çay polifenollerinin kolajen üretimini %35 artırdığı belirlendi.
+
+## Sonuç
+
+Yeşil çay, modern cilt bakımının en güçlü doğal bileşenlerinden biridir. Güçlü antioksidan özelliği, yaşlanma karşıtı etkileri, akne tedavisi ve cilt tonu eşitleme faydalarıyla her yaştan ve her cilt tipinden kişi için idealdir.
+
+Hem içecek olarak tüketerek hem de cilde doğrudan uygulayarak yeşil çayın mucizevi faydalarından yararlanabilirsiniz. Düzenli kullanımda cildiniz:
+- Daha parlak ve canlı olur
+- Lekeler azalır
+- Kırışıklıklar hafiflenir
+- Akne kontrol altına alınır
+- Genç ve sağlıklı görünür
+
+Doğanın bu harika hediyesini cilt bakım rutininize ekleyin ve farkı hissedin!`},"arbutin-skin-brightening":{title:"Arbutin ile Cilt Aydınlatma: Lekelere Doğal Çözüm",excerpt:"Arbutinin cilt lekelerine karşı etkili kullanımını ve güvenli aydınlatma yöntemlerini keşfedin...",content:`Cilt lekeleri, hiperpigmentasyon ve eşitsiz ton, cilt bakımında en çok şikayet edilen sorunlar arasındadır. Güneş lekeleri, yaş lekeleri, akne izleri ve melazma gibi problemlerle mücadele ederken, etkili ama aynı zamanda güvenli bir çözüm aramak önemlidir. İşte tam bu noktada arbutin devreye giriyor. Doğal kaynaklı, bilimsel olarak kanıtlanmış ve güvenli bir cilt aydınlatıcı olan arbutin, leke tedavisinde altın standart haline gelmiştir.
+
+## Arbutin Nedir?
+
+Arbutin, doğal olarak ayvada bulunan bir glikozittir. Özellikle kavak ağacı kabuğunda, erik, armut ve cranberry'de doğal olarak bulunur. Kimyasal yapısı hidroquinone'a benzer ancak çok daha güvenli ve yumuşak etkilidir.
+
+### Arbutin Çeşitleri
+
+**Alpha-Arbutin (α-Arbutin):**
+- En etkili ve stabil formu
+- Daha hızlı sonuç verir
+- Üretimi sentetiktir ancak yapısı aynıdır
+- Genellikle %0.5-2 konsantrasyonda kullanılır
+- Fiyatı daha yüksektir
+
+**Beta-Arbutin (β-Arbutin):**
+- Doğal formu
+- Daha yavaş ama nazik etki
+- Hassas ciltler için ideal
+- Genellikle %1-4 konsantrasyonda kullanılır
+- Daha uygun fiyatlıdır
+
+Alpha-arbutin, beta-arbutine göre 10 kat daha etkilidir ve daha hızlı sonuç verir.
+
+## Arbutin Nasıl Çalışır?
+
+Arbutinin cilt üzerindeki aydınlatma mekanizması bilimsel ve son derece etkilidir:
+
+### Melanin Üretimini Engelleme
+
+Cilt rengi ve lekeler melanin pigmenti tarafından belirlenir. Melanin, melanosit hücreleri tarafından tirozinaz enzimi aracılığıyla üretilir. Arbutin:
+
+1. **Tirozinaz Enzimini Bloke Eder:**
+   - Melanin sentezinin ana enzimi olan tirozinazı inhibe eder
+   - Bu sayede yeni melanin üretimi %40-70 oranında azalır
+
+2. **Mevcut Melanini Dağıtır:**
+   - Cilt yüzeyindeki pigmentlerin eşit dağılmasını sağlar
+   - Koyu lekelerin soluklaşmasına yardımcı olur
+
+3. **Hiperpigmentasyonu Önler:**
+   - Güneş, hormonlar veya enflamasyondan kaynaklanan aşırı pigmentasyonu engeller
+
+4. **Hidroquinone Gibi Çalışır Ama Güvenlidir:**
+   - Hidroquinone'un etkisini %77 oranında gösterir
+   - Ancak toksik etkisi yoktur ve uzun süre güvenle kullanılabilir
+
+## Arbutinin Cilde Sağladığı Faydalar
+
+### 1. Güneş Lekelerini Azaltır
+
+UV maruziyetinin neden olduğu kahverengi lekeler (solar lentigo):
+- 8-12 haftada %30-50 oranında açılır
+- Mevcut lekeleri soluklaştırır
+- Yeni leke oluşumunu engeller
+
+**Araştırma:** Journal of Cosmetic Dermatology 2020 çalışmasında, %2 alpha-arbutin kullanımının 12 haftada güneş lekelerini %45 oranında azalttığı gösterildi.
+
+### 2. Yaş Lekelerini Giderir
+
+Yaşla birlikte oluşan kahverengi lekeler (age spots):
+- Düzenli kullanımda belirgin şekilde sönükleşir
+- Cilt tonu daha homojen hale gelir
+- Genç ve aydınlık bir görünüm sağlar
+
+### 3. Akne İzlerini Siler
+
+Post-inflamatuar hiperpigmentasyon (PIH):
+- Akne sonrası kalan koyu izleri açar
+- İltihap sonrası pigmentasyonu azaltır
+- Cilt dokusunu düzeltir
+
+### 4. Melazma Tedavisine Yardımcı Olur
+
+Hormonlar nedeniyle oluşan koyu lekeler:
+- Hamilelik maskesi (kloazma) tedavisinde etkilidir
+- Hormonsal lekeleri hafifletir
+- Düzenli kullanımda %20-30 iyileşme sağlar
+
+### 5. Genel Cilt Tonu Eşitleme
+
+- Cilt tonunu homojenleştir ir
+- Doğal parlaklık kazandırır
+- Sağlıklı ve canlı bir görünüm sağlar
+
+### 6. Antioksidan Koruma
+
+Arbutin, tirozinaz inhibisyonunun ötesinde:
+- Serbest radikalleri nötralize eder
+- UV hasarını azaltır
+- Yaşlanmayı geciktirir
+
+## Arbutin Kullanmanın Avantajları
+
+### Hidroquinone'a Kıyasla
+
+Hidroquinone, yıllarca cilt aydınlatmanın altın standardı olarak kabul edildi ancak ciddi yan etkileri vardır:
+
+| Özellik | Hidroquinone | Arbutin |
+|---------|--------------|---------|
+| Etkinlik | Çok yüksek | Yüksek |
+| Güvenlik | Düşük (toksik olabilir) | Yüksek |
+| Yan Etkiler | Ochronosis, tahriş | Minimal |
+| Uzun süre kullanım | Güvensiz | Güvenli |
+| Hassas cilt | Uygun değil | Uygun |
+
+Arbutin, hidroquinone'un güvenli alternatifidir ve uzun süreli kullanımda risk oluşturmaz.
+
+### Diğer Aydınlatıcılarla Karşılaştırma
+
+**Vitamin C:** Arbutin ile kombine edilebilir, sinerjik etki yapar
+**Kojik Asit:** Arbutin daha az tahriş edicidir
+**Niasinamid:** İkisi birlikte kullanılabilir ve güçlü sonuç verir
+**Licorice Extract:** Doğal bir alternatif ama arbutin daha güçlüdür
+
+## Arbutin İçeren Ürünler Nasıl Kullanılır?
+
+### Konsantrasyon Rehberi
+
+**Başlangıç Seviyesi:** %0.5-1 alpha-arbutin
+**Orta Seviye:** %1-2 alpha-arbutin
+**İleri Seviye:** %2-4 beta-arbutin
+
+**Önemli:** %2'nin üzerindeki konsantrasyonlar daha etkilidir ama daha fazla tahriş riski taşır.
+
+### Kullanım Sırası
+
+Arbutin serum veya krem formunda olabilir. Doğru sıralama:
+
+1. Temizleyici
+2. Tonik
+3. **Arbutin Serum** (ince doku, önce emilir)
+4. Diğer serumlar (Vitamin C, Hyaluronik Asit)
+5. Nemlendirici
+6. **SPF (SABAHLARI MUTLAKA!)**
+
+### Sabah mı Akşam mı?
+
+**En İyi Sonuç:** Sabah-Akşam İkisi de
+
+**Sadece Sabah:**
+- Günboyu koruma
+- SPF ile kombine kullanım şart
+
+**Sadece Akşam:**
+- Gece onarım sürecinde çalışır
+- Diğer aktiflerle (retinol gibi) kombine edilebilir
+
+### Uygulama Adımları
+
+1. Cildi temizleyin ve kurulayın
+2. 3-4 damla arbutin serumu alın
+3. Yüz, boyun ve göğüs bölgesine uygulayın
+4. Özellikle lekeli bölgelere odaklanın
+5. Tamamen emilmesini bekleyin (1-2 dakika)
+6. Nemlendirici ve SPF sürün
+
+**Sıklık:** Günde 1-2 kez
+
+## Arbutin ile Kombine Edilebilecek Aktifler
+
+Arbutin, birçok aktif içerikle sinerjik etki gösterir:
+
+### Mükemmel Kombinasyonlar
+
+**1. Arbutin + Vitamin C**
+- Güçlü aydınlatma
+- Antioksidan süper güç
+- Melanin inhibisyonu maksimize olur
+- Sabah birlikte kullanılabilir
+
+**2. Arbutin + Niasinamid**
+- Leke giderme
+- Gözenek sıkılaştırma
+- Cilt bariyerini güçlendirme
+- Herhangi bir zamanda birlikte kullanılabilir
+
+**3. Arbutin + Hyaluronik Asit**
+- Aydınlatma + Nemlendirme
+- Cilt pürüzsüzleştirme
+- Işıltılı görünüm
+
+**4. Arbutin + SPF**
+- En kritik kombinasyon!
+- Arbutin etkinliği için SPF şart
+- Yeni leke oluşumunu önler
+
+### Dikkatli Kullanılması Gereken Kombinasyonlar
+
+**Arbutin + Retinol:**
+- Akşamları kullanılabilir
+- Ancak hassas ciltler tahriş olabilir
+- Önce arbutin, 10 dakika sonra retinol
+
+**Arbutin + AHA/BHA:**
+- Peeling asitleri cildi duyarlı hale getirebilir
+- Farklı zamanlarda kullanmak daha iyi (sabah arbutin, akşam asit)
+
+## Arbutin Kullanırken Dikkat Edilmesi Gerekenler
+
+### Mutlaka SPF Kullanın!
+
+Arbutin melanin üretimini azalttığı için cildi güneşe karşı daha hassas hale getirir. **Minimum SPF 30 kullanımı zorunludur**, aksi takdirde:
+- Lekeler kötüleşebilir
+- Yeni lekeler oluşabilir
+- Ciltte hasar meydana gelebilir
+
+### Sabırlı Olun
+
+Arbutin kimyasal peeling gibi anında sonuç vermez. Görünür sonuçlar için:
+- **4 hafta:** İlk hafif aydınlanma
+- **8 hafta:** Belirgin leke azalması
+- **12 hafta:** Maksimum etki
+
+### Alerji Testi Yapın
+
+Hassas ciltlerde nadir de olsa tahriş yapabilir:
+1. Dirsek içi veya kulak arkasına uygulayın
+2. 24 saat bekleyin
+3. Kızarıklık, kaşıntı yoksa yüze uygulanabilir
+
+### Hamilelik ve Emzirme
+
+Arbutin genel olarak güvenli kabul edilir ancak:
+- Hamileyseniz doktorunuza danışın
+- Düşük konsantrasyonlarla başlayın
+- Emzirme döneminde kullanılabilir
+
+## Ev Yapımı Arbutin Karışımları Mümkün mü?
+
+Arbutin doğal kaynaklardan elde edilebilir ancak etkili konsantrasyonlara ulaşmak zordur:
+
+**Kavak Ağacı Özütü:**
+Doğal arbutin kaynağıdır ama standart konsantrasyon sağlanamaz.
+
+**Önerimiz:** Kaliteli, formüle edilmiş arbutin serumları tercih edin. Ev yapımı karışımlar yeterli etkiyi göstermeyebilir.
+
+## En İyi Arbutin Ürünleri Nasıl Seçilir?
+
+### İçerik Listesine Dikkat
+
+**Aranacak İsimler:**
+- Alpha-Arbutin
+- α-Arbutin
+- Arbutin
+- Bearberry Extract (Arbutin içerir)
+
+**Konsantrasyon:**
+- En az %1-2 alpha-arbutin
+- İdeal: %2 alpha-arbutin
+- %4'ten fazla gereksizdir
+
+### Formülasyon Kalitesi
+
+**pH Seviyesi:** 5-7 arası ideal
+**Stabilite:** Hava geçirmez ambalaj
+**Ek İçerikler:** Vitamin C, Niasinamid, Hyaluronik Asit içermesi avantaj
+
+### Ürün Formları
+
+**Serum:** En yoğun ve etkili
+**Krem:** Nemlendirici + Aydınlatıcı
+**Tonik:** Hafif, günlük kullanım
+**Maske:** Yoğun tedavi
+
+## Arbutin Hakkında Sık Sorulan Sorular
+
+**Arbutin her gün kullanılabilir mi?**
+Evet, günde 1-2 kez güvenle kullanılabilir.
+
+**Ne kadar sürede sonuç görülür?**
+4-12 hafta arası, cilt tipine ve leke şiddetine bağlı.
+
+**Arbutin lekeyitamamen siler mi?**
+Lekeleri %30-70 oranında açar, tamamen silme garantisi vermez.
+
+**Tüm cilt tiplerine uygun mu?**
+Evet, yağlı, kuru, karma, hassas tüm ciltler kullanabilir.
+
+**Yan etkisi var mı?**
+Minimal. Nadir durumlarda hafif kızarıklık ve tahriş olabilir.
+
+## Bilimsel Kanıtlar
+
+Arbutinin etkinliği çok sayıda bilimsel çalışmayla kanıtlanmıştır:
+
+- **Journal of Cosmetic Dermatology (2020):** %2 alpha-arbutin, 12 haftada solar lentigolari %45 azalttı.
+- **International Journal of Molecular Sciences (2019):** Arbutin, melanin sentezini %63 oranında inhibe etti.
+- **Clinical and Experimental Dermatology (2021):** Arbutin + Vitamin C kombinasyonu, melazma tedavisinde %57 iyileşme sağladı.
+
+## Sonuç
+
+Arbutin, cilt lekelerine karşı en etkili ve güvenli doğal çözümlerden biridir. Hidroquinone'un toksik etkisi olmadan benzer sonuçlar vererek, cilt aydınlatma konusunda devrim yaratmıştır.
+
+Düzenli ve doğru kullanımda:
+- Güneş lekeleri açılır
+- Yaş lekeleri soluklaşır
+- Akne izleri kaybolur
+- Melazma tedavisine destek olur
+- Genel cilt tonu eşitlenir ve aydınlanır
+
+Arbutin kullanırken unutulmaması gereken en önemli nokta SPF kullanımıdır. Gündüz mutlaka güneş koruyucu sürmek, arbutinin etkinliğini maksimize eder ve yeni leke oluşumunu önler.
+
+Sabırlı olun, düzenli kullanın ve lekesiz, aydınlık bir cildin keyfini çıkarın!`},"chemical-peeling-guide":{title:"Kimyasal Peeling Rehberi",excerpt:"Kimyasal peeling nedir ve nasıl uygulanır?",content:"Kimyasal peeling AHA, BHA veya PHA asitlerle ölü hücreleri uzaklaştırır. Cildi yeniler, lekeleri azaltır, gözenekleri temizler. Profesyonel veya evde uygulanabilir."},"hydration-secrets":{title:"Cilt Nemlendirme Sırları",excerpt:"Cildinizi nasıl nem seviyesini artırırsınuz?",content:"Nemli cilt için bol su için, hyaluronik asit kullanın, nemlendirici sürün ve ceramidlerle cildi koruyun. Nemli cilt genç ve sağlıklı görünür."},"aloe-vera-healing":{title:"Aloe Veranın İyileştirici Gücü",excerpt:"Aloe veranın cildinize sağladığı iyileştirici faydalar.",content:"Aloe vera cildi nemlendirin, yatıştırır, güneş yanıklarını iyileştirir ve iltihabı azaltır. Doğal jel olarak doğrudan cilde uygulanabilir."},"anti-aging-strategies":{title:"Yaşlanma Karşıtı Stratejiler",excerpt:"Cildinizi genç tutmak için etkili stratejiler.",content:"Yaşlanmayı geciktirmek için SPF kullanın, retinol sürün, antioksidanlarla beslenin, bol su için ve sağlıklı yaşam tarzı benimseyin. Düzenli bakım şarttır."},"toner-benefits":{title:"Toniğin Faydaları",excerpt:"Tonik kullanmanın cilt bakımındaki önemi.",content:"Tonik pH dengesini sağlar, gözenekleri sıkılaştırır, kalan kirleri temizler ve sonraki ürünlerin emilimini artırır. Sabah-akşam kullanılmalıdır."},"winter-skincare-tips":{title:"Kış Aylarında Cilt Bakımı",excerpt:"Kış aylarında cildinizi nasıl korursunuz?",content:"Kışın cilt kuruluğunu önlemek için zengin nemlendiriciler, yüz yağları kullanın, sıcak duştan kaçının ve hava nemlendiricisi kullanın. Dudak bakımını unutmayın."},"rose-water-benefits":{title:"Gül Suyunun Faydaları",excerpt:"Gül suyunun cildinize sağladığı faydaları keşfedin.",content:"Gül suyu cildi nemlendirin, pH dengesini sağlar, gözenekleri sıkılaştırır ve anti-inflamatuar etki gösterir. Tonik veya sprey olarak kullanılır."},"acne-prone-skin-care":{title:"Akne Eğilimli Cilt Bakımı",excerpt:"Akne eğilimli ciltler için özel bakım önerileri.",content:"Akne için salisilik asit, niasinamid kullanın, yağsız ürünler tercih edin, düzenli temizlik yapın ve gözenekleri tıkayan ürünlerden kaçının."},"double-cleansing-method":{title:"Çift Temizleme Yöntemi",excerpt:"Çift temizleme yöntemi nedir ve nasıl uygulanır?",content:"Çift temizleme: önce yağ bazlı temizleyiciyle makyaj çözün, sonra su bazlı temizleyiciyle kirleri alın. Derin temizlik sağlar, gözenekleri açar."},"retinol-beginners-guide":{title:"Retinol Başlangıç Rehberi",excerpt:"Retinol kullanmaya yeni başlayanlar için kapsamlı rehber.",content:"Retinol kırışıklıkları azaltır, hücre yenilenmesini hızlandırır. Düşük konsantrasyonla başlayın, geceleri kullanın, SPF sürün. Sabırlı olun, sonuçlar 3 ayda görünür."}},xj={"morning-skincare-routine":{title:"Morning Skincare Routine: Step-by-Step Guide",excerpt:"How to create the perfect morning routine to prepare your skin for the day? Here are professional tips...",content:`
+# Morning Skincare Routine: Step-by-Step Guide
+
+A morning skincare routine is crucial for protecting your skin throughout the day and achieving a healthy appearance. Here are the steps for an ideal morning routine:
+
+## 1. Cleansing
+Gently cleanse oil, sweat, and dead skin cells accumulated overnight. Use a gentle cleanser suitable for your skin type.
+
+## 2. Toner
+Apply a toner that regulates skin's pH balance and tightens pores. This step allows better absorption of subsequent products.
+
+## 3. Serum
+Antioxidant-rich products like Vitamin C serum are ideal for mornings. They protect your skin from environmental factors and brighten.
+
+## 4. Eye Cream
+Moisturize the delicate eye area with a specially formulated eye cream. Effective against puffiness and dark circles.
+
+## 5. Moisturizer
+Choose a moisturizer suitable for your skin type. This step maintains skin's moisture balance and provides a smooth appearance.
+
+## 6. Sunscreen (SPF)
+The most important step of your morning routine! Always use a broad-spectrum sunscreen with at least SPF 30.
+
+## Recommendations
+- Always choose products according to your skin type
+- Progress from lighter textured products to heavier ones
+- Wait 30 seconds between each product
+- Be consistent - regular use is essential to see results
+    `},"vitamin-c-benefits":{title:"Vitamin C: Power Source for Your Skin",excerpt:"Why are Vitamin C serums so popular? Discover the incredible benefits for your skin...",content:`
+# Vitamin C: Power Source for Your Skin
+
+Vitamin C (Ascorbic Acid) is one of the most powerful and effective ingredients in skincare. Here are its incredible benefits for your skin:
+
+## Benefits of Vitamin C for Skin
+
+### 1. Powerful Antioxidant Protection
+Provides effective protection against free radicals and prevents early signs of aging.
+
+### 2. Brightening Effect
+Evens skin tone, reduces spots, and gives your skin natural radiance.
+
+### 3. Boosts Collagen Production
+Supports skin's elasticity and firmness, reduces the appearance of wrinkles.
+
+### 4. Repairs Sun Damage
+Helps repair damage caused by UV rays (must be used with sunscreen).
+
+### 5. Reduces Hyperpigmentation
+Effective on dark spots and uneven tone.
+
+## How to Use?
+
+### Right Concentration
+10-15% for beginners, 15-20% for experienced users is ideal.
+
+### Application Time
+Apply to clean, dry skin in the morning. Sunscreen use is essential!
+
+### Storage Conditions
+Vitamin C is affected by light and air. Store in dark bottles and cool environments.
+
+## Important Notes
+- Slight tingling on first use may be normal
+- If using with retinol, use one in the morning and the other at night
+- You'll get the best results with 3 months of regular use
+    `},"summer-sun-protection":{title:"Summer Sun Protection: Everything You Need to Know",excerpt:"How do you protect your skin from harmful sun effects in summer? Here are professional tips...",content:`
+# Summer Sun Protection: Everything You Need to Know
+
+Sun protection is the most important skincare step that should be done every day, not just at the beach.
+
+## What is SPF?
+
+SPF (Sun Protection Factor) indicates the product's level of protection against UVB rays.
+
+### SPF Selection
+- Daily use: At least SPF 30
+- Beach/outdoor activities: SPF 50+
+- Sensitive skin: SPF 50+ with physical filters
+
+## Broad Spectrum Protection
+
+Choose products that protect against both UVA and UVB rays:
+- **UVA**: Aging, wrinkles, spots
+- **UVB**: Burns, redness, skin cancer risk
+
+## Proper Application
+
+### Amount
+One teaspoon for face (approximately 2mg/cm²)
+
+### Application Time
+15-30 minutes before sun exposure
+
+### Reapplication Frequency
+Every 2 hours, definitely after swimming or sweating
+
+## Extra Tips for Summer
+
+1. **Hat and Sunglasses**: Physical protection is also important
+2. **Stay in Shade**: Especially between 11:00-16:00
+3. **Moisturizing SPF**: Practical and effective
+4. **Lip Protection**: Use SPF lip balms
+5. **After-Sun Care**: Soothing and repairing products after sun
+
+## Common Mistakes
+
+❌ Applying SPF only to face (don't forget neck, ears, back of hands)
+❌ Using insufficient amount
+❌ Not using on cloudy days
+❌ Forgetting to reapply
+❌ Skipping under makeup
+
+## Special Cases
+
+### Acne-Prone Skin
+Prefer oil-free, non-comedogenic formulas.
+
+### Sensitive Skin
+Use physical filter products (zinc oxide, titanium dioxide).
+
+### Oily Skin
+Gel or fluid formulas are ideal.
+    `},"night-cream-importance":{title:"The Importance of Night Cream",excerpt:"Why are night creams different? How do they support your skin renewal during sleep?",content:`# The Importance of Night Cream
+
+During sleep, our skin enters repair mode. Night creams are specially formulated to support this natural process with richer textures, higher active ingredient concentrations, and regenerative ingredients.`},"eye-cream-guide":{title:"Eye Cream Usage Guide",excerpt:"The delicate structure around eyes requires special care. Everything you need to know about eye cream selection and usage...",content:`# Eye Cream Usage Guide
+
+The skin around the eyes is the thinnest and most sensitive area of the body. Therefore, it requires care with specially formulated products including caffeine for puffiness, vitamin K for dark circles, and peptides for fine lines.`},"arbutin-skin-brightening":{title:"Skin Brightening with Arbutin",excerpt:"Arbutin is one of the most effective ingredients against skin spots. How does it work and how to use it?",content:`# Skin Brightening with Arbutin
+
+Arbutin is a natural and safe ingredient used against skin spots and tone irregularities. Alpha-Arbutin is more stable and effective at 0.5-2% concentration. It inhibits tyrosinase enzyme, regulating melanin production.`},"chemical-peeling-guide":{title:"Chemical Peeling Guide",excerpt:"Chemical peels are one of the most effective methods of skin renewal. Guide for correct selection and application...",content:`# Chemical Peeling Guide
+
+Chemical peels are acid-based products that remove dead skin cells and promote skin renewal. AHA (glycolic, lactic acid) for surface renewal, BHA (salicylic acid) for oily and acne-prone skin, PHA for sensitive skin.`},"hydration-secrets":{title:"Skin Hydration Secrets",excerpt:"How to achieve hydrated skin? Everything you need to know about moisturizing...",content:`# Skin Hydration Secrets
+
+Hydrated skin is the foundation of healthy skin. Hydration is adding water from within (hyaluronic acid, glycerin), moisturizing is preventing moisture loss from outside (ceramides, squalane). Use both together for best results.`},"anti-aging-strategies":{title:"Anti-Aging Strategies: Youth Elixir",excerpt:"Scientifically proven methods to delay and reduce signs of aging...",content:`# Anti-Aging Strategies: Youth Elixir
+
+Gold standard anti-aging ingredients: Retinol (cell renewal), Vitamin C (collagen synthesis), peptides (firmness), hyaluronic acid (volume), niacinamide (barrier strengthening). SPF is the most important anti-aging product!`},"toner-benefits":{title:"Benefits of Using Toner",excerpt:"Often skipped but very important step in skincare routine: Toner. Why should you use it?",content:`# Benefits of Using Toner
+
+Toner is a water-based liquid product that acts as a bridge between cleansing and serum/moisturizer. It regulates pH balance, removes remaining impurities, tightens pores, and increases product absorption.`},"winter-skincare-tips":{title:"Winter Skincare Tips",excerpt:"How do you protect your skin from cold weather in winter?",content:`# Winter Skincare Tips
+
+Winter requires special care for your skin. Use richer formulas, add face oils, avoid hot water, use humidifiers, and never skip SPF even in winter.`},"acne-prone-skin-care":{title:"Acne-Prone Skin Care",excerpt:"How to create the right skincare routine for acne problems?",content:`# Acne-Prone Skin Care
+
+Effective methods in fighting acne: gentle cleansing, salicylic acid for exfoliation, niacinamide for calming, lightweight moisturizers, and always non-comedogenic products.`},"double-cleansing-method":{title:"Double Cleansing Method",excerpt:"The secret of Korean skincare: Double cleansing method",content:`# Double Cleansing Method
+
+Deep cleanse your skin: First step with oil-based cleanser (removes makeup and sunscreen), second step with water-based cleanser (cleans skin). This method ensures thorough cleansing without stripping skin.`},"retinol-beginners-guide":{title:"Retinol Guide for Beginners",excerpt:"How to start using retinol? Here is the step-by-step guide",content:`# Retinol Guide for Beginners
+
+Important points in retinol use: Start with low concentration (0.25-0.5%), use only at night, introduce gradually (2-3 times per week), expect retinization period, and SPF is mandatory!`},"sensitive-skin-solutions":{title:"Sensitive Skin Solutions",excerpt:"The most suitable products and methods for your sensitive skin",content:`# Sensitive Skin Solutions
+
+Important points in sensitive skin care: fragrance-free products, minimal ingredients, calming components (centella, allantoin), patch test before use, avoid harsh exfoliants.`},"skin-types-guide":{title:"Skin Types Guide",excerpt:"How do you determine your skin type and which products to use?",content:`# Skin Types Guide
+
+Skin care recommendations by skin type: Normal (balanced products), Oily (lightweight, oil-free), Dry (rich, nourishing), Combination (zone-specific), Sensitive (minimal, fragrance-free).`},"hyaluronic-acid-power":{title:"The Power of Hyaluronic Acid",excerpt:"What you need to know about hyaluronic acid, the source of moisture",content:`# The Power of Hyaluronic Acid
+
+Intensive moisturizing with hyaluronic acid: Holds 1000 times its weight in water, suitable for all skin types, apply on damp skin, different molecular weights penetrate different layers.`},"sheet-mask-secrets":{title:"Sheet Mask Secrets",excerpt:"How to use sheet masks correctly?",content:`# Sheet Mask Secrets
+
+Sheet mask usage guide: Apply on clean skin, leave for 15-20 minutes, massage remaining essence, use 2-3 times per week, choose according to your skin needs.`},"spf-importance":{title:"The Importance of SPF Use",excerpt:"Why should you use SPF every day? Here is the answer",content:`# The Importance of SPF Use
+
+The importance of sun protection and correct use: Use every day (even indoors), at least SPF 30, apply enough amount, reapply every 2 hours, broad spectrum protection is essential.`},"evening-routine-essentials":{title:"Evening Routine Essentials",excerpt:"How to create a perfect evening skincare routine?",content:`# Evening Routine Essentials
+
+Recommendations for your night care routine: Double cleansing, toner, active treatments (retinol/acids), eye cream, serum, rich night cream, face oil (optional for dry skin).`}},bj={"morning-skincare-routine":{title:"روتين العناية بالبشرة الصباحي: دليل خطوة بخطوة",excerpt:"كيف تنشئ روتيناً صباحياً مثالياً لتحضير بشرتك لليوم؟ إليك النصائح المهنية...",content:`
+# روتين العناية بالبشرة الصباحي: دليل خطوة بخطوة
+
+روتين العناية بالبشرة الصباحي أمر بالغ الأهمية لحماية بشرتك طوال اليوم والحصول على مظهر صحي. إليك الخطوات للروتين الصباحي المثالي:
+
+## 1. التنظيف
+نظف بلطف الزيوت والعرق وخلايا الجلد الميتة المتراكمة طوال الليل. استخدم منظفاً لطيفاً مناسباً لنوع بشرتك.
+
+## 2. التونر
+ضع تونر ينظم توازن درجة حموضة البشرة ويشد المسام. تسمح هذه الخطوة بامتصاص أفضل للمنتجات التالية.
+
+## 3. السيروم
+المنتجات الغنية بمضادات الأكسدة مثل سيروم فيتامين C مثالية للصباح. تحمي بشرتك من العوامل البيئية وتضيئها.
+
+## 4. كريم العين
+رطب منطقة العين الحساسة بكريم عين مصمم خصيصاً. فعال ضد الانتفاخ والهالات السوداء.
+
+## 5. المرطب
+اختر مرطباً مناسباً لنوع بشرتك. تحافظ هذه الخطوة على توازن رطوبة البشرة وتوفر مظهراً ناعماً.
+
+## 6. واقي الشمس (SPF)
+أهم خطوة في روتينك الصباحي! استخدم دائماً واقي شمس واسع الطيف بعامل حماية 30 على الأقل.
+
+## التوصيات
+- اختر المنتجات دائماً حسب نوع بشرتك
+- انتقل من المنتجات ذات القوام الخفيف إلى الأثقل
+- انتظر 30 ثانية بين كل منتج
+- كن منتظماً - الاستخدام المنتظم ضروري لرؤية النتائج
+    `},"vitamin-c-benefits":{title:"فيتامين C: مصدر قوة لبشرتك",excerpt:"لماذا أمصال فيتامين C شائعة جداً؟ اكتشف الفوائد المذهلة لبشرتك...",content:`
+# فيتامين C: مصدر قوة لبشرتك
+
+فيتامين C (حمض الأسكوربيك) هو أحد أقوى المكونات وأكثرها فعالية في العناية بالبشرة. إليك فوائده المذهلة لبشرتك:
+
+## فوائد فيتامين C للبشرة
+
+### 1. حماية قوية من مضادات الأكسدة
+يوفر حماية فعالة ضد الجذور الحرة ويمنع علامات الشيخوخة المبكرة.
+
+### 2. تأثير التفتيح
+يوحد لون البشرة، يقلل البقع، ويمنح بشرتك إشراقة طبيعية.
+
+### 3. يعزز إنتاج الكولاجين
+يدعم مرونة البشرة وثباتها، يقلل من ظهور التجاعيد.
+
+### 4. يصلح أضرار الشمس
+يساعد في إصلاح الأضرار الناجمة عن الأشعة فوق البنفسجية (يجب استخدامه مع واقي الشمس).
+
+### 5. يقلل فرط التصبغ
+فعال على البقع الداكنة واللون غير المتساوي.
+
+## كيفية الاستخدام؟
+
+### التركيز الصحيح
+10-15٪ للمبتدئين، 15-20٪ للمستخدمين ذوي الخبرة مثالي.
+
+### وقت التطبيق
+ضعه على بشرة نظيفة وجافة في الصباح. استخدام واقي الشمس ضروري!
+
+### ظروف التخزين
+يتأثر فيتامين C بالضوء والهواء. احفظه في زجاجات داكنة وبيئات باردة.
+
+## ملاحظات مهمة
+- وخز خفيف عند الاستخدام الأول قد يكون طبيعياً
+- إذا كنت تستخدمه مع الريتينول، استخدم أحدهما في الصباح والآخر في الليل
+- ستحصل على أفضل النتائج مع 3 أشهر من الاستخدام المنتظم
+    `},"summer-sun-protection":{title:"الحماية من الشمس في الصيف: كل ما تحتاج معرفته",excerpt:"كيف تحمي بشرتك من تأثيرات الشمس الضارة في الصيف؟ إليك النصائح المهنية...",content:`
+# الحماية من الشمس في الصيف: كل ما تحتاج معرفته
+
+الحماية من الشمس هي أهم خطوة للعناية بالبشرة يجب القيام بها كل يوم، وليس فقط على الشاطئ.
+
+## ما هو SPF؟
+
+SPF (عامل الحماية من الشمس) يشير إلى مستوى حماية المنتج ضد أشعة UVB.
+
+### اختيار SPF
+- الاستخدام اليومي: SPF 30 على الأقل
+- الشاطئ/الأنشطة الخارجية: SPF 50+
+- البشرة الحساسة: SPF 50+ مع مرشحات فيزيائية
+
+## الحماية واسعة الطيف
+
+اختر المنتجات التي تحمي من كل من أشعة UVA و UVB:
+- **UVA**: الشيخوخة، التجاعيد، البقع
+- **UVB**: الحروق، الاحمرار، خطر سرطان الجلد
+
+## التطبيق الصحيح
+
+### الكمية
+ملعقة شاي للوجه (حوالي 2 ملغ/سم²)
+
+### وقت التطبيق
+15-30 دقيقة قبل التعرض للشمس
+
+### تكرار إعادة التطبيق
+كل ساعتين، بالتأكيد بعد السباحة أو التعرق
+
+## نصائح إضافية للصيف
+
+1. **القبعة والنظارات الشمسية**: الحماية الجسدية مهمة أيضاً
+2. **البقاء في الظل**: خاصة بين 11:00-16:00
+3. **SPF مرطب**: عملي وفعال
+4. **حماية الشفاه**: استخدم مرطبات شفاه تحتوي على SPF
+5. **العناية بعد الشمس**: منتجات مهدئة ومصلحة بعد الشمس
+
+## الأخطاء الشائعة
+
+❌ وضع SPF على الوجه فقط (لا تنس الرقبة، الأذنين، ظهر اليدين)
+❌ استخدام كمية غير كافية
+❌ عدم الاستخدام في الأيام الغائمة
+❌ نسيان إعادة التطبيق
+❌ تخطي ما تحت المكياج
+
+## حالات خاصة
+
+### البشرة المعرضة لحب الشباب
+فضل التركيبات الخالية من الزيوت وغير المسببة لانسداد المسام.
+
+### البشرة الحساسة
+استخدم منتجات ذات مرشحات فيزيائية (أكسيد الزنك، ثاني أكسيد التيتانيوم).
+
+### البشرة الدهنية
+التركيبات الجل أو السائلة مثالية.
+    `},"night-cream-importance":{title:"أهمية كريم الليل",excerpt:"لماذا تختلف كريمات الليل؟ كيف تدعم تجديد بشرتك أثناء النوم؟",content:`# أهمية كريم الليل
+
+أثناء النوم، تدخل بشرتنا في وضع الإصلاح. كريمات الليل مصممة خصيصاً لدعم هذه العملية الطبيعية مع قوام أغنى، وتركيزات أعلى من المكونات النشطة، ومكونات متجددة.`},"eye-cream-guide":{title:"دليل استخدام كريم العين",excerpt:"البنية الحساسة حول العينين تتطلب عناية خاصة. كل ما تحتاج معرفته عن اختيار واستخدام كريم العين...",content:`# دليل استخدام كريم العين
+
+الجلد حول العينين هو أرق وأكثر المناطق حساسية في الجسم. لذلك يتطلب عناية بمنتجات مصممة خصيصاً تشمل الكافيين للانتفاخ، فيتامين K للهالات السوداء، والببتيدات للخطوط الدقيقة.`},"arbutin-skin-brightening":{title:"تفتيح البشرة بالأربيوتين",excerpt:"الأربيوتين أحد أكثر المكونات فعالية ضد بقع البشرة. كيف يعمل وكيف يستخدم؟",content:`# تفتيح البشرة بالأربيوتين
+
+الأربيوتين مكون طبيعي وآمن يستخدم ضد بقع البشرة وعدم انتظام اللون. ألفا-أربيوتين أكثر استقراراً وفعالية بتركيز 0.5-2٪. يثبط إنزيم التيروزيناز، منظماً إنتاج الميلانين.`},"chemical-peeling-guide":{title:"دليل التقشير الكيميائي",excerpt:"التقشير الكيميائي أحد أكثر طرق تجديد البشرة فعالية. دليل للاختيار والتطبيق الصحيح...",content:`# دليل التقشير الكيميائي
+
+التقشير الكيميائي عبارة عن منتجات قائمة على الأحماض تزيل خلايا الجلد الميتة وتعزز تجديد البشرة. AHA (الجليكوليك، اللاكتيك) للتجديد السطحي، BHA (الساليسيليك) للبشرة الدهنية وحب الشباب، PHA للبشرة الحساسة.`},"hydration-secrets":{title:"أسرار ترطيب البشرة",excerpt:"كيف تحصل على بشرة رطبة؟ كل ما تحتاج معرفته عن الترطيب...",content:`# أسرار ترطيب البشرة
+
+البشرة الرطبة أساس البشرة الصحية. الترطيب هو إضافة الماء من الداخل (حمض الهيالورونيك، الجليسرين)، والتغذية هي منع فقدان الرطوبة من الخارج (السيراميد، سكوالين). استخدم كليهما معاً لأفضل النتائج.`},"anti-aging-strategies":{title:"استراتيجيات مكافحة الشيخوخة: إكسير الشباب",excerpt:"طرق مثبتة علمياً لتأخير وتقليل علامات الشيخوخة...",content:`# استراتيجيات مكافحة الشيخوخة: إكسير الشباب
+
+المكونات القياسية الذهبية لمكافحة الشيخوخة: الريتينول (تجديد الخلايا)، فيتامين C (تخليق الكولاجين)، الببتيدات (الثبات)، حمض الهيالورونيك (الحجم)، النياسيناميد (تقوية الحاجز). SPF هو أهم منتج لمكافحة الشيخوخة!`},"toner-benefits":{title:"فوائد استخدام التونر",excerpt:"خطوة غالباً ما يتم تخطيها ولكنها مهمة جداً في روتين العناية بالبشرة: التونر. لماذا يجب استخدامه؟",content:`# فوائد استخدام التونر
+
+التونر منتج سائل قائم على الماء يعمل كجسر بين التنظيف والسيروم/المرطب. ينظم توازن الحموضة، يزيل الشوائب المتبقية، يشد المسام، ويزيد من امتصاص المنتج.`},"winter-skincare-tips":{title:"نصائح العناية بالبشرة في الشتاء",excerpt:"كيف تحمي بشرتك من الطقس البارد في الشتاء؟",content:`# نصائح العناية بالبشرة في الشتاء
+
+الشتاء يتطلب عناية خاصة لبشرتك. استخدم تركيبات أغنى، أضف زيوت الوجه، تجنب الماء الساخن، استخدم أجهزة الترطيب، ولا تتخطى SPF حتى في الشتاء.`},"acne-prone-skin-care":{title:"العناية بالبشرة المعرضة لحب الشباب",excerpt:"كيف تنشئ روتين العناية بالبشرة المناسب لمشاكل حب الشباب؟",content:`# العناية بالبشرة المعرضة لحب الشباب
+
+طرق فعالة في مكافحة حب الشباب: تنظيف لطيف، حمض الساليسيليك للتقشير، النياسيناميد للتهدئة، مرطبات خفيفة، ودائماً منتجات غير مسببة لانسداد المسام.`},"double-cleansing-method":{title:"طريقة التنظيف المزدوج",excerpt:"سر العناية بالبشرة الكورية: طريقة التنظيف المزدوج",content:`# طريقة التنظيف المزدوج
+
+نظف بشرتك بعمق: الخطوة الأولى بمنظف زيتي (يزيل المكياج وواقي الشمس)، الخطوة الثانية بمنظف مائي (ينظف البشرة). هذه الطريقة تضمن تنظيفاً شاملاً دون تجريد البشرة.`},"retinol-beginners-guide":{title:"دليل الريتينول للمبتدئين",excerpt:"كيف تبدأ في استخدام الريتينول؟ إليك الدليل خطوة بخطوة",content:`# دليل الريتينول للمبتدئين
+
+نقاط مهمة في استخدام الريتينول: ابدأ بتركيز منخفض (0.25-0.5٪)، استخدم فقط في الليل، قدم تدريجياً (2-3 مرات في الأسبوع)، توقع فترة التكيف، وSPF إلزامي!`},"sensitive-skin-solutions":{title:"حلول البشرة الحساسة",excerpt:"المنتجات والطرق الأكثر ملاءمة لبشرتك الحساسة",content:`# حلول البشرة الحساسة
+
+نقاط مهمة في العناية بالبشرة الحساسة: منتجات خالية من العطور، مكونات قليلة، مكونات مهدئة (سنتيلا، ألانتوين)، اختبار قبل الاستخدام، تجنب المقشرات القاسية.`},"skin-types-guide":{title:"دليل أنواع البشرة",excerpt:"كيف تحدد نوع بشرتك وأي المنتجات تستخدم؟",content:`# دليل أنواع البشرة
+
+توصيات العناية بالبشرة حسب نوع البشرة: عادية (منتجات متوازنة)، دهنية (خفيفة، خالية من الزيوت)، جافة (غنية، مغذية)، مختلطة (خاصة بالمنطقة)، حساسة (قليلة، خالية من العطور).`},"hyaluronic-acid-power":{title:"قوة حمض الهيالورونيك",excerpt:"ما تحتاج معرفته عن حمض الهيالورونيك، مصدر الرطوبة",content:`# قوة حمض الهيالورونيك
+
+ترطيب مكثف بحمض الهيالورونيك: يحمل 1000 ضعف وزنه في الماء، مناسب لجميع أنواع البشرة، ضعه على البشرة الرطبة، أوزان جزيئية مختلفة تخترق طبقات مختلفة.`},"sheet-mask-secrets":{title:"أسرار الأقنعة الورقية",excerpt:"كيف تستخدم الأقنعة الورقية بشكل صحيح؟",content:`# أسرار الأقنعة الورقية
+
+دليل استخدام القناع الورقي: ضعه على البشرة النظيفة، اتركه لمدة 15-20 دقيقة، دلك الجوهر المتبقي، استخدمه 2-3 مرات في الأسبوع، اختر وفقاً لاحتياجات بشرتك.`},"spf-importance":{title:"أهمية استخدام SPF",excerpt:"لماذا يجب استخدام SPF كل يوم؟ إليك الإجابة",content:`# أهمية استخدام SPF
+
+أهمية الحماية من الشمس والاستخدام الصحيح: استخدم كل يوم (حتى في الداخل)، على الأقل SPF 30، ضع كمية كافية، أعد التطبيق كل ساعتين، الحماية واسعة الطيف ضرورية.`},"evening-routine-essentials":{title:"أساسيات الروتين المسائي",excerpt:"كيف تنشئ روتين مثالي للعناية بالبشرة المسائية؟",content:`# أساسيات الروتين المسائي
+
+توصيات لروتين العناية الليلية: التنظيف المزدوج، التونر، العلاجات النشطة (ريتينول/أحماض)، كريم العين، السيروم، كريم ليلي غني، زيت الوجه (اختياري للبشرة الجافة).`}},wj={tr:vj,en:xj,ar:bj},nd=(e,t)=>{var n;return((n=wj[e])==null?void 0:n[t])||null},Sj=()=>{const{language:e}=_e(),t=at[e],[n,r]=f.useState(""),[i,a]=f.useState("all"),l=[{id:"all",name:t.blog.categories.all},{id:"daily-care",name:t.blog.categories.trends||"Daily Care"},{id:"ingredients",name:t.blog.categories.skincare||"Ingredients"},{id:"sun-care",name:"Sun Care"},{id:"anti-aging",name:"Anti-Aging"},{id:"treatments",name:t.blog.categories.routine||"Treatments"}],u=td.map(c=>{const m=nd(e,c.id);return{...c,title:(m==null?void 0:m.title)||c.id,excerpt:(m==null?void 0:m.excerpt)||""}}).filter(c=>{const m=c.title.toLowerCase().includes(n.toLowerCase())||c.excerpt.toLowerCase().includes(n.toLowerCase()),d=i==="all"||c.category===i;return m&&d});return o.jsxs(He,{children:[o.jsx(dn,{title:t.blog.title,subtitle:t.blog.searchPlaceholder,backgroundImage:Ix,backgroundImageMobile:Lx}),o.jsxs("div",{className:"container mx-auto max-w-7xl px-4 py-16",children:[o.jsxs("div",{className:"mb-12 space-y-6",children:[o.jsxs("div",{className:"relative max-w-md mx-auto",children:[o.jsx(qo,{className:"absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5"}),o.jsx(Pn,{type:"text",placeholder:t.blog.searchPlaceholder,value:n,onChange:c=>r(c.target.value),className:"pl-10"})]}),o.jsx("div",{className:"flex flex-wrap justify-center gap-3",children:l.map(c=>o.jsx(Me,{variant:i===c.id?"default":"outline",onClick:()=>a(c.id),className:"text-sm",children:c.name},c.id))})]}),o.jsx("div",{className:"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8",children:u.map(c=>o.jsx(te,{to:`/blog/${c.id}`,className:"group cursor-pointer block",children:o.jsxs("div",{className:"bg-card rounded-lg overflow-hidden shadow-elegant hover:shadow-luxury transition-shadow duration-300 h-[400px] relative",children:[o.jsx("div",{className:"absolute inset-0",children:o.jsx("img",{src:c.image,alt:c.title,className:"w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"})}),o.jsx("div",{className:"absolute inset-x-0 bottom-0 top-1/2 backdrop-blur-md bg-white/20 border-t border-white/30",children:o.jsxs("div",{className:"p-6 h-full flex flex-col",children:[o.jsxs("div",{className:"flex-1",children:[o.jsxs("div",{className:"flex items-center gap-4 text-sm text-black/70 mb-3",children:[o.jsxs("div",{className:"flex items-center gap-1",children:[o.jsx(sk,{className:"w-4 h-4"}),new Date(c.date).toLocaleDateString(e==="tr"?"tr-TR":e==="ar"?"ar-SA":"en-US")]}),o.jsxs("div",{className:"flex items-center gap-1",children:[o.jsx(ck,{className:"w-4 h-4"}),c.author]})]}),o.jsx("h3",{className:"text-lg font-semibold group-hover:text-primary transition-colors text-black mb-2 line-clamp-2",children:c.title}),o.jsx("p",{className:"text-black/70 text-sm line-clamp-2 mb-3",children:c.excerpt})]}),o.jsxs("div",{className:"flex items-center justify-between mt-auto",children:[o.jsxs("span",{className:"text-sm text-black/60",children:[c.readTime," ",e==="tr"?"dk":e==="ar"?"دقيقة":"min"]}),o.jsxs("div",{className:"flex items-center gap-1 text-primary text-sm font-medium group-hover:gap-2 transition-all",children:[t.blog.readMore,o.jsx(qa,{className:"w-4 h-4"})]})]})]})})]})},c.id))}),u.length===0&&o.jsx("div",{className:"text-center py-16",children:o.jsx("p",{className:"text-muted-foreground text-lg",children:"No articles found"})})]})]})},zj=()=>{const{id:e}=Cm(),{language:t}=_e(),n=td.find(i=>i.id===e),r=e?nd(t,e):null;return!n||!r?o.jsx(dN,{to:"/blog",replace:!0}):o.jsxs(He,{children:[o.jsx(dn,{title:r.title,subtitle:r.excerpt,backgroundImage:Ix,backgroundImageMobile:Lx}),o.jsxs("div",{className:"container mx-auto max-w-4xl px-4 py-16",children:[o.jsxs(te,{to:"/blog",className:"inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors mb-8",children:[o.jsx(ok,{className:"w-4 h-4"}),t==="tr"?"Bloga Dön":t==="ar"?"العودة إلى المدونة":"Back to Blog"]}),o.jsxs("div",{className:"flex items-center gap-6 text-muted-foreground mb-8 pb-8 border-b",children:[o.jsxs("div",{className:"flex items-center gap-2",children:[o.jsx(sk,{className:"w-5 h-5"}),o.jsx("span",{children:new Date(n.date).toLocaleDateString(t==="tr"?"tr-TR":t==="ar"?"ar-SA":"en-US",{year:"numeric",month:"long",day:"numeric"})})]}),o.jsxs("div",{className:"flex items-center gap-2",children:[o.jsx(ck,{className:"w-5 h-5"}),o.jsx("span",{children:n.author})]}),o.jsxs("div",{children:[n.readTime," ",t==="tr"?"dk okuma":t==="ar"?"دقيقة قراءة":"min read"]})]}),o.jsx("div",{className:"aspect-video mb-12 rounded-lg overflow-hidden",children:o.jsx("img",{src:n.image,alt:r.title,className:"w-full h-full object-cover"})}),o.jsx("article",{className:"prose prose-lg dark:prose-invert max-w-none",children:o.jsx("div",{dangerouslySetInnerHTML:{__html:r.content.replace(/\n/g,"<br />")},className:"whitespace-pre-wrap"})}),o.jsxs("div",{className:"mt-16 pt-16 border-t",children:[o.jsx("h2",{className:"text-2xl font-bold mb-8",children:t==="tr"?"İlgili Yazılar":t==="ar"?"مقالات ذات صلة":"Related Articles"}),o.jsx("div",{className:"grid grid-cols-1 md:grid-cols-2 gap-6",children:td.filter(i=>i.id!==e&&i.category===n.category).slice(0,2).map(i=>{const a=nd(t,i.id);return o.jsxs(te,{to:`/blog/${i.id}`,className:"group bg-card rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all",children:[o.jsx("div",{className:"aspect-video overflow-hidden",children:o.jsx("img",{src:i.image,alt:a==null?void 0:a.title,className:"w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"})}),o.jsxs("div",{className:"p-6",children:[o.jsx("h3",{className:"text-lg font-semibold group-hover:text-primary transition-colors mb-2",children:a==null?void 0:a.title}),o.jsx("p",{className:"text-muted-foreground text-sm line-clamp-2",children:a==null?void 0:a.excerpt})]})]},i.id)})})]})]})]})},Cj="/assets/toob_banner-PA3sQ-8W.jpg",Ej="/assets/toob_banner_mobile-CJoHFtNX.jpg",Nj=()=>{const{language:e}=_e(),t=at[e];return t.passionForBeauty,t.passionDesc,t.naturalExcellence,t.naturalDesc,t.qualityFirst,t.qualityDesc,t.sustainableFuture,t.sustainableDesc,o.jsxs(He,{children:[o.jsx(dn,{title:t.aboutSinceva,subtitle:t.aboutSubtitle,backgroundImage:Cj,backgroundImageMobile:Ej}),o.jsxs("div",{className:"container mx-auto max-w-7xl px-4 py-16",children:[o.jsxs("div",{className:"grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-20",children:[o.jsxs("div",{className:"space-y-6",children:[o.jsx("h2",{className:"text-3xl md:text-4xl font-bold",children:t.ourStory}),o.jsxs("div",{className:"space-y-4 text-muted-foreground text-lg leading-relaxed",children:[o.jsx("h3",{className:"font-bold",children:t.firstTouchTitle}),o.jsx("p",{children:t.firstTouchText}),o.jsx("h3",{className:"font-bold",children:t.timelessHeritageTitle}),o.jsx("p",{children:t.timelessHeritageText}),o.jsx("h3",{className:"font-bold",children:t.guidedByMissionTitle}),o.jsx("p",{children:t.guidedByMissionText})]})]}),o.jsx("div",{className:"relative",children:o.jsx("div",{className:"aspect-square bg-gradient-to-br from-primary/20 to-primary/5 rounded-2xl",children:o.jsx("div",{className:"absolute inset-8 bg-muted rounded-xl shadow-elegant"})})})]}),o.jsxs("div",{className:"mb-20",children:[o.jsx("h2",{className:"text-3xl md:text-4xl font-bold text-center mb-12",children:t.ourValues}),"..."]}),o.jsxs("div",{className:"bg-muted rounded-2xl p-8 md:p-12 text-center",children:[o.jsx("h2",{className:"text-3xl md:text-4xl font-bold mb-8",children:t.committedToSustainability}),o.jsxs("div",{className:"max-w-3xl mx-auto space-y-6 text-muted-foreground text-lg leading-relaxed",children:[o.jsx("p",{children:t.sustainabilityText1}),o.jsx("p",{children:t.sustainabilityText2})]})]})]})]})},Fx=f.forwardRef(({className:e,...t},n)=>o.jsx("textarea",{className:re("flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",e),ref:n,...t}));Fx.displayName="Textarea";const Pj="/assets/contact_banner-CtDPnXDT.jpg",Aj="/assets/contact_banner_mobile-CWgsy8m0.jpg",jj=()=>{const{language:e}=_e(),t=at[e],{toast:n}=Dg(),[r,i]=f.useState({name:"",email:"",subject:"",message:""}),a=u=>{const{name:c,value:m}=u.target;i(d=>({...d,[c]:m}))},l=async u=>{u.preventDefault();try{console.log("Form submitted:",r),n({title:t.messageSentSuccess,description:t.messageSentDesc}),i({name:"",email:"",subject:"",message:""})}catch{n({title:"Error",description:"Failed to send message. Please try again.",variant:"destructive"})}},s=[{icon:fp,title:t.address,content:t.addressContent},{icon:Y1,title:t.phone,content:t.phoneContent},{icon:uk,title:t.email,content:t.emailContent},{icon:L1,title:t.businessHours,content:t.hoursContent}];return o.jsxs(He,{children:[o.jsx(dn,{title:t.contactUs,subtitle:t.contactSubtitle,backgroundImage:Pj,backgroundImageMobile:Aj}),o.jsx("div",{className:"container mx-auto max-w-7xl px-4 py-16",children:o.jsxs("div",{className:"grid grid-cols-1 lg:grid-cols-2 gap-16",children:[o.jsxs("div",{children:[o.jsx("h2",{className:"text-2xl font-semibold mb-8",children:t.sendMessage}),o.jsxs("form",{onSubmit:l,className:"space-y-6",children:[o.jsxs("div",{className:"grid grid-cols-1 md:grid-cols-2 gap-6",children:[o.jsxs("div",{children:[o.jsxs("label",{htmlFor:"name",className:"block text-sm font-medium mb-2",children:[t.fullName," *"]}),o.jsx(Pn,{id:"name",name:"name",type:"text",value:r.name,onChange:a,required:!0,placeholder:t.enterFullName})]}),o.jsxs("div",{children:[o.jsxs("label",{htmlFor:"email",className:"block text-sm font-medium mb-2",children:[t.emailAddress," *"]}),o.jsx(Pn,{id:"email",name:"email",type:"email",value:r.email,onChange:a,required:!0,placeholder:t.enterEmailPlaceholder})]})]}),o.jsxs("div",{children:[o.jsxs("label",{htmlFor:"subject",className:"block text-sm font-medium mb-2",children:[t.subject," *"]}),o.jsx(Pn,{id:"subject",name:"subject",type:"text",value:r.subject,onChange:a,required:!0,placeholder:t.subjectPlaceholder})]}),o.jsxs("div",{children:[o.jsxs("label",{htmlFor:"message",className:"block text-sm font-medium mb-2",children:[t.message," *"]}),o.jsx(Fx,{id:"message",name:"message",value:r.message,onChange:a,required:!0,placeholder:t.messagePlaceholder,className:"min-h-[120px]"})]}),o.jsx(Me,{type:"submit",className:"w-full",children:t.sendMessageBtn})]})]}),o.jsxs("div",{className:"space-y-8",children:[o.jsx("h2",{className:"text-2xl font-semibold",children:t.getInTouch}),o.jsx("div",{className:"space-y-6",children:s.map((u,c)=>{const m=u.icon;return o.jsxs("div",{className:"flex items-start space-x-4",children:[o.jsx("div",{className:"flex-shrink-0 w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center",children:o.jsx(m,{className:"w-6 h-6 text-primary"})}),o.jsxs("div",{children:[o.jsx("h3",{className:"font-semibold text-foreground",children:u.title}),o.jsx("p",{className:"text-muted-foreground whitespace-pre-line",children:u.content})]})]},c)})}),o.jsxs("div",{className:"mt-8",children:[o.jsx("h3",{className:"text-lg font-semibold mb-4",children:t.visitStore}),o.jsx("div",{className:"aspect-video bg-muted rounded-lg flex items-center justify-center",children:o.jsxs("div",{className:"text-center text-muted-foreground",children:[o.jsx(fp,{className:"w-12 h-12 mx-auto mb-2"}),o.jsx("p",{children:t.interactiveMap}),o.jsx("p",{className:"text-sm",children:t.mapIntegration})]})})]})]})]})})]})},Tj="/assets/shop_banner-C9Fg8D-p.jpg",Mj="/assets/shop_banner_mobile-BbAzJSz4.jpg",Rj=()=>{const[e,t]=f.useState("grid"),[n,r]=f.useState("all"),[i,a]=f.useState("featured"),l=[{id:"all",name:"All Products"},{id:"anti-aging",name:"Anti-Aging"},{id:"cleansing",name:"Cleansing"},{id:"daily-care",name:"Daily Care"},{id:"serums",name:"Serums"}],s=nl.products.map(d=>({...d,rating:4.7+Math.random()*.3,reviews:Math.floor(50+Math.random()*150),category:u(d.id)}));function u(d){return[1,2].includes(d)?"serums":[3,4,5].includes(d)?"anti-aging":[6,7].includes(d)?"cleansing":[8,9].includes(d)?"daily-care":"all"}const c=s.filter(d=>n==="all"||d.category===n),m=d=>[...Array(5)].map((p,h)=>o.jsx(Q1,{className:`w-4 h-4 ${h<Math.floor(d)?"fill-yellow-400 text-yellow-400":"text-gray-300"}`},h));return o.jsxs(He,{children:[o.jsx(dn,{title:"Shop Sinceva",subtitle:"Discover our premium skincare collection crafted for timeless beauty.",backgroundImage:Tj,backgroundImageMobile:Mj}),o.jsxs("div",{className:"container mx-auto max-w-7xl px-4 py-16",children:[o.jsxs("div",{className:"flex flex-col lg:flex-row gap-6 mb-8",children:[o.jsx("div",{className:"flex-1",children:o.jsx("div",{className:"flex flex-wrap gap-3",children:l.map(d=>o.jsx(Me,{variant:n===d.id?"default":"outline",onClick:()=>r(d.id),className:"text-sm",children:d.name},d.id))})}),o.jsxs("div",{className:"flex items-center gap-4",children:[o.jsxs("select",{value:i,onChange:d=>a(d.target.value),className:"px-4 py-2 border border-border rounded-md bg-background",children:[o.jsx("option",{value:"featured",children:"Featured"}),o.jsx("option",{value:"rating",children:"Highest Rated"})]}),o.jsxs("div",{className:"flex border border-border rounded-md",children:[o.jsx(Me,{variant:e==="grid"?"default":"ghost",size:"icon",onClick:()=>t("grid"),className:"rounded-r-none",children:o.jsx(B1,{className:"w-4 h-4"})}),o.jsx(Me,{variant:e==="list"?"default":"ghost",size:"icon",onClick:()=>t("list"),className:"rounded-l-none",children:o.jsx($1,{className:"w-4 h-4"})})]})]})]}),o.jsx("div",{className:`grid gap-6 ${e==="grid"?"grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4":"grid-cols-1"}`,children:c.map(d=>e==="grid"?o.jsx(Um,{product:d},d.id):o.jsx(Ln,{className:"group hover:shadow-luxury transition-shadow duration-300",children:o.jsx(Fn,{className:"p-0",children:o.jsxs("div",{className:"flex gap-4 p-4",children:[o.jsx("div",{className:"w-24 h-24 bg-muted rounded-lg flex-shrink-0 overflow-hidden",children:o.jsx("img",{src:d.image||"https://images.unsplash.com/photo-1556228578-8c89e6adf883?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",alt:d.name,className:"w-full h-full object-cover"})}),o.jsxs("div",{className:"flex-1 space-y-2",children:[o.jsx("div",{className:"flex items-start justify-between",children:o.jsx("h3",{className:"font-semibold text-foreground",children:d.name})}),o.jsx("p",{className:"text-sm text-muted-foreground",children:d.description}),o.jsxs("div",{className:"flex items-center gap-1",children:[m(d.rating),o.jsxs("span",{className:"text-sm text-muted-foreground ml-2",children:["(",d.reviews,")"]})]}),o.jsx("div",{className:"flex items-center justify-between",children:o.jsxs(Me,{size:"sm",className:"gap-2",children:[o.jsx(W1,{className:"w-4 h-4"}),"Buy Now"]})})]})]})})},d.id))})]})]})},oh=()=>{const{category:e,subcategory:t}=Cm(),n=e?Em[e]:void 0;if(!n)return o.jsxs(He,{children:[o.jsx(dn,{title:"Category Not Found",subtitle:"The requested category could not be found.",backgroundImage:"https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80"}),o.jsx("div",{className:"container mx-auto max-w-7xl px-4 py-16",children:o.jsxs("div",{className:"text-center py-16",children:[o.jsx("p",{className:"text-muted-foreground text-lg",children:"The requested category could not be found."}),o.jsx(te,{to:"/shop",className:"inline-block mt-4",children:o.jsx(Me,{children:"Browse All Products"})})]})})]});if(t){const r=n.subcategories[t];return r?o.jsxs(He,{children:[o.jsx(dn,{title:r.title,subtitle:`${n.title} - ${r.title}`,backgroundImage:n.bannerImage}),o.jsxs("div",{className:"container mx-auto max-w-7xl px-4 py-16",children:[o.jsxs("div",{className:"flex items-center space-x-2 mb-8 text-sm text-muted-foreground",children:[o.jsx(te,{to:"/",className:"hover:text-primary",children:"Home"}),o.jsx("span",{children:"/"}),o.jsx(te,{to:`/category/${e}`,className:"hover:text-primary",children:n.title}),o.jsx("span",{children:"/"}),o.jsx("span",{className:"text-foreground",children:r.title})]}),r.products.length>0?o.jsx("div",{className:"grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6",children:r.products.map(i=>o.jsx(Um,{product:i},i.id))}):o.jsxs("div",{className:"text-center py-16",children:[o.jsx("p",{className:"text-muted-foreground text-lg",children:"No products found in this subcategory."}),o.jsx(te,{to:`/category/${e}`,className:"inline-block mt-4",children:o.jsxs(Me,{children:["Back to ",n.title]})})]})]})]}):o.jsxs(He,{children:[o.jsx(dn,{title:"Subcategory Not Found",subtitle:"The requested subcategory could not be found.",backgroundImage:"https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80"}),o.jsx("div",{className:"container mx-auto max-w-7xl px-4 py-16",children:o.jsxs("div",{className:"text-center py-16",children:[o.jsx("p",{className:"text-muted-foreground text-lg",children:"The requested subcategory could not be found."}),o.jsx(te,{to:`/category/${e}`,className:"inline-block mt-4",children:o.jsxs(Me,{children:["Back to ",n.title]})})]})})]})}return o.jsxs(He,{children:[o.jsx(dn,{title:n.title,subtitle:n.description,backgroundImage:n.bannerImage}),o.jsxs("div",{className:"container mx-auto max-w-7xl px-4 py-16",children:[o.jsxs("div",{className:"flex items-center space-x-2 mb-8 text-sm text-muted-foreground",children:[o.jsx(te,{to:"/",className:"hover:text-primary",children:"Home"}),o.jsx("span",{children:"/"}),o.jsx("span",{className:"text-foreground",children:n.title})]}),o.jsx("div",{className:"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16",children:Object.entries(n.subcategories).map(([r,i])=>o.jsx(Ln,{className:"group cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1",children:o.jsx(te,{to:`/category/${e}/${r}`,children:o.jsxs(Fn,{className:"p-6",children:[o.jsxs("div",{className:"flex items-center justify-between mb-4",children:[o.jsx("h3",{className:"text-xl font-semibold group-hover:text-primary transition-colors",children:i.title}),o.jsx(qa,{className:"w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors"})]}),o.jsxs("p",{className:"text-muted-foreground mb-4",children:[i.products.length," product",i.products.length!==1?"s":""," available"]}),i.products[0]&&o.jsxs("div",{className:"flex items-center space-x-3",children:[o.jsx("img",{src:i.products[0].image,alt:i.products[0].name,className:"w-12 h-12 rounded-lg object-cover"}),o.jsx("div",{className:"flex-1",children:o.jsx("p",{className:"text-sm font-medium line-clamp-1",children:i.products[0].name})})]})]})})},r))})]})]})};var Ks="Collapsible",[Dj,Ox]=_n(Ks),[Ij,Km]=Dj(Ks),_x=f.forwardRef((e,t)=>{const{__scopeCollapsible:n,open:r,defaultOpen:i,disabled:a,onOpenChange:l,...s}=e,[u,c]=qi({prop:r,defaultProp:i??!1,onChange:l,caller:Ks});return o.jsx(Ij,{scope:n,disabled:a,contentId:Wa(),open:u,onOpenToggle:f.useCallback(()=>c(m=>!m),[c]),children:o.jsx(ue.div,{"data-state":$m(u),"data-disabled":a?"":void 0,...s,ref:t})})});_x.displayName=Ks;var Bx="CollapsibleTrigger",Hx=f.forwardRef((e,t)=>{const{__scopeCollapsible:n,...r}=e,i=Km(Bx,n);return o.jsx(ue.button,{type:"button","aria-controls":i.contentId,"aria-expanded":i.open||!1,"data-state":$m(i.open),"data-disabled":i.disabled?"":void 0,disabled:i.disabled,...r,ref:t,onClick:q(e.onClick,i.onOpenToggle)})});Hx.displayName=Bx;var Gm="CollapsibleContent",Ux=f.forwardRef((e,t)=>{const{forceMount:n,...r}=e,i=Km(Gm,e.__scopeCollapsible);return o.jsx(Er,{present:n||i.open,children:({present:a})=>o.jsx(Lj,{...r,ref:t,present:a})})});Ux.displayName=Gm;var Lj=f.forwardRef((e,t)=>{const{__scopeCollapsible:n,present:r,children:i,...a}=e,l=Km(Gm,n),[s,u]=f.useState(r),c=f.useRef(null),m=Re(t,c),d=f.useRef(0),p=d.current,h=f.useRef(0),b=h.current,k=l.open||s,x=f.useRef(k),y=f.useRef(void 0);return f.useEffect(()=>{const g=requestAnimationFrame(()=>x.current=!1);return()=>cancelAnimationFrame(g)},[]),hn(()=>{const g=c.current;if(g){y.current=y.current||{transitionDuration:g.style.transitionDuration,animationName:g.style.animationName},g.style.transitionDuration="0s",g.style.animationName="none";const v=g.getBoundingClientRect();d.current=v.height,h.current=v.width,x.current||(g.style.transitionDuration=y.current.transitionDuration,g.style.animationName=y.current.animationName),u(r)}},[l.open,r]),o.jsx(ue.div,{"data-state":$m(l.open),"data-disabled":l.disabled?"":void 0,id:l.contentId,hidden:!k,...a,ref:m,style:{"--radix-collapsible-content-height":p?`${p}px`:void 0,"--radix-collapsible-content-width":b?`${b}px`:void 0,...e.style},children:k&&i})});function $m(e){return e?"open":"closed"}var Fj=_x,Oj=Hx,_j=Ux,en="Accordion",Bj=["Home","End","ArrowDown","ArrowUp","ArrowLeft","ArrowRight"],[Vm,Hj,Uj]=Ss(en),[Gs,gM]=_n(en,[Uj,Ox]),Ym=Ox(),Kx=R.forwardRef((e,t)=>{const{type:n,...r}=e,i=r,a=r;return o.jsx(Vm.Provider,{scope:e.__scopeAccordion,children:n==="multiple"?o.jsx(Vj,{...a,ref:t}):o.jsx($j,{...i,ref:t})})});Kx.displayName=en;var[Gx,Kj]=Gs(en),[$x,Gj]=Gs(en,{collapsible:!1}),$j=R.forwardRef((e,t)=>{const{value:n,defaultValue:r,onValueChange:i=()=>{},collapsible:a=!1,...l}=e,[s,u]=qi({prop:n,defaultProp:r??"",onChange:i,caller:en});return o.jsx(Gx,{scope:e.__scopeAccordion,value:R.useMemo(()=>s?[s]:[],[s]),onItemOpen:u,onItemClose:R.useCallback(()=>a&&u(""),[a,u]),children:o.jsx($x,{scope:e.__scopeAccordion,collapsible:a,children:o.jsx(Vx,{...l,ref:t})})})}),Vj=R.forwardRef((e,t)=>{const{value:n,defaultValue:r,onValueChange:i=()=>{},...a}=e,[l,s]=qi({prop:n,defaultProp:r??[],onChange:i,caller:en}),u=R.useCallback(m=>s((d=[])=>[...d,m]),[s]),c=R.useCallback(m=>s((d=[])=>d.filter(p=>p!==m)),[s]);return o.jsx(Gx,{scope:e.__scopeAccordion,value:l,onItemOpen:u,onItemClose:c,children:o.jsx($x,{scope:e.__scopeAccordion,collapsible:!0,children:o.jsx(Vx,{...a,ref:t})})})}),[Yj,$s]=Gs(en),Vx=R.forwardRef((e,t)=>{const{__scopeAccordion:n,disabled:r,dir:i,orientation:a="vertical",...l}=e,s=R.useRef(null),u=Re(s,t),c=Hj(n),d=Nm(i)==="ltr",p=q(e.onKeyDown,h=>{var E;if(!Bj.includes(h.key))return;const b=h.target,k=c().filter(A=>{var T;return!((T=A.ref.current)!=null&&T.disabled)}),x=k.findIndex(A=>A.ref.current===b),y=k.length;if(x===-1)return;h.preventDefault();let g=x;const v=0,w=y-1,S=()=>{g=x+1,g>w&&(g=v)},z=()=>{g=x-1,g<v&&(g=w)};switch(h.key){case"Home":g=v;break;case"End":g=w;break;case"ArrowRight":a==="horizontal"&&(d?S():z());break;case"ArrowDown":a==="vertical"&&S();break;case"ArrowLeft":a==="horizontal"&&(d?z():S());break;case"ArrowUp":a==="vertical"&&z();break}const C=g%y;(E=k[C].ref.current)==null||E.focus()});return o.jsx(Yj,{scope:n,disabled:r,direction:i,orientation:a,children:o.jsx(Vm.Slot,{scope:n,children:o.jsx(ue.div,{...l,"data-orientation":a,ref:u,onKeyDown:r?void 0:p})})})}),as="AccordionItem",[qj,qm]=Gs(as),Yx=R.forwardRef((e,t)=>{const{__scopeAccordion:n,value:r,...i}=e,a=$s(as,n),l=Kj(as,n),s=Ym(n),u=Wa(),c=r&&l.value.includes(r)||!1,m=a.disabled||e.disabled;return o.jsx(qj,{scope:n,open:c,disabled:m,triggerId:u,children:o.jsx(Fj,{"data-orientation":a.orientation,"data-state":Jx(c),...s,...i,ref:t,disabled:m,open:c,onOpenChange:d=>{d?l.onItemOpen(r):l.onItemClose(r)}})})});Yx.displayName=as;var qx="AccordionHeader",Wx=R.forwardRef((e,t)=>{const{__scopeAccordion:n,...r}=e,i=$s(en,n),a=qm(qx,n);return o.jsx(ue.h3,{"data-orientation":i.orientation,"data-state":Jx(a.open),"data-disabled":a.disabled?"":void 0,...r,ref:t})});Wx.displayName=qx;var rd="AccordionTrigger",Qx=R.forwardRef((e,t)=>{const{__scopeAccordion:n,...r}=e,i=$s(en,n),a=qm(rd,n),l=Gj(rd,n),s=Ym(n);return o.jsx(Vm.ItemSlot,{scope:n,children:o.jsx(Oj,{"aria-disabled":a.open&&!l.collapsible||void 0,"data-orientation":i.orientation,id:a.triggerId,...s,...r,ref:t})})});Qx.displayName=rd;var Xx="AccordionContent",Zx=R.forwardRef((e,t)=>{const{__scopeAccordion:n,...r}=e,i=$s(en,n),a=qm(Xx,n),l=Ym(n);return o.jsx(_j,{role:"region","aria-labelledby":a.triggerId,"data-orientation":i.orientation,...l,...r,ref:t,style:{"--radix-accordion-content-height":"var(--radix-collapsible-content-height)","--radix-accordion-content-width":"var(--radix-collapsible-content-width)",...e.style}})});Zx.displayName=Xx;function Jx(e){return e?"open":"closed"}var Wj=Kx,Qj=Yx,Xj=Wx,e0=Qx,t0=Zx;const sh=Wj,id=f.forwardRef(({className:e,...t},n)=>o.jsx(Qj,{ref:n,className:re("border-b",e),...t}));id.displayName="AccordionItem";const ad=f.forwardRef(({className:e,children:t,...n},r)=>o.jsx(Xj,{className:"flex",children:o.jsxs(e0,{ref:r,className:re("flex flex-1 items-center justify-between py-4 font-medium transition-all hover:underline [&[data-state=open]>svg]:rotate-180",e),...n,children:[t,o.jsx(R1,{className:"h-4 w-4 shrink-0 transition-transform duration-200"})]})}));ad.displayName=e0.displayName;const ld=f.forwardRef(({className:e,children:t,...n},r)=>o.jsx(t0,{ref:r,className:"overflow-hidden text-sm transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down",...n,children:o.jsx("div",{className:re("pb-4 pt-0",e),children:t})}));ld.displayName=t0.displayName;var Zj="Separator",uh="horizontal",Jj=["horizontal","vertical"],n0=f.forwardRef((e,t)=>{const{decorative:n,orientation:r=uh,...i}=e,a=eT(r)?r:uh,s=n?{role:"none"}:{"aria-orientation":a==="vertical"?a:void 0,role:"separator"};return o.jsx(ue.div,{"data-orientation":a,...s,...i,ref:t})});n0.displayName=Zj;function eT(e){return Jj.includes(e)}var r0=n0;const pe=f.forwardRef(({className:e,orientation:t="horizontal",decorative:n=!0,...r},i)=>o.jsx(r0,{ref:i,decorative:n,orientation:t,className:re("shrink-0 bg-border",t==="horizontal"?"h-[1px] w-full":"h-full w-[1px]",e),...r}));pe.displayName=r0.displayName;const tT=om("inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",{variants:{variant:{default:"border-transparent bg-primary text-primary-foreground hover:bg-primary/80",secondary:"border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80",destructive:"border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80",outline:"text-foreground"}},defaultVariants:{variant:"default"}});function ch({className:e,variant:t,...n}){return o.jsx("div",{className:re(tT({variant:t}),e),...n})}const _u=768;function i0(){const[e,t]=f.useState(void 0);return f.useEffect(()=>{const n=window.matchMedia(`(max-width: ${_u-1}px)`),r=()=>{t(window.innerWidth<_u)};return n.addEventListener("change",r),t(window.innerWidth<_u),()=>n.removeEventListener("change",r)},[]),!!e}const nT=({currentProductId:e,products:t,title:n="Discover Sinceva Products"})=>{i0();const r=t.filter(i=>i.id.toString()!==e.toString()).slice(0,4);return r.length===0?null:o.jsx("section",{className:"py-12 bg-background",children:o.jsxs("div",{className:"container mx-auto max-w-7xl px-4",children:[o.jsxs("div",{className:"hidden md:flex md:items-start md:gap-8",children:[o.jsx("div",{className:"md:w-1/4 flex-shrink-0",children:o.jsx("h2",{className:"text-2xl font-bold text-foreground",children:n})}),o.jsx("div",{className:"md:w-3/4",children:o.jsxs(sl,{className:"w-full",children:[o.jsx(ul,{className:"-ml-4",children:r.map(i=>o.jsx(cl,{className:"pl-4 basis-1/3",children:o.jsx(te,{to:`/product/${i.id}`,children:o.jsx(Ln,{className:"group hover:shadow-luxury transition-all duration-300 cursor-pointer overflow-hidden rounded-xl",children:o.jsx(Fn,{className:"p-0",children:o.jsx(In,{ratio:2/3,children:o.jsxs("div",{className:"relative w-full h-full",children:[o.jsx("img",{src:i.image,alt:i.name,className:"w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"}),i.badge&&o.jsx(ch,{className:"absolute top-3 left-3 bg-primary text-white z-10",children:i.badge}),o.jsx("div",{className:"absolute inset-x-0 bottom-0 top-2/3 backdrop-blur-md bg-white/20 border-t border-white/30",children:o.jsx("div",{className:"p-3 h-full flex flex-col",children:o.jsx("div",{className:"flex-1",children:o.jsx("h3",{className:"text-sm font-semibold mb-2 text-black group-hover:text-primary transition-colors line-clamp-2",children:i.name})})})})]})})})})})},i.id))}),o.jsx(Bm,{className:"absolute -left-4 top-1/2 -translate-y-1/2"}),o.jsx(Hm,{className:"absolute -right-4 top-1/2 -translate-y-1/2"})]})})]}),o.jsxs("div",{className:"md:hidden",children:[o.jsx("div",{className:"text-center mb-6",children:o.jsx("h2",{className:"text-xl font-bold text-foreground",children:n})}),o.jsx(sl,{className:"w-full",children:o.jsx(ul,{className:"-ml-2",children:r.map(i=>o.jsx(cl,{className:"pl-2 basis-4/5",children:o.jsx(te,{to:`/product/${i.id}`,children:o.jsx(Ln,{className:"group hover:shadow-luxury transition-all duration-300 cursor-pointer overflow-hidden rounded-xl",children:o.jsx(Fn,{className:"p-0",children:o.jsx(In,{ratio:2/3,children:o.jsxs("div",{className:"relative w-full h-full",children:[o.jsx("img",{src:i.image,alt:i.name,className:"w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"}),i.badge&&o.jsx(ch,{className:"absolute top-2 left-2 bg-primary text-white text-xs z-10",children:i.badge}),o.jsx("div",{className:"absolute inset-x-0 bottom-0 top-2/3 backdrop-blur-md bg-white/20 border-t border-white/30",children:o.jsx("div",{className:"p-3 h-full flex flex-col",children:o.jsx("div",{className:"flex-1",children:o.jsx("h3",{className:"text-sm font-semibold mb-1 text-black group-hover:text-primary transition-colors line-clamp-2",children:i.name})})})})]})})})})})},i.id))})})]})]})})},rT=({productId:e})=>{let t="",n="",r="",i="";for(const[a,l]of Object.entries(Em)){for(const[s,u]of Object.entries(l.subcategories))if(u.products.some(c=>c.id===e)){t=a,n=s,r=l.title,i=u.title;break}if(t)break}return t?o.jsx("div",{style:{backgroundColor:"#191919"},className:"py-4 border-t border-white/10",children:o.jsx("div",{className:"container mx-auto max-w-7xl px-4",children:o.jsxs("nav",{className:"flex items-center space-x-2 text-sm",children:[o.jsxs(te,{to:"/",className:"flex items-center text-white/70 hover:text-white transition-colors",children:[o.jsx(U1,{className:"w-4 h-4 mr-1"}),"Home"]}),o.jsx(Yo,{className:"w-4 h-4 text-white/40"}),o.jsx(te,{to:`/category/${t}`,className:"text-white/70 hover:text-white transition-colors",children:r}),o.jsx(Yo,{className:"w-4 h-4 text-white/40"}),o.jsx(te,{to:`/category/${t}/${n}`,className:"text-white/70 hover:text-white transition-colors",children:i})]})})}):null},iT=({images:e,currentIndex:t,onClose:n,onNavigate:r})=>{const[i,a]=f.useState(0),[l,s]=f.useState(0),u=f.useRef(null),c=50,m=f.useCallback(()=>{t!==null&&t>0&&r(t-1)},[t,r]),d=f.useCallback(()=>{t!==null&&t<e.length-1&&r(t+1)},[t,e.length,r]),p=v=>{s(0),a(v.targetTouches[0].clientX)},h=v=>{s(v.targetTouches[0].clientX)},b=v=>{if(!i||!l)return;const w=i-l,S=w>c,z=w<-c;S&&t!==null&&t<e.length-1&&d(),z&&t!==null&&t>0&&m(),a(0),s(0)},k=f.useCallback(v=>{v.key==="Escape"?n():v.key==="ArrowLeft"?m():v.key==="ArrowRight"&&d()},[n,m,d]);if(f.useEffect(()=>(t!==null&&(document.addEventListener("keydown",k),document.body.style.overflow="hidden"),()=>{document.removeEventListener("keydown",k),document.body.style.overflow="unset"}),[t,k]),t===null)return null;const x=e[t],y=t>0,g=t<e.length-1;return o.jsxs("div",{ref:u,className:"fixed inset-0 z-50 bg-black/90 flex items-center justify-center",onClick:n,onTouchStart:p,onTouchMove:h,onTouchEnd:b,children:[o.jsx("button",{onClick:v=>{v.stopPropagation(),n()},className:"absolute top-4 right-4 z-10 p-2 text-white hover:text-white/70 transition-colors",children:o.jsx(xl,{size:32})}),y&&o.jsx("button",{onClick:v=>{v.stopPropagation(),m()},className:"absolute left-4 top-1/2 -translate-y-1/2 z-10 p-2 text-white hover:text-white/70 transition-colors",children:o.jsx(D1,{size:48})}),g&&o.jsx("button",{onClick:v=>{v.stopPropagation(),d()},className:"absolute right-4 top-1/2 -translate-y-1/2 z-10 p-2 text-white hover:text-white/70 transition-colors",children:o.jsx(Yo,{size:48})}),o.jsx("img",{src:x,alt:`Product image ${t+1}`,className:"max-w-[90vw] max-h-[90vh] object-contain",onClick:v=>v.stopPropagation(),draggable:!1})]})},aT={1:{productId:1,details:"SincEva Vitamin C Serum, %5 C Vitamini içeriğiyle cilt tonunu eşitlemeye ve cilde canlılık kazandırmaya yardımcı olur. Güçlü antioksidan etkisi sayesinde serbest radikallere karşı koruma sağlar, güneş ışınlarının neden olduğu fotoyaşlanmayı önlemeye destek olur. Formülündeki Aloe Vera cildi yatıştırırken, Elma Özü (Pyrus Malus Fruit Extract) malik asit ve doğal vitaminleriyle cilt yenilenmesini destekler, cildin doğal parlaklığını artırır. Düzenli kullanımda cilt daha aydınlık, sıkı ve taze bir görünüm kazanır.",ingredients:"Aqua, Propylene Glycol, 3-O-Ethyl Ascorbic Acid, Glycerin, Phenoxyethanol, Ammonium Polyacryloyldimethyl Taurate, Lactobacillus Lysate, Ethylhexylglycerin, Aloe Barbadensis Leaf Extract, Ananas Sativus (Pineapple) Fruit Extract, Pyrus Malus (Apple) Fruit Extract, Citrus Aurantifolia (Lime) Fruit Extract, Passiflora Edulis (Passion Fruit) Fruit Extract, Citric Acid, Sodium Benzoate, Potassium Sorbate, Benzyl Alcohol, Benzoic Acid, Dehydroacetic Acid.",howToUse:"Temizlenmiş ve kuru cilde sabah ve akşam 2–3 damla uygulayınız. Parmak uçlarınızla nazikçe masaj yaparak emilmesini sağlayın. Gündüz kullanımında mutlaka güneş koruyucu ile birlikte kullanılması önerilir.",faqs:[{question:"Vitamin C serumu hangi cilt tiplerine uygundur?",answer:"Tüm cilt tipleri için uygundur, özellikle donuk, lekeli veya yorgun ciltler için idealdir."},{question:"Elma özünün etkisi nedir?",answer:"Malik asit ve vitamin içeriğiyle cildin yenilenmesini destekler, doğal ışıltıyı artırır."},{question:"Ne kadar sürede sonuç verir?",answer:"Düzenli kullanımda 3–4 hafta içinde daha aydınlık ve eşit tonlu bir cilt görünümü sağlar."},{question:"Gündüz kullanılabilir mi?",answer:"Evet, ancak güneş koruyucu ile birlikte kullanılması önerilir."}]},2:{productId:2,details:"SincEva Arbutin Serum, ciltteki ton eşitsizliklerini hedef alarak daha aydınlık, canlı ve pürüzsüz bir görünüm kazandırır. %2 Alfa-Arbutin içeriği, melanin üretimini dengeleyerek güneş, yaş, akne veya hamilelik lekelerinin görünümünü azaltmaya yardımcı olur. Formülündeki Niacinamide, cilt bariyerini güçlendirirken, Elma Özü (Pyrus Malus Fruit Extract) içeriğindeki doğal malik asit ve antioksidanlar sayesinde cilt dokusunu yeniler, hücreleri canlandırır ve serbest radikallere karşı koruma sağlar. Hafif yapısı sayesinde hızla emilir, yağlı his bırakmaz ve düzenli kullanımda cilde doğal bir ışıltı kazandırır.",ingredients:"Aqua, Propylene Glycol, Alpha-Arbutin, Glycerin, Phenoxyethanol, Ammonium Polyacryloyldimethyl Taurate, Niacinamide, Lactobacillus Lysate, Ethylhexylglycerin, Aloe Barbadensis Leaf Extract, Ananas Sativus (Pineapple) Fruit Extract, Pyrus Malus (Apple) Fruit Extract, Citrus Aurantifolia (Lime) Fruit Extract, Passiflora Edulis (Passion Fruit) Fruit Extract, Citric Acid, Sodium Benzoate, Potassium Sorbate, Benzyl Alcohol, Benzoic Acid, Dehydroacetic Acid.",howToUse:"Temizlenmiş ve kuru cilde sabah ve akşam 2-3 damla uygulayınız. Parmak uçlarınızla nazikçe masaj yaparak emilmesini sağlayın. Gündüz kullanımında mutlaka güneş koruyucu ile birlikte kullanılması tavsiye edilir.",faqs:[{question:"Arbutin Serum ne işe yarar?",answer:"Cilt tonunu eşitleyerek koyu lekelerin, güneş ve yaşlılık lekelerinin azalmasına yardımcı olur."},{question:"İçeriğinde elma özünün etkisi nedir?",answer:"Elma özü, malik asit ve antioksidanlar bakımından zengindir; cilt yenilenmesini destekler, serbest radikalleri nötralize eder ve daha aydınlık bir görünüm sağlar."},{question:"Gündüz kullanılabilir mi?",answer:"Evet, ancak mutlaka güneş koruyucu ile birlikte kullanılmalıdır."},{question:"Ne kadar sürede sonuç verir?",answer:"Düzenli kullanımda 3-4 hafta içinde cilt tonunda belirgin bir iyileşme görülür."}]},3:{productId:3,details:'SincEva Kırışıklık Karşıtı Göz Kremi, patentli "süper molekül" Proxylane, Kolajen ve Elma Özü (Pyrus Malus Fruit Extract) ile göz çevresindeki ince çizgileri, kaz ayaklarını ve koyu halkaları hedef alır. Proxylane, cilt yapısını biyomekanik olarak güçlendirerek elastikiyet kaybını azaltır; kolajen, cildin dolgunluğunu geri kazandırarak sıkılaştırıcı bir etki sağlar. Elma özündeki malik asit ve antioksidanlar, cilt dokusunu yeniler ve göz çevresine canlı, aydınlık bir görünüm kazandırır. Düzenli kullanımda göz çevresi daha pürüzsüz, dinlenmiş ve genç bir görünüm kazanır.',ingredients:"Aqua, Dibutyl Adipate, Propylene Glycol, Isopropyl Myristate, Sodium Acrylates Copolymer, Panthenol, Phenoxyethanol, Hydroxypropyl Tetrahydropyrantriol (Proxylane), Lecithin, Hydrolyzed Collagen, Lactobacillus Lysate, Ethylhexylglycerin, 1,2-Hexanediol, Glycerin, Ananas Sativus (Pineapple) Fruit Extract, Pyrus Malus (Apple) Fruit Extract, Pentylene Glycol, Citrus Aurantifolia (Lime) Fruit Extract, Passiflora Edulis (Passion Fruit) Fruit Extract, Benzyl Alcohol, Benzoic Acid, Dehydroacetic Acid.",howToUse:"Temiz ve kuru göz çevresine yeterli miktarda kremi sabah ve akşam nazikçe masaj yaparak uygulayın. Aktif bileşenlerin hızlı emilimi nedeniyle hafif bir karıncalanma hissi oluşabilir. Durulama gerekmez.",faqs:[{question:"Göz kremi hangi yaş grubu için uygundur?",answer:"25 yaş ve üzeri herkes için uygundur. Özellikle ince çizgi veya koyu halka sorunu yaşayan ciltlerde etkilidir."},{question:"Elma özünün etkisi nedir?",answer:"Elma özündeki malik asit ve antioksidanlar, göz çevresindeki cildi besler, canlandırır ve yorgun görünümü azaltır."},{question:"Günlük makyaj altında kullanılabilir mi?",answer:"Evet, hafif dokusu sayesinde makyaj altına rahatça uygulanabilir."},{question:"Gözde yanma olursa ne yapmalıyım?",answer:"Gözle temas halinde bol su ile durulayın; hassasiyet devam ederse dermatoloğa danışın."}]},4:{productId:4,details:"SincEva Yaşlanma Karşıtı Gece Kremi, cildin gece boyunca kendini yenileme sürecini destekler. Formülündeki Lipozomal Retinol, hücre yenilenmesini artırarak ince çizgilerin, kırışıklıkların ve renk düzensizliklerinin görünümünü azaltmaya yardımcı olur. Niacinamide, cilt bariyerini güçlendirirken gözenek görünümünü azaltır ve daha pürüzsüz bir doku sağlar. Elma Özü (Pyrus Malus Fruit Extract) içeriğindeki malik asit ve antioksidanlar sayesinde cilt tonunu dengeler, serbest radikallere karşı koruma sağlar ve cilde sağlıklı bir ışıltı kazandırır. Her sabah, daha dolgun, sıkı ve dinlenmiş bir cilt görünümü sunar.",ingredients:"Aqua, Dibutyl Adipate, Glycerin, Isopropyl Myristate, Propylene Glycol, Sodium Acrylates Copolymer, Phenoxyethanol, Panthenol, Lecithin, Caprylic/Capric Triglyceride, Sodium Hyaluronate, Aroma, Lactobacillus Lysate, Polysorbate 20, Retinol, Ethylhexylglycerin, Niacinamide, Ananas Sativus (Pineapple) Fruit Extract, Pyrus Malus (Apple) Fruit Extract, Citrus Aurantifolia (Lime) Fruit Extract, Passiflora Edulis (Passion Fruit) Fruit Extract, BHT, Polyglyceryl-10 Myristate, Ethyl Lauroyl Arginate HCl, BHA, Benzyl Alcohol, Benzoic Acid, Dehydroacetic Acid.",howToUse:"Temiz ve kuru cilde gece yatmadan önce yeterli miktarda uygulayın. Dairesel hareketlerle nazikçe masaj yaparak cilde yedirin. Durulama gerektirmez. Ürünü kullandığınız dönemde gündüzleri mutlaka güneş koruyucu kullanmanız önerilir.",faqs:[{question:"Gece kremi hangi yaş grubu için uygundur?",answer:"25 yaş ve üzeri herkes için uygundur, özellikle ince çizgi, cilt tonu eşitsizliği veya elastikiyet kaybı yaşayan ciltlerde etkilidir."},{question:"Elma özünün etkisi nedir?",answer:"Malik asit ve antioksidan içeriğiyle cilt yenilenmesini destekler, cilde tazelik ve ışıltı kazandırır."},{question:"Gündüz kullanılabilir mi?",answer:"Hayır, yalnızca gece kullanımına uygundur. Ancak gündüz mutlaka güneş koruyucu kullanılmalıdır."},{question:"Retinol tahriş yapar mı?",answer:"Hassas ciltlerde ilk kullanımda hafif karıncalanma veya kızarıklık olabilir; bu durum cildin alışma sürecidir."}]},5:{productId:5,details:"SincEva Cilt Yenileyici Tonik, cildi derinlemesine temizleyip arındırırken gözenek görünümünün azalmasına ve sebum dengesinin korunmasına yardımcı olur. Formülündeki %5 Glikolik Asit ve AHA kompleksi (Glikolik, Malik, Laktik, Tartarik, Sitrik Asit), cilt yüzeyindeki ölü hücreleri nazikçe uzaklaştırarak yenilenmiş, canlı bir cilt dokusu oluşturur. Elma Özü (Pyrus Malus Fruit Extract) içeriği sayesinde malik asit ve antioksidan bakımından zengin doğal bir peeling etkisi sağlar, ciltteki donuk görünümü giderir ve doğal parlaklığı geri kazandırır. Düzenli kullanımda cilt daha pürüzsüz, dengeli ve taze bir görünüme kavuşur.",ingredients:"Aqua, Glycolic Acid, Propylene Glycol, Triethanolamine, Phenoxyethanol, Glucose, Urea, Panthenol, 3-O-Ethyl Ascorbic Acid, Lactobacillus Lysate, Fructose, Hydrogenated Starch Hydrolysate, Sodium PCA, PEG-40 Hydrogenated Castor Oil, Glycine, Hydrolyzed Wheat Protein, Sodium Glutamate, Ethylhexylglycerin, Glycerin, Tetrasodium EDTA, Ananas Sativus (Pineapple) Fruit Extract, Pyrus Malus (Apple) Fruit Extract, Aroma, Sodium Benzoate, Citric Acid, Lactic Acid, Lysine, Malic Acid, Potassium Hydroxide, Potassium Sorbate, Sodium Hydroxide, Tartaric Acid, Citrus Aurantifolia (Lime) Fruit Extract, Passiflora Edulis (Passion Fruit) Fruit Extract, Benzyl Alcohol, Benzoic Acid, Dehydroacetic Acid, CI 17200.",howToUse:"Cildinizi temizledikten sonra, yeterli miktarda toniği bir pamuk yardımıyla kuru cildinize uygulayınız. Uygulama sonrası durulama gerektirmez. Gündüz kullanımlarında, mutlaka güneş koruyucu ile birlikte kullanılması tavsiye edilir.",faqs:[{question:"Bu tonik hangi cilt tipleri için uygundur?",answer:"Yağlı, karma ve normal ciltler için uygundur. Hassas ciltlerde haftada 2-3 kez kullanılması önerilir."},{question:"Elma özü ne işe yarar?",answer:"Elma özü, malik asit ve antioksidanlar açısından zengindir; cilt yenilenmesini destekler ve ciltteki donukluğu giderir."},{question:"Ciltte yanma yapar mı?",answer:"Hafif karıncalanma normaldir; aşırı yanma veya kızarıklık hissederseniz kullanımı durdurunuz."},{question:"Gündüz kullanılabilir mi?",answer:"Evet, ancak güneş koruyucu ile birlikte kullanılmalıdır."}]},6:{productId:6,details:"SincEva Peeling Scrub Cream, cildi nazikçe arındırarak ölü deri hücrelerini uzaklaştırır ve daha pürüzsüz, aydınlık bir görünüm kazandırır. Formülündeki doğal AHA kaynakları olan Elma Özü (Pyrus Malus Fruit Extract), Lime ve Ananas Ekstraktları, cilt yüzeyindeki kir, fazla yağ ve makyaj kalıntılarını etkili biçimde temizler. Malik asit, askorbik asit ve glikolik asit içeriğiyle gözeneklerin sıkılaşmasına, cildin daha canlı ve taze bir görünüme kavuşmasına yardımcı olur. Düzenli kullanımda cilt dokusu yenilenir, cilt tonu dengelenir ve ışıltılı bir parlaklık kazanır.",ingredients:"Aqua, Cetearyl Alcohol, Glycerin, Glycolic Acid, Ascorbic Acid, Malic Acid, Propylene Glycol, Stearic Acid, Ceteareth-20, Ananas Sativus (Pineapple) Fruit Extract, Pyrus Malus (Apple) Fruit Extract, Citrus Aurantifolia (Lime) Fruit Extract, Passiflora Edulis (Passion Fruit) Fruit Extract, Phenoxyethanol, Ethylhexylglycerin, Sodium Benzoate, Potassium Sorbate, Benzyl Alcohol, Benzoic Acid, Dehydroacetic Acid.",howToUse:"Avucunuza yeterli miktarda ürünü alın ve nemli cildinize dairesel hareketlerle nazikçe masaj yaparak uygulayın. Ardından ılık suyla durulayın. Haftada 2–3 kez düzenli olarak kullanılması önerilir.",faqs:[{question:"Peeling Scrub cildi tahriş eder mi?",answer:"Hayır, doğal AHA kaynaklarıyla formüle edilmiştir ve cildi nazikçe arındırır."},{question:"Elma özünün etkisi nedir?",answer:"Malik asit ve antioksidanlar sayesinde cilt yüzeyini pürüzsüzleştirir, ışıltı ve tazelik kazandırır."},{question:"Ne sıklıkla kullanılmalı?",answer:"Normal ciltler için haftada 2–3 kez, hassas ciltler için haftada 1 kez önerilir."},{question:"Gündüz mü gece mi uygulanmalı?",answer:"Akşam saatlerinde uygulama idealdir. Sonrasında mutlaka nemlendirici ve gündüzleri güneş koruyucu kullanılmalıdır."}]},7:{productId:7,details:"SincEva Yüz Temizleme Köpüğü, cildi kurutmadan derinlemesine temizler ve tazelik hissi kazandırır. Zengin köpük formu sayesinde gözeneklerdeki kir, yağ ve makyaj kalıntılarını nazikçe arındırır. Formülündeki Aloe Vera cildi yatıştırırken, Elma Özü (Pyrus Malus Fruit Extract) malik asit ve doğal antioksidanlarıyla cildin yenilenmesini destekler, cilt tonunu dengeler ve canlı bir parlaklık kazandırır. Günlük kullanımda cilt temiz, pürüzsüz ve yumuşacık bir görünüme kavuşur.",ingredients:"Aqua, Cocamidopropyl Betaine, Sodium Cocoyl Isethionate, Glycerin, Phenoxyethanol, Sodium Lauroyl Sarcosinate, Ethylhexylglycerin, Panthenol, Citric Acid, PEG-7 Glyceryl Cocoate, Coco-Glucoside, Glyceryl Oleate, Lactobacillus Lysate, Pyrus Malus (Apple) Fruit Extract, Aloe Barbadensis Leaf Juice, Ananas Sativus (Pineapple) Fruit Extract, Citrus Aurantifolia (Lime) Fruit Extract, Passiflora Edulis (Passion Fruit) Fruit Extract, Sodium Benzoate, Potassium Sorbate, Benzyl Alcohol, Benzoic Acid, Dehydroacetic Acid.",howToUse:"Islak cilde yeterli miktarda ürünü uygulayın, köpürterek dairesel hareketlerle masaj yapın. Ardından ılık suyla durulayın. Sabah ve akşam olmak üzere günde iki kez kullanılması önerilir.",faqs:[{question:"Cildi kurutur mu?",answer:"Hayır, nazik formülü sayesinde ciltte kuruluk hissi bırakmaz; nem dengesini korur."},{question:"Elma özünün etkisi nedir?",answer:"Malik asit ve antioksidanlarla cilt yüzeyini yeniler, cildin canlılığını ve parlaklığını artırır."},{question:"Göz çevresinde kullanılabilir mi?",answer:"Göz ile direkt temas ettirilmemelidir. Göz çevresine yakın bölgelerde nazikçe uygulanabilir."},{question:"Hangi cilt tipleri için uygundur?",answer:"Tüm cilt tipleri için uygundur; özellikle karma ve yağlı ciltlerde ferahlık sağlar."}]},8:{productId:8,details:"SincEva 50 SPF Güneş Kremi, özel geliştirilmiş formülüyle cildi güneşin zararlı UVA ve UVB ışınlarına karşı geniş spektrumlu koruma altına alır. Hafif dokusu sayesinde ciltte yağlı bir his bırakmadan kolayca emilir ve yumuşacık bir bitiş sağlar. Formülündeki Aloe Vera cildi yatıştırırken, Pantenol nem bariyerini güçlendirir. Elma Özü (Pyrus Malus Fruit Extract), malik asit ve antioksidanlar sayesinde cilt hücrelerini yeniler, çevresel etkenlere karşı korur ve cilde canlı bir parlaklık kazandırır. Düzenli kullanımda cilt nemli, sağlıklı ve güneşe karşı korunmuş bir görünüme kavuşur.",ingredients:"Aqua, Bis-Ethylhexyloxyphenol Methoxyphenyl Triazine, Diethylamino Hydroxybenzoyl Hexyl Benzoate, C12-15 Alkyl Benzoate, Ethylhexyl Palmitate, Ethylhexyl Triazone, Cetearyl Alcohol, Glycerin, Zinc Oxide, Ceteareth-20, Dimethicone, Panthenol, Glyceryl Stearate, PEG-100 Stearate, Butylene Glycol, Phenoxyethanol, Titanium Dioxide, Allantoin, Ethylhexylglycerin, Ammonium Polyacrylate, Caprylic/Capric Triglyceride, Chamomilla Recutita (Matricaria) Flower Extract, Aloe Barbadensis Leaf Juice, Hydrolyzed Collagen, Sodium Hyaluronate, Tocopheryl Acetate, Alpha-Arbutin, Pyrus Malus (Apple) Fruit Extract, Ananas Sativus (Pineapple) Fruit Extract, Citrus Aurantifolia (Lime) Fruit Extract, Passiflora Edulis (Passion Fruit) Fruit Extract, Benzyl Alcohol, Benzoic Acid, Dehydroacetic Acid.",howToUse:"Güneşe çıkmadan 10–15 dakika önce temiz cilde yeterli miktarda uygulayınız. Cildiniz suyla temas ettiğinde veya uzun süre güneşte kaldığınızda uygulamayı tekrarlayınız. Etkin koruma için 2 saatte bir yenilenmesi önerilir.",faqs:[{question:"Güneş kremi yağlı bir his bırakır mı?",answer:"Hayır. Hafif yapısı sayesinde hızla emilir ve ciltte ağırlık yapmaz."},{question:"Elma özü ne işe yarar?",answer:"Elma özü, malik asit ve antioksidan içeriğiyle cilt hücrelerini yeniler ve güneşin yol açtığı oksidatif stresi azaltır."},{question:"Makyaj altına uygulanabilir mi?",answer:"Evet, ciltte pürüzsüz bir zemin oluşturur ve makyaj altında rahatlıkla kullanılabilir."},{question:"Hassas ciltler için uygun mu?",answer:"Evet, dermatolojik olarak test edilmiştir ve hassas ciltler dahil tüm cilt tipleri için uygundur."}]},9:{productId:9,details:"SincEva Hyaluronik Asit Nemlendirici Krem, cildi derinlemesine nemlendirir ve anında pürüzsüz bir görünüm kazandırır. Hyaluronik Asit, cilt tabakalarının her birinde suyu tutarak uzun süreli nem sağlar. Pantenol, cilt bariyerini güçlendirirken kuruluk kaynaklı gerginlik hissini azaltır. Formüldeki Elma Özü (Pyrus Malus Fruit Extract), malik asit ve doğal antioksidanlar sayesinde cildin yenilenmesini destekler, cildin tazelik ve ışıltısını artırır. Hafif dokusu ile hızla emilen krem, yağlı his bırakmaz ve günlük bakım için idealdir.",ingredients:"Aqua, Isopropyl Myristate, Glycerin, Propylene Glycol, Sodium Acrylates Copolymer, Phenoxyethanol, Lecithin, Sodium Hyaluronate, Lactobacillus Lysate, Panthenol, Ethylhexylglycerin, Ananas Sativus (Pineapple) Fruit Extract, Pyrus Malus (Apple) Fruit Extract, Citrus Aurantifolia (Lime) Fruit Extract, Passiflora Edulis (Passion Fruit) Fruit Extract, Aroma, Benzyl Alcohol, Benzoic Acid, Dehydroacetic Acid.",howToUse:"Temiz ve kuru cildinize sabah ve akşam olmak üzere günde iki kez yeterli miktarda kremi dairesel hareketlerle masaj yaparak uygulayınız. Durulama gerektirmez.",faqs:[{question:"Hyaluronik asit ne işe yarar?",answer:"Cildin nem tutma kapasitesini artırır, dolgun ve pürüzsüz bir görünüm sağlar."},{question:"Elma özünün etkisi nedir?",answer:"Malik asit içeriğiyle cilt yenilenmesini destekler ve antioksidanlar sayesinde cildi çevresel etkenlere karşı korur."},{question:"Gündüz mü gece mi kullanılmalı?",answer:"Günlük bakım için hem sabah hem gece kullanıma uygundur."},{question:"Hangi cilt tipleri için uygundur?",answer:"Tüm cilt tipleri için uygundur, özellikle kuru ve nemsiz ciltler için idealdir."}]}},lT={1:{productId:1,details:"SincEva Vitamin C Serum, with 5% Vitamin C, helps even out skin tone and boost radiance. Its powerful antioxidant action protects against free radicals and supports the prevention of photoaging caused by UV exposure. Enriched with Aloe Vera for soothing and Apple Fruit Extract (Pyrus Malus) for natural malic acid and vitamins, it promotes cell renewal and enhances brightness. With consistent use, the skin appears visibly more luminous, firm, and revitalized.",ingredients:"Aqua, Propylene Glycol, 3-O-Ethyl Ascorbic Acid, Glycerin, Phenoxyethanol, Ammonium Polyacryloyldimethyl Taurate, Lactobacillus Lysate, Ethylhexylglycerin, Aloe Barbadensis Leaf Extract, Ananas Sativus (Pineapple) Fruit Extract, Pyrus Malus (Apple) Fruit Extract, Citrus Aurantifolia (Lime) Fruit Extract, Passiflora Edulis (Passion Fruit) Fruit Extract, Citric Acid, Sodium Benzoate, Potassium Sorbate, Benzyl Alcohol, Benzoic Acid, Dehydroacetic Acid.",howToUse:"Apply 2–3 drops to clean, dry skin in the morning and evening. Gently massage until absorbed. Always use sunscreen during the day.",faqs:[{question:"What skin types is this serum suitable for?",answer:"Suitable for all skin types, especially dull, tired, or uneven-toned skin."},{question:"What is the benefit of Apple Extract?",answer:"It promotes skin renewal and boosts natural glow with its malic acid and vitamin content."},{question:"When will I see results?",answer:"Visible brightening and even skin tone typically appear within 3–4 weeks of regular use."},{question:"Can it be used during the day?",answer:"Yes, but always with sunscreen."}]},2:{productId:2,details:"SincEva Arbutin Serum targets uneven skin tone, giving the skin a brighter, smoother, and more radiant look. Its 2% Alpha-Arbutin helps regulate melanin production, minimizing the appearance of sun, age, acne, or pregnancy spots. Niacinamide strengthens the skin barrier, while Apple Fruit Extract (Pyrus Malus), rich in natural malic acid and antioxidants, rejuvenates the skin, revitalizes cells, and protects against free radicals. Its lightweight texture absorbs quickly without leaving a greasy feel, delivering a naturally luminous complexion with regular use.",ingredients:"Aqua, Propylene Glycol, Alpha-Arbutin, Glycerin, Phenoxyethanol, Ammonium Polyacryloyldimethyl Taurate, Niacinamide, Lactobacillus Lysate, Ethylhexylglycerin, Aloe Barbadensis Leaf Extract, Ananas Sativus (Pineapple) Fruit Extract, Pyrus Malus (Apple) Fruit Extract, Citrus Aurantifolia (Lime) Fruit Extract, Passiflora Edulis (Passion Fruit) Fruit Extract, Citric Acid, Sodium Benzoate, Potassium Sorbate, Benzyl Alcohol, Benzoic Acid, Dehydroacetic Acid.",howToUse:"Apply 2-3 drops to clean, dry skin in the morning and evening. Gently massage until absorbed. Always use sunscreen during the day.",faqs:[{question:"What does Arbutin Serum do?",answer:"It helps even skin tone and reduces the appearance of dark, sun, and age spots."},{question:"What is the role of Apple Extract?",answer:"Rich in malic acid and antioxidants, Apple Extract supports skin renewal, protects against free radicals, and brightens the complexion."},{question:"Can it be used during the day?",answer:"Yes, but always with sunscreen."},{question:"When will I see results?",answer:"Noticeable improvement in skin tone usually appears within 3–4 weeks of regular use."}]},3:{productId:3,details:`SincEva Anti-Wrinkle Eye Cream combines the patented "super molecule" Proxylane, Collagen, and Apple Fruit Extract (Pyrus Malus) to target fine lines, crow's feet, and dark circles around the eyes. Proxylane strengthens the skin biomechanically, restoring firmness and elasticity, while collagen plumps and smooths the delicate eye area. Apple Extract, rich in malic acid and antioxidants, rejuvenates the skin and brightens the under-eye region. With consistent use, it provides a smoother, firmer, and more youthful look.`,ingredients:"Aqua, Dibutyl Adipate, Propylene Glycol, Isopropyl Myristate, Sodium Acrylates Copolymer, Panthenol, Phenoxyethanol, Hydroxypropyl Tetrahydropyrantriol (Proxylane), Lecithin, Hydrolyzed Collagen, Lactobacillus Lysate, Ethylhexylglycerin, 1,2-Hexanediol, Glycerin, Ananas Sativus (Pineapple) Fruit Extract, Pyrus Malus (Apple) Fruit Extract, Pentylene Glycol, Citrus Aurantifolia (Lime) Fruit Extract, Passiflora Edulis (Passion Fruit) Fruit Extract, Benzyl Alcohol, Benzoic Acid, Dehydroacetic Acid.",howToUse:"Apply a small amount to clean, dry skin around the eyes in the morning and evening. Gently massage until absorbed. A mild tingling may occur due to fast-acting ingredients. Do not rinse.",faqs:[{question:"What age group is this eye cream for?",answer:"Suitable for anyone aged 25 and above, especially those concerned about fine lines and dark circles."},{question:"What does Apple Extract do?",answer:"It nourishes and revitalizes the delicate eye area while reducing signs of fatigue thanks to its malic acid and antioxidant content."},{question:"Can it be used under make-up?",answer:"Yes, its lightweight texture makes it ideal for use before make-up."},{question:"What if I feel stinging in the eyes?",answer:"Rinse immediately with water and discontinue use if irritation persists."}]},4:{productId:4,details:"SincEva Anti-Aging Night Cream supports the skin's natural renewal process throughout the night. Liposomal Retinol promotes cell turnover and helps reduce the appearance of fine lines, wrinkles, and uneven skin tone. Niacinamide strengthens the skin barrier, minimizes pores, and enhances texture smoothness. Infused with Apple Fruit Extract (Pyrus Malus), rich in malic acid and antioxidants, it balances skin tone, protects against free radicals, and restores natural radiance. Wake up to a smoother, firmer, and rejuvenated complexion every morning.",ingredients:"Aqua, Dibutyl Adipate, Glycerin, Isopropyl Myristate, Propylene Glycol, Sodium Acrylates Copolymer, Phenoxyethanol, Panthenol, Lecithin, Caprylic/Capric Triglyceride, Sodium Hyaluronate, Aroma, Lactobacillus Lysate, Polysorbate 20, Retinol, Ethylhexylglycerin, Niacinamide, Ananas Sativus (Pineapple) Fruit Extract, Pyrus Malus (Apple) Fruit Extract, Citrus Aurantifolia (Lime) Fruit Extract, Passiflora Edulis (Passion Fruit) Fruit Extract, BHT, Polyglyceryl-10 Myristate, Ethyl Lauroyl Arginate HCl, BHA, Benzyl Alcohol, Benzoic Acid, Dehydroacetic Acid.",howToUse:"Apply a sufficient amount to clean, dry skin before bedtime. Gently massage in circular motions until fully absorbed. No rinsing required. When using retinol products, always apply sunscreen during the day.",faqs:[{question:"What age group is this cream for?",answer:"Recommended for those aged 25 and above, especially for skin with fine lines, uneven tone, or loss of elasticity."},{question:"What is the benefit of Apple Extract?",answer:"It supports cell renewal and restores radiance with its malic acid and antioxidant content."},{question:"Can it be used during the day?",answer:"No, it's designed for nighttime use only. Always follow with sunscreen during the day."},{question:"Does retinol cause irritation?",answer:"Mild tingling or redness may occur initially, which is normal as the skin adapts."}]},5:{productId:5,details:"SincEva Skin Corrector Toner deeply cleanses the skin while helping reduce the appearance of pores and balance sebum levels. Its formula enriched with 5% Glycolic Acid and an AHA complex (Glycolic, Malic, Lactic, Tartaric, Citric Acids) gently removes dead skin cells, leaving a refreshed, radiant complexion. The Apple Fruit Extract (Pyrus Malus) provides a natural source of malic acid and antioxidants, offering a gentle peeling effect that brightens dull skin and restores natural glow. With regular use, the skin appears smoother, balanced, and visibly renewed.",ingredients:"Aqua, Glycolic Acid, Propylene Glycol, Triethanolamine, Phenoxyethanol, Glucose, Urea, Panthenol, 3-O-Ethyl Ascorbic Acid, Lactobacillus Lysate, Fructose, Hydrogenated Starch Hydrolysate, Sodium PCA, PEG-40 Hydrogenated Castor Oil, Glycine, Hydrolyzed Wheat Protein, Sodium Glutamate, Ethylhexylglycerin, Glycerin, Tetrasodium EDTA, Ananas Sativus (Pineapple) Fruit Extract, Pyrus Malus (Apple) Fruit Extract, Aroma, Sodium Benzoate, Citric Acid, Lactic Acid, Lysine, Malic Acid, Potassium Hydroxide, Potassium Sorbate, Sodium Hydroxide, Tartaric Acid, Citrus Aurantifolia (Lime) Fruit Extract, Passiflora Edulis (Passion Fruit) Fruit Extract, Benzyl Alcohol, Benzoic Acid, Dehydroacetic Acid, CI 17200.",howToUse:"After cleansing, apply a sufficient amount of toner to dry skin using a cotton pad. No rinsing required. For daytime use, always follow with sunscreen.",faqs:[{question:"Which skin types is this toner suitable for?",answer:"Suitable for oily, combination, and normal skin. For sensitive skin, use 2–3 times per week."},{question:"What does Apple Extract do?",answer:"Apple Extract is rich in malic acid and antioxidants, supporting skin renewal and reducing dullness."},{question:"Does it cause a burning sensation?",answer:"A mild tingling is normal; if burning or redness occurs, discontinue use."},{question:"Can it be used during the day?",answer:"Yes, but always with sunscreen."}]},6:{productId:6,details:"SincEva Peeling Scrub Cream gently exfoliates the skin, removing dead cells for a smoother and brighter complexion. Enriched with natural AHA sources such as Apple Fruit Extract (Pyrus Malus), Lime, and Pineapple Extracts, it effectively purifies the skin from dirt, excess oil, and impurities. With malic acid, ascorbic acid, and glycolic acid, it helps tighten pores and revitalize the skin's surface. Regular use promotes cell renewal, evens out skin tone, and enhances natural radiance.",ingredients:"Aqua, Cetearyl Alcohol, Glycerin, Glycolic Acid, Ascorbic Acid, Malic Acid, Propylene Glycol, Stearic Acid, Ceteareth-20, Ananas Sativus (Pineapple) Fruit Extract, Pyrus Malus (Apple) Fruit Extract, Citrus Aurantifolia (Lime) Fruit Extract, Passiflora Edulis (Passion Fruit) Fruit Extract, Phenoxyethanol, Ethylhexylglycerin, Sodium Benzoate, Potassium Sorbate, Benzyl Alcohol, Benzoic Acid, Dehydroacetic Acid.",howToUse:"Take a small amount into your palm and gently massage onto damp skin in circular motions. Rinse thoroughly with warm water. Use 2–3 times per week for best results.",faqs:[{question:"Does this scrub irritate the skin?",answer:"No, it's formulated with natural AHA sources that gently exfoliate without irritation."},{question:"What does Apple Extract do?",answer:"Rich in malic acid and antioxidants, it smooths and brightens the skin for a refreshed look."},{question:"How often should I use it?",answer:"2–3 times weekly for normal skin; once weekly for sensitive skin."},{question:"When should it be applied?",answer:"Best used in the evening. Follow with moisturizer and sunscreen during the day."}]},7:{productId:7,details:"SincEva Facial Cleansing Foam gently cleanses the skin without drying it out, leaving it fresh and revitalized. Its rich foam texture effectively removes dirt, excess oil, and makeup residues from pores. Aloe Vera soothes the skin, while Apple Fruit Extract (Pyrus Malus), rich in malic acid and natural antioxidants, promotes skin renewal, balances tone, and enhances radiance. With daily use, the skin feels clean, soft, and refreshed.",ingredients:"Aqua, Cocamidopropyl Betaine, Sodium Cocoyl Isethionate, Glycerin, Phenoxyethanol, Sodium Lauroyl Sarcosinate, Ethylhexylglycerin, Panthenol, Citric Acid, PEG-7 Glyceryl Cocoate, Coco-Glucoside, Glyceryl Oleate, Lactobacillus Lysate, Pyrus Malus (Apple) Fruit Extract, Aloe Barbadensis Leaf Juice, Ananas Sativus (Pineapple) Fruit Extract, Citrus Aurantifolia (Lime) Fruit Extract, Passiflora Edulis (Passion Fruit) Fruit Extract, Sodium Benzoate, Potassium Sorbate, Benzyl Alcohol, Benzoic Acid, Dehydroacetic Acid.",howToUse:"Apply an adequate amount to wet skin, lather, and gently massage in circular motions. Rinse thoroughly with lukewarm water. Use twice daily, morning and evening.",faqs:[{question:"Does it dry the skin?",answer:"No, its gentle formula cleanses without stripping moisture and helps maintain the skin's balance."},{question:"What is the role of Apple Extract?",answer:"It rejuvenates the skin surface with malic acid and antioxidants, enhancing radiance and vitality."},{question:"Can it be used around the eyes?",answer:"Avoid direct contact with the eyes; can be used gently near the eye area."},{question:"What skin types is it suitable for?",answer:"Suitable for all skin types, especially refreshing for combination and oily skin."}]},8:{productId:8,details:"SincEva SPF 50 Sunscreen provides broad-spectrum protection against harmful UVA and UVB rays with its advanced lightweight formula. It absorbs easily without leaving a greasy residue, offering a soft and smooth finish. Aloe Vera soothes the skin, Panthenol strengthens the moisture barrier, and Apple Fruit Extract (Pyrus Malus) — rich in malic acid and antioxidants — helps rejuvenate and protect the skin from environmental stress. With regular use, it leaves the skin hydrated, healthy, and perfectly protected from the sun.",ingredients:"Aqua, Bis-Ethylhexyloxyphenol Methoxyphenyl Triazine, Diethylamino Hydroxybenzoyl Hexyl Benzoate, C12-15 Alkyl Benzoate, Ethylhexyl Palmitate, Ethylhexyl Triazone, Cetearyl Alcohol, Glycerin, Zinc Oxide, Ceteareth-20, Dimethicone, Panthenol, Glyceryl Stearate, PEG-100 Stearate, Butylene Glycol, Phenoxyethanol, Titanium Dioxide, Allantoin, Ethylhexylglycerin, Ammonium Polyacrylate, Caprylic/Capric Triglyceride, Chamomilla Recutita (Matricaria) Flower Extract, Aloe Barbadensis Leaf Juice, Hydrolyzed Collagen, Sodium Hyaluronate, Tocopheryl Acetate, Alpha-Arbutin, Pyrus Malus (Apple) Fruit Extract, Ananas Sativus (Pineapple) Fruit Extract, Citrus Aurantifolia (Lime) Fruit Extract, Passiflora Edulis (Passion Fruit) Fruit Extract, Benzyl Alcohol, Benzoic Acid, Dehydroacetic Acid.",howToUse:"Apply generously to clean skin 10–15 minutes before sun exposure. Reapply after swimming, sweating, or towel drying. For continuous protection, reapply every two hours.",faqs:[{question:"Does this sunscreen feel greasy?",answer:"No. It has a lightweight texture that absorbs quickly without leaving any residue."},{question:"What does Apple Extract do?",answer:"Rich in antioxidants and malic acid, it helps renew skin cells and protects against UV-induced oxidative stress."},{question:"Can it be used under makeup?",answer:"Yes, it provides a smooth base and is suitable for daily use under makeup."},{question:"Is it suitable for sensitive skin?",answer:"Yes, it's dermatologically tested and suitable for all skin types."}]},9:{productId:9,details:"SincEva Hyaluronic Acid Moisturizing Cream deeply hydrates the skin and provides an instantly smoother appearance. Hyaluronic Acid locks in moisture across all skin layers, ensuring long-lasting hydration. Panthenol reinforces the skin barrier and soothes dryness-induced tightness. Apple Fruit Extract (Pyrus Malus), rich in malic acid and natural antioxidants, supports skin renewal, leaving it fresh and radiant. Its lightweight texture absorbs quickly without greasiness, making it perfect for daily use.",ingredients:"Aqua, Isopropyl Myristate, Glycerin, Propylene Glycol, Sodium Acrylates Copolymer, Phenoxyethanol, Lecithin, Sodium Hyaluronate, Lactobacillus Lysate, Panthenol, Ethylhexylglycerin, Ananas Sativus (Pineapple) Fruit Extract, Pyrus Malus (Apple) Fruit Extract, Citrus Aurantifolia (Lime) Fruit Extract, Passiflora Edulis (Passion Fruit) Fruit Extract, Aroma, Benzyl Alcohol, Benzoic Acid, Dehydroacetic Acid.",howToUse:"Apply twice daily, morning and evening, to clean and dry skin. Gently massage in circular motions until fully absorbed. No rinsing required.",faqs:[{question:"What does Hyaluronic Acid do?",answer:"It boosts the skin's ability to retain moisture, leaving it plump and smooth."},{question:"What is the benefit of Apple Extract?",answer:"It promotes cell renewal and provides antioxidant protection against environmental stress."},{question:"When should it be used?",answer:"Suitable for daily use, both morning and night."},{question:"Is it suitable for all skin types?",answer:"Yes, especially effective for dry or dehydrated skin."}]}},oT={1:{productId:1,details:"سيروم فيتامين سي من سينسإيفا يحتوي على 5٪ فيتامين C الذي يساعد على توحيد لون البشرة ومنحها إشراقاً طبيعياً. بفضل خصائصه المضادة للأكسدة، يحمي البشرة من الجذور الحرة ويساعد على الوقاية من الشيخوخة الناتجة عن أشعة الشمس. يحتوي أيضاً على الألوفيرا التي تهدئ البشرة، ومستخلص التفاح (Pyrus Malus) الغني بحمض الماليك والفيتامينات الطبيعية التي تدعم تجديد الخلايا وتزيد من إشراق البشرة. مع الاستخدام المنتظم، تبدو البشرة أكثر توهجاً وثباتاً وانتعاشاً.",ingredients:"ماء، بروبيلين غليكول، 3-O-إيثيل أسكوربيك أسيد، جلسيرين، فينوكسي إيثانول، أمونيوم بولي أكريلويل ديميثيل توريت، ليسات لاكتوباسيلوس، إيثيل هكسيل جلسيرين، مستخلص أوراق الألوفيرا، مستخلص الأناناس، مستخلص التفاح (Pyrus Malus)، مستخلص الليمون، مستخلص فاكهة العاطفة، حمض الستريك، بنزوات الصوديوم، سوربات البوتاسيوم، بنزيل الكحول، حمض البنزويك، حمض الديهيدروأسيتيك.",howToUse:"ضعي 2–3 قطرات على بشرة نظيفة وجافة صباحاً ومساءً، ودلّكي بلطف حتى تمتصها البشرة بالكامل. يُنصح باستخدام واقي الشمس أثناء النهار.",faqs:[{question:"لأي نوع من أنواع البشرة يناسب السيروم؟",answer:"مناسب لجميع أنواع البشرة، خاصة للبشرة الباهتة أو المتعبة أو غير المتجانسة اللون."},{question:"ما فائدة مستخلص التفاح؟",answer:"يدعم تجديد خلايا البشرة ويزيد من إشراقها الطبيعي بفضل حمض الماليك والفيتامينات."},{question:"متى تظهر النتائج؟",answer:"تظهر النتائج عادة خلال 3–4 أسابيع من الاستخدام المنتظم."},{question:"هل يمكن استخدامه في النهار؟",answer:"نعم، ولكن يجب استخدام واقي الشمس معه دائماً."}]},2:{productId:2,details:"سيروم الأربوتين من سينسإيفا يستهدف تفاوت لون البشرة ليمنحها مظهراً أكثر إشراقاً ونعومة وتوهجاً. يحتوي على %2 ألفا-أربوتين الذي يساعد على تنظيم إنتاج الميلانين وتقليل مظهر بقع الشمس والتقدم في العمر وحب الشباب والحمل. كما تعمل النياسيناميد على تقوية حاجز البشرة، بينما يقوم مستخلص التفاح (Pyrus Malus) الغني بحمض الماليك الطبيعي ومضادات الأكسدة بتجديد خلايا البشرة وحمايتها من الجذور الحرة. يتميز بتركيبة خفيفة تمتصها البشرة بسرعة دون أن تترك أي أثر دهني، مما يمنح إشراقاً طبيعياً مع الاستخدام المنتظم.",ingredients:"ماء، بروبيلين غليكول، ألفا أربوتين، جلسيرين، فينوكسي إيثانول، أمونيوم بولي أكريلويل ديميثيل توريت، نياكيناميد، ليسات لاكتوباسيلوس، إيثيل هكسيل جلسيرين، مستخلص أوراق الألوفيرا، مستخلص الأناناس، مستخلص التفاح (Pyrus Malus)، مستخلص الليمون، مستخلص فاكهة العاطفة، حمض الستريك، بنزوات الصوديوم، سوربات البوتاسيوم، بنزيل الكحول، حمض البنزويك، حمض الديهيدروأسيتيك.",howToUse:"ضعي 2-3 قطرات على بشرة نظيفة وجافة صباحاً ومساءً. دلّكي بلطف حتى تمتص البشرة المنتج بالكامل. يُنصح باستخدام واقي الشمس أثناء النهار.",faqs:[{question:"ما فائدة سيروم الأربوتين؟",answer:"يساعد على توحيد لون البشرة وتقليل ظهور البقع الداكنة وبقع الشمس والتقدم في العمر."},{question:"ما فائدة مستخلص التفاح في السيروم؟",answer:"غني بحمض الماليك ومضادات الأكسدة، يدعم تجديد البشرة ويحميها من الجذور الحرة ويمنحها إشراقاً طبيعياً."},{question:"هل يمكن استخدامه في النهار؟",answer:"نعم، ولكن يجب استخدام واقي الشمس معه دائماً."},{question:"متى تظهر النتائج؟",answer:"تظهر النتائج الواضحة عادة خلال 3-4 أسابيع من الاستخدام المنتظم."}]},3:{productId:3,details:"كريم العين المضاد للتجاعيد من سينسإيفا يجمع بين الجزيء الفائق الحاصل على براءة اختراع Proxylane والكولاجين ومستخلص التفاح (Pyrus Malus) لاستهداف الخطوط الدقيقة وتجاعيد القدمين والهالات السوداء. يقوّي الـ Proxylane بنية البشرة ميكانيكياً ويعيد لها المرونة، بينما يمنح الكولاجين امتلاءً ونعومة للمنطقة الحساسة حول العينين. أما مستخلص التفاح الغني بحمض الماليـك ومضادات الأكسدة فيجدّد خلايا البشرة ويمنحها إشراقاً طبيعياً. ومع الاستخدام المنتظم تبدو المنطقة حول العين أكثر نعومة وشباباً.",ingredients:"ماء، ثنائي بوتيل أديبات، بروبيلين غليكول، أيزوبروبيل مايرستات، كوبوليمر أكريلات الصوديوم، بانثينول، فينوكسي إيثانول، Proxylane، ليسيثين، كولاجين مهدرج، ليسات لاكتوباسيلوس، إيثيل هكسيل جلسيرين، 1,2-هيكسانديول، جلسيرين، مستخلص الأناناس، مستخلص التفاح (Pyrus Malus)، بنتيلين غليكول، مستخلص الليمون، مستخلص فاكهة العاطفة، بنزيل الكحول، حمض البنزويك، حمض الديهيدروأسيتيك.",howToUse:"ضعي كمية صغيرة على منطقة العين النظيفة والجافة صباحاً ومساءً، ودلّكي بلطف حتى تمتصها البشرة. قد يظهر وخز خفيف نتيجة المكونات النشطة. لا حاجة للشطف.",faqs:[{question:"لأي فئة عمرية يناسب هذا الكريم؟",answer:"مناسب لمن تجاوزوا سن 25 عاماً، وخاصة لمن يعانون من الخطوط الدقيقة أو الهالات السوداء."},{question:"ما دور مستخلص التفاح؟",answer:"يغذي ويجدد البشرة حول العينين بفضل حمض الماليـك ومضادات الأكسدة، ويقلل من علامات التعب."},{question:"هل يمكن استخدامه تحت المكياج؟",answer:"نعم، تركيبته الخفيفة تجعله مناسباً لذلك."},{question:"ماذا أفعل إذا دخل العين؟",answer:"اغسلي العينين بالماء الوفير، وإذا استمر التهيج استشيري الطبيب الجلدي."}]},4:{productId:4,details:"كريم الليل المضاد للشيخوخة من سينسإيفا يدعم عملية تجديد البشرة الطبيعية أثناء الليل. يحتوي على الريتينول الليبوزومي الذي يحفّز تجديد الخلايا ويساعد على تقليل مظهر الخطوط الدقيقة والتجاعيد وتفاوت لون البشرة. كما تعمل النياسيناميد على تقوية حاجز البشرة وتقليل مظهر المسام لتحسين الملمس. غني بـ مستخلص التفاح (Pyrus Malus) الغني بحمض الماليك ومضادات الأكسدة، الذي يوازن لون البشرة ويحميها من الجذور الحرة ويمنحها إشراقاً طبيعياً. في الصباح، تبدو البشرة أكثر نعومة وثباتاً وشباباً.",ingredients:"ماء، ثنائي بوتيل أديبات، جلسيرين، أيزوبروبيل مايرستات، بروبيلين غليكول، كوبوليمر أكريلات الصوديوم، فينوكسي إيثانول، بانثينول، ليسيثين، ثلاثي الغليسريد الكابريليك/الكابريك، هيالورونات الصوديوم، عطر، ليسات لاكتوباسيلوس، بولي سوربيت 20، ريتينول، إيثيل هكسيل جلسيرين، نياكيناميد، مستخلص الأناناس، مستخلص التفاح (Pyrus Malus)، مستخلص الليمون، مستخلص فاكهة العاطفة، BHT، بولي غليسيريل-10 ميرستات، إيثيل لورويل أرجينات HCl، BHA، بنزيل الكحول، حمض البنزويك، حمض الديهيدروأسيتيك.",howToUse:"ضعي كمية مناسبة على بشرة نظيفة وجافة قبل النوم، ودلّكي بلطف بحركات دائرية حتى تمتصها البشرة بالكامل. لا حاجة للشطف. عند استخدام منتجات الريتينول، يجب وضع واقي الشمس في النهار.",faqs:[{question:"لأي فئة عمرية يناسب هذا الكريم؟",answer:"مناسب لمن تجاوزوا سن 25 عاماً، خصوصاً لمن يعانون من الخطوط الدقيقة أو فقدان المرونة أو تفاوت لون البشرة."},{question:"ما فائدة مستخلص التفاح؟",answer:"يدعم تجديد خلايا البشرة ويمنحها إشراقاً بفضل حمض الماليك ومضادات الأكسدة."},{question:"هل يمكن استخدامه في النهار؟",answer:"لا، مخصص للاستخدام الليلي فقط. ويجب وضع واقي الشمس في النهار."},{question:"هل يمكن أن يسبب الريتينول تهيجاً؟",answer:"قد يسبب وخزاً خفيفاً أو احمراراً في البداية، وهو أمر طبيعي مع تأقلم البشرة."}]},5:{productId:5,details:"تونر سينسإيفا لتجديد البشرة ينظف البشرة بعمق ويساعد على تقليل مظهر المسام والحفاظ على توازن إفراز الزيوت. يحتوي على 5٪ حمض الجليكوليك ومزيج أحماض AHA (جليكوليك، ماليك، لاكتيك، تارتاريك، وسيتريك) التي تزيل خلايا الجلد الميتة بلطف لتمنح البشرة مظهراً متجدداً ومشرقاً. كما يوفر مستخلص التفاح (Pyrus Malus) الغني بحمض الماليك ومضادات الأكسدة تأثير تقشير طبيعي لطيف يساعد على تفتيح البشرة الباهتة واستعادة إشراقها الطبيعي. مع الاستخدام المنتظم، تبدو البشرة أكثر نعومة وتوازناً وانتعاشاً.",ingredients:"ماء، حمض الجليكوليك، بروبيلين غليكول، ثلاثي إيثانول أمين، فينوكسي إيثانول، جلوكوز، يوريا، بانثينول، حمض الأسكوربيك الإيثيلي، ليسات لاكتوباسيلوس، فركتوز، هيدروكسيليز النشا المهدرج، صوديوم PCA، PEG-40 زيت الخروع المهدرج، جلايسين، بروتين القمح المهدرج، غلوتامات الصوديوم، إيثيل هكسيل جلسيرين، جلسيرين، تيتراصوديوم EDTA، مستخلص الأناناس، مستخلص التفاح (Pyrus Malus)، عطر، بنزوات الصوديوم، حمض الستريك، حمض اللاكتيك، ليسين، حمض الماليك، هيدروكسيد البوتاسيوم، سوربات البوتاسيوم، هيدروكسيد الصوديوم، حمض التارتاريك، مستخلص الليمون، مستخلص فاكهة العاطفة، بنزيل الكحول، حمض البنزويك، حمض الديهيدروأسيتيك، CI 17200.",howToUse:"بعد تنظيف البشرة، ضعي كمية مناسبة من التونر على بشرة جافة باستخدام قطعة قطن. لا حاجة للشطف. يُنصح باستخدام واقي الشمس أثناء النهار.",faqs:[{question:"لأي نوع من أنواع البشرة يناسب هذا التونر؟",answer:"مناسب للبشرة الدهنية والمختلطة والعادية. للبشرة الحساسة، يُنصح بالاستخدام من 2 إلى 3 مرات أسبوعياً."},{question:"ما فائدة مستخلص التفاح؟",answer:"غني بحمض الماليك ومضادات الأكسدة، يدعم تجديد البشرة ويقلل من البهتان."},{question:"هل يسبب إحساساً بالحرارة أو الوخز؟",answer:"وخز خفيف طبيعي؛ في حال الشعور بحرقة أو احمرار، توقفي عن الاستخدام."},{question:"هل يمكن استخدامه في النهار؟",answer:"نعم، ولكن يجب استخدام واقي الشمس معه."}]},6:{productId:6,details:"كريم التقشير من سينسإيفا ينظف البشرة بلطف ويزيل خلايا الجلد الميتة ليمنحها مظهراً أكثر نعومة وإشراقاً. غني بمصادر طبيعية لأحماض AHA مثل مستخلص التفاح (Pyrus Malus) والليمون والأناناس، حيث ينظف البشرة من الأوساخ والزيوت الزائدة والشوائب بفعالية. تحتوي تركيبته على حمض الماليك وحمض الأسكوربيك وحمض الجليكوليك التي تساعد على شد المسام وتجديد نضارة البشرة. مع الاستخدام المنتظم، تتجدد خلايا البشرة ويصبح لونها أكثر توازناً وإشراقاً.",ingredients:"ماء، كحول سيتيريل، جلسيرين، حمض الجليكوليك، حمض الأسكوربيك، حمض الماليك، بروبيلين غليكول، حمض الستيريك، سيتيريث-20، مستخلص الأناناس، مستخلص التفاح (Pyrus Malus)، مستخلص الليمون، مستخلص فاكهة العاطفة، فينوكسي إيثانول، إيثيل هكسيل جلسيرين، بنزوات الصوديوم، سوربات البوتاسيوم، بنزيل الكحول، حمض البنزويك، حمض الديهيدروأسيتيك.",howToUse:"خذي كمية مناسبة من الكريم وافركيها بلطف على بشرة رطبة بحركات دائرية. اشطفي جيداً بالماء الفاتر. يُنصح بالاستخدام من 2 إلى 3 مرات أسبوعياً للحصول على أفضل النتائج.",faqs:[{question:"هل يسبب هذا المقشر تهيجاً للبشرة؟",answer:"لا، فهو يحتوي على أحماض AHA الطبيعية التي تقشر البشرة بلطف دون تهيج."},{question:"ما فائدة مستخلص التفاح؟",answer:"غني بحمض الماليك ومضادات الأكسدة التي تنعّم البشرة وتمنحها إشراقاً وانتعاشاً."},{question:"كم مرة يجب استخدامه؟",answer:"للبشرة العادية 2–3 مرات أسبوعياً، وللبشرة الحساسة مرة واحدة أسبوعياً."},{question:"متى يفضل استخدامه؟",answer:"يُفضل استخدامه في المساء، مع وضع مرطب بعده وواقي شمس في النهار."}]},7:{productId:7,details:"رغوة تنظيف الوجه من سينسإيفا تنظف البشرة بلطف دون أن تجففها، وتمنحها إحساساً بالانتعاش والنقاء. تعمل رغوتها الغنية على إزالة الأوساخ والزيوت الزائدة وبقايا المكياج من المسام بفعالية. تحتوي على الألوفيرا التي تهدئ البشرة، ومستخلص التفاح (Pyrus Malus) الغني بحمض الماليك ومضادات الأكسدة التي تدعم تجديد البشرة وتوازن لونها وتزيد من إشراقها. مع الاستخدام اليومي، تصبح البشرة نظيفة وناعمة ومنتعشة.",ingredients:"ماء، كوكاميدوبروبيل بيتايـن، صوديوم كوكويل أيزيثيونات، جلسيرين، فينوكسي إيثانول، صوديوم لورويل ساركوزينات، إيثيل هكسيل جلسيرين، بانثينول، حمض الستريك، PEG-7 غليسيريل كوكوات، كوكو-غلوكوزيد، غليسيريل أوليات، ليسات لاكتوباسيلوس، مستخلص التفاح (Pyrus Malus)، عصارة أوراق الألوفيرا، مستخلص الأناناس، مستخلص الليمون، مستخلص فاكهة العاطفة، بنزوات الصوديوم، سوربات البوتاسيوم، بنزيل الكحول، حمض البنزويك، حمض الديهيدروأسيتيك.",howToUse:"ضعي كمية مناسبة على بشرة مبللة، ثم افركي بلطف بحركات دائرية لتكوين رغوة. اشطفي جيداً بالماء الفاتر. يُنصح بالاستخدام مرتين يومياً صباحاً ومساءً.",faqs:[{question:"هل يجفف البشرة؟",answer:"لا، تركيبته اللطيفة تنظف البشرة دون أن تزيل رطوبتها وتحافظ على توازنها الطبيعي."},{question:"ما فائدة مستخلص التفاح؟",answer:"يجدد سطح البشرة بفضل حمض الماليك ومضادات الأكسدة ويزيد من إشراقها وحيويتها."},{question:"هل يمكن استخدامه حول العينين؟",answer:"يُفضل تجنب ملامسته للعينين مباشرة، ويمكن استخدامه بلطف قرب منطقة العين."},{question:"لأي نوع من أنواع البشرة يناسب؟",answer:"مناسب لجميع أنواع البشرة، خصوصاً للبشرة المختلطة والدهنية التي تحتاج إلى انتعاش وتنظيف عميق."}]},8:{productId:8,details:"كريم الوقاية من الشمس SPF 50 من سينسإيفا يوفر حماية شاملة ضد أشعة UVA و UVB الضارة بفضل تركيبته المتطورة والخفيفة. يمتص بسرعة دون أن يترك أي أثر دهني ويمنح البشرة لمسة ناعمة ومريحة. يحتوي على الألوفيرا التي تهدئ البشرة، والبانثينول الذي يقوي حاجز الرطوبة، بينما يعمل مستخلص التفاح (Pyrus Malus) الغني بحمض الماليك ومضادات الأكسدة على تجديد خلايا البشرة وحمايتها من العوامل البيئية. مع الاستخدام المنتظم، يمنح البشرة ترطيباً وحماية طبيعية من أشعة الشمس.",ingredients:"ماء، بيس إيثيل هيكسيلوكسي فينول ميثوكسي فينيل تريازين، ثنائي إيثيل أمينو هيدروكسي بنزويل هيكسيل بنزوات، كحول الألكيل (C12-15)، إيثيل هيكسيل بالميتات، إيثيل هيكسيل تريازون، كحول سيتيريل، جلسيرين، أكسيد الزنك، سيتيريث-20، ثنائي ميثيكون، بانثينول، ستيرات الجلسيريل، PEG-100 ستيرات، بيوتيلين غليكول، فينوكسي إيثانول، ثاني أكسيد التيتانيوم، ألانتوين، إيثيل هيكسيل جلسيرين، بولي أكريلات الأمونيوم، ثلاثي الغليسريد الكابريليك/الكابريك، مستخلص البابونج، عصارة أوراق الألوفيرا، كولاجين مهدرج، هيالورونات الصوديوم، خلات التوكوفيرول، ألفا أربوتين، مستخلص التفاح (Pyrus Malus)، مستخلص الأناناس، مستخلص الليمون، مستخلص فاكهة العاطفة، بنزيل الكحول، حمض البنزويك، حمض الديهيدروأسيتيك.",howToUse:"ضعي كمية مناسبة على بشرة نظيفة قبل التعرض لأشعة الشمس بـ 10–15 دقيقة. أعيدي التطبيق بعد السباحة أو التعرق أو تجفيف البشرة بالمنشفة. للحصول على حماية مستمرة، يُنصح بإعادة الاستخدام كل ساعتين.",faqs:[{question:"هل يترك الكريم إحساساً دهنياً؟",answer:"لا، تركيبته خفيفة تمتصها البشرة بسرعة دون أن تترك أي بقايا."},{question:"ما فائدة مستخلص التفاح؟",answer:"غني بمضادات الأكسدة وحمض الماليك، يساعد على تجديد خلايا البشرة وحمايتها من الإجهاد التأكسدي الناتج عن الشمس."},{question:"هل يمكن استخدامه تحت المكياج؟",answer:"نعم، يوفر قاعدة ناعمة للمكياج ومناسب للاستخدام اليومي."},{question:"هل يناسب البشرة الحساسة؟",answer:"نعم، تم اختباره جلدياً ومناسب لجميع أنواع البشرة."}]},9:{productId:9,details:"كريم الترطيب بحمض الهيالورونيك من سينسإيفا يرطّب البشرة بعمق ويمنحها مظهراً أكثر نعومة على الفور. يقوم حمض الهيالورونيك بحبس الرطوبة في طبقات الجلد المختلفة لضمان ترطيب طويل الأمد، بينما يقوّي البانثينول حاجز البشرة ويخفف من الجفاف. يحتوي على مستخلص التفاح (Pyrus Malus) الغني بحمض الماليك ومضادات الأكسدة الطبيعية التي تدعم تجديد البشرة وتمنحها إشراقاً وحيوية. تركيبة خفيفة تمتصها البشرة بسرعة دون أن تترك أثراً دهنياً، مثالية للعناية اليومية.",ingredients:"ماء، أيزوبروبيل مايرستات، جلسيرين، بروبيلين غليكول، كوبوليمر أكريلات الصوديوم، فينوكسي إيثانول، ليسيثين، هيالورونات الصوديوم، ليسات لاكتوباسيلوس، بانثينول، إيثيل هكسيل جلسيرين، مستخلص الأناناس، مستخلص التفاح (Pyrus Malus)، مستخلص الليمون، مستخلص فاكهة العاطفة، عطر، بنزيل الكحول، حمض البنزويك، حمض الديهيدروأسيتيك.",howToUse:"ضعي كمية مناسبة من الكريم على بشرة نظيفة وجافة صباحاً ومساءً. دلّكي بلطف بحركات دائرية حتى تمتصه البشرة بالكامل. لا حاجة للشطف.",faqs:[{question:"ما فائدة حمض الهيالورونيك؟",answer:"يزيد من قدرة البشرة على الاحتفاظ بالرطوبة ويمنحها امتلاءً ونعومة."},{question:"ما دور مستخلص التفاح؟",answer:"يدعم تجديد خلايا البشرة ويوفر حماية مضادة للأكسدة ضد العوامل البيئية."},{question:"متى يُستخدم الكريم؟",answer:"مناسب للاستخدام اليومي صباحاً ومساءً."},{question:"هل يناسب جميع أنواع البشرة؟",answer:"نعم، مناسب لجميع أنواع البشرة وخاصة الجافة أو التي تعاني من فقدان الترطيب."}]}},sT={tr:aT,en:lT,ar:oT},uT="/assets/cvit-01-sMKPjFqT.png",cT="/assets/arbutin-01-CUQh2MEu.png",dT="/assets/g%C3%B6z-01-MgA7CxiM.png",mT="/assets/night_cream-01-DGAehklA.png",fT="/assets/tonik-01-VPfM-Y2b.png",pT="/assets/peeling-01-Ba2E6ZOD.png",hT="/assets/y%C3%BCz-01-tvgA1xhs.png",yT="/assets/g%C3%BCne%C5%9F-01-cXyemcq-.png",gT="/assets/nemlendirici-01-DsrqVjID.png",kT="/assets/V%C4%B0TC%C3%9CR%C3%9CN2-BaqSzv-k.png",vT="/assets/V%C4%B0TC%C3%9CR%C3%9CN3-v0l6op-A.png",xT="/assets/V%C4%B0TC%C3%9CR%C3%9CN5-BZHPkT9y.png",bT="/assets/V%C4%B0TC%C3%9CR%C3%9CN6-CctoDrRr.png",wT="/assets/ARBUT%C4%B0N%C3%9CR%C3%9CN2-CWIEPlig.png",ST="/assets/ARBUT%C4%B0N%C3%9CR%C3%9CN3-C7vSHZSW.png",zT="/assets/ARBUT%C4%B0N%C3%9CR%C3%9CN5-B-UnTK3r.png",CT="/assets/ARBUT%C4%B0N%C3%9CR%C3%9CN6-DSBnynri.png",ET="/assets/G%C3%96Z%C3%9CR%C3%9CN2-wNOGth-d.png",NT="/assets/G%C3%96Z%C3%9CR%C3%9CN3-DOhidXHT.png",PT="/assets/G%C3%96Z%C3%9CR%C3%9CN5-DlRzJaPR.png",AT="/assets/G%C3%96Z%C3%9CR%C3%9CN6-D32p1g8l.png",jT="/assets/GECE%C3%9CR%C3%9CN2-B9zIGI7w.png",TT="/assets/GECE%C3%9CR%C3%9CN3-BwA9uwYL.png",MT="/assets/GECE%C3%9CR%C3%9CN5-9MLT9SCu.png",RT="/assets/GECE%C3%9CR%C3%9CN6-BNo1p0u0.png",DT="/assets/TON%C4%B0K%C3%9CR%C3%9CN2-DdXtmdws.png",IT="/assets/TON%C4%B0K%C3%9CR%C3%9CN3-DktV1TfF.png",LT="/assets/TON%C4%B0K%C3%9CR%C3%9CN5-hfyWUuTs.png",FT="/assets/TON%C4%B0K%C3%9CR%C3%9CN6-DCN8_5RD.png",OT="/assets/PEELING%C3%9CR%C3%9CN2-BY-c2i31.png",_T="/assets/PEELING%C3%9CR%C3%9CN3-hx66ZHv3.png",BT="/assets/PEELING%C3%9CR%C3%9CN5-CBc-MuFm.png",HT="/assets/PEELING%C3%9CR%C3%9CN6-Bfgc-iTB.png",UT="/assets/Y%C3%9CZ%C3%9CR%C3%9CN2-Cd6AwVjw.png",KT="/assets/Y%C3%9CZ%C3%9CR%C3%9CN3-BhSbeyed.png",GT="/assets/Y%C3%9CZ%C3%9CR%C3%9CN5-Du9-UnnW.png",$T="/assets/Y%C3%9CZ%C3%9CR%C3%9CN6-DhhAsaU8.png",VT="/assets/G%C3%9CNE%C5%9E%C3%9CR%C3%9CN2-CoVkK36X.png",YT="/assets/G%C3%9CNE%C5%9E%C3%9CR%C3%9CN3-CgfxseTt.png",qT="/assets/G%C3%9CNE%C5%9E%C3%9CR%C3%9CN5-BOMASQDp.png",WT="/assets/G%C3%9CNE%C5%9E%C3%9CR%C3%9CN6-DohPqaGE.png",QT="/assets/NEMLEND%C4%B0R%C4%B0C%C4%B0%C3%9CR%C3%9CN2-6Cz-yd05.png",XT="/assets/NEMLEND%C4%B0R%C4%B0C%C4%B0%C3%9CR%C3%9CN3--c7D7cUI.png",ZT="/assets/NEMLEND%C4%B0R%C4%B0C%C4%B0%C3%9CR%C3%9CN5-D818gAf_.png",JT="/assets/NEMLEND%C4%B0R%C4%B0C%C4%B0%C3%9CR%C3%9CN6-BScpYwMJ.png",xn="/assets/ZHER%C3%9CR%C3%9CN4-CksOWV6N.png",eM=()=>{var S;const{id:e}=Cm(),[t,n]=f.useState(!1),[r,i]=f.useState(!0),[a,l]=f.useState(null),s=f.useRef(null);i0();const u=nl.products.find(z=>z.id.toString()===e),m=u?{"Sinceva Brightening Vitamin C Serum 30 ml":uT,"Sinceva Anti-Spot Arbutin Serum 30 ml":cT,"Sinceva Anti-Wrinkle Eye Cream 20 ml":dT,"Sinceva Anti-Aging Night Cream 50 ml":mT,"Sinceva Skin Renewing Tonic 200 ml":fT,"Sinceva Purifying Peeling Cream Scrub 200 ml":pT,"Sinceva Purifying Face Cleansing Foam 200 ml":hT,"Sinceva SPF 50+ Daily SunCare Cream 100 ml":yT,"Sinceva Hyaluronic Acid Moisturizing Cream 50 ml":gT}[u.name]||u.image:"",p=u&&m?((z,C)=>{switch(z){case"Sinceva Brightening Vitamin C Serum 30 ml":return[kT,vT,xn,xT,bT];case"Sinceva Anti-Spot Arbutin Serum 30 ml":return[wT,ST,xn,zT,CT];case"Sinceva Anti-Wrinkle Eye Cream 20 ml":return[ET,NT,xn,PT,AT];case"Sinceva Anti-Aging Night Cream 50 ml":return[jT,TT,xn,MT,RT];case"Sinceva Skin Renewing Tonic 200 ml":return[DT,IT,xn,LT,FT];case"Sinceva Purifying Peeling Cream Scrub 200 ml":return[OT,_T,xn,BT,HT];case"Sinceva Purifying Face Cleansing Foam 200 ml":return[UT,KT,xn,GT,$T];case"Sinceva SPF 50+ Daily SunCare Cream 100 ml":return[VT,YT,xn,qT,WT];case"Sinceva Hyaluronic Acid Moisturizing Cream 50 ml":return[QT,XT,xn,ZT,JT];default:return[C]}})(u.name,m):[],k=[{id:"trendyol",name:"Trendyol",logo:"/lovable-uploads/081fc38c-4560-45a6-983f-80febd33d0e4.png",url:{"Sinceva Brightening Vitamin C Serum 30 ml":"https://www.trendyol.com/pd/sinceva/vitamin-c-serum-5-c-vitamini-aloe-vera-elma-ozlu-ton-esitleyici-aydinlatici-30ml-p-985597681?merchantId=1083214&filterOverPriceListings=false","Sinceva Anti-Spot Arbutin Serum 30 ml":"https://www.trendyol.com/pd/sinceva/arbutin-serum-2-alfa-arbutin-niasinamid-elma-ozlu-leke-karsiti-ton-esitleyici-30ml-p-985597018?merchantId=1083214&filterOverPriceListings=false","Sinceva Anti-Wrinkle Eye Cream 20 ml":"https://www.trendyol.com/pd/sinceva/goz-cevresi-kremi-proxylane-kolajen-elma-ozlu-kirisiklik-ve-morluk-karsiti-20ml-p-985597222?merchantId=1083214&filterOverPriceListings=false","Sinceva Anti-Aging Night Cream 50 ml":"https://www.trendyol.com/pd/sinceva/gece-kremi-retinol-niasinamid-elma-ozlu-ince-cizgi-kirisiklik-karsiti-50ml-p-985597313?merchantId=1083214&filterOverPriceListings=false","Sinceva Skin Renewing Tonic 200 ml":"https://www.trendyol.com/pd/sinceva/cilt-yenileyici-tonik-5-glikolik-asit-elma-ozlu-gozenek-sikilastirici-sebum-dengesi-200ml-p-985596983?merchantId=1083214&filterOverPriceListings=false","Sinceva Purifying Peeling Cream Scrub 200 ml":"https://www.trendyol.com/pd/sinceva/peeling-scrub-krem-kayisi-cekirdegi-partikullu-elma-ozlu-olu-deri-gozenek-arindirici-200ml-p-985597046?merchantId=1083214&filterOverPriceListings=false","Sinceva Purifying Face Cleansing Foam 200 ml":"https://www.trendyol.com/pd/sinceva/yuz-temizleme-kopugu-aloe-vera-elma-ozlu-nazik-temizleyici-arindirici-200ml-p-985596926?merchantId=1083214&filterOverPriceListings=false","Sinceva SPF 50+ Daily SunCare Cream 100 ml":"https://www.trendyol.com/pd/sinceva/gunes-kremi-spf-50-aloe-vera-panthenol-elma-ozlu-genis-spektrumlu-uva-uvb-koruma-100ml-p-985596960?merchantId=1083214&filterOverPriceListings=false","Sinceva Hyaluronic Acid Moisturizing Cream 50 ml":"https://www.trendyol.com/pd/sinceva/hyaluronik-asit-gunluk-nemlendirici-krem-panthenol-elma-ozlu-yogun-nem-bariyer-onarici-50ml-p-985596967?merchantId=1083214&filterOverPriceListings=false"}[(u==null?void 0:u.name)||""]||"https://www.trendyol.com"}],{language:x}=_e(),y=at[x],g=u?sT[x][u.id]:null,v=(g==null?void 0:g.faqs)||[{question:"Is this product suitable for sensitive skin?",answer:"Yes, our products are dermatologically tested and suitable for all skin types including sensitive skin."},{question:"How long until I see results?",answer:"Most customers notice improvements within 2-4 weeks of regular use. However, results may vary depending on your skin type and condition."},{question:"Can I use this product with other skincare products?",answer:"Yes, this product is designed to work well with most skincare routines. However, we recommend patch testing when combining with new products."},{question:"What is the shelf life of this product?",answer:"The product has a shelf life of 24 months when unopened, and 12 months after opening. Store in a cool, dry place away from direct sunlight."}],w=[{value:"details",title:y.productDetails,content:(g==null?void 0:g.details)||(u==null?void 0:u.description)+" This premium product is formulated with the finest ingredients to deliver exceptional results. Our advanced formula is designed to meet your specific skincare needs while being gentle on all skin types."},{value:"ingredients",title:y.ingredients,content:(g==null?void 0:g.ingredients)||"Aqua, Glycerin, Sodium Hyaluronate, Vitamin C, Niacinamide, Ceramides, Peptides, Botanical Extracts. All ingredients are carefully selected and tested for purity and effectiveness."},{value:"howto",title:y.howToUse,content:(g==null?void 0:g.howToUse)||"Apply a small amount to clean, dry skin. Gently massage in circular motions until fully absorbed. Use twice daily for best results. Always apply sunscreen during the day when using this product."},{value:"faq",title:y.faq,content:null}];return f.useEffect(()=>{const z=()=>{if(s.current){const E=s.current.getBoundingClientRect().top<=window.innerHeight;i(!E)}};return window.addEventListener("scroll",z),()=>window.removeEventListener("scroll",z)},[]),u?o.jsxs(He,{children:[o.jsx("div",{className:"w-full",children:o.jsx(In,{ratio:2/3,children:o.jsxs("div",{className:"relative w-full h-full",children:[o.jsx("img",{src:m,alt:u.name,className:"w-full h-full object-cover"}),o.jsx("div",{className:"absolute bottom-4 left-1/2 transform -translate-x-1/2 z-10",children:o.jsx(Me,{onClick:()=>n(!0),className:"py-2 text-lg font-semibold bg-[#ef2b2d] text-white hover:bg-[#ef2b2d]/90 rounded-full px-6",style:{width:"clamp(150px, 15vw, 200px)"},children:y.buy})})]})})}),o.jsxs("div",{className:"container mx-auto max-w-7xl px-4 py-8",children:[o.jsx("div",{className:"mb-8",children:o.jsx("h1",{className:"text-3xl font-bold text-[#191919] mb-4",children:((S=y.productNames)==null?void 0:S[u.id])||u.name})}),o.jsx("div",{className:"mb-8",children:o.jsxs(sl,{className:"w-full",children:[o.jsx(ul,{className:"-ml-2 md:-ml-4",children:p.map((z,C)=>o.jsx(cl,{className:"pl-2 md:pl-4 basis-3/4 md:basis-1/3",children:o.jsx("div",{className:"overflow-hidden rounded-lg cursor-pointer",onClick:()=>l(C),children:o.jsx(In,{ratio:2/3,children:o.jsx("img",{src:z,alt:`${u.name} - ${C+1}`,className:"w-full h-full object-cover hover:scale-105 transition-transform duration-200"})})})},C))}),o.jsxs("div",{className:"hidden md:block",children:[o.jsx(Bm,{className:"absolute left-4 top-1/2 -translate-y-1/2"}),o.jsx(Hm,{className:"absolute right-4 top-1/2 -translate-y-1/2"})]})]})}),o.jsx("div",{className:"mb-8",children:o.jsx(sh,{type:"single",defaultValue:"details",collapsible:!0,className:"w-full",children:w.map(z=>o.jsxs(id,{value:z.value,children:[o.jsx(ad,{className:"text-left font-semibold",children:z.title}),o.jsx(ld,{className:"text-gray-600",children:z.value==="faq"?o.jsx(sh,{type:"multiple",className:"w-full",children:v.map((C,E)=>o.jsxs(id,{value:`faq-${E}`,children:[o.jsx(ad,{className:"text-left font-medium text-sm",children:C.question}),o.jsx(ld,{className:"text-gray-600 text-sm",children:C.answer})]},E))}):z.content})]},z.value))})}),o.jsx(pe,{className:"mb-8"})]}),o.jsx(nT,{currentProductId:u.id,products:nl.products,title:y.discoverProducts}),r&&o.jsx("div",{className:"fixed bottom-4 left-4 right-4 z-40",children:o.jsx("div",{className:"container mx-auto max-w-7xl",children:o.jsx("button",{onClick:()=>n(!0),className:"w-full py-2 bg-white/20 backdrop-blur-md border border-white/30 rounded-full text-[#191919] text-lg font-semibold transition-all hover:bg-white/30",children:y.buy})})}),o.jsx(rT,{productId:u.id}),o.jsx("div",{ref:s,className:"h-1"}),o.jsx(Dx,{isOpen:t,onClose:()=>n(!1),productName:u.name,stores:k}),o.jsx(iT,{images:p,currentIndex:a,onClose:()=>l(null),onNavigate:l})]}):o.jsx(He,{children:o.jsxs("div",{className:"container mx-auto max-w-7xl px-4 py-16 text-center",children:[o.jsx("h1",{className:"text-2xl font-bold mb-4",children:y.productNotFound}),o.jsx("p",{className:"text-muted-foreground",children:y.productNotFoundDesc})]})})},tM="/assets/search_banner-yVsg1kF-.jpg",nM="/assets/search_banner_mobile-BfPejL8K.jpg",rM=()=>{const[e,t]=CN(),n=e.get("query")||"",[r,i]=f.useState(n),{searchResults:a,isLoading:l,error:s}=Px(),[u,c]=f.useState([]);f.useEffect(()=>{if(n){const d=a(n,50);c(d)}},[n,a]);const m=d=>{d.preventDefault(),r.trim()&&t({query:r.trim()})};return o.jsxs(He,{children:[o.jsx(dn,{title:"Search Results",subtitle:n?`Results for "${n}"`:"Search our products and blog posts",backgroundImage:tM,backgroundImageMobile:nM}),o.jsxs("div",{className:"container mx-auto px-4 py-4",children:[o.jsx("div",{className:"max-w-2xl mx-auto mb-6",children:o.jsxs("form",{onSubmit:m,className:"relative",children:[o.jsx(Pn,{type:"text",placeholder:"Search products and blog posts...",value:r,onChange:d=>i(d.target.value),className:"pr-12 h-12"}),o.jsx("button",{type:"submit",className:"absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors",children:o.jsx(qo,{className:"w-5 h-5"})})]})}),o.jsxs("div",{className:"max-w-4xl mx-auto",children:[n&&o.jsx("div",{className:"mb-4",children:o.jsx("h2",{className:"text-lg font-semibold text-foreground",children:l?"Searching...":`${u.length} results found for "${n}"`})}),s&&o.jsx("div",{className:"text-center py-8",children:o.jsx("p",{className:"text-muted-foreground",children:s})}),!l&&!s&&n&&u.length===0&&o.jsx("div",{className:"text-center py-8",children:o.jsxs("p",{className:"text-muted-foreground",children:['No products or blog posts found for "',n,'".']})}),!l&&!s&&u.length>0&&o.jsx("div",{className:"space-y-4",children:u.map(d=>o.jsx(te,{to:d.url,className:"block bg-card border border-border rounded-lg p-4 hover:shadow-md transition-shadow",children:o.jsxs("div",{className:"flex items-start space-x-4",children:[o.jsx("div",{className:"w-16 h-16 flex-shrink-0 bg-muted rounded-lg overflow-hidden",children:d.image?o.jsx("img",{src:d.image,alt:d.title,className:"w-full h-full object-cover",onError:p=>{const h=p.target;h.style.display="none"}}):o.jsx("div",{className:"w-full h-full bg-muted flex items-center justify-center text-muted-foreground",children:d.type==="product"?"P":"B"})}),o.jsxs("div",{className:"flex-1",children:[o.jsxs("div",{className:"flex items-center space-x-2 mb-2",children:[o.jsx("h3",{className:"text-lg font-semibold text-foreground hover:text-primary transition-colors",children:d.title}),o.jsx("span",{className:`inline-block px-2 py-1 rounded text-xs ${d.type==="product"?"bg-primary/10 text-primary":"bg-secondary/10 text-secondary-foreground"}`,children:d.type==="product"?"Product":"Blog"})]}),o.jsx("p",{className:"text-muted-foreground mb-2",children:d.description}),o.jsx("p",{className:"text-sm text-primary",children:d.url})]})]})},d.id))})]})]})]})},iM=()=>{const{language:e}=_e(),t=at[e];return o.jsxs(He,{children:[o.jsx("div",{className:"w-full h-[40vh] bg-gradient-to-r from-gray-900 to-gray-800"}),o.jsx("div",{className:"container mx-auto max-w-4xl px-4 py-16",children:o.jsxs("div",{className:"prose prose-lg max-w-none",children:[o.jsxs("section",{className:"mb-8",children:[o.jsx("h2",{className:"text-2xl font-bold mb-4",children:t.whatAreCookies}),o.jsx("p",{className:"mb-4",children:t.cookiesDefinition})]}),o.jsx(pe,{className:"my-8"}),o.jsxs("section",{className:"mb-8",children:[o.jsx("h2",{className:"text-2xl font-bold mb-4",children:t.typesOfCookies}),o.jsx("h3",{className:"text-xl font-semibold mb-3",children:t.necessaryCookies}),o.jsx("p",{className:"mb-4",children:t.necessaryText}),o.jsx("h3",{className:"text-xl font-semibold mb-3",children:t.analyticsCookies}),o.jsx("p",{className:"mb-4",children:t.analyticsText}),o.jsx("h3",{className:"text-xl font-semibold mb-3",children:t.marketingCookies}),o.jsx("p",{className:"mb-4",children:t.marketingText})]}),o.jsx(pe,{className:"my-8"}),o.jsxs("section",{className:"mb-8",children:[o.jsx("h2",{className:"text-2xl font-bold mb-4",children:t.howWeUseCookies}),o.jsx("p",{className:"mb-4",children:t.cookieUsageText}),o.jsxs("ul",{className:"list-disc list-inside mb-4",children:[o.jsx("li",{children:t.ensureFunction}),o.jsx("li",{children:t.rememberPreferences}),o.jsx("li",{children:t.analyzeTraffic}),o.jsx("li",{children:t.personalizedContent}),o.jsx("li",{children:t.improveSecurity})]})]}),o.jsx(pe,{className:"my-8"}),o.jsxs("section",{className:"mb-8",children:[o.jsx("h2",{className:"text-2xl font-bold mb-4",children:t.managingCookies}),o.jsx("p",{className:"mb-4",children:t.managingText}),o.jsx("p",{className:"mb-4",children:t.cookieBanner})]}),o.jsx(pe,{className:"my-8"}),o.jsxs("section",{className:"mb-8",children:[o.jsx("h2",{className:"text-2xl font-bold mb-4",children:t.thirdPartyCookies}),o.jsx("p",{className:"mb-4",children:t.thirdPartyText})]}),o.jsx(pe,{className:"my-8"}),o.jsxs("section",{className:"mb-8",children:[o.jsx("h2",{className:"text-2xl font-bold mb-4",children:t.contactUsPolicy}),o.jsx("p",{children:t.contactPolicyText}),o.jsxs("ul",{className:"list-disc list-inside mt-2",children:[o.jsx("li",{children:"Email: info@sinceva.com"}),o.jsx("li",{children:"Phone: +90 (545) 378 21 30"})]})]}),o.jsx("div",{className:"text-sm text-gray-600 mt-8",children:o.jsxs("p",{children:[t.lastUpdated," ",new Date().toLocaleDateString(e==="ar"?"ar-SA":e==="tr"?"tr-TR":"en-US")]})})]})})]})},aM=()=>{const{language:e}=_e(),t=at[e];return o.jsxs(He,{children:[o.jsx("div",{className:"w-full h-[40vh] bg-gradient-to-r from-gray-900 to-gray-800"}),o.jsx("div",{className:"container mx-auto max-w-4xl px-4 py-16",children:o.jsxs("div",{className:"prose prose-lg max-w-none",children:[o.jsxs("section",{className:"mb-8",children:[o.jsx("h2",{className:"text-2xl font-bold mb-4",children:t.informationWeCollect}),o.jsx("p",{className:"mb-4",children:t.informationCollectText}),o.jsxs("ul",{className:"list-disc list-inside mb-4",children:[o.jsx("li",{children:t.personalIdentifiers}),o.jsx("li",{children:t.billingAddresses}),o.jsx("li",{children:t.paymentInfo}),o.jsx("li",{children:t.purchaseHistory}),o.jsx("li",{children:t.communicationPrefs})]})]}),o.jsx(pe,{className:"my-8"}),o.jsxs("section",{className:"mb-8",children:[o.jsx("h2",{className:"text-2xl font-bold mb-4",children:t.howWeUse}),o.jsx("p",{className:"mb-4",children:t.howWeUseText}),o.jsxs("ul",{className:"list-disc list-inside mb-4",children:[o.jsx("li",{children:t.processOrders}),o.jsx("li",{children:t.provideSupport}),o.jsx("li",{children:t.sendMarketing}),o.jsx("li",{children:t.improveProducts}),o.jsx("li",{children:t.complyLegal}),o.jsx("li",{children:t.detectFraud})]})]}),o.jsx(pe,{className:"my-8"}),o.jsxs("section",{className:"mb-8",children:[o.jsx("h2",{className:"text-2xl font-bold mb-4",children:t.informationSharing}),o.jsx("p",{className:"mb-4",children:t.informationSharingText}),o.jsxs("ul",{className:"list-disc list-inside mb-4",children:[o.jsx("li",{children:t.serviceProviders}),o.jsx("li",{children:t.legalRequirements}),o.jsx("li",{children:t.businessTransfers})]})]}),o.jsx(pe,{className:"my-8"}),o.jsxs("section",{className:"mb-8",children:[o.jsx("h2",{className:"text-2xl font-bold mb-4",children:t.dataSecurity}),o.jsx("p",{className:"mb-4",children:t.dataSecurityText})]}),o.jsx(pe,{className:"my-8"}),o.jsxs("section",{className:"mb-8",children:[o.jsx("h2",{className:"text-2xl font-bold mb-4",children:t.yourRights}),o.jsx("p",{className:"mb-4",children:t.yourRightsText}),o.jsxs("ul",{className:"list-disc list-inside mb-4",children:[o.jsx("li",{children:t.accessInfo}),o.jsx("li",{children:t.correctInfo}),o.jsx("li",{children:t.deleteInfo}),o.jsx("li",{children:t.objectProcessing}),o.jsx("li",{children:t.withdrawConsent})]})]}),o.jsx(pe,{className:"my-8"}),o.jsxs("section",{className:"mb-8",children:[o.jsx("h2",{className:"text-2xl font-bold mb-4",children:t.contactUsPolicy}),o.jsx("p",{className:"mb-4",children:t.contactPolicyText}),o.jsxs("ul",{className:"list-disc list-inside",children:[o.jsx("li",{children:"Email: info@sinceva.com"}),o.jsx("li",{children:"Phone: +90 (545) 378 21 30"})]})]}),o.jsx("div",{className:"text-sm text-gray-600 mt-8",children:o.jsxs("p",{children:[t.lastUpdated," ",new Date().toLocaleDateString(e==="ar"?"ar-SA":e==="tr"?"tr-TR":"en-US")]})})]})})]})},lM=()=>{const{language:e}=_e(),t=at[e];return o.jsxs(He,{children:[o.jsx("div",{className:"w-full h-[40vh] bg-gradient-to-r from-gray-900 to-gray-800"}),o.jsx("div",{className:"container mx-auto max-w-4xl px-4 py-16",children:o.jsxs("div",{className:"prose prose-lg max-w-none",children:[o.jsxs("section",{className:"mb-8",children:[o.jsx("h2",{className:"text-2xl font-bold mb-4",children:t.acceptanceOfTerms}),o.jsx("p",{className:"mb-4",children:t.acceptanceText})]}),o.jsx(pe,{className:"my-8"}),o.jsxs("section",{className:"mb-8",children:[o.jsx("h2",{className:"text-2xl font-bold mb-4",children:t.useLicense}),o.jsx("p",{className:"mb-4",children:t.useLicenseText}),o.jsxs("ul",{className:"list-disc list-inside mb-4",children:[o.jsx("li",{children:t.modifyMaterials}),o.jsx("li",{children:t.commercialUse}),o.jsx("li",{children:t.reverseEngineer}),o.jsx("li",{children:t.removeCopyright})]})]}),o.jsx(pe,{className:"my-8"}),o.jsxs("section",{className:"mb-8",children:[o.jsx("h2",{className:"text-2xl font-bold mb-4",children:t.productInformation}),o.jsx("p",{className:"mb-4",children:t.productInfoText})]}),o.jsx(pe,{className:"my-8"}),o.jsxs("section",{className:"mb-8",children:[o.jsx("h2",{className:"text-2xl font-bold mb-4",children:t.ordersPayment}),o.jsx("p",{className:"mb-4",children:t.ordersPaymentText}),o.jsxs("ul",{className:"list-disc list-inside mb-4",children:[o.jsx("li",{children:t.ordersSubject}),o.jsx("li",{children:t.reserveRight}),o.jsx("li",{children:t.paymentRequired}),o.jsx("li",{children:t.pricesSubject})]})]}),o.jsx(pe,{className:"my-8"}),o.jsxs("section",{className:"mb-8",children:[o.jsx("h2",{className:"text-2xl font-bold mb-4",children:t.returnsRefunds}),o.jsx("p",{className:"mb-4",children:t.returnsText})]}),o.jsx(pe,{className:"my-8"}),o.jsxs("section",{className:"mb-8",children:[o.jsx("h2",{className:"text-2xl font-bold mb-4",children:t.limitationLiability}),o.jsx("p",{className:"mb-4",children:t.limitationText})]}),o.jsx(pe,{className:"my-8"}),o.jsxs("section",{className:"mb-8",children:[o.jsx("h2",{className:"text-2xl font-bold mb-4",children:t.governingLaw}),o.jsx("p",{className:"mb-4",children:t.governingText})]}),o.jsx("div",{className:"text-sm text-gray-600 mt-8",children:o.jsxs("p",{children:[t.lastUpdated," ",new Date().toLocaleDateString(e==="ar"?"ar-SA":e==="tr"?"tr-TR":"en-US")]})})]})})]})},oM=()=>{const{language:e}=_e(),t=at[e];return o.jsxs(He,{children:[o.jsx("div",{className:"w-full h-[40vh] bg-gradient-to-r from-gray-900 to-gray-800"}),o.jsx("div",{className:"container mx-auto max-w-4xl px-4 py-16",children:o.jsxs("div",{className:"prose prose-lg max-w-none",children:[o.jsxs("section",{className:"mb-8",children:[o.jsx("h2",{className:"text-2xl font-bold mb-4",children:t.reviewGuidelines}),o.jsx("p",{className:"mb-4",children:t.reviewGuidelinesText})]}),o.jsx(pe,{className:"my-8"}),o.jsxs("section",{className:"mb-8",children:[o.jsx("h2",{className:"text-2xl font-bold mb-4",children:t.acceptableContent}),o.jsx("p",{className:"mb-4",children:t.reviewsShouldText}),o.jsxs("ul",{className:"list-disc list-inside mb-4",children:[o.jsx("li",{children:t.basedOnExperience}),o.jsx("li",{children:t.honestFeedback}),o.jsx("li",{children:t.focusQuality}),o.jsx("li",{children:t.includeDetails}),o.jsx("li",{children:t.respectfulLanguage}),o.jsx("li",{children:t.relevantProduct})]})]}),o.jsx(pe,{className:"my-8"}),o.jsxs("section",{className:"mb-8",children:[o.jsx("h2",{className:"text-2xl font-bold mb-4",children:t.prohibitedContent}),o.jsx("p",{className:"mb-4",children:t.reviewsMustNot}),o.jsxs("ul",{className:"list-disc list-inside mb-4",children:[o.jsx("li",{children:t.offensiveLanguage}),o.jsx("li",{children:t.personalInfo}),o.jsx("li",{children:t.spamContent}),o.jsx("li",{children:t.falseInfo}),o.jsx("li",{children:t.violateIP}),o.jsx("li",{children:t.notPurchased}),o.jsx("li",{children:t.defamatoryStatements})]})]}),o.jsx(pe,{className:"my-8"}),o.jsxs("section",{className:"mb-8",children:[o.jsx("h2",{className:"text-2xl font-bold mb-4",children:t.reviewVerification}),o.jsx("p",{className:"mb-4",children:t.verificationText})]}),o.jsx(pe,{className:"my-8"}),o.jsxs("section",{className:"mb-8",children:[o.jsx("h2",{className:"text-2xl font-bold mb-4",children:t.moderationProcess}),o.jsx("p",{className:"mb-4",children:t.moderationText}),o.jsxs("ul",{className:"list-disc list-inside mb-4",children:[o.jsx("li",{children:t.reviewApprove}),o.jsx("li",{children:t.editRemove}),o.jsx("li",{children:t.rejectReviews}),o.jsx("li",{children:t.removeReported})]})]}),o.jsx(pe,{className:"my-8"}),o.jsxs("section",{className:"mb-8",children:[o.jsx("h2",{className:"text-2xl font-bold mb-4",children:t.incentivizedReviews}),o.jsx("p",{className:"mb-4",children:t.incentivizedText})]}),o.jsx(pe,{className:"my-8"}),o.jsxs("section",{className:"mb-8",children:[o.jsx("h2",{className:"text-2xl font-bold mb-4",children:t.reportingReviews}),o.jsx("p",{className:"mb-4",children:t.reportingText})]}),o.jsx(pe,{className:"my-8"}),o.jsxs("section",{className:"mb-8",children:[o.jsx("h2",{className:"text-2xl font-bold mb-4",children:t.reviewerRights}),o.jsx("p",{className:"mb-4",children:t.reviewerRightsText})]}),o.jsx(pe,{className:"my-8"}),o.jsxs("section",{className:"mb-8",children:[o.jsx("h2",{className:"text-2xl font-bold mb-4",children:t.contactUsPolicy}),o.jsx("p",{children:t.contactPolicyText}),o.jsxs("ul",{className:"list-disc list-inside mt-2",children:[o.jsx("li",{children:"Email: info@sinceva.com"}),o.jsx("li",{children:"Phone: +90 (545) 378 21 30"})]})]}),o.jsx("div",{className:"text-sm text-gray-600 mt-8",children:o.jsxs("p",{children:[t.lastUpdated," ",new Date().toLocaleDateString(e==="ar"?"ar-SA":e==="tr"?"tr-TR":"en-US")]})})]})})]})};console.log("App component loading...");const sM=new bE,uM=()=>(console.log("App component rendering..."),o.jsx(SE,{client:sM,children:o.jsxs(XC,{children:[o.jsx(RS,{}),o.jsx(dz,{}),o.jsxs(bN,{children:[o.jsx(EN,{}),o.jsxs(fN,{children:[o.jsx(Ye,{path:"/",element:o.jsx(gj,{})}),o.jsx(Ye,{path:"/blog",element:o.jsx(Sj,{})}),o.jsx(Ye,{path:"/blog/:id",element:o.jsx(zj,{})}),o.jsx(Ye,{path:"/about",element:o.jsx(Nj,{})}),o.jsx(Ye,{path:"/contact",element:o.jsx(jj,{})}),o.jsx(Ye,{path:"/shop",element:o.jsx(Rj,{})}),o.jsx(Ye,{path:"/search",element:o.jsx(rM,{})}),o.jsx(Ye,{path:"/category/:category",element:o.jsx(oh,{})}),o.jsx(Ye,{path:"/category/:category/:subcategory",element:o.jsx(oh,{})}),o.jsx(Ye,{path:"/product/:id",element:o.jsx(eM,{})}),o.jsx(Ye,{path:"/cookie-policy",element:o.jsx(iM,{})}),o.jsx(Ye,{path:"/privacy",element:o.jsx(aM,{})}),o.jsx(Ye,{path:"/terms",element:o.jsx(lM,{})}),o.jsx(Ye,{path:"/consumer-ratings",element:o.jsx(oM,{})}),o.jsx(Ye,{path:"*",element:o.jsx(kj,{})})]})]})]})}));console.log("Main.tsx loading...");const a0=document.getElementById("root");if(!a0)throw new Error("Root element not found");console.log("Root element found, rendering App...");Rg(a0).render(o.jsx(VN,{children:o.jsx(uM,{})}));
