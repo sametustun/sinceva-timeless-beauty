@@ -242,7 +242,7 @@ export const translations = {
     // Homepage
     homepage: {
       categoriesTitle: 'Explore Our Categories',
-      categoriesSubtitle: 'Curated collections designed to address your unique skincare needs with precision and care.',
+      categoriesSubtitle: 'Discover Sinceva\'s carefully curated collections, sensitively prepared for your skin\'s needs.',
       exploreCollection: 'Explore Collection',
       allProductsTitle: 'All Our Products',
       allProductsSubtitle: 'Discover our complete collection of premium skincare solutions, expertly crafted for every skin type and concern.',
@@ -492,7 +492,7 @@ export const translations = {
     // Homepage
     homepage: {
       categoriesTitle: 'Kategorilerimizi Keşfedin',
-      categoriesSubtitle: 'Benzersiz cilt bakım ihtiyaçlarınıza hassasiyetle ve özenle hitap etmek için hazırlanmış küratörlü koleksiyonlar.',
+      categoriesSubtitle: 'Cildinizin ihtiyaçlarına duyarlılıkla hazırlanmış, özenle seçilmiş Sinceva koleksiyonlarını keşfedin.',
       exploreCollection: 'Koleksiyonu Keşfet',
       allProductsTitle: 'Tüm Ürünlerimiz',
       allProductsSubtitle: 'Her cilt tipi ve endişe için özenle hazırlanmış, eksiksiz premium cilt bakım çözümleri koleksiyonumuzu keşfedin.',
@@ -742,7 +742,7 @@ export const translations = {
     // Homepage
     homepage: {
       categoriesTitle: 'استكشف فئاتنا',
-      categoriesSubtitle: 'مجموعات منسقة مصممة لتلبية احتياجات العناية بالبشرة الفريدة الخاصة بك بدقة وعناية.',
+      categoriesSubtitle: 'اكتشف مجموعات سينسيفا المختارة بعناية والمُعدة بحساسية لاحتياجات بشرتك.',
       exploreCollection: 'استكشف المجموعة',
       allProductsTitle: 'جميع منتجاتنا',
       allProductsSubtitle: 'اكتشف مجموعتنا الكاملة من حلول العناية بالبشرة الفاخرة، المصنوعة بخبرة لكل نوع بشرة واهتمام.',
