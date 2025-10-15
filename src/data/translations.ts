@@ -11,7 +11,7 @@ export const translations = {
     productNotFoundDesc: 'The requested product could not be found.',
     
     // Header & Navigation
-    home: 'Home',
+    home: 'ANCIENT SHINE',
     shop: 'Shop',
     about: 'About',
     blogNav: 'Blog',
@@ -283,7 +283,7 @@ export const translations = {
     productNotFoundDesc: 'İstenen ürün bulunamadı.',
     
     // Header & Navigation
-    home: 'Ana Sayfa',
+    home: 'KADİM IŞILTI',
     shop: 'Mağaza',
     about: 'Hakkımızda',
     blogNav: 'Blog',
@@ -555,7 +555,7 @@ export const translations = {
     productNotFoundDesc: 'المنتج المطلوب غير موجود.',
     
     // Header & Navigation
-    home: 'الرئيسية',
+    home: 'البريق القديم',
     shop: 'المتجر',
     about: 'من نحن',
     blogNav: 'المدونة',
