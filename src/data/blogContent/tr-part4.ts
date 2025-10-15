@@ -857,11 +857,802 @@ Gül suyunu cilt bakım rutininize ekleyin ve bu antik güzellik sırrının mod
   'acne-prone-skin-care': {
     title: 'Akne Eğilimli Cilt Bakımı: Kapsamlı Tedavi ve Önleme Rehberi',
     excerpt: 'Akne eğilimli ciltler için bilimsel temelli özel bakım önerileri ve etkili çözümler.',
-    content: `Akne eğilimli ciltler için salisilik asit ve niasinamid içeren ürünler kullanın. Yağsız, non-comedogenic nemlendiriciler tercih edin. Günde 2 kez nazik temizlik yapın, gözenekleri tıkayan ürünlerden kaçının. Düzenli exfoliation, SPF kullanımı ve hijyenik uygulamalar önemlidir. Beslenme ve stres yönetimi de aknede etkilidir. Ciddi vakalarda dermatologa başvurun.`
+    content: `
+## Akne Nedir ve Neden Oluşur?
+
+Akne, dünyada en yaygın görülen cilt rahatsızlığıdır ve neredeyse herkes yaşamının bir döneminde akneyle karşılaşır. Akne sadece ergenlik problemi değildir; yetişkinler arasında da oldukça yaygındır, özellikle kadınlarda hormonsal değişimler nedeniyle.
+
+### Akne Oluşum Mekanizması
+
+Akne, dört temel faktörün birleşimiyle oluşur:
+
+1. **Aşırı Sebum (Yağ) Üretimi**: Sebum bezleri normalden fazla yağ üretir
+2. **Gözenek Tıkanması**: Ölü deri hücreleri ve sebum gözenekleri tıkar
+3. **Bakteriyel Kolonizasyon**: C. acnes (Cutibacterium acnes) bakterisi çoğalır
+4. **İnflamasyon**: Bağışıklık sistemi tepki verir, kızarıklık ve şişlik oluşur
+
+### Akne Türleri
+
+**Non-İnflamatuar Akne:**
+- **Blackheads (Siyah Noktalar)**: Açık komedolar, oksitlenmiş sebum
+- **Whiteheads (Beyaz Noktalar)**: Kapalı komedolar, cildin altında
+
+**İnflamatuar Akne:**
+- **Papüller**: Küçük, kırmızı, hassas kabarıklıklar
+- **Püstüller**: Püs dolu, beyaz başlı sivilceler
+- **Nodüller**: Derin, sert, ağrılı şişlikler
+- **Kistler**: Derin, püs dolu, iz bırakma riski yüksek
+
+### Akneyi Tetikleyen Faktörler
+
+**Hormonal:**
+- Ergenlik, adet dönemi, hamilelik
+- PCOS (Polikistik Over Sendromu)
+- Androgen hormonlarındaki artış
+
+**Yaşam Tarzı:**
+- Stres (kortizol hormonu)
+- Uyku eksikliği
+- Yüksek glisemik indeksli diyet
+- Süt ürünleri (bazı kişilerde)
+
+**Dış Faktörler:**
+- Komedojenik kozmetikler
+- Aşırı temizlik (paradoksal etki)
+- Kirli telefon, yastık kılıfı
+- Yüze dokunma alışkanlığı
+
+**İlaçlar:**
+- Kortikosteroidler
+- Androjenler
+- Lityum
+
+## Akne Eğilimli Cilt Bakım Rutini
+
+### Sabah Rutini
+
+**1. Nazik Temizlik**
+- **Ürün Tipi**: Salisilik asit (BHA) içeren jel temizleyici
+- **pH**: 4.5-5.5 (cildin doğal pH'ı)
+- **Yöntem**: 
+  - Ilık suyla yüzü ıslatın
+  - Nazikçe dairesel hareketlerle uygulayın (30 saniye)
+  - Bol suyla durulayın
+  - Yumuşak havluyla hafifçe kurulayın (ovmayın)
+
+**Önerilen Bileşenler:**
+- Salisilik asit %0.5-2%
+- Tea tree oil
+- Niasinamid
+- Aloe vera
+
+**2. Tonik (Opsiyonel)**
+- **İçerik**: Alkol içermeyen, gözenek temizleyici
+- **Aktifler**: Witch hazel, niasinamid, salisilik asit
+- **Uygulama**: Pamuk ped veya avuç içi ile
+
+**3. Treatment Serum**
+- **Niasinamid Serum %5-10%**:
+  - Sebum üretimini dengeler
+  - İltihabı azaltır
+  - Gözenek görünümünü küçültür
+  - Akne izlerini soldurmaya yardımcı olur
+
+**4. Nemlendirici**
+- **Özellikler**: Yağsız (oil-free), non-comedogenic
+- **İçerik**: 
+  - Hyaluronik asit (nem)
+  - Seramidler (bariyer onarımı)
+  - Niasinamid (ek fayda)
+- **Doku**: Hafif jel veya losyon
+
+**ÖNEMLİ**: Akne eğilimli cilt bile nemlendirmeye ihtiyaç duyar!
+
+**5. Güneş Kremi (MUTLAKA!)**
+- **SPF**: Minimum 30, tercihen 50
+- **Tip**: Kimyasal veya mineral (non-comedogenic)
+- **Doku**: Yağsız, mat bitişli
+- **Neden Önemli**: 
+  - Akne tedavi ürünleri cildi hassaslaştırır
+  - UV hasar akne izlerini koyulaştırır
+  - Post-inflamatuar hiperpigmentasyon önler
+
+### Akşam Rutini
+
+**1. Çift Temizleme**
+
+*Adım 1: Yağ Bazlı Temizleyici*
+- Güneş kremi, makyaj, sebumu çözer
+- Micellar su veya cleansing balm
+- Kuru cilde masaj yapın
+- Ilık suyla emülsifiye edin
+
+*Adım 2: Su Bazlı Temizleyici*
+- Salisilik asit içeren jel
+- Kalan kirleri temizler
+- İkinci yıkama derinden temizler
+
+**2. Exfoliating Tonik (Haftada 3-4 kez)**
+- **BHA (Salisilik Asit) %2**: Gözenek temizliği
+- **AHA (Glikolik/Laktik Asit) %5-10%**: Yüzey exfoliation
+- **Uygulama**: Temiz cilde pamuk ped ile
+- **Bekleme**: 5-10 dakika (pH'ın etkili olması için)
+
+**3. Treatment Serum/Krem**
+
+**Seçenek 1: Retinoid (En Etkili)**
+- **Retinol veya Adapalene**: Hücre döngüsünü hızlandırır
+- **Başlangıç**: Haftada 2 kez, %0.25-0.5
+- **Tolerans Sonrası**: Her gece, %1
+- **Uygulama**: Kuru cilde, bezelye tanesi kadar
+- **Dikkat**: Hamilelikte kullanılmaz
+
+**Seçenek 2: Benzoyl Peroxide (BP)**
+- **Konsantrasyon**: %2.5-5% (yüksek konsantrasyon daha iyi değil!)
+- **Etki**: Antibakteriyel, akne bakterilerini öldürür
+- **Uygulama**: Sadece problematik bölgelere (spot treatment)
+- **Dikkat**: Kurutur, renk açabilir (giysi, saç)
+
+**Seçenek 3: Azelaic Asit %10-20%**
+- Antibakteriyel + anti-inflamatuar
+- Akne izlerini soldurmada etkili
+- Hassas ciltler için retinoid alternatifi
+
+**4. Göz Kremi**
+- Non-comedogenic
+- Caffeine içerikli (şişkinlik giderici)
+
+**5. Nemlendirici**
+- Sabahki ile aynı veya daha zengin
+- Gel veya hafif losyon
+
+**6. Spot Treatment (İhtiyaç Halinde)**
+- BP %5 veya
+- Salisilik asit %2 veya
+- Tea tree oil
+- Sadece akne üzerine uygulayın
+
+### Haftalık Bakım
+
+**Hafta İçi 1-2 Kez:**
+
+**1. Deep Cleansing Maske**
+- **Kil Maskesi**: Sebum emer, gözenekleri temizler
+  - Kaolin (nazik)
+  - Bentonit (güçlü)
+  - Salisilik asit içerikli
+- **Uygulama**: 10-15 dakika, tamamen kurumadan alın
+- **Sonra**: Bol nemlendirme
+
+**2. Exfoliation**
+- Kimyasal exfoliants tercih edin (fiziksel scrub yerine)
+- AHA/BHA peeling maske
+- Haftada 1-2 kezden fazla değil
+
+## Akne Tedavisinde Aktif Bileşenler
+
+### Salisilik Asit (BHA) - Çok Önemli!
+
+**Nasıl Çalışır:**
+- Yağda çözünür, gözeneklere nüfuz eder
+- Gözenek içindeki debris'i temizler
+- Anti-inflamatuar etki
+- Komedoları önler
+
+**Kullanım:**
+- Konsantrasyon: %0.5-2%
+- Ürün Tipi: Temizleyici, tonik, serum, spot treatment
+- Sıklık: Günlük (toleransa göre)
+
+### Benzoyl Peroxide (BP)
+
+**Nasıl Çalışır:**
+- C. acnes bakterisini öldürür
+- Oksijen salar, bakteriler oksijensiz ortamı sever
+- Antibiyotik direnci yaratmaz
+
+**Kullanım:**
+- Konsantrasyon: %2.5-5% (düşük = etkili + az tahriş)
+- Ürün Tipi: Temizleyici, jel, krem
+- Kombine: BP sabah, retinoid akşam (aynı anda değil)
+
+**Dikkat:**
+- Kurutur, tahriş edebilir
+- Kumaşları ağartır
+- Güneş hassasiyeti artırır (SPF!)
+
+### Retinoidler (En Güçlü Silah)
+
+**Nasıl Çalışır:**
+- Hücre yenilenmesini hızlandırır
+- Gözenekleri açık tutar
+- Kolajen üretimini artırır (anti-aging bonus)
+- İltihabı azaltır
+
+**Türleri:**
+- **OTC**: Retinol, retinaldehyde
+- **Reçeteli**: Tretinoin, adapalene, tazarotene
+
+**Kullanım:**
+- Başlangıç: Haftada 2-3 kez, düşük konsantrasyon
+- Yavaş yavaş artırın (retinization süreci)
+- Sadece akşam (ışığa hassas)
+- "Purging" normal (2-6 hafta)
+
+**Retinoid Sandwiç Tekniği** (tahriş azaltma):
+1. Nemlendirici
+2. Retinoid
+3. Nemlendirici
+
+### Niasinamid (Vitamin B3)
+
+**Nasıl Çalışır:**
+- Sebum üretimini dengeler
+- Anti-inflamatuar
+- Gözenek görünümünü azaltır
+- Akne izlerini soldurmaya yardımcı
+
+**Kullanım:**
+- Konsantrasyon: %5-10%
+- Her gün, sabah ve/veya akşam
+- Çoğu aktifle uyumlu
+
+### Azelaic Asit
+
+**Nasıl Çalışır:**
+- Antibakteriyel
+- Tyrosinase inhibitörü (aydınlatıcı)
+- Anti-inflamatuar
+- Komedolitik
+
+**Kullanım:**
+- Konsantrasyon: %10-20%
+- Günde 1-2 kez
+- Hassas ciltler için retinoid alternatifi
+- Hamilelikte güvenli
+
+### Alpha Hydroxy Asitler (AHA)
+
+**Glikolik ve Laktik Asit:**
+- Yüzey exfoliation
+- Ölü hücreleri alır
+- Akne izlerini soldurmaya yardımcı
+- Parlak cilt
+
+**Kullanım:**
+- Konsantrasyon: %5-10%
+- Haftada 2-3 kez
+- Güneş hassasiyeti (SPF!)
+
+## Yapılması ve Yapılmaması Gerekenler
+
+### ✅ Mutlaka Yapın
+
+1. **Her Gün SPF Kullanın**
+   - Akne tedavi ürünleri cildi hassaslaştırır
+   - UV akne izlerini koyulaştırır
+
+2. **Nemlendirin**
+   - Yağlı cilt bile neme ihtiyaç duyar
+   - Sebum ≠ Nem
+
+3. **Sabırlı Olun**
+   - Ürünler 6-12 hafta sonuç verir
+   - "Purging" ilk 2-6 hafta normal
+
+4. **Yastık Kılıfını Değiştirin**
+   - Haftada 2-3 kez
+   - Pamuklu veya ipek tercih edin
+
+5. **Telefonu Temizleyin**
+   - Günlük alkol bazlı mendille silin
+   - Yüze temas bakterileri
+
+6. **Non-Comedogenic Ürünler**
+   - Tüm kozmetikler ve güneş kremlerinde
+   - "Oil-free" etiketi arayın
+
+7. **Düzenli Olun**
+   - Tutarlılık başarının anahtarı
+   - Atlama yapmayın
+
+8. **Patch Test Yapın**
+   - Yeni ürünleri kulak arkasında test edin
+   - 24 saat bekleyin
+
+### ❌ Kesinlikle Yapmayın
+
+1. **Yüzünüze Dokunmayın**
+   - Eller bakteriyle dolu
+   - Sivilceleri sıkmayın (iz bırakır)
+
+2. **Aşırı Temizlik**
+   - Günde 2 kezden fazla yıkamayın
+   - Sebum üretimini artırır (paradoksal)
+
+3. **Fiziksel Scrub**
+   - Tahriş eder, mikro-yırtıklar açar
+   - Kimyasal exfoliants daha nazik ve etkili
+
+4. **Çok Fazla Aktif Aynı Anda**
+   - Tahriş ve hassasiyet riski
+   - Yavaş başlayın, tek tek ekleyin
+
+5. **Alkol Bazlı Ürünler**
+   - Cildi kurutur
+   - Sebum üretimini artırır
+   - İnflamasyonu kötüleştirir
+
+6. **Hamilelikte Retinoid**
+   - Teratojen (bebek gelişimine zararlı)
+   - Salisilik asit de dikkatli
+
+7. **Güneşe Çıkmak (Korumasız)**
+   - Akne tedavi ürünleri fotosensitizasyon yapar
+   - Akne izleri koyulaşır
+
+8. **Hızlı Ürün Değişimi**
+   - Bir ürüne 6-12 hafta şans verin
+   - Sürekli değişim cildi strese sokar
+
+## Yaşam Tarzı ve Beslenme
+
+### Beslenme
+
+**Akneyi Kötüleştirebilecek Gıdalar:**
+- **Yüksek Glisemik İndeks**: Beyaz ekmek, şeker, işlenmiş gıdalar
+  - İnsülin artışı → Androjen artışı → Sebum artışı
+- **Süt Ürünleri**: Bazı kişilerde (özellikle yağsız süt)
+  - Hormonlar ve büyüme faktörleri
+- **Whey Protein**: İnsulin spike'ı
+
+**Akneye Yardımcı Gıdalar:**
+- **Omega-3**: Somon, ceviz, keten tohumu (anti-inflamatuar)
+- **Çinko**: Kabak çekirdeği, nohut (sebum kontrolü)
+- **Probiyotikler**: Yoğurt, kefir, kimchi (gut-skin axis)
+- **Antioksidanlar**: Renkli sebze-meyveler
+- **Düşük Glisemik**: Tam tahıllar, baklagiller
+
+**Hidrasyon:**
+- Günde 2-3 litre su
+- Yeşil çay (antioksidan + anti-inflamatuar)
+
+### Stres Yönetimi
+
+Stres → Kortizol ↑ → Sebum ↑ → Akne ↑
+
+**Stresi Azaltma:**
+- Düzenli egzersiz (ter attıktan sonra yüzünüzü yıkayın!)
+- Meditasyon, yoga
+- Yeterli uyku (7-9 saat)
+- Hobi ve sosyal aktiviteler
+
+### Hijyen
+
+**Yüz:**
+- Temiz ellerle dokunun
+- Günde 2 kez yıkayın
+- Ter attıktan sonra yıkayın
+
+**Saç:**
+- Yağlı saçlar akneyi tetikleyebilir
+- Saçı yüzünüzden uzak tutun
+- Şampuan/kondisyoner yüze gelmemeli
+
+**Çevre:**
+- Yastık kılıfı: Haftada 2-3 kez
+- Telefon: Günlük temizlik
+- Makyaj fırçaları: Haftada 1 kez yıkayın
+
+## Profesyonel Tedaviler
+
+### Dermatologa Ne Zaman Gidilmeli?
+
+**Hemen:**
+- Kistik akne (derin, ağrılı)
+- Nodüler akne
+- İz oluşumu başlamış
+- OTC ürünler 3 ay sonuç vermedi
+- Emosyonel etki (özgüven kaybı)
+
+### Reçeteli Tedaviler
+
+**Topikal:**
+- **Tretinoin**: Güçlü retinoid
+- **Adapalene**: Daha nazik retinoid
+- **Klindamisin**: Antibiyotik jel
+- **Dapsone**: Anti-inflamatuar jel
+
+**Oral:**
+- **İzotretinoin (Accutane)**: Şiddetli akne için, çok etkili ama yan etkileri var
+- **Antibiyotikler**: Doksisiklin, minosiklin (kısa süreli)
+- **Spironolakton**: Hormonsal akne (kadınlarda)
+- **Doğum Kontrol Hapı**: Hormonları dengeler (kadınlarda)
+
+### İn-Office Prosedürler
+
+- **Kimyasal Peeling**: Derin exfoliation
+- **Extraction**: Profesyonel komedolar alımı
+- **LED Işık Tedavisi**: Anti-inflamatuar
+- **Mikrodermabrazyon**: Yüzey yenileme
+- **Lazer Tedavi**: İz tedavisi
+
+## Akne İzleri ve Hiperpigmentasyon
+
+### Post-İnflamatuar Hiperpigmentasyon (PIH)
+
+**Önleme:**
+- Sivilceleri sıkmayın
+- Güneş kremi kullanın
+- İltihabı hızlı kontrol edin
+
+**Tedavi:**
+- **Aydınlatıcılar**: C vitamini, niasinamid, azelaic asit, kojic asit
+- **Exfoliants**: AHA, retinoid (hücre yenileme)
+- **Güneş Kremi**: SPF 50+ (koyulaşmayı önler)
+- **Profesyonel**: Kimyasal peeling, lazer
+
+### Akne İzleri (Atrofik Skar)
+
+**Tipler:**
+- **Ice Pick**: Dar, derin
+- **Boxcar**: Geniş, keskin kenarlı
+- **Rolling**: Dalgalı görünüm
+
+**Tedavi:**
+- **Dermatoloji Prosedürleri**: Microneedling, TCA CROSS, subcision, lazer
+- **Topikal**: Retinoid (hafif iyileşme)
+
+**Önemli**: İz tedavisi uzun süreç, profesyonel yardım gerekir.
+
+## Sonuç ve Önemli Hatırlatmalar
+
+Akne eğilimli cilt bakımı bir maraton, sprint değil. Sabırlı, tutarlı ve bilimsel temelli bir yaklaşım başarının anahtarıdır.
+
+**Temel İlkeler:**
+🔹 **Nazik Temizlik**: Aşırı temizlik düşmanınızdır
+🔹 **Aktif Bileşenler**: BHA, retinoid, BP, niasinamid
+🔹 **Nemlendirme**: Yağlı cilt bile neme ihtiyaç duyar
+🔹 **SPF Her Gün**: Akne tedavisinin vazgeçilmez parçası
+🔹 **Sabır**: 6-12 hafta beklemeye hazır olun
+🔹 **Profesyonel Yardım**: Şiddetli akne dermatologa
+
+**Beklentiler:**
+- İyileşme 6-12 hafta sürer
+- "Purging" ilk 4-6 hafta normal (özellikle retinoid)
+- %100 akne-free olmak gerçekçi olmayabilir
+- Amaç: Kontrol altında tutmak, iz bırakmadan iyileştirmek
+
+Akne ile mücadele zor olabilir, ama doğru yaklaşımla kesinlikle yönetilebilir. Cildinize sabırlı olun, tutarlı kalın ve gerektiğinde profesyonel yardım almaktan çekinmeyin!`
   },
   'double-cleansing-method': {
     title: 'Çift Temizleme Yöntemi: Derin Temizlik İçin Altın Standart',
     excerpt: 'Çift temizleme yöntemi nedir, nasıl uygulanır ve cildinize sağladığı faydalar.',
-    content: `Çift temizleme iki adımlı bir yöntemdir: İlk adımda yağ bazlı temizleyiciyle makyaj, güneş kremi ve sebumu çözün. İkinci adımda su bazlı temizleyiciyle kalan kir ve ürünleri temizleyin. Bu yöntem gözenekleri derinlemesine temizler, akne oluşumunu azaltır, ürün emilimini artırır. Akşam rutini için idealdir. Her cilt tipi için uygun temizleyici seçimi önemlidir.`
+    content: `
+## Çift Temizleme Nedir?
+
+Çift temizleme (double cleansing), adından da anlaşılacağı üzere, yüzünüzü iki farklı temizleyici ile iki aşamada temizleme yöntemidir. Kore cilt bakım rutinlerinin (K-Beauty) temel taşlarından biri olan bu yöntem, son yıllarda tüm dünyada popülerlik kazanmıştır.
+
+**İki Temel Adım:**
+1. **Birinci Adım - Yağ Bazlı Temizleyici**: Makyaj, güneş kremi, sebum ve yağda çözünen kirleri çözer
+2. **İkinci Adım - Su Bazlı Temizleyici**: Ter, kir, ölü deri hücreleri ve suda çözünen kirleri temizler
+
+### Neden Çift Temizleme?
+
+Modern yaşamda cildiniz sadece doğal sebum ve terle değil, aynı zamanda makyaj, güneş kremi, hava kirliliği ve ince tozlarla karşı karşıyadır. Tek bir temizleyici tüm bu katmanları etkili şekilde temizleyemez.
+
+**"Benzer benzer çözer" prensibi:**
+- Yağ bazlı kirler (makyaj, güneş kremi) → Yağ bazlı temizleyici
+- Su bazlı kirler (ter, toz) → Su bazlı temizleyici
+
+## Çift Temizlemenin Faydaları
+
+### 1. Derinlemesine Temizlik
+
+- **Gözenekleri Açar**: Yağ bazlı temizleyici gözenek içindeki sebum ve debris'i çözer
+- **İkili Koruma**: İki farklı temizleyici maksimum temizlik sağlar
+- **Katmanlı Kir Giderme**: Her katman kiri hedef alır
+
+### 2. Akne ve Siyah Nokta Önleme
+
+- Gözeneklerdeki tıkanıkları önler
+- Sebum birikimini azaltır
+- Komedolar (siyah/beyaz noktalar) oluşumunu engeller
+- Düzenli kullanımda gözenek boyutu küçülür
+
+### 3. Ürün Emilimini Artırır
+
+Temiz cilt = Etkili ürün emilimi
+- Serum, nemlendirici ve treatment ürünleri daha iyi nüfuz eder
+- Aktif bileşenlerin etkinliği %30-40 artar
+- Cilt bakım yatırımınızdan maksimum fayda
+
+### 4. Cilt Bariyerini Korur
+
+Tek seferde sert temizleyici kullanmak yerine:
+- İki nazik temizleyici bariyer sağlığını korur
+- pH dengesini bozmaz
+- Doğal yağ dengesini korur
+
+### 5. Parlak ve Pürüzsüz Cilt
+
+- Ölü deri hücrelerini etkili şekilde alır
+- Cildin doğal parlaklığını ortaya çıkarır
+- Doku düzensizliklerini azaltır
+- Makyaj daha pürüzsüz durur
+
+### 6. Erken Yaşlanma Önleme
+
+- Günlük kir ve toksinleri temizler
+- Serbest radikal hasarını azaltır
+- Gözeneklerdeki oksitlenmiş sebum yaşlanmayı hızlandırır
+- Temiz cilt = Genç cilt
+
+## Birinci Adım: Yağ Bazlı Temizleyici
+
+### Yağ Bazlı Temizleyici Türleri
+
+**1. Cleansing Oil (Temizleme Yağı)**
+- **En Etkili**: En yoğun makyaj bile kolayca çıkar
+- **Doku**: Sıvı yağ
+- **Kime Uygun**: Tüm cilt tipleri, özellikle kuru cilt
+- **Örnekler**: Jojoba, squalane, grapeseed oil bazlı
+
+**2. Cleansing Balm**
+- **Lüks Doku**: Katı, ısıyla eriyerek yağa dönüşür
+- **Makyaj Gücü**: Çok güçlü, waterproof makyaj bile
+- **Kime Uygun**: Tüm cilt tipleri
+- **Bonus**: Masaj yapmak için ideal
+
+**3. Micellar Water**
+- **En Hafif**: Micelle molekülleri kiri çeker
+- **Makyaj Gücü**: Hafif-orta makyaj
+- **Kime Uygun**: Hassas, yağlı cilt, hızlı temizlik
+- **Not**: Tek başına yeterli olmayabilir
+
+**4. Cleansing Milk/Cream**
+- **Kremalı Doku**: Hafif yağlı
+- **Makyaj Gücü**: Hafif-orta
+- **Kime Uygun**: Kuru, hassas cilt
+
+### Birinci Adım Uygulama Tekniği
+
+**Adım Adım:**
+
+1. **Kuru Elle, Kuru Yüze**
+   - Elleriniz ve yüzünüz tamamen kuru olmalı
+   - Bu kritik! Su yağın emülsifikasyonunu başlatır
+
+2. **Cömert Miktar**
+   - Yağ: 2-3 pompa
+   - Balm: Fındık büyüklüğü
+   - Micellar: Pamuk pedi ıslatacak kadar
+
+3. **Nazik Masaj (1-2 dakika)**
+   - Dairesel hareketlerle yüze uygulayın
+   - Gözlere, dudaklara, boyuna dahil edin
+   - Göz makyajında hafifçe bastırın, ovmayın
+   - Gözenekli bölgelere (T-zone) odaklanın
+
+4. **Emülsifikasyon**
+   - Ellerinizi ıslatın
+   - Yağı yüzünüzde sütlü beyaz emülsiyona dönüştürün
+   - 30 saniye daha masaj yapın
+   - Bu adım kirlerin serbest kalmasını sağlar
+
+5. **Ilık Suyla Durulama**
+   - Bol bol durulamak önemli
+   - Yağ kalıntısı kalmamalı
+   - Sıcak değil, ılık su kullanın
+
+**Dikkat Edilmesi Gerekenler:**
+
+✅ Yeterli miktar kullanın - Cimri davranmayın
+✅ Zamanınızı ayırın - Acele etmeyin
+✅ Boyun ve çene hattını dahil edin
+✅ Hassas göz çevresine nazik olun
+
+❌ Islak yüze uygulamayın
+❌ Sert ovmayın
+❌ Yetersiz durulama yapmayın
+
+## İkinci Adım: Su Bazlı Temizleyici
+
+### Su Bazlı Temizleyici Türleri
+
+**1. Jel Temizleyici**
+- **Doku**: Şeffaf, jel
+- **Kime Uygun**: Yağlı, karma, akne eğilimli cilt
+- **Özellik**: Hafif köpürür, derinlemesine temizler
+- **İçerik**: Salisilik asit, tea tree, niasinamid
+
+**2. Köpük/Foam Temizleyici**
+- **Doku**: Köpüklü
+- **Kime Uygun**: Yağlı cilt
+- **Dikkat**: Aşırı kurutucu olabilir, sülfatsız seçin
+
+**3. Krem/Milk Temizleyici**
+- **Doku**: Kremasıı
+- **Kime Uygun**: Kuru, hassas cilt
+- **Özellik**: Az veya hiç köpürmez, besleyici
+
+**4. Micellar Water**
+- **İkinci Adım**: Evet, hem birinci hem ikinci adımda kullanılabilir
+- **Kime Uygun**: Hassas, tembel (hızlı rutin isteyenler)
+
+### Cilt Tipine Göre Seçim
+
+**Kuru Cilt:**
+- Birinci: Cleansing balm/oil
+- İkinci: Krem/milk temizleyici
+- İçerik: Hyaluronik asit, gliserin, seramid
+
+**Yağlı Cilt:**
+- Birinci: Hafif cleansing oil
+- İkinci: Jel/foam temizleyici
+- İçerik: Salisilik asit, niasinamid, tea tree
+
+**Karma Cilt:**
+- Birinci: Cleansing oil
+- İkinci: Dengeli jel temizleyici
+- İçerik: Niasinamid, hyaluronik asit
+
+**Hassas Cilt:**
+- Birinci: Micellar water veya hafif oil
+- İkinci: Krem/milk temizleyici
+- İçerik: Fragrance-free, aloe vera, centella
+
+**Akne Eğilimli:**
+- Birinci: Non-comedogenic oil (jojoba, squalane)
+- İkinci: Salisilik asit jel
+- İçerik: BHA, tea tree, niasinamid
+
+### İkinci Adım Uygulama
+
+1. **Yüzü Islatın**
+   - Ilık suyla ıslatın
+
+2. **Temizleyiciyi Uygulayın**
+   - Avuç içinde köpürtün (köpürüyorsa)
+   - Yüze nazikçe dairesel hareketlerle masaj yapın
+   - 30-60 saniye
+
+3. **Durulay ın**
+   - Bol ılık suyla
+   - Ürün kalıntısı kalmamalı
+
+4. **Kurulayın**
+   - Yumuşak havluyla hafifçe tampone edin
+   - Ovmayın
+
+## Ne Zaman Çift Temizleme Yapılmalı?
+
+### Akşam Rutini - MUTLAKA
+
+Akşam çift temizleme şarttır çünkü:
+- Gün boyu biriken makyaj, güneş kremi, kir, sebum
+- Hava kirliliği ve toksinler
+- Cilt gece boyunca yenilenecek, temiz olmalı
+
+**Akşam Rutin Sırası:**
+1. Yağ bazlı temizleyici
+2. Su bazlı temizleyici
+3. Tonik (opsiyonel)
+4. Treatment/serum
+5. Göz kremi
+6. Nemlendirici
+
+### Sabah Rutini - Opsiyonel
+
+Sabah çift temizleme genellikle gereksiz:
+- Sadece gecelık ürün ve sebum var
+- Tek temizleyici yeterli (hatta sadece su bile olabilir)
+
+**İstisnalar:**
+- Çok yağlı cilt (gece sebum üretimi fazla)
+- Ağır gece kremi/yağı kullandıysanız
+- Terli uyandıysanız
+
+## Yaygın Hatalar ve Çözümleri
+
+### Hata 1: Her İki Adımda da Aynı Temizleyici
+
+**Sorun**: İki kez aynı temizleyici çift temizleme değildir
+**Çözüm**: Birinci yağ bazlı, ikinci su bazlı olmalı
+
+### Hata 2: Yetersiz Emülsifikasyon
+
+**Sorun**: Yağ kalıntısı, gözenek tıkanması
+**Çözüm**: Suyla iyice emülsifiye edin, sütlü beyaz görünüm
+
+### Hata 3: Aşırı Temizlik
+
+**Sorun**: Sabah-akşam iki kez çift temizleme, bariyer hasarı
+**Çözüm**: Sadece akşam çift temizleyin
+
+### Hata 4: Çok Sert Temizleyiciler
+
+**Sorun**: Sülfat, alkol içeren ürünler, kuruluğa neden olur
+**Çözüm**: Nazik, pH dengeli, sülfatsız seçin
+
+### Hata 5: Acele Etmek
+
+**Sorun**: 30 saniye hızlı temizlik etkisiz
+**Çözüm**: Toplam 3-4 dakika ayırın
+
+## Özel Durumlar
+
+### Makyajsız Günler
+
+**Güneş Kremi Sürdünüz mü?**
+- Evet → Çift temizleme yapın (güneş kremi yağda çözünür)
+- Hayır → Tek temizleyici yeterli
+
+### Minimal Makyaj
+
+- Sadıce BB krem, pudra → Çift temizleme yine iyi
+- Micellar water + nazik temizleyici yeterli olabilir
+
+### Waterproof Makyaj
+
+- Mutlaka yağ/balm bazlı temizleyici
+- Göz makyajı için ayrı göz makyaj temizleyici kullanabilirsiniz
+
+### Hassas Cilt/Rozase
+
+- Çok nazik ürünler seçin
+- Micellar water + krem temizleyici
+- Aşırı ovmaktan kaçının
+
+## Çift Temizleme Sonrası Bakım
+
+Temizlik sonrası cilt:
+- En emilime açık haldedir
+- Aktif bileşenler en etkilidir
+- Hemen bakım rutinine geçin
+
+**Hemen Sonra:**
+1. **Tonik** (30 saniye içinde, cilt henüz nemliyken)
+2. **Serum/Treatment** (emilimi maksimum)
+3. **Göz Kremi**
+4. **Nemlendirici** (3-5 dakika içinde, nem kilitlenmeli)
+
+## SSS
+
+**Her gün çift temizleme gerekli mi?**
+Makyaj ve güneş kremi kullandığınız her akşam evet.
+
+**Sabah da yapılmalı mı?**
+Genellikle hayır, tek temizleyici yeterli.
+
+**Hassas cilt için uygun mu?**
+Evet, nazik ürünler seçerseniz.
+
+**Çift temizleme cildi kurutur mu?**
+Hayır, doğru ürünler seçerseniz. Bariyer sağlığını korur.
+
+**Ne kadar sürmeli?**
+Toplam 3-4 dakika ideal.
+
+**Yağlı cilt yağ temizleyici kullanabilir mi?**
+Kesinlikle! "Yağ yağı çözer" - sebumu dengelemede etkili.
+
+## Sonuç
+
+Çift temizleme, cildinize yapabileceğiniz en iyi yatırımlardan biridir. Doğru yapıldığında:
+
+🔹 Derin, etkili temizlik
+🔹 Gözenek sağlığı
+🔹 Akne ve siyah nokta önleme
+🔹 Ürün emilimini maksimize etme
+🔹 Parlak, sağlıklı cilt
+
+**Başlangıç İçin:**
+1. Cildinize uygun iki temizleyici seçin
+2. Akşam rutinine entegre edin
+3. Sabırlı olun - cildiniz adapte olacak
+4. 2-4 hafta sonra farkı göreceksiniz
+
+Temiz cilt, sağlıklı cildin temelidir. Çift temizleme yöntemiyle bu temeli güçlendirin!`
   }
 };
