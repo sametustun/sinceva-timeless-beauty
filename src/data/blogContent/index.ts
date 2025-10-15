@@ -1,4 +1,6 @@
 import { trBlogContent } from './tr';
+import { trBlogContentPart2 } from './tr-part2';
+import { trBlogContentPart3 } from './tr-part3';
 import { enBlogContent } from './en';
 import { arBlogContent } from './ar';
 
@@ -13,7 +15,7 @@ export interface BlogContentMap {
 }
 
 export const blogContent: Record<'tr' | 'en' | 'ar', BlogContentMap> = {
-  tr: trBlogContent,
+  tr: { ...trBlogContent, ...trBlogContentPart2, ...trBlogContentPart3 },
   en: enBlogContent,
   ar: arBlogContent
 };
