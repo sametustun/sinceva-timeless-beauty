@@ -196,24 +196,24 @@ export const categoryShowcaseContent = {
   categories: [
     {
       id: "anti-aging",
-      title: "Anti-Aging Care",
-      description: "Advanced formulas to reduce fine lines, boost collagen, and restore youthful radiance to your skin.",
+      titleKey: "categories.antiAging.title",
+      descriptionKey: "categories.antiAging.description",
       href: "/category/anti-aging-care",
       gradient: "from-purple-600 to-pink-600",
       image: antiAgingCart
     },
     {
       id: "cleansing",
-      title: "Face & Skin Cleansing",
-      description: "Gentle yet effective cleansers that purify your skin while maintaining its natural moisture balance.",
+      titleKey: "categories.cleansing.title",
+      descriptionKey: "categories.cleansing.description",
       href: "/category/face-and-skin-cleansing",
       gradient: "from-blue-600 to-teal-600",
       image: cleansingCart
     },
     {
       id: "daily-care",
-      title: "Daily Care",
-      description: "Essential daily skincare products for healthy, protected, and nourished skin every day.",
+      titleKey: "categories.dailyCare.title",
+      descriptionKey: "categories.dailyCare.description",
       href: "/category/daily-care",
       gradient: "from-green-600 to-emerald-600",
       image: dailyCareCart

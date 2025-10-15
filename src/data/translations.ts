@@ -248,6 +248,28 @@ export const translations = {
       allProductsSubtitle: 'Discover Sinceva collections inspired by the origin of beauty, carefully crafted for every skin type.',
       loadMore: 'Load More Products',
     },
+    
+    // Product Card
+    productCard: {
+      buyNow: 'Buy Now',
+      available: 'available',
+    },
+    
+    // Categories
+    categories: {
+      antiAging: {
+        title: 'Anti-Aging Care',
+        description: 'Advanced formulas to reduce fine lines, boost collagen, and restore youthful radiance to your skin.',
+      },
+      cleansing: {
+        title: 'Face & Skin Cleansing',
+        description: 'Gentle yet effective cleansers that purify your skin while maintaining its natural moisture balance.',
+      },
+      dailyCare: {
+        title: 'Daily Care',
+        description: 'Essential daily skincare products for healthy, protected, and nourished skin every day.',
+      },
+    },
   },
   tr: {
     // Product Page
@@ -498,6 +520,28 @@ export const translations = {
       allProductsSubtitle: 'Güzelliğin başlangıcından ilham alan, her cilt tipi için özenle hazırlanmış Sinceva koleksiyonlarını keşfedin.',
       loadMore: 'Daha Fazla Ürün Yükle',
     },
+    
+    // Product Card
+    productCard: {
+      buyNow: 'Satın Al',
+      available: 'mevcut',
+    },
+    
+    // Categories
+    categories: {
+      antiAging: {
+        title: 'Yaşlanma Karşıtı Bakım',
+        description: 'İnce çizgileri azaltmak, kolajen artırmak ve cildinize gençlik parlaklığını geri kazandırmak için gelişmiş formüller.',
+      },
+      cleansing: {
+        title: 'Yüz ve Cilt Temizleme',
+        description: 'Cildinizi doğal nem dengesini koruyarak arındıran nazik ama etkili temizleyiciler.',
+      },
+      dailyCare: {
+        title: 'Günlük Bakım',
+        description: 'Her gün sağlıklı, korunaklı ve beslenmiş cilt için vazgeçilmez günlük cilt bakım ürünleri.',
+      },
+    },
   },
   ar: {
     // Product Page
@@ -747,6 +791,28 @@ export const translations = {
       allProductsTitle: 'جميع منتجاتنا',
       allProductsSubtitle: 'اكتشف مجموعات سينسيفا المستوحاة من أصل الجمال، والمصنوعة بعناية لكل نوع بشرة.',
       loadMore: 'تحميل المزيد من المنتجات',
+    },
+    
+    // Product Card
+    productCard: {
+      buyNow: 'اشتري الآن',
+      available: 'متاح',
+    },
+    
+    // Categories
+    categories: {
+      antiAging: {
+        title: 'العناية المضادة للشيخوخة',
+        description: 'تركيبات متقدمة لتقليل الخطوط الدقيقة، وتعزيز الكولاجين، واستعادة إشراقة الشباب لبشرتك.',
+      },
+      cleansing: {
+        title: 'تنظيف الوجه والبشرة',
+        description: 'منظفات لطيفة وفعالة تنقي بشرتك مع الحفاظ على توازن الرطوبة الطبيعي.',
+      },
+      dailyCare: {
+        title: 'العناية اليومية',
+        description: 'منتجات العناية بالبشرة اليومية الأساسية لبشرة صحية ومحمية ومغذية كل يوم.',
+      },
     },
   },
 };

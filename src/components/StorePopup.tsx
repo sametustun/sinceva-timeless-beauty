@@ -1,6 +1,8 @@
 import React from 'react';
 import { X } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { translations } from '@/data/translations';
 
 interface Store {
   id: string;
@@ -23,6 +25,9 @@ const StorePopup: React.FC<StorePopupProps> = ({
   productName, 
   stores
 }) => {
+  const { language } = useLanguage();
+  const t = translations[language];
+  
   if (!isOpen) return null;
 
   const handleStoreClick = (url: string) => {
@@ -56,7 +61,7 @@ const StorePopup: React.FC<StorePopupProps> = ({
           </h3>
           
           {/* Available text */}
-          <p className="text-sm text-white/70 mb-6">available</p>
+          <p className="text-sm text-white/70 mb-6">{t.productCard.available}</p>
 
           {/* Stores list */}
           <div className="space-y-4">

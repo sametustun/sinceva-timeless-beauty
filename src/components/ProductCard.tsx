@@ -5,6 +5,8 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import StorePopup from './StorePopup';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { translations } from '@/data/translations';
 
 interface Product {
   id: string | number;
@@ -21,6 +23,8 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product, className = "" }) => {
   const [isStorePopupOpen, setIsStorePopupOpen] = React.useState(false);
+  const { language } = useLanguage();
+  const t = translations[language];
 
   // Product-specific Trendyol URLs
   const productUrls: { [key: string]: string } = {
@@ -82,7 +86,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, className = "" }) =>
                           setIsStorePopupOpen(true);
                         }}
                       >
-                        Buy Now
+                        {t.productCard.buyNow}
                       </Button>
                     </div>
                   </div>
