@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Layout from '@/components/Layout';
 import PageHero from '@/components/sections/PageHero';
 import { Button } from '@/components/ui/button';
@@ -84,7 +85,11 @@ const Blog: React.FC = () => {
         {/* Blog Posts Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredPosts.map((post) => (
-            <article key={post.id} className="group cursor-pointer">
+            <Link 
+              key={post.id} 
+              to={`/blog/${post.id}`}
+              className="group cursor-pointer block"
+            >
               <div className="bg-card rounded-lg overflow-hidden shadow-elegant hover:shadow-luxury transition-shadow duration-300 h-[400px] relative">
                 {/* Full height background image */}
                 <div className="absolute inset-0">
@@ -133,7 +138,7 @@ const Blog: React.FC = () => {
                   </div>
                 </div>
               </div>
-            </article>
+            </Link>
           ))}
         </div>
 
