@@ -7,6 +7,8 @@ import {
   CarouselItem,
 } from '@/components/ui/carousel';
 import { ArrowRight } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { translations } from '@/data/translations';
 
 interface Category {
   id: string;
@@ -28,6 +30,9 @@ const CategoriesSection: React.FC<CategoriesSectionProps> = ({
   subtitle,
   categories
 }) => {
+  const { language } = useLanguage();
+  const t = translations[language];
+  
   return (
     <section className="py-20" style={{ backgroundColor: '#191919' }}>
       <div className="container mx-auto max-w-7xl px-4">
@@ -75,7 +80,7 @@ const CategoriesSection: React.FC<CategoriesSectionProps> = ({
                             
                             <div className="absolute bottom-4 left-4 right-4">
                               <span className="text-primary text-sm font-medium group-hover:gap-2 transition-all flex items-center">
-                                Explore Collection
+                                {t.homepage.exploreCollection}
                                 <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
                               </span>
                             </div>
@@ -119,7 +124,7 @@ const CategoriesSection: React.FC<CategoriesSectionProps> = ({
                       
                       <div className="absolute bottom-6 left-6 right-6">
                         <span className="text-primary text-sm font-medium group-hover:gap-2 transition-all flex items-center">
-                          Explore Collection
+                          {t.homepage.exploreCollection}
                           <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
                         </span>
                       </div>

@@ -85,18 +85,6 @@ export const translations = {
     messageSentSuccess: 'Message Sent Successfully',
     messageSentDesc: 'We\'ll get back to you within 24 hours.',
     
-    // Blog Page
-    blogTitle: 'Trends & Tips',
-    blogSubtitle: 'Discover the latest in skincare trends, expert tips, and beauty insights to enhance your daily routine.',
-    searchArticles: 'Search articles...',
-    allPosts: 'All Posts',
-    skincareTips: 'Skincare Tips',
-    antiAging: 'Anti-Aging',
-    seasonalCare: 'Seasonal Care',
-    ingredientFocus: 'Ingredient Focus',
-    readMore: 'Read More',
-    noArticles: 'No articles found matching your search criteria.',
-    
     // Blog Post Content
     blogPost1Title: 'Winter Skincare Routine: Essential Steps for Cold Weather',
     blogPost1Excerpt: 'Discover how to adapt your skincare routine during winter months to keep your skin hydrated and glowing despite the harsh weather conditions.',
@@ -235,7 +223,31 @@ export const translations = {
       7: 'Sinceva Purifying Face Cleansing Foam 200 ml',
       8: 'Sinceva SPF 50+ Daily SunCare Cream 100 ml',
       9: 'Sinceva Hyaluronic Acid Moisturizing Cream 50 ml',
-    }
+    },
+    
+    // Blog Page
+    blog: {
+      title: 'Trends & Tips',
+      searchPlaceholder: 'Search articles...',
+      categories: {
+        all: 'All Posts',
+        trends: 'Skincare Tips',
+        skincare: 'Anti-Aging',
+        ingredients: 'Seasonal Care',
+        routine: 'Ingredient Focus',
+      },
+      readMore: 'Read More',
+    },
+    
+    // Homepage
+    homepage: {
+      categoriesTitle: 'Explore Our Categories',
+      categoriesSubtitle: 'Curated collections designed to address your unique skincare needs with precision and care.',
+      exploreCollection: 'Explore Collection',
+      allProductsTitle: 'All Our Products',
+      allProductsSubtitle: 'Discover our complete collection of premium skincare solutions, expertly crafted for every skin type and concern.',
+      loadMore: 'Load More Products',
+    },
   },
   tr: {
     // Product Page
@@ -322,18 +334,6 @@ export const translations = {
     messagePlaceholder: 'Size nasıl yardımcı olabileceğimizi söyleyin...',
     messageSentSuccess: 'Mesaj Başarıyla Gönderildi',
     messageSentDesc: '24 saat içinde size geri döneceğiz.',
-    
-    // Blog Page
-    blogTitle: 'Trendler ve İpuçları',
-    blogSubtitle: 'Günlük rutininizi geliştirmek için en son cilt bakım trendlerini, uzman ipuçlarını ve güzellik içgörülerini keşfedin.',
-    searchArticles: 'Makale ara...',
-    allPosts: 'Tüm Yazılar',
-    skincareTips: 'Cilt Bakım İpuçları',
-    antiAging: 'Yaşlanma Karşıtı',
-    seasonalCare: 'Mevsimsel Bakım',
-    ingredientFocus: 'İçerik Odağı',
-    readMore: 'Devamını Oku',
-    noArticles: 'Arama kriterlerinize uygun makale bulunamadı.',
     
     // Blog Post Content
     blogPost1Title: 'Kış Cilt Bakım Rutini: Soğuk Hava İçin Temel Adımlar',
@@ -473,7 +473,31 @@ export const translations = {
       7: 'Sinceva Arındırıcı Yüz Temizleme Köpüğü 200 ml',
       8: 'Sinceva SPF 50+ Günlük Güneş Koruyucu Krem 100 ml',
       9: 'Sinceva Hyaluronik Asit Nemlendirici Krem 50 ml',
-    }
+    },
+    
+    // Blog Page
+    blog: {
+      title: 'Trendler ve İpuçları',
+      searchPlaceholder: 'Makale ara...',
+      categories: {
+        all: 'Tüm Gönderiler',
+        trends: 'Cilt Bakımı İpuçları',
+        skincare: 'Yaşlanma Karşıtı',
+        ingredients: 'Mevsimsel Bakım',
+        routine: 'İçerik Odaklı',
+      },
+      readMore: 'Devamını Oku',
+    },
+    
+    // Homepage
+    homepage: {
+      categoriesTitle: 'Kategorilerimizi Keşfedin',
+      categoriesSubtitle: 'Benzersiz cilt bakım ihtiyaçlarınıza hassasiyetle ve özenle hitap etmek için hazırlanmış küratörlü koleksiyonlar.',
+      exploreCollection: 'Koleksiyonu Keşfet',
+      allProductsTitle: 'Tüm Ürünlerimiz',
+      allProductsSubtitle: 'Her cilt tipi ve endişe için özenle hazırlanmış, eksiksiz premium cilt bakım çözümleri koleksiyonumuzu keşfedin.',
+      loadMore: 'Daha Fazla Ürün Yükle',
+    },
   },
   ar: {
     // Product Page
@@ -560,18 +584,6 @@ export const translations = {
     messagePlaceholder: 'أخبرنا كيف يمكننا مساعدتك...',
     messageSentSuccess: 'تم إرسال الرسالة بنجاح',
     messageSentDesc: 'سنعود إليك خلال 24 ساعة.',
-    
-    // Blog Page
-    blogTitle: 'الاتجاهات والنصائح',
-    blogSubtitle: 'اكتشف أحدث اتجاهات العناية بالبشرة ونصائح الخبراء ورؤى الجمال لتحسين روتينك اليومي.',
-    searchArticles: 'البحث عن المقالات...',
-    allPosts: 'جميع المنشورات',
-    skincareTips: 'نصائح العناية بالبشرة',
-    antiAging: 'مضاد للشيخوخة',
-    seasonalCare: 'العناية الموسمية',
-    ingredientFocus: 'التركيز على المكونات',
-    readMore: 'اقرأ المزيد',
-    noArticles: 'لم يتم العثور على مقالات تطابق معايير البحث الخاصة بك.',
     
     // Blog Post Content
     blogPost1Title: 'روتين العناية بالبشرة في الشتاء: الخطوات الأساسية للطقس البارد',
@@ -711,6 +723,30 @@ export const translations = {
       7: 'رغوة سينسإيفا المنقية لتنظيف الوجه 200 مل',
       8: 'كريم سينسإيفا للحماية اليومية من الشمس SPF 50+ 100 مل',
       9: 'كريم سينسإيفا المرطب بحمض الهيالورونيك 50 مل',
-    }
+    },
+    
+    // Blog Page
+    blog: {
+      title: 'الاتجاهات والنصائح',
+      searchPlaceholder: 'البحث في المقالات...',
+      categories: {
+        all: 'جميع المنشورات',
+        trends: 'نصائح العناية بالبشرة',
+        skincare: 'مكافحة الشيخوخة',
+        ingredients: 'العناية الموسمية',
+        routine: 'تركيز المكونات',
+      },
+      readMore: 'اقرأ المزيد',
+    },
+    
+    // Homepage
+    homepage: {
+      categoriesTitle: 'استكشف فئاتنا',
+      categoriesSubtitle: 'مجموعات منسقة مصممة لتلبية احتياجات العناية بالبشرة الفريدة الخاصة بك بدقة وعناية.',
+      exploreCollection: 'استكشف المجموعة',
+      allProductsTitle: 'جميع منتجاتنا',
+      allProductsSubtitle: 'اكتشف مجموعتنا الكاملة من حلول العناية بالبشرة الفاخرة، المصنوعة بخبرة لكل نوع بشرة واهتمام.',
+      loadMore: 'تحميل المزيد من المنتجات',
+    },
   },
 };
