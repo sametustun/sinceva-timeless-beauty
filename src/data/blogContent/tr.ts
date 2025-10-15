@@ -2843,9 +2843,398 @@ Arbutin kullanırken unutulmaması gereken en önemli nokta SPF kullanımıdır.
 Sabırlı olun, düzenli kullanın ve lekesiz, aydınlık bir cildin keyfini çıkarın!`
   },
   'chemical-peeling-guide': {
-    title: 'Kimyasal Peeling Rehberi',
-    excerpt: 'Kimyasal peeling nedir ve nasıl uygulanır?',
-    content: 'Kimyasal peeling AHA, BHA veya PHA asitlerle ölü hücreleri uzaklaştırır. Cildi yeniler, lekeleri azaltır, gözenekleri temizler. Profesyonel veya evde uygulanabilir.'
+    title: 'Kimyasal Peeling Rehberi: Cilt Yenilenmesinin Bilimsel Yaklaşımı',
+    excerpt: 'Kimyasal peeling ile cildinizi nasıl yenileyebileceğinizi, hangi peeling türünün sizin için uygun olduğunu ve profesyonel sonuçlar elde etmenin yollarını keşfedin...',
+    content: `Kimyasal peeling, dermatolojik cilt bakımında kullanılan en etkili yöntemlerden biridir. Cilt yüzeyindeki hasarlı, ölü hücre tabakalarını kontrollü bir şekilde uzaklaştırarak, cildin doğal yenilenme sürecini hızlandırır ve pek çok cilt sorununa çözüm sunar.
+
+## Kimyasal Peeling Nedir?
+
+Kimyasal peeling, cildin üst tabakalarını kimyasal bir asit çözeltisi kullanarak kontrollü şekilde soyma işlemidir. Bu işlem sonucunda cilt yüzeyi yenilenir, cilt dokusu düzleşir ve daha genç, parlak bir görünüm elde edilir.
+
+Temel olarak, kimyasal peeling:
+- Ölü deri hücrelerini uzaklaştırır
+- Hücre yenilenmesini hızlandırır
+- Kolajen ve elastin üretimini uyarır
+- Hiperpigmentasyonu azaltır
+- Akne izlerini ve lekeleri soluklaştırır
+- İnce çizgileri ve kırışıklıkları azaltır
+- Cilt dokusunu pürüzsüzleştirir
+
+## Kimyasal Peeling Türleri
+
+Kimyasal peelingler, derinliklerine göre üç ana kategoriye ayrılır:
+
+### 1. Yüzeysel (Superficial) Peeling
+
+**Derinlik:** Sadece epidermis (cilt yüzeyi)
+**Kullanılan Asitler:**
+- Glikolik asit (%20-30)
+- Laktik asit (%20-30)
+- Salisilik asit (%20-30)
+- Mandelic asit (%30-40)
+
+**Kimler İçin Uygundur:**
+- İlk kez peeling yapacaklar
+- Hafif ton eşitsizlikleri olanlar
+- Küçük gözenekler problemi yaşayanlar
+- Erken dönem yaşlanma belirtileri görenler
+- Hafif akne izleri olanlar
+
+**Yan Etkiler:** Minimal - hafif kızarıklık, 1-2 gün soyulma
+**İyileşme Süresi:** 1-7 gün
+**Tekrar Sıklığı:** Her 2-4 haftada bir, 4-6 seans
+
+**Sonuçlar:**
+- Cilt parlaklığında artış
+- Hafif ton eşitlemesi
+- Gözenek görünümünde azalma
+- Daha pürüzsüz cilt dokusu
+
+### 2. Orta Derinlikte (Medium) Peeling
+
+**Derinlik:** Epidermis ve dermise kadar
+**Kullanılan Asitler:**
+- Trikloroasetik asit (TCA) %35-50
+- Jessner solüsyonu kombinasyonları
+- Yüksek konsantrasyonlu glikolik asit (%50-70)
+
+**Kimler İçin Uygundur:**
+- Orta seviye kırışıklıklar
+- Belirgin güneş lekeleri
+- Akne izleri
+- Melazma (hamilelik lekesi)
+- Yaşlanma belirtileri
+
+**Yan Etkiler:** Orta - şişlik, kızarıklık, 5-7 gün soyulma
+**İyileşme Süresi:** 7-14 gün
+**Tekrar Sıklığı:** 6-12 ayda bir
+
+**Sonuçlar:**
+- Belirgin leke azalması
+- Kırışıklık azalması
+- Akne izi soluklaşması
+- Cilt sıkılaştırma
+
+### 3. Derin (Deep) Peeling
+
+**Derinlik:** Dermis (cilt ortası tabakası)
+**Kullanılan Asitler:**
+- Fenol
+- Yüksek konsantrasyon TCA (%50+)
+
+**Kimler İçin Uygundur:**
+- Derin kırışıklıklar
+- Ağır güneş hasarı
+- Sivilce göçükler
+- Belirgin yaşlanma belirtileri
+
+**Yan Etkiler:** Ciddi - yoğun kızarıklık, şişlik, 2 hafta soyulma
+**İyileşme Süresi:** 2-3 hafta
+**Tekrar Sıklığı:** Sadece 1-2 kez (yaşam boyu)
+
+**Önemli Not:** Derin peeling yalnızca doktor tarafından klinik ortamda yapılmalıdır!
+
+## Kimyasal Peeling İçin Kullanılan Asitler
+
+### AHA (Alfa Hidroksi Asitler)
+
+**Glikolik Asit:**
+- En popüler AHA
+- Şeker kamışından elde edilir
+- En küçük molekül boyutu - derine nüfuz eder
+- Anti-aging, aydınlatma, soyulma
+
+**Laktik Asit:**
+- Sütten elde edilir
+- Glikolik aside göre daha nazik
+- Nemlendirici özellik
+- Hassas ciltler için ideal
+
+**Mandelic Asit:**
+- Bademden elde edilir
+- Büyük molekül - en nazik AHA
+- Antibakteriyel
+- Akne ve hiperpigmentasyon için mükemmel
+
+**Malik Asit:**
+- Elmadan elde edilir
+- Çok nazik
+- Hassas ve rozase ciltler için
+
+### BHA (Beta Hidroksi Asit)
+
+**Salisilik Asit:**
+- Yağda çözünür (gözeneklere girebilir)
+- Yağlı ve akne eğilimli ciltler için ideal
+- Anti-inflamatuar
+- Gözenek temizliği ve sıkılaştırma
+
+### PHA (Poli Hidroksi Asitler)
+
+**Gluconolactone, Lactobionic Asit:**
+- Çok büyük moleküller
+- Çok nazik
+- Antioksidan
+- Hassas ve kuru ciltler için
+
+### Kombine Peeling Çözeltileri
+
+**Jessner Solüsyonu:**
+- Salisilik + laktik + resorsinol
+- Melazma ve hiperpigmentasyon için
+
+**Cosmelan / Dermamelan:**
+- Çok bileşenli
+- Melazma tedavisi için altın standart
+
+## Kimyasal Peeling Öncesi Hazırlık
+
+Kimyasal peeling öncesi cildinizi hazırlamak, daha iyi sonuçlar almanızı ve yan etkileri azaltmanızı sağlar.
+
+### 2-4 Hafta Önce
+
+**1. Düşük Konsantrasyonlu Asit Kullanımı:**
+- %5-10 glikolik veya laktik asit içeren ürünler
+- Cildinizi asit kullanımına alıştırır
+- Ölü deri hücresi birikimini azaltır
+
+**2. Güneş Koruyucu (SPF 50+):**
+- Her gün, bulutlu günlerde bile
+- 2 saatte bir yenilemek
+- Peeling sonrası hiperpigmentasyon riskini azaltır
+
+**3. Retinol Kullanımını Azaltın veya Durdurun:**
+- Peeling 1 hafta öncesi retinol/tretinoin kullanmayın
+- Cilt tahriş riskini azaltır
+
+### 1 Hafta Önce
+
+**1. Uçuk Önleme:**
+- Geçmişte uçuk sorunu yaşadıysanız, antivirallar alın
+- Kimyasal peeling uçuk tetikleyebilir
+
+**2. Hassasiyeti Azaltıcı Ürünler:**
+- Panthenol, niasinamid, centella içeren ürünler
+- Cilt bariyerini güçlendirir
+
+**3. Kaçınılması Gerekenler:**
+- Agresif scrublar
+- Epilasyon, ağda
+- Güneşe maruz kalma
+- Parfümlü ürünler
+
+### Peeling Günü
+
+- Makyaj yapmayın
+- Cildinizi hafif temizleyiciyle temizleyin
+- Hiçbir krem veya serum uygulamayın
+- Rahat ve gevşek giysiler giyin
+
+## Kimyasal Peeling Uygulaması (Klinik)
+
+### Adım 1: Cilt Temizliği
+Dermolog cildinizi alkol bazlı bir çözeltiyle temizler ve yağsızlaştırır.
+
+### Adım 2: Göz ve Hassas Bölge Koruması
+Göz çevresi, dudak köşeleri ve burun kıvrımları vazelin ile korunur.
+
+### Adım 3: Asit Uygulaması
+Seçilen asit çözeltisi fırça veya pamuk ile cildinize uygulanır. Hafif yanma ve batma hissedebilirsiniz.
+
+### Adım 4: Nötralizasyon (gerekirse)
+Bazı asitler (glikolik, laktik) belirli bir süre sonra nötralize edilir. Bazıları (salisilik, TCA) kendiliğinden durur.
+
+### Adım 5: Sakinleştirme
+Sakinleştirici maskeler veya jeller uygulanır.
+
+**Süre:** Yüzeysel peeling 15-30 dk, orta derinlik 30-60 dk
+
+## Evde Kimyasal Peeling
+
+Evde kullanabileceğiniz düşük konsantrasyonlu peelingler mevcuttur, ancak dikkatli olunmalıdır.
+
+### Güvenli Evde Kullanım Rehberi
+
+**Konsantrasyonlar:**
+- Glikolik asit: max %30
+- Laktik asit: max %30
+- Salisilik asit: max %2
+- Mandelic asit: max %10
+
+**Uygulama:**
+1. Yüzünüzü temizleyin ve kurulayın
+2. Hassas bölgelere vazelin sürün
+3. Ürünü ince tabaka halinde sürün
+4. Üründeki talimatları izleyin (genelde 3-10 dk)
+5. Nötralizasyon gerekiyorsa yapın
+6. Bol suyla durulayın
+7. Sakinleştirici ve nemlendirici uygulayın
+
+**Dikkat:**
+- Haftada maksimum 1-2 kez
+- Hassas ciltler ayda 1-2 kez
+- İlk kullanımda düşük süre (3-5 dk)
+- Tahriş olursa hemen durulayın
+
+## Peeling Sonrası Bakım (Post-Peel Care)
+
+Kimyasal peeling sonrası bakım, sonuçlarınızı maksimize etmek ve komplikasyonları önlemek için kritiktir.
+
+### İlk 24-48 Saat
+
+**Yapılması Gerekenler:**
+1. **Nazik Temizlik:** Sülfatsız, hafif temizleyici
+2. **Sık Nemlendirme:** Saatte bir nemlendirici krem
+3. **Soğuk Kompres:** Şişlik varsa 10-15 dk
+4. **Kaçınılacaklar:**
+   - Sıcak duş/banyo
+   - Ter çıkaracak egzersiz
+   - Makyaj
+   - Güneşe çıkmak
+
+### 3-14 Gün (Soyulma Dönemi)
+
+**ÇOK ÖNEMLİ: Soyulan derileri ÇEKMEYIN!**
+
+Soyulmayı hızlandırmak veya cildi çekmek:
+- Kalıcı izlere
+- Hiperpigmentasyona
+- Enfeksiyona neden olabilir
+
+**Yapılması Gerekenler:**
+1. **Nemlendir, Nemlendir, Nemlendir:**
+   - Günde 4-6 kez nemlendirici
+   - Hyaluronik asit serumu
+   - Oklusiv krem gece
+
+2. **SPF 50+ (MUTLAKA):**
+   - Her 2 saatte bir yenileyin
+   - Fiziksel (mineral) güneş kremi tercih edin
+   - Şapka ve güneş gözlüğü kullanın
+
+3. **Sakinleştirici İçerikler:**
+   - Centella asiatica
+   - Panthenol
+   - Niasinamid (peeling sonrası 3. günden itibaren)
+   - Aloe vera
+
+**Kaçınılacaklar (2-4 Hafta):**
+- Aktif maddeler (retinol, AHA, BHA, C vitamini)
+- Eksfoliyasyon
+- Sıcak ortamlar (sauna, hamam, sıcak yoga)
+- Yüzme havuzları (klor)
+- Epilasyon, ağda, lazer
+- Agresif yüz masajları
+
+### Uzun Dönem Bakım
+
+**Güneş Koruması (ÖMR BOYU):**
+Kimyasal peeling sonrası cildiniz 3-6 ay boyunca güneşe daha hassastır. SPF 50+ her gün şart.
+
+**Aktif Madde Kullanımına Dönüş:**
+- Peeling sonrası 2. hafta: Hafif niasinamid
+- 3-4. hafta: Düşük konsantrasyonlu C vitamini
+- 4-6. hafta: Retinol (yavaş başlayın)
+
+## Kimyasal Peeling Komplikasyonları ve Çözümleri
+
+### Yaygın Yan Etkiler (Normal)
+
+**Kızarıklık:** 1-14 gün (peeling derinliğine göre)
+**Soyulma:** 3-14 gün
+**Kuruluk:** 1-2 hafta
+**Gerginlik hissi:** 3-7 gün
+
+**Çözüm:** Yoğun nemlendirme ve sabır
+
+### Ciddi Komplikasyonlar (Doktor Gerektiren)
+
+**Post-inflamatuar Hiperpigmentasyon (PIH):**
+- Özellikle koyu ciltlerde risk
+- Önleme: Güneşten sakınma, SPF
+- Tedavi: Aydınlatıcı serumlar, arbutin, kojik asit
+
+**Enfeksiyon:**
+- Belirti: Artan ağrı, pü, koku, ateş
+- Tedavi: Antibiyotik
+
+**Aşırı Hassasiyet:**
+- Belirti: 2 haftadan uzun süren kızarıklık
+- Tedavi: Topikal steroidler, dermatolojik takip
+
+**Skarlaşma (İz):**
+- Çok nadir
+- Risk faktörü: Cildi çekmek, enfeksiyon
+- Tedavi: Lazer, mikroneedling
+
+## Kimyasal Peeling İçin İdeal Adaylar ve Uygun Olmayanlar
+
+### İdeal Adaylar
+
+✅ Açık ve orta ton ciltler (daha az PIH riski)
+✅ Gerçekçi beklentileri olanlar
+✅ Güneşe maruz kalma riski düşük olanlar
+✅ Akne izleri, melazma, güneş lekeleri olanlar
+✅ İnce çizgi ve kırışıklıkları olanlar
+✅ Düzensiz cilt dokusu olanlar
+
+### Uygun Olmayanlar
+
+❌ Aktif enfeksiyonu olanlar (uçuk, herpes, akne)
+❌ Hamile veya emziren kadınlar
+❌ Oral isotretinoin (Roaccutane) kullananlar (6 ay sonra)
+❌ Keloid eğilimi olanlar
+❌ Çok koyu ciltler (dikkatli yaklaşım gerektirir)
+❌ Otoimmün hastalığı olanlar
+
+## Kimyasal Peeling vs Diğer Cilt Yenileme Yöntemleri
+
+### Kimyasal Peeling vs Microdermabrazyon
+
+**Microdermabrazyon:**
+- Fiziksel eksfoliyasyon
+- Daha yüzeysel
+- Daha az etkili
+- Daha az iyileşme süresi
+
+**Kimyasal Peeling:**
+- Kimyasal eksfoliyasyon
+- Daha derin sonuçlar
+- Daha etkili
+- Daha uzun iyileşme
+
+### Kimyasal Peeling vs Lazer
+
+**Lazer:**
+- Daha pahalı
+- Daha hassas hedefleme
+- Hiperpigmentasyon riski daha düşük
+
+**Kimyasal Peeling:**
+- Daha uygun fiyat
+- Geniş alan tedavisi
+- Daha fazla hiperpigmentasyon riski
+
+### Kimyasal Peeling vs Microneedling
+
+**İkisi de mükemmel, kombine kullanılabilir:**
+- Microneedling: Kolajen üretimi, derin izler
+- Kimyasal Peeling: Pigmentasyon, yüzeysel dokular
+
+## Sonuç
+
+Kimyasal peeling, doğru yapıldığında ve doğru hasta seçildiğinde, cilt yenilenmesi için son derece etkili bir yöntemdir. Ancak, bu güçlü tedavinin riskleri ve gereksinimleri vardır.
+
+**Anahtar Noktalar:**
+1. Cilt tipinize ve sorunlarınıza uygun peeling seçin
+2. İlk kez yapıyorsanız yüzeysel peeling ile başlayın
+3. Profesyonel bir dermatolog ile çalışın
+4. Peeling öncesi ve sonrası talimatları dikkatle izleyin
+5. Güneşten korunun - bu en önemli kuraldır!
+6. Sabırlı olun - sonuçlar zaman alır
+7. Evde peeling yaparken aşırıya kaçmayın
+
+Kimyasal peeling bir mucize değildir, ancak doğru kullanıldığında cildinizi dönüştürebilecek bilimsel olarak kanıtlanmış bir tedavidir. Cilt bakım yolculuğunuzda güçlü bir araç olabilir!`
   },
   'hydration-secrets': {
     title: 'Cilt Nemlendirme Sırları',
