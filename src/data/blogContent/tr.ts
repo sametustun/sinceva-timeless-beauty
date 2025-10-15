@@ -1805,5 +1805,524 @@ Unutmayın:
 
 Doğanın sunduğu bu muhteşem malzemeleri keşfedin ve cildinizin dönüşümüne tanık olun!
 `
+  },
+  'summer-sun-protection': {
+    title: 'Yaz Aylarında Güneş Koruması: Cildinizi Güneş Hasarından Koruyun',
+    excerpt: 'Yaz aylarında cildinizi güneşin zararlı etkilerinden korumak için bilmeniz gereken her şey. SPF seçiminden uygulama tekniklerine kadar kapsamlı rehber...',
+    content: `Yaz ayları geldiğinde güneşin tadını çıkarmak isterken, cildinizi zararlı UV ışınlarından korumak hayati önem taşır. Güneş hasarı sadece yanıklara değil, erken yaşlanma, lekeler ve cilt kanserine de yol açabilir. Bu rehberde yaz aylarında cildinizi güneşten nasıl etkili bir şekilde koruyacağınızı öğreneceksiniz.
+
+## Güneşin Cilde Etkileri
+
+### UV Işınları
+
+**UVA Işınları:** UV ışınlarının %95'ini oluşturur, cildin derin katmanlarına nüfuz eder, erken yaşlanmaya neden olur, cam ve bulutlardan geçebilir.
+
+**UVB Işınları:** UV ışınlarının %5'ini oluşturur, güneş yanığına neden olur, cilt kanserinin ana tetikleyicisidir.
+
+### Güneş Hasarı Belirtileri
+
+**Kısa vadeli:** Güneş yanığı, kızarıklık, şişlik, soyulma
+**Uzun vadeli:** Kırışıklıklar, lekeler, elastisite kaybı, cilt kanseri
+
+## SPF Seçimi ve Kullanımı
+
+**SPF Değerleri:**
+- SPF 30: %97 UVB koruması
+- SPF 50: %98 UVB koruması
+
+**Miktar:** Yüz için 1/4 çay kaşığı, vücut için 30 ml
+**Yenileme:** Her 2 saatte bir, yüzme/terlemeden sonra hemen
+
+## Koruma İpuçları
+
+1. Geniş spektrum SPF 30-50 kullanın
+2. Her gün kullanın (bulutlu günler dahil)
+3. 10:00-16:00 arası gölgede kalın
+4. Şapka ve güneş gözlüğü takın
+5. UPF değerli kıyafetler giyin
+
+Cildinizi koruyun, uzun yıllar genç ve sağlıklı kalın!`
+  },
+  'honey-skincare-benefits': {
+    title: 'Balın Cilt Bakımındaki Faydaları: Doğanın Mucizevi Hediyesi',
+    excerpt: 'Balın cildinize sağladığı inanılmaz faydaları ve evde bal maskesi tarifleri. Antibakteriyel, nemlendirici ve yaşlanma karşıtı özellikleriyle bal, cilt bakımının vazgeçilmezi...',
+    content: `Bal, binlerce yıldır cilt bakımında kullanılan doğal bir mucizedir. Kleopatra'nın bal banyoları yaptığı, antik Mısırlıların balı yara iyileştirmede kullandığı bilinir. Modern bilim de balın cilt bakımındaki faydalarını kanıtlamıştır.
+
+## Balın İçeriği
+
+**Şekerler:** Glikoz ve fruktoz, nem çekici özellik
+**Enzimler:** Glukoz oksidaz, antibakteriyel etki
+**Vitaminler:** B kompleksi, C vitamini
+**Mineraller:** Kalsiyum, demir, çinko, potasyum
+**Antioksidanlar:** Flavonoidler, fenolik asitler
+**Amino asitler:** Cilt onarımı
+
+## Balın Cilt Faydaları
+
+### 1. Antibakteriyel ve Antimikrobiyal
+
+Bal doğal hidrojen peroksit üretir, akne bakterilerini öldürür, sivilce oluşumunu önler, yara iyileşmesini hızlandırır.
+
+### 2. Nemlendirme
+
+Humektan özelliği sayesinde havadan nem çeker, cildi yumuşatır, kuruluğu önler, cilt bariyerini güçlendirir.
+
+### 3. Yaşlanma Karşıtı
+
+Antioksidanlar serbest radikalleri nötralize eder, kırışıklıkları azaltır, cildi sıkılaştırır, kolajen üretimini destekler.
+
+### 4. Leke Giderici
+
+Enzimler leke ve izleri soluklaştırır, cilt tonunu eşitler, parlaklık verir.
+
+### 5. Nazik Peeling
+
+Doğal asitler ölü hücreleri uzaklaştırır, gözenekleri temizler, cildi pürüzsüzleştirir.
+
+## Bal Maskeleri
+
+### Klasik Bal Maskesi
+- 2 yemek kaşığı ham bal
+- Temiz yüze uygulayın
+- 15-20 dakika bekleyin
+- Durulayın
+**Faydası:** Nemlendirme, antibakteriyel
+
+### Bal ve Yoğurt Maskesi
+- 1 yemek kaşığı bal
+- 2 yemek kaşığı yoğurt
+- Karıştırıp yüze sürün
+- 20 dakika bekleyin
+**Faydası:** Aydınlatma, leke giderme
+
+### Bal ve Tarçın (Akne İçin)
+- 2 yemek kaşığı bal
+- 1 tatlı kaşığı tarçın
+- Sivilce bölgesine sürün
+- 10-15 dakika bekleyin
+**Faydası:** Antibakteriyel, akne tedavisi
+
+## Bal Seçimi
+
+- **Ham bal tercih edin:** Pastörize bal enzimlerini kaybeder
+- **Manuka balı:** En güçlü antibakteriyel özellik
+- **Organik:** Pestisitsiz, saf
+- **Taze:** Kristalleşmemiş
+
+## Kullanım İpuçları
+
+- Temiz cilde uygulayın
+- Haftada 2-3 kez kullanın
+- Göz çevresinden kaçının
+- Alerjiniz varsa patch test yapın
+- Daima ılık suyla durulayın
+
+Bal, doğal, güvenli ve etkili bir cilt bakım malzemesidir. Düzenli kullanımda cildiniz daha nemli, parlak ve genç görünür!`
+  },
+  'night-cream-importance': {
+    title: 'Gece Kreminin Önemi: Cildiniz Uyurken Gençleşsin',
+    excerpt: 'Neden gece kremi kullanmalısınız ve nasıl seçmelisiniz? Gece kreminin faydaları, cilt tipine göre seçim rehberi ve uygulama teknikleri...',
+    content: `Gece kremi, birçok kişinin cilt bakım rutininde atladığı ancak aslında en önemli adımlardan biridir. Gece boyunca cildiniz kendini onarır ve yeniler. Doğru gece kremi bu süreci destekler ve hızlandırır.
+
+## Gece ve Gündüz Kremi Farkı
+
+**Gündüz Kremi:** Koruyucu, SPF içerir, hafif doku, makyaj altına uygun, antioksidan içerir.
+
+**Gece Kremi:** Onarıcı, yoğun formül, aktif maddeler yüksek konsantrasyonda, retinol, peptid, AHA/BHA içerebilir.
+
+## Gece Cilt Onarımı
+
+Gece 23:00-04:00 arası cildinizde şunlar olur:
+- Hücre yenilenmesi en üst düzeyde
+- Kolajen üretimi artar
+- Kan dolaşımı hızlanır
+- Cilt geçirgenliği artar (ürünler daha iyi emilir)
+- Melatonin salgılanır (antioksidan etki)
+
+## Gece Kreminin Faydaları
+
+### 1. Yoğun Nemlendirme
+Gece kremleri daha yoğun ve zengindir, gece boyunca nem kaybını önler, sabah cildiniz yumuşak ve dolgun uyanır.
+
+### 2. Yaşlanma Karşıtı
+Retinol, peptidler, büyüme faktörleri içerir, kırışıklıkları azaltır, cildi sıkılaştırır, ince çizgileri giderir.
+
+### 3. Onarım ve Yenilenme
+DNA onarımını destekler, oksidatif stresi azaltır, gün boyunca oluşan hasarı giderir.
+
+### 4. Leke Giderme
+AHA, BHA, kojik asit, niasinamid içerebilir, geceleri leke tedavisi daha etkilidir.
+
+## Cilt Tipine Göre Gece Kremi
+
+**Yağlı Cilt:**
+- Jel krem formülü
+- Oil-free
+- Salisilik asit, niasinamid
+- Non-comedogenic
+
+**Kuru Cilt:**
+- Zengin, kremsi doku
+- Ceramidler, yağlar
+- Hyaluronik asit, shea butter
+- Onarıcı yağlar (argan, jojoba)
+
+**Karma Cilt:**
+- Jel-krem dengesi
+- Hafif ama besleyici
+- Niasinamid, peptidler
+
+**Hassas Cilt:**
+- Parfüm ve alkol içermeyen
+- Centella, panthenol
+- Minimal içerik
+- Hipoalerjenik
+
+**Olgun Cilt:**
+- Retinol, peptidler
+- Antioksidanlar
+- Zengin formül
+- Kolajen destekleyici
+
+## Gece Kremi İçeriği
+
+**Mutlaka Olması Gerekenler:**
+- Hyaluronik asit (nemlendirme)
+- Ceramidler (bariyer onarımı)
+- Peptidler (kolajen üretimi)
+- Antioksidanlar (vitamin E, C, resveratrol)
+
+**Yaşlanma Karşıtı İçin:**
+- Retinol (A vitamini)
+- Bakuchiol (doğal retinol alternatifi)
+- Niasinamid
+- Koenzim Q10
+
+**Aydınlatma İçin:**
+- Vitamin C
+- Kojik asit
+- Arbutin
+- Licorice extract
+
+## Doğru Uygulama
+
+1. **Temizlik:** Yüzünüzü iyice temizleyin
+2. **Tonik:** pH dengesini sağlayın
+3. **Serum:** Aktif serumunuzu uygulayın
+4. **Göz kremi:** Göz çevresine hafifçe
+5. **Gece kremi:** Bezelye tanesi kadar alın
+6. **Uygulama:** Yukarı ve dışa doğru masaj
+7. **Boyun:** Boyun ve dekoltede unutmayın
+
+**Miktar:** Bezelye tanesi kadar yeterli (çok fazla gözenekleri tıkar)
+
+## Gece Bakım Rutini
+
+**Minimum Rutin:**
+1. Temizleyici
+2. Gece kremi
+
+**İdeal Rutin:**
+1. Çift temizleme
+2. Tonik
+3. Essence/serum
+4. Göz kremi
+5. Gece kremi
+6. (Opsiyonel) Yüz yağı veya sleeping mask
+
+## Sonuç
+
+Gece kremi, cildinizin kendini onarma döngüsünü destekler. Doğru seçilmiş ve düzenli kullanılan bir gece kremi, sabah aynada daha genç, dinlenmiş ve parlak bir cilt görmenizi sağlar.
+
+Her gece gece kremi kullanarak cildinize yatırım yapın - sonuçları haftalar içinde göreceksiniz!`
+  },
+  'eye-cream-guide': {
+    title: 'Göz Kremi Rehberi: Göz Çevresi Bakımının Esasları',
+    excerpt: 'Göz kremi kullanımı hakkında bilmeniz gereken her şey. Doğru seçim, uygulama teknikleri ve yaygın hatalar. Göz altı torbalarından kırışıklıklara çözümler...',
+    content: `Göz çevresi cildinizin en hassas ve en ince bölgesidir. Bu bölge yüzünüzün geri kalanından 10 kat daha incedir ve yaşlanma belirtileri ilk burada görünür. Göz kremi kullanımı, genç ve dinç bir görünüm için vazgeçilmezdir.
+
+## Göz Çevresi Neden Özeldir?
+
+**Anatomik Özellikler:**
+- Cilt kalınlığı sadece 0.5 mm (yüzün geri kalanı 2 mm)
+- Yağ bezleri çok azdır (kurumaya eğilimlidir)
+- Kolajen ve elastin lifleri daha az
+- Kas hareketleri çok fazla (günde 10,000+ göz kırpma)
+- Kan dolaşımı yavaştır
+
+**Sonuç:**
+- İlk kırışıklıklar burada çıkar
+- Kolay şişer ve morarmalar olur
+- Hızla kurur ve incelir
+- Çevresel faktörlerden en çok etkilenir
+
+## Yaygın Göz Çevresi Sorunları
+
+### 1. Göz Altı Torbaları (Puffiness)
+**Nedenleri:**
+- Sıvı birikimi
+- Uyku eksikliği
+- Alerji
+- Yaşlanma (yağ hernileri)
+- Tuz tüketimi
+
+**Çözüm:** Kafein, peptidler, soğuk uygulama
+
+### 2. Koyu Halkalar (Dark Circles)
+**Nedenleri:**
+- Genetik
+- İnce cilt (damarlar görünür)
+- Hiperpigmentasyon
+- Güneş hasarı
+- Yorgunluk
+
+**Çözüm:** Vitamin C, K, niasinamid, retinol
+
+### 3. Kırışıklıklar ve İnce Çizgiler
+**Nedenleri:**
+- Yaşlanma
+- Güneş hasarı
+- Kuru cilt
+- Tekrarlayan mimikler
+- Sigara
+
+**Çözüm:** Retinol, peptidler, hyaluronik asit
+
+### 4. Kurulukarşı ve Sertleşme
+**Nedenleri:**
+- Nem kaybı
+- Çevresel faktörler
+- Yağ bezi azlığı
+
+**Çözüm:** Zengin nemlendirme, ceramidler, yağlar
+
+## Göz Kremi İçeriği
+
+### En Etkili Aktif Maddeler
+
+**Kafein:**
+- Kan dolaşımını hızlandırır
+- Şişliği azaltır
+- Torbaları küçültür
+- Koyu halkaları hafifletir
+
+**Hyaluronik Asit:**
+- Yoğun nemlendirme
+- Kırışıklıkları doldurur
+- Cildi yumuşatır
+- Nem kilitleme
+
+**Retinol (A Vitamini):**
+- Hücre yenilenmesi
+- Kolajen üretimi
+- Kırışıklık azaltma
+- Leke giderme
+**DİKKAT:** Düşük konsantrasyonda kullanın
+
+**Peptidler:**
+- Kolajen sentezi
+- Cilt sıkılaştırma
+- Kırışıklık önleme
+- Elastikiyet artırma
+
+**Vitamin C:**
+- Aydınlatma
+- Koyu halka giderme
+- Antioksidan
+- Kolajen desteği
+
+**Vitamin K:**
+- Damar güçlendirme
+- Morluk azaltma
+- Kan dolaşımı
+- Koyu halka tedavisi
+
+**Niasinamid:**
+- Ton eşitleme
+- Leke giderme
+- Bariyer güçlendirme
+- İltihap azaltma
+
+**Ceramidler:**
+- Nem bariyeri
+- Kuruma önleme
+- Cilt onarımı
+
+## Göz Kremi Seçimi
+
+**20'li Yaşlar:**
+- Önleyici bakım
+- Hafif formül
+- Hyaluronik asit, kafein
+- Güneş koruması önemli
+
+**30'lu Yaşlar:**
+- İlk kırışıklıklar başlar
+- Peptidler, antioksidanlar
+- Hafif retinol
+- Nemlendirme odaklı
+
+**40+ Yaşlar:**
+- Yoğun onarım
+- Retinol, peptidler
+- Zengin formül
+- Sıkılaştırıcı içerikler
+
+### Soruna Göre Seçim
+
+**Şişlik:** Kafein, arnica, yeşil çay
+**Koyu Halka:** Vitamin C, K, niasinamid, kojik asit
+**Kırışıklık:** Retinol, peptidler, hyaluronik asit
+**Kuruлuk:** Ceramidler, squalane, shea butter
+
+## Doğru Uygulama Tekniği
+
+### Adım Adım Uygulama
+
+1. **Temiz Cilt:** Yüzünüzü temizleyin
+2. **Miktar:** Pirinç tanesi kadar (her göz için)
+3. **Isıtma:** Parmak ucunda hafifçe ısıtın
+4. **Noktalar:** Göz altına 3-4 nokta halinde koyun
+5. **Dağıtma:** Yüzük parmağıyla hafifçe tıklayarak yayın
+6. **Yön:** İçten dışa, alttan yukarı
+7. **Masaj:** Hafif dairesel hareketlerle
+8. **Bölge:** Göz kemik hattının 1 cm dışına kadar uygulayın
+
+### YAPILMAMASI GEREKENLER
+
+❌ Ovmayın veya çekmeyinİ (kırışıklık artışı)
+❌ Çok fazla ürün kullanmayın (şişliğe neden olur)
+❌ Kirpiklere çok yaklaşmayın (göze kaçabilir)
+❌ Yüz kremini göz çevresinde kullanmayın (çok ağırdır)
+❌ Günlük kullanımı atlatalım (tutarlılık gerekir)
+
+## Ne Zaman ve Ne Sıklıkta?
+
+**Sabah:**
+- Hafif formül
+- Kafein içerikli
+- Mattlaştırıcı (makyaj altı)
+- SPF içerebilir
+
+**Akşam:**
+- Yoğun formül
+- Retinol içerikli
+- Onarıcı peptidler
+- Zengin nemlendirme
+
+**Sıklık:** Günde 2 kez (sabah-akşam)
+
+## Ek Göz Bakım İpuçları
+
+### 1. Soğuk Kompres
+- Sabahları göz altına soğuk kaşık
+- Soğutulmuş çay poşetleri
+- Buz kalıpları (gazlı bezle sarılı)
+**Etki:** Şişlik azaltma, göz çevresi tazeleme
+
+### 2. Yeterli Uyku
+- 7-8 saat düzenli uyku
+- Başınızı hafif yüksekte tutun (sıvı birikimi azalır)
+**Etki:** Koyu halka ve torba önleme
+
+### 3. Güneş Koruması
+- SPF'li güneş gözlüğü
+- Göz çevresine SPF sürün
+**Etki:** Erken yaşlanma ve leke önleme
+
+### 4. Nem İçin Su Tüketimi
+- Günde 2-3 litre su
+**Etki:** Cildin nemli kalması
+
+### 5. Tuz Tüketimini Azaltın
+- Özellikle akşamları
+**Etki:** Sabah şişlik azalması
+
+## Doğal Göz Bakımı
+
+**Salatalık Dilimi:**
+- Soğutulmuş dilimler
+- 10-15 dakika uygulayın
+**Faydası:** Serinletme, şişlik azaltma
+
+**Yeşil Çay Poşetleri:**
+- Kullanılmış, soğutulmuş
+- 10 dakika uygulayın
+**Faydası:** Kafein, antioksidan, şişlik azaltma
+
+**Badem Yağı:**
+- Birkaç damla hafifçe sürün
+**Faydası:** Nemlendirme, E vitamini
+
+## Sonuç
+
+Göz kremi, 25 yaşından itibaren kullanılmalı, doğru seçim ve uygulama ile:
+- Kırışıklıkları azaltır
+- Koyu halkaları giderir
+- Şişliği önler
+- Cildi sıkılaştırır
+- Genç görünüm sağlar
+
+Göz çevrenize özel ilgi gösterin - sonuçları aynada hemen göreceksiniz!`
+  },
+  'green-tea-antioxidants': {
+    title: 'Yeşil Çayın Antioksidan Gücü',
+    excerpt: 'Yeşil çayın cildinize sağladığı antioksidan faydaları.',
+    content: 'Yeşil çay polifenol ve kateşin içerir, cildi serbest radikallerden korur, yaşlanmayı geciktirir, iltihabı azaltır ve cilt tonunu eşitler. Tonik, maske veya içecek olarak kullanılabilir.'
+  },
+  'arbutin-skin-brightening': {
+    title: 'Arbutin ile Cilt Aydınlatma',
+    excerpt: 'Arbutinin cilt lekelerine karşı etkili kullanımı.',
+    content: 'Arbutin melanin üretimini engeller, lekeleri azaltır ve cilt tonunu eşitler. Doğal, güvenli ve etkili bir aydınlatıcıdır. Serum ve kremlerle kullanılır.'
+  },
+  'chemical-peeling-guide': {
+    title: 'Kimyasal Peeling Rehberi',
+    excerpt: 'Kimyasal peeling nedir ve nasıl uygulanır?',
+    content: 'Kimyasal peeling AHA, BHA veya PHA asitlerle ölü hücreleri uzaklaştırır. Cildi yeniler, lekeleri azaltır, gözenekleri temizler. Profesyonel veya evde uygulanabilir.'
+  },
+  'hydration-secrets': {
+    title: 'Cilt Nemlendirme Sırları',
+    excerpt: 'Cildinizi nasıl nem seviyesini artırırsınuz?',
+    content: 'Nemli cilt için bol su için, hyaluronik asit kullanın, nemlendirici sürün ve ceramidlerle cildi koruyun. Nemli cilt genç ve sağlıklı görünür.'
+  },
+  'aloe-vera-healing': {
+    title: 'Aloe Veranın İyileştirici Gücü',
+    excerpt: 'Aloe veranın cildinize sağladığı iyileştirici faydalar.',
+    content: 'Aloe vera cildi nemlendirin, yatıştırır, güneş yanıklarını iyileştirir ve iltihabı azaltır. Doğal jel olarak doğrudan cilde uygulanabilir.'
+  },
+  'anti-aging-strategies': {
+    title: 'Yaşlanma Karşıtı Stratejiler',
+    excerpt: 'Cildinizi genç tutmak için etkili stratejiler.',
+    content: 'Yaşlanmayı geciktirmek için SPF kullanın, retinol sürün, antioksidanlarla beslenin, bol su için ve sağlıklı yaşam tarzı benimseyin. Düzenli bakım şarttır.'
+  },
+  'toner-benefits': {
+    title: 'Toniğin Faydaları',
+    excerpt: 'Tonik kullanmanın cilt bakımındaki önemi.',
+    content: 'Tonik pH dengesini sağlar, gözenekleri sıkılaştırır, kalan kirleri temizler ve sonraki ürünlerin emilimini artırır. Sabah-akşam kullanılmalıdır.'
+  },
+  'winter-skincare-tips': {
+    title: 'Kış Aylarında Cilt Bakımı',
+    excerpt: 'Kış aylarında cildinizi nasıl korursunuz?',
+    content: 'Kışın cilt kuruluğunu önlemek için zengin nemlendiriciler, yüz yağları kullanın, sıcak duştan kaçının ve hava nemlendiricisi kullanın. Dudak bakımını unutmayın.'
+  },
+  'rose-water-benefits': {
+    title: 'Gül Suyunun Faydaları',
+    excerpt: 'Gül suyunun cildinize sağladığı faydaları keşfedin.',
+    content: 'Gül suyu cildi nemlendirin, pH dengesini sağlar, gözenekleri sıkılaştırır ve anti-inflamatuar etki gösterir. Tonik veya sprey olarak kullanılır.'
+  },
+  'acne-prone-skin-care': {
+    title: 'Akne Eğilimli Cilt Bakımı',
+    excerpt: 'Akne eğilimli ciltler için özel bakım önerileri.',
+    content: 'Akne için salisilik asit, niasinamid kullanın, yağsız ürünler tercih edin, düzenli temizlik yapın ve gözenekleri tıkayan ürünlerden kaçının.'
+  },
+  'double-cleansing-method': {
+    title: 'Çift Temizleme Yöntemi',
+    excerpt: 'Çift temizleme yöntemi nedir ve nasıl uygulanır?',
+    content: 'Çift temizleme: önce yağ bazlı temizleyiciyle makyaj çözün, sonra su bazlı temizleyiciyle kirleri alın. Derin temizlik sağlar, gözenekleri açar.'
+  },
+  'retinol-beginners-guide': {
+    title: 'Retinol Başlangıç Rehberi',
+    excerpt: 'Retinol kullanmaya yeni başlayanlar için kapsamlı rehber.',
+    content: 'Retinol kırışıklıkları azaltır, hücre yenilenmesini hızlandırır. Düşük konsantrasyonla başlayın, geceleri kullanın, SPF sürün. Sabırlı olun, sonuçlar 3 ayda görünür.'
   }
 };
