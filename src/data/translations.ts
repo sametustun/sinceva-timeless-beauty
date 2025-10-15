@@ -15,7 +15,7 @@ export const translations = {
     shop: 'Shop',
     about: 'About',
     blogNav: 'Blog',
-    contact: 'Contact',
+    contact: 'TOUCH TO BEAUTY',
     searchPlaceholder: 'Search products...',
     
     // Footer
@@ -287,7 +287,7 @@ export const translations = {
     shop: 'Mağaza',
     about: 'Hakkımızda',
     blogNav: 'Blog',
-    contact: 'İletişim',
+    contact: 'GÜZELLİĞE DOKUNUN',
     searchPlaceholder: 'Ürün ara...',
     
     // Footer
@@ -555,11 +555,11 @@ export const translations = {
     productNotFoundDesc: 'المنتج المطلوب غير موجود.',
     
     // Header & Navigation
-    home: 'البريق القديم',
+    home: 'اللمعان القديم',
     shop: 'المتجر',
     about: 'من نحن',
     blogNav: 'المدونة',
-    contact: 'اتصل بنا',
+    contact: 'لمسة الجمال',
     searchPlaceholder: 'البحث عن المنتجات...',
     
     // Footer
