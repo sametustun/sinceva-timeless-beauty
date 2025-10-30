@@ -215,7 +215,7 @@ const Header: React.FC = () => {
             }
           }}
           className={`hidden md:flex justify-center items-center py-1.5 md:py-3 h-10 transition-all duration-300 ${
-          showSearch ? 'gap-2 md:gap-4 lg:gap-6' : 'gap-4 md:gap-8 lg:gap-12'
+          showSearch ? 'space-x-2 md:space-x-4 lg:space-x-6' : 'space-x-4 md:space-x-8 lg:space-x-12'
         }`}>
           {navigation.map((item) => (
             <div key={item.name} className="relative">
@@ -248,7 +248,7 @@ const Header: React.FC = () => {
           ))}
           
           {/* Search Section */}
-          <div className={`flex items-center transition-all duration-300 ${showSearch ? 'ltr:ml-2 rtl:mr-2 md:ltr:ml-4 md:rtl:mr-4' : 'ltr:ml-4 rtl:mr-4 md:ltr:ml-8 md:rtl:mr-8'}`}>
+          <div className={`flex items-center transition-all duration-300 ${showSearch ? 'ml-2 md:ml-4' : 'ml-4 md:ml-8'}`}>
           {/* Language Selector - Fixed position in both LTR and RTL */}
           <div className="ltr:ml-2 rtl:mr-2">
             <LanguageSelector isScrolled={isScrolled} />
