@@ -187,15 +187,20 @@ const Contact: React.FC = () => {
               })}
             </div>
 
-            {/* Map Placeholder */}
+            {/* Interactive Map */}
             <div className="mt-8">
-              <h3 className="text-lg font-semibold mb-4">{t.visitStore}</h3>
-              <div className="aspect-video bg-muted rounded-lg flex items-center justify-center">
-                <div className="text-center text-muted-foreground">
-                  <MapPin className="w-12 h-12 mx-auto mb-2" />
-                  <p>{t.interactiveMap}</p>
-                  <p className="text-sm">{t.mapIntegration}</p>
-                </div>
+              <h3 className="text-lg font-semibold mb-4">{t.interactiveMap}</h3>
+              <div className="aspect-video rounded-lg overflow-hidden shadow-lg">
+                <iframe
+                  src="https://maps.google.com/maps?q=40.6529,29.3201&hl=tr&z=15&output=embed"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Sinceva Ofis Konumu"
+                />
               </div>
             </div>
           </div>
