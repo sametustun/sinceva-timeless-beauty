@@ -2,8 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { X, Cookie, Shield } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { translations } from '@/data/translations';
 
 const CookieConsent: React.FC = () => {
+  const { language } = useLanguage();
+  const t = translations[language].cookieConsent;
   const [isVisible, setIsVisible] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
 
@@ -50,11 +54,11 @@ const CookieConsent: React.FC = () => {
             <div className="flex items-start gap-3 flex-1">
               <Cookie className="w-6 h-6 text-[#ef2b2d] mt-1 flex-shrink-0" />
               <div>
-                <h3 className="font-semibold text-gray-900 mb-1">We Use Cookies</h3>
+                <h3 className="font-semibold text-gray-900 mb-1">{t.banner.title}</h3>
                 <p className="text-sm text-gray-600">
-                  We use cookies to improve your browsing experience, personalize content, and analyze our traffic. By continuing to use our site, you consent to our use of cookies.{' '}
+                  {t.banner.message}{' '}
                   <Link to="/cookie-policy" className="text-[#ef2b2d] hover:underline">
-                    Learn more
+                    {t.banner.learnMore}
                   </Link>
                 </p>
               </div>
@@ -66,7 +70,7 @@ const CookieConsent: React.FC = () => {
                 size="sm"
                 className="text-gray-600 border-gray-300"
               >
-                Preferences
+                {t.banner.preferences}
               </Button>
               <Button
                 onClick={handleReject}
@@ -74,14 +78,14 @@ const CookieConsent: React.FC = () => {
                 size="sm"
                 className="text-gray-600 border-gray-300"
               >
-                Reject
+                {t.banner.reject}
               </Button>
               <Button
                 onClick={handleAccept}
                 size="sm"
                 className="bg-[#ef2b2d] hover:bg-[#ef2b2d]/90"
               >
-                Accept All
+                {t.banner.acceptAll}
               </Button>
             </div>
           </div>
@@ -91,7 +95,7 @@ const CookieConsent: React.FC = () => {
             <div className="flex items-center justify-between">
               <h3 className="font-semibold text-gray-900 flex items-center gap-2">
                 <Shield className="w-5 h-5 text-[#ef2b2d]" />
-                Cookie Preferences
+                {t.preferences.title}
               </h3>
               <button
                 onClick={() => setShowDetails(false)}
@@ -104,24 +108,24 @@ const CookieConsent: React.FC = () => {
             <div className="grid gap-3">
               <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                 <div>
-                  <h4 className="font-medium text-gray-900">Necessary Cookies</h4>
-                  <p className="text-sm text-gray-600">Required for site functionality</p>
+                  <h4 className="font-medium text-gray-900">{t.preferences.necessary.title}</h4>
+                  <p className="text-sm text-gray-600">{t.preferences.necessary.description}</p>
                 </div>
-                <div className="text-sm text-gray-500">Always active</div>
+                <div className="text-sm text-gray-500">{t.preferences.necessary.alwaysActive}</div>
               </div>
               
               <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                 <div>
-                  <h4 className="font-medium text-gray-900">Analytics Cookies</h4>
-                  <p className="text-sm text-gray-600">Help us analyze site usage</p>
+                  <h4 className="font-medium text-gray-900">{t.preferences.analytics.title}</h4>
+                  <p className="text-sm text-gray-600">{t.preferences.analytics.description}</p>
                 </div>
                 <input type="checkbox" className="h-4 w-4 text-[#ef2b2d]" />
               </div>
               
               <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                 <div>
-                  <h4 className="font-medium text-gray-900">Marketing Cookies</h4>
-                  <p className="text-sm text-gray-600">Personalized advertisements</p>
+                  <h4 className="font-medium text-gray-900">{t.preferences.marketing.title}</h4>
+                  <p className="text-sm text-gray-600">{t.preferences.marketing.description}</p>
                 </div>
                 <input type="checkbox" className="h-4 w-4 text-[#ef2b2d]" />
               </div>
@@ -133,14 +137,14 @@ const CookieConsent: React.FC = () => {
                 variant="outline"
                 size="sm"
               >
-                Essential Only
+                {t.preferences.essentialOnly}
               </Button>
               <Button
                 onClick={handleAccept}
                 size="sm"
                 className="bg-[#ef2b2d] hover:bg-[#ef2b2d]/90"
               >
-                Accept All
+                {t.banner.acceptAll}
               </Button>
             </div>
           </div>

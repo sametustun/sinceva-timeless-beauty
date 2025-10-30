@@ -190,6 +190,35 @@ export const translations = {
     reviewerRights: 'Your Rights',
     reviewerRightsText: 'As a reviewer, you retain ownership of your review content. However, by submitting a review, you grant us a license to use, display, and distribute your review on our platform and marketing materials.',
     
+    // Cookie Consent Banner
+    cookieConsent: {
+      banner: {
+        title: 'We Use Cookies',
+        message: 'We use cookies to improve your browsing experience, personalize content, and analyze our traffic. By continuing to use our site, you consent to our use of cookies.',
+        learnMore: 'Learn more',
+        preferences: 'Preferences',
+        reject: 'Reject',
+        acceptAll: 'Accept All',
+      },
+      preferences: {
+        title: 'Cookie Preferences',
+        necessary: {
+          title: 'Necessary Cookies',
+          description: 'Required for site functionality',
+          alwaysActive: 'Always active',
+        },
+        analytics: {
+          title: 'Analytics Cookies',
+          description: 'Help us analyze site usage',
+        },
+        marketing: {
+          title: 'Marketing Cookies',
+          description: 'Personalized advertisements',
+        },
+        essentialOnly: 'Essential Only',
+      },
+    },
+
     // Cookie Policy
     cookiePolicyTitle: 'Cookie Policy',
     whatAreCookies: 'What Are Cookies?',
@@ -463,6 +492,35 @@ export const translations = {
     reviewerRights: 'Haklarınız',
     reviewerRightsText: 'Bir değerlendirici olarak, değerlendirme içeriğinizin sahipliğini korursunuz. Ancak, bir değerlendirme göndererek, platformumuzda ve pazarlama materyallerimizde değerlendirmenizi kullanma, görüntüleme ve dağıtma lisansını bize vermiş olursunuz.',
     
+    // Cookie Consent Banner
+    cookieConsent: {
+      banner: {
+        title: 'Çerez Kullanıyoruz',
+        message: 'Gezinme deneyiminizi iyileştirmek, içeriği kişiselleştirmek ve trafiğimizi analiz etmek için çerezler kullanıyoruz. Sitemizi kullanmaya devam ederek çerez kullanımımızı kabul etmiş olursunuz.',
+        learnMore: 'Daha fazla bilgi',
+        preferences: 'Tercihler',
+        reject: 'Reddet',
+        acceptAll: 'Tümünü Kabul Et',
+      },
+      preferences: {
+        title: 'Çerez Tercihleri',
+        necessary: {
+          title: 'Gerekli Çerezler',
+          description: 'Site işlevselliği için gerekli',
+          alwaysActive: 'Her zaman aktif',
+        },
+        analytics: {
+          title: 'Analitik Çerezler',
+          description: 'Site kullanımını analiz etmemize yardımcı olur',
+        },
+        marketing: {
+          title: 'Pazarlama Çerezleri',
+          description: 'Kişiselleştirilmiş reklamlar',
+        },
+        essentialOnly: 'Sadece Gerekli Olanlar',
+      },
+    },
+
     // Cookie Policy
     cookiePolicyTitle: 'Çerez Politikası',
     whatAreCookies: 'Çerezler Nedir?',
@@ -736,6 +794,35 @@ export const translations = {
     reviewerRights: 'حقوقك',
     reviewerRightsText: 'كمراجع، تحتفظ بملكية محتوى تقييمك. ومع ذلك، من خلال إرسال تقييم، فإنك تمنحنا ترخيصًا لاستخدام تقييمك وعرضه وتوزيعه على منصتنا ومواد التسويق الخاصة بنا.',
     
+    // Cookie Consent Banner
+    cookieConsent: {
+      banner: {
+        title: 'نحن نستخدم ملفات تعريف الارتباط',
+        message: 'نستخدم ملفات تعريف الارتباط لتحسين تجربة التصفح الخاصة بك وتخصيص المحتوى وتحليل حركة المرور لدينا. من خلال الاستمرار في استخدام موقعنا، فإنك توافق على استخدامنا لملفات تعريف الارتباط.',
+        learnMore: 'معرفة المزيد',
+        preferences: 'التفضيلات',
+        reject: 'رفض',
+        acceptAll: 'قبول الكل',
+      },
+      preferences: {
+        title: 'تفضيلات ملفات تعريف الارتباط',
+        necessary: {
+          title: 'ملفات تعريف الارتباط الضرورية',
+          description: 'مطلوبة لوظائف الموقع',
+          alwaysActive: 'نشط دائمًا',
+        },
+        analytics: {
+          title: 'ملفات تعريف الارتباط التحليلية',
+          description: 'يساعدنا في تحليل استخدام الموقع',
+        },
+        marketing: {
+          title: 'ملفات تعريف الارتباط التسويقية',
+          description: 'إعلانات مخصصة',
+        },
+        essentialOnly: 'الضروريات فقط',
+      },
+    },
+
     // Cookie Policy
     cookiePolicyTitle: 'سياسة ملفات تعريف الارتباط',
     whatAreCookies: 'ما هي ملفات تعريف الارتباط؟',
