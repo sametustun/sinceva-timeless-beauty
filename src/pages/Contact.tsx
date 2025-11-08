@@ -228,14 +228,14 @@ const Contact: React.FC = () => {
               <h3 className="text-lg font-semibold mb-4">{t.interactiveMap}</h3>
               <div className="aspect-video rounded-lg overflow-hidden shadow-lg">
                 <iframe
-                  src="https://maps.google.com/maps?q=40.6529,29.3201&hl=tr&z=15&output=embed"
+                  src="https://maps.google.com/maps?q=Çiftlik+Mah.+Karayolu+Cad.+No:124/B+6+Çiftlikköy/Yalova&hl=tr&z=16&output=embed"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="Sinceva Ofis Konumu"
+                  title="Sinceva Ofis Konumu - Çiftlik Mah. Karayolu Cad. No:124/B 6 Çiftlikköy/Yalova"
                 />
               </div>
             </div>
