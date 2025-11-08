@@ -120,14 +120,14 @@ $phone = htmlspecialchars($phone, ENT_QUOTES, 'UTF-8');
 $subject = htmlspecialchars($subject, ENT_QUOTES, 'UTF-8');
 $message = htmlspecialchars($message, ENT_QUOTES, 'UTF-8');
 
-// Check configuration
-if (empty(TURNSTILE_SECRET) || empty(SMTP_HOST) || empty(SMTP_USER)) {
+// Check configuration (TURNSTILE_SECRET is optional for Turnstile)
+if (empty(SMTP_HOST) || empty(SMTP_USER)) {
     logRequest('SERVER_MISCONFIGURED', ['ip' => $clientIP]);
     respondError('SERVER_MISCONFIGURED', 500);
 }
 
-// Verify Turnstile token
-if (!verifyTurnstile($cfToken, $clientIP)) {
+// Verify Turnstile token (optional - skip if token not provided)
+if (!empty($cfToken) && !verifyTurnstile($cfToken, $clientIP)) {
     logRequest('TURNSTILE_FAILED', ['ip' => $clientIP, 'email' => $email]);
     respondError('TURNSTILE_FAILED', 403);
 }

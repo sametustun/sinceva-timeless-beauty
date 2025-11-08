@@ -95,18 +95,9 @@ const Contact: React.FC = () => {
   // --- Submit ---
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!turnstileToken) {
-      toast({ 
-        title: 'Doğrulama Gerekli', 
-        description: 'Lütfen "Ben robot değilim" kutucuğunu işaretleyin.', 
-        variant: 'destructive' 
-      });
-      return;
-    }
-
     setLoading(true);
-    await submitWithToken(turnstileToken);
+    // Turnstile token varsa gönder, yoksa boş string gönder (backend'de opsiyonel)
+    await submitWithToken(turnstileToken || '');
   };
 
   // --- Token geldikten sonra API'ye gönder ---
@@ -208,7 +199,7 @@ const Contact: React.FC = () => {
               {/* Honeypot */}
               <input type="text" name="website" value={formData.website} onChange={handleInputChange} className="absolute opacity-0 pointer-events-none" tabIndex={-1} autoComplete="off" aria-hidden="true" />
 
-              <Button type="submit" className="w-full" disabled={loading || !turnstileToken}>
+              <Button type="submit" className="w-full" disabled={loading}>
                 {loading ? 'Gönderiliyor…' : t.sendMessageBtn}
               </Button>
             </form>
