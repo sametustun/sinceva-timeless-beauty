@@ -29,6 +29,10 @@ jobs:
       - name: Build
         run: npm run build
 
+      # Backend klasörünü dist içine kopyala
+      - name: Copy backend to dist
+        run: cp -R ./backend ./dist/backend
+
       # cPanel'in deploy edebilmesi için .cpanel.yml dosyasını dist içine ekliyoruz
       - name: Add .cpanel.yml into dist
         run: |
@@ -36,8 +40,11 @@ jobs:
           ---
           deployment:
             tasks:
-              - /bin/find /home/sin66vacom/public_html -mindepth 1 -maxdepth 1 ! -name ".well-known" -exec /bin/rm -rf {} \;
-              - /bin/cp -R ./ /home/sin66vacom/public_html/
+              - /bin/find /home/sin66vacom/public_html -mindepth 1 -maxdepth 1 ! -name ".well-known" ! -name "api" -exec /bin/rm -rf {} \;
+              - /bin/cp -R public/* /home/sin66vacom/public_html/
+              - /bin/cp index.html /home/sin66vacom/public_html/
+              - /bin/mkdir -p /home/sin66vacom/public_html/api
+              - /bin/cp -R backend/* /home/sin66vacom/public_html/api/
           YAML
 
       # dist klasörünü deploy branch'ine yayınla
