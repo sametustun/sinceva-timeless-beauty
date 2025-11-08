@@ -32,7 +32,7 @@ const Contact: React.FC = () => {
 
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', subject: '', message: '', website: '' });
   const [loading, setLoading] = useState(false);
-  const [visibleMode, setVisibleMode] = useState(false); // invisible mode başlat
+  const [turnstileToken, setTurnstileToken] = useState<string>('');
 
   const mountRef = useRef<HTMLDivElement | null>(null);
   const widgetIdRef = useRef<string | null>(null);
@@ -46,14 +46,22 @@ const Contact: React.FC = () => {
       mountRef.current.innerHTML = '';
       widgetIdRef.current = window.turnstile.render(mountRef.current, {
         sitekey: SITE_KEY,
-        // invisible; fallback'ta visible'a geçiyoruz
-        ...(visibleMode ? {} : { size: 'invisible' }),
+        theme: 'light',
+        size: 'normal',
         callback: (token: string) => {
           console.log('turnstile callback token:', token);
-          submitWithToken(token);
+          setTurnstileToken(token);
+        },
+        'error-callback': () => {
+          console.error('turnstile error');
+          toast({ 
+            title: 'Doğrulama Hatası', 
+            description: 'Güvenlik doğrulaması başarısız. Lütfen sayfayı yenileyin.', 
+            variant: 'destructive' 
+          });
         },
       });
-      console.log('turnstile rendered, mode =', visibleMode ? 'visible' : 'invisible');
+      console.log('turnstile rendered, widget ID:', widgetIdRef.current);
     };
 
     const existing = document.getElementById(scriptId) as HTMLScriptElement | null;
@@ -67,9 +75,17 @@ const Contact: React.FC = () => {
       s.async = true;
       s.defer = true;
       s.onload = () => { console.log('turnstile script loaded'); init(); };
+      s.onerror = () => {
+        console.error('turnstile script failed to load');
+        toast({ 
+          title: 'Yükleme Hatası', 
+          description: 'Güvenlik bileşeni yüklenemedi. Lütfen sayfayı yenileyin.', 
+          variant: 'destructive' 
+        });
+      };
       document.body.appendChild(s);
     }
-  }, [visibleMode]);
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -77,31 +93,20 @@ const Contact: React.FC = () => {
   };
 
   // --- Submit ---
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!window.turnstile || !widgetIdRef.current) {
-      toast({ title: 'Hata', description: 'Güvenlik doğrulaması yüklenemedi.', variant: 'destructive' });
+    
+    if (!turnstileToken) {
+      toast({ 
+        title: 'Doğrulama Gerekli', 
+        description: 'Lütfen "Ben robot değilim" kutucuğunu işaretleyin.', 
+        variant: 'destructive' 
+      });
       return;
     }
-    setLoading(true);
-    console.log('turnstile execute');
-    window.turnstile.execute(widgetIdRef.current);
 
-    // Fallback: 1.5sn sonra token gelmediyse getResponse dene,
-    // yine yoksa görünür moda geçip kullanıcıdan onay iste.
-    setTimeout(() => {
-      const token = window.turnstile?.getResponse?.(widgetIdRef.current!);
-      console.log('turnstile getResponse token:', token);
-      if (token) submitWithToken(token);
-      else {
-        setVisibleMode(true); // visible'a geç
-        setLoading(false);
-        toast({
-          title: 'Doğrulama gerekli',
-          description: 'Lütfen aşağıdaki doğrulamayı tamamlayıp yeniden gönderin.',
-        });
-      }
-    }, 1500);
+    setLoading(true);
+    await submitWithToken(turnstileToken);
   };
 
   // --- Token geldikten sonra API'ye gönder ---
@@ -121,7 +126,7 @@ const Contact: React.FC = () => {
       if (data.ok) {
         toast({ title: t.messageSentSuccess, description: t.messageSentDesc });
         setFormData({ name: '', email: '', phone: '', subject: '', message: '', website: '' });
-        setVisibleMode(false);
+        setTurnstileToken('');
       } else {
         const errorMessages: Record<string, string> = {
           'VALIDATION_ERROR': 'Lütfen tüm zorunlu alanları doldurun.',
@@ -134,10 +139,14 @@ const Contact: React.FC = () => {
         toast({ title: 'Hata', description: errorMsg, variant: 'destructive' });
       }
     } catch (err) {
+      console.error('Submit error:', err);
       toast({ title: 'Hata', description: 'Bağlantı hatası. Lütfen tekrar deneyin.', variant: 'destructive' });
     } finally {
       setLoading(false);
-      if (window.turnstile && widgetIdRef.current) window.turnstile.reset(widgetIdRef.current);
+      setTurnstileToken('');
+      if (window.turnstile && widgetIdRef.current) {
+        window.turnstile.reset(widgetIdRef.current);
+      }
     }
   };
 
@@ -192,12 +201,14 @@ const Contact: React.FC = () => {
               </div>
 
               {/* Turnstile mount */}
-              <div ref={mountRef} />
+              <div className="flex justify-center py-4">
+                <div ref={mountRef} />
+              </div>
 
               {/* Honeypot */}
               <input type="text" name="website" value={formData.website} onChange={handleInputChange} className="absolute opacity-0 pointer-events-none" tabIndex={-1} autoComplete="off" aria-hidden="true" />
 
-              <Button type="submit" className="w-full" disabled={loading}>
+              <Button type="submit" className="w-full" disabled={loading || !turnstileToken}>
                 {loading ? 'Gönderiliyor…' : t.sendMessageBtn}
               </Button>
             </form>
