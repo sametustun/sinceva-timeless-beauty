@@ -53,7 +53,16 @@ if (!is_dir(RATE_LIMIT_DIR)) mkdir(RATE_LIMIT_DIR, 0755, true);
 // CORS Headers
 header('Content-Type: application/json; charset=utf-8');
 $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
-if ($origin === ALLOWED_ORIGIN) {
+
+// Allow sinceva.com and Lovable preview domains
+$allowedOrigins = [
+    ALLOWED_ORIGIN,
+    'https://sinceva.com',
+    'https://www.sinceva.com'
+];
+$isLovablePreview = strpos($origin, '.lovableproject.com') !== false;
+
+if (in_array($origin, $allowedOrigins) || $isLovablePreview) {
     header("Access-Control-Allow-Origin: $origin");
     header('Access-Control-Allow-Methods: POST, OPTIONS');
     header('Access-Control-Allow-Headers: Content-Type');
@@ -72,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 // Verify origin
-if ($origin !== ALLOWED_ORIGIN) {
+if (!in_array($origin, $allowedOrigins) && !$isLovablePreview) {
     logRequest('ORIGIN_DENIED', ['origin' => $origin]);
     respondError('FORBIDDEN', 403);
 }
