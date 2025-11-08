@@ -1,0 +1,26 @@
+# Security Headers
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header set X-Frame-Options "DENY"
+  Header set X-XSS-Protection "0"
+  Header set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+</IfModule>
+
+# Protect .env file
+<Files ".env">
+  Require all denied
+</Files>
+
+# Protect logs directory
+<FilesMatch "\.(log|txt)$">
+  Require all denied
+</FilesMatch>
+
+# PHP Configuration
+<IfModule mod_php.c>
+  php_value upload_max_filesize 2M
+  php_value post_max_size 2M
+  php_value max_execution_time 30
+  php_value max_input_time 30
+</IfModule>
