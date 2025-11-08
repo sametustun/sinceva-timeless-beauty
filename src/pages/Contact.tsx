@@ -11,7 +11,7 @@ import contactBannerMobile from '@/assets/contact_banner_mobile.jpg';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { translations } from '@/data/translations';
 
-// Window'a turnstile tipi tanımlayalım (TS uyarısı olmasın)
+// turnstile tipi (TS)
 declare global {
   interface Window {
     turnstile?: {
@@ -23,52 +23,60 @@ declare global {
   }
 }
 
+const SITE_KEY = '0x4AAAAAAB_0P6uOpt4ockt7'; // ← SENİN SITE KEY
+
 const Contact: React.FC = () => {
   const { language } = useLanguage();
   const t = translations[language];
   const { toast } = useToast();
 
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
-  });
+  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
   const [loading, setLoading] = useState(false);
+  const [visibleMode, setVisibleMode] = useState(false); // fallback için
 
-  // Turnstile invisible widget için referanslar
-  const turnstileMountRef = useRef<HTMLDivElement | null>(null);
+  const mountRef = useRef<HTMLDivElement | null>(null);
   const widgetIdRef = useRef<string | null>(null);
 
-  // Turnstile scriptini yükle ve görünmez widget'ı render et
+  // --- Turnstile script + render ---
   useEffect(() => {
-    const script = document.createElement('script');
-    script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
-    script.async = true;
-    script.defer = true;
-    script.onload = () => {
-      if (window.turnstile && turnstileMountRef.current && !widgetIdRef.current) {
-        widgetIdRef.current = window.turnstile.render(turnstileMountRef.current, {
-          sitekey: '0x4AAAAAAB_0P6uOpt4ockt7', // <-- kendi Site Key'in
-          size: 'invisible',
-          callback: (token: string) => submitWithToken(token),
-        });
-      }
+    const scriptId = 'cf-turnstile';
+    const init = () => {
+      if (!window.turnstile || !mountRef.current) return;
+      // mount'ı temizle ve yeniden render et
+      mountRef.current.innerHTML = '';
+      widgetIdRef.current = window.turnstile.render(mountRef.current, {
+        sitekey: SITE_KEY,
+        // invisible; fallback'ta visible'a geçiyoruz
+        ...(visibleMode ? {} : { size: 'invisible' }),
+        callback: (token: string) => {
+          console.log('turnstile callback token:', token);
+          submitWithToken(token);
+        },
+      });
+      console.log('turnstile rendered, mode =', visibleMode ? 'visible' : 'invisible');
     };
-    document.body.appendChild(script);
-    return () => {
-      // cleanup gerekmez; sayfa değişince DOM'dan çıkar
-    };
-  }, []);
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+    const existing = document.getElementById(scriptId) as HTMLScriptElement | null;
+    if (existing) {
+      console.log('turnstile script already loaded');
+      init();
+    } else {
+      const s = document.createElement('script');
+      s.id = scriptId;
+      s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+      s.async = true;
+      s.defer = true;
+      s.onload = () => { console.log('turnstile script loaded'); init(); };
+      document.body.appendChild(s);
+    }
+  }, [visibleMode]);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  // Görünmez widget tetikleme
+  // --- Submit ---
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!window.turnstile || !widgetIdRef.current) {
@@ -76,18 +84,30 @@ const Contact: React.FC = () => {
       return;
     }
     setLoading(true);
+    console.log('turnstile execute');
     window.turnstile.execute(widgetIdRef.current);
+
+    // Fallback: 1.5sn sonra token gelmediyse getResponse dene,
+    // yine yoksa görünür moda geçip kullanıcıdan onay iste.
+    setTimeout(() => {
+      const token = window.turnstile?.getResponse?.(widgetIdRef.current!);
+      console.log('turnstile getResponse token:', token);
+      if (token) submitWithToken(token);
+      else {
+        setVisibleMode(true); // visible'a geç
+        setLoading(false);
+        toast({
+          title: 'Doğrulama gerekli',
+          description: 'Lütfen aşağıdaki doğrulamayı tamamlayıp yeniden gönderin.',
+        });
+      }
+    }, 1500);
   };
 
-  // Token geldikten sonra API'ye gönder
+  // --- Token geldikten sonra API'ye gönder ---
   const submitWithToken = async (token: string) => {
     try {
-      const payload = {
-        ...formData,
-        website: '',       // honeypot alanı (sunucu tarafı için)
-        cf_token: token,   // Turnstile doğrulama tokenı
-      };
-
+      const payload = { ...formData, website: '', cf_token: token };
       const res = await fetch('https://api.sinceva.com/contact.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -98,6 +118,8 @@ const Contact: React.FC = () => {
       if (data.ok) {
         toast({ title: t.messageSentSuccess, description: t.messageSentDesc });
         setFormData({ name: '', email: '', subject: '', message: '' });
+        // invisible moda geri dön (bir sonraki gönderim UX'i için)
+        setVisibleMode(false);
       } else {
         toast({ title: 'Hata', description: data.error || 'Gönderilemedi.', variant: 'destructive' });
       }
@@ -134,69 +156,29 @@ const Contact: React.FC = () => {
             <form onSubmit={handleSubmit} className="space-y-6" id="sincevaContactForm">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium mb-2">
-                    {t.fullName} *
-                  </label>
-                  <Input
-                    id="name"
-                    name="name"
-                    type="text"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    required
-                    placeholder={t.enterFullName}
-                  />
+                  <label htmlFor="name" className="block text-sm font-medium mb-2">{t.fullName} *</label>
+                  <Input id="name" name="name" type="text" value={formData.name} onChange={handleInputChange} required placeholder={t.enterFullName} />
                 </div>
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium mb-2">
-                    {t.emailAddress} *
-                  </label>
-                  <Input
-                    id="email"
-                    name="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    required
-                    placeholder={t.enterEmailPlaceholder}
-                  />
+                  <label htmlFor="email" className="block text-sm font-medium mb-2">{t.emailAddress} *</label>
+                  <Input id="email" name="email" type="email" value={formData.email} onChange={handleInputChange} required placeholder={t.enterEmailPlaceholder} />
                 </div>
               </div>
 
               <div>
-                <label htmlFor="subject" className="block text-sm font-medium mb-2">
-                  {t.subject} *
-                </label>
-                <Input
-                  id="subject"
-                  name="subject"
-                  type="text"
-                  value={formData.subject}
-                  onChange={handleInputChange}
-                  required
-                  placeholder={t.subjectPlaceholder}
-                />
+                <label htmlFor="subject" className="block text-sm font-medium mb-2">{t.subject} *</label>
+                <Input id="subject" name="subject" type="text" value={formData.subject} onChange={handleInputChange} required placeholder={t.subjectPlaceholder} />
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-sm font-medium mb-2">
-                  {t.message} *
-                </label>
-                <Textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleInputChange}
-                  required
-                  placeholder={t.messagePlaceholder}
-                  className="min-h-[120px]"
-                />
+                <label htmlFor="message" className="block text-sm font-medium mb-2">{t.message} *</label>
+                <Textarea id="message" name="message" value={formData.message} onChange={handleInputChange} required placeholder={t.messagePlaceholder} className="min-h-[120px]" />
               </div>
 
-              {/* Invisible Turnstile mount noktası */}
-              <div ref={turnstileMountRef} />
+              {/* Turnstile mount */}
+              <div ref={mountRef} />
 
-              {/* Honeypot (gizli) – botlar doldurursa sunucu reddeder */}
+              {/* Honeypot */}
               <input type="text" name="website" className="hidden" tabIndex={-1} autoComplete="off" />
 
               <Button type="submit" className="w-full" disabled={loading}>
