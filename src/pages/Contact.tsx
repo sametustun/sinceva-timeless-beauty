@@ -30,9 +30,9 @@ const Contact: React.FC = () => {
   const t = translations[language];
   const { toast } = useToast();
 
-  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', phone: '', subject: '', message: '', website: '' });
   const [loading, setLoading] = useState(false);
-  const [visibleMode, setVisibleMode] = useState(true); // fallback için
+  const [visibleMode, setVisibleMode] = useState(false); // invisible mode başlat
 
   const mountRef = useRef<HTMLDivElement | null>(null);
   const widgetIdRef = useRef<string | null>(null);
@@ -107,21 +107,31 @@ const Contact: React.FC = () => {
   // --- Token geldikten sonra API'ye gönder ---
   const submitWithToken = async (token: string) => {
     try {
-      const payload = { ...formData, website: '', cf_token: token };
-      const res = await fetch('https://api.sinceva.com/contact.php', {
+      const { website, ...cleanData } = formData;
+      const payload = { ...cleanData, cf_turnstile_token: token };
+      
+      const res = await fetch('https://api.sinceva.com/contact/contact.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
+      
       const data = await res.json();
 
       if (data.ok) {
         toast({ title: t.messageSentSuccess, description: t.messageSentDesc });
-        setFormData({ name: '', email: '', subject: '', message: '' });
-        // invisible moda geri dön (bir sonraki gönderim UX'i için)
+        setFormData({ name: '', email: '', phone: '', subject: '', message: '', website: '' });
         setVisibleMode(false);
       } else {
-        toast({ title: 'Hata', description: data.error || 'Gönderilemedi.', variant: 'destructive' });
+        const errorMessages: Record<string, string> = {
+          'VALIDATION_ERROR': 'Lütfen tüm zorunlu alanları doldurun.',
+          'INVALID_EMAIL': 'Geçersiz e-posta adresi.',
+          'TURNSTILE_FAILED': 'Güvenlik doğrulaması başarısız.',
+          'RATE_LIMITED': 'Çok fazla deneme. Lütfen daha sonra tekrar deneyin.',
+          'MAIL_SEND_FAILED': 'E-posta gönderilemedi. Lütfen tekrar deneyin.',
+        };
+        const errorMsg = errorMessages[data.error] || data.error || 'Bir hata oluştu.';
+        toast({ title: 'Hata', description: errorMsg, variant: 'destructive' });
       }
     } catch (err) {
       toast({ title: 'Hata', description: 'Bağlantı hatası. Lütfen tekrar deneyin.', variant: 'destructive' });
@@ -157,29 +167,35 @@ const Contact: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium mb-2">{t.fullName} *</label>
-                  <Input id="name" name="name" type="text" value={formData.name} onChange={handleInputChange} required placeholder={t.enterFullName} />
+                  <Input id="name" name="name" type="text" value={formData.name} onChange={handleInputChange} required placeholder={t.enterFullName} maxLength={100} />
                 </div>
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium mb-2">{t.emailAddress} *</label>
-                  <Input id="email" name="email" type="email" value={formData.email} onChange={handleInputChange} required placeholder={t.enterEmailPlaceholder} />
+                  <Input id="email" name="email" type="email" value={formData.email} onChange={handleInputChange} required placeholder={t.enterEmailPlaceholder} maxLength={255} />
                 </div>
               </div>
 
-              <div>
-                <label htmlFor="subject" className="block text-sm font-medium mb-2">{t.subject} *</label>
-                <Input id="subject" name="subject" type="text" value={formData.subject} onChange={handleInputChange} required placeholder={t.subjectPlaceholder} />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label htmlFor="phone" className="block text-sm font-medium mb-2">{t.phone}</label>
+                  <Input id="phone" name="phone" type="tel" value={formData.phone} onChange={handleInputChange} placeholder="+90 5XX XXX XX XX" maxLength={20} />
+                </div>
+                <div>
+                  <label htmlFor="subject" className="block text-sm font-medium mb-2">{t.subject} *</label>
+                  <Input id="subject" name="subject" type="text" value={formData.subject} onChange={handleInputChange} required placeholder={t.subjectPlaceholder} maxLength={200} />
+                </div>
               </div>
 
               <div>
                 <label htmlFor="message" className="block text-sm font-medium mb-2">{t.message} *</label>
-                <Textarea id="message" name="message" value={formData.message} onChange={handleInputChange} required placeholder={t.messagePlaceholder} className="min-h-[120px]" />
+                <Textarea id="message" name="message" value={formData.message} onChange={handleInputChange} required placeholder={t.messagePlaceholder} className="min-h-[120px]" maxLength={2000} />
               </div>
 
               {/* Turnstile mount */}
               <div ref={mountRef} />
 
               {/* Honeypot */}
-              <input type="text" name="website" className="hidden" tabIndex={-1} autoComplete="off" />
+              <input type="text" name="website" value={formData.website} onChange={handleInputChange} className="absolute opacity-0 pointer-events-none" tabIndex={-1} autoComplete="off" aria-hidden="true" />
 
               <Button type="submit" className="w-full" disabled={loading}>
                 {loading ? 'Gönderiliyor…' : t.sendMessageBtn}
