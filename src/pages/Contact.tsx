@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Layout from '@/components/Layout';
 import PageHero from '@/components/sections/PageHero';
 import { Button } from '@/components/ui/button';
@@ -11,93 +11,127 @@ import contactBannerMobile from '@/assets/contact_banner_mobile.jpg';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { translations } from '@/data/translations';
 
+// Window'a turnstile tipi tanımlayalım (TS uyarısı olmasın)
+declare global {
+  interface Window {
+    turnstile?: {
+      render: (el: HTMLElement, opts: any) => string;
+      execute: (id: string) => void;
+      reset: (id: string) => void;
+      getResponse?: (id?: string) => string;
+    };
+  }
+}
+
 const Contact: React.FC = () => {
   const { language } = useLanguage();
   const t = translations[language];
   const { toast } = useToast();
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     subject: '',
-    message: ''
+    message: '',
   });
+  const [loading, setLoading] = useState(false);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  // Turnstile invisible widget için referanslar
+  const turnstileMountRef = useRef<HTMLDivElement | null>(null);
+  const widgetIdRef = useRef<string | null>(null);
+
+  // Turnstile scriptini yükle ve görünmez widget'ı render et
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+    script.async = true;
+    script.defer = true;
+    script.onload = () => {
+      if (window.turnstile && turnstileMountRef.current && !widgetIdRef.current) {
+        widgetIdRef.current = window.turnstile.render(turnstileMountRef.current, {
+          sitekey: '0x4AAAAAAB_0P6uOpt4ockt7', // <-- kendi Site Key'in
+          size: 'invisible',
+          callback: (token: string) => submitWithToken(token),
+        });
+      }
+    };
+    document.body.appendChild(script);
+    return () => {
+      // cleanup gerekmez; sayfa değişince DOM'dan çıkar
+    };
+  }, []);
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  // Görünmez widget tetikleme
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    try {
-      // Here you would integrate with your backend to send the email to info@sinceva.com
-      // For now, we'll just show a success message
-      console.log('Form submitted:', formData);
-      
-      toast({
-        title: t.messageSentSuccess,
-        description: t.messageSentDesc,
-      });
+    if (!window.turnstile || !widgetIdRef.current) {
+      toast({ title: 'Hata', description: 'Güvenlik doğrulaması yüklenemedi.', variant: 'destructive' });
+      return;
+    }
+    setLoading(true);
+    window.turnstile.execute(widgetIdRef.current);
+  };
 
-      // Reset form
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: ''
+  // Token geldikten sonra API'ye gönder
+  const submitWithToken = async (token: string) => {
+    try {
+      const payload = {
+        ...formData,
+        website: '',       // honeypot alanı (sunucu tarafı için)
+        cf_token: token,   // Turnstile doğrulama tokenı
+      };
+
+      const res = await fetch('https://api.sinceva.com/contact.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
       });
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "Failed to send message. Please try again.",
-        variant: "destructive",
-      });
+      const data = await res.json();
+
+      if (data.ok) {
+        toast({ title: t.messageSentSuccess, description: t.messageSentDesc });
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      } else {
+        toast({ title: 'Hata', description: data.error || 'Gönderilemedi.', variant: 'destructive' });
+      }
+    } catch (err) {
+      toast({ title: 'Hata', description: 'Bağlantı hatası. Lütfen tekrar deneyin.', variant: 'destructive' });
+    } finally {
+      setLoading(false);
+      if (window.turnstile && widgetIdRef.current) window.turnstile.reset(widgetIdRef.current);
     }
   };
 
   const contactInfo = [
-    {
-      icon: MapPin,
-      title: t.address,
-      content: t.addressContent
-    },
-    {
-      icon: Phone,
-      title: t.phone,
-      content: t.phoneContent
-    },
-    {
-      icon: Mail,
-      title: t.email,
-      content: t.emailContent
-    },
-    {
-      icon: Clock,
-      title: t.businessHours,
-      content: t.hoursContent
-    },
+    { icon: MapPin, title: t.address,       content: t.addressContent },
+    { icon: Phone,  title: t.phone,         content: t.phoneContent },
+    { icon: Mail,   title: t.email,         content: t.emailContent },
+    { icon: Clock,  title: t.businessHours, content: t.hoursContent },
   ];
 
   return (
     <Layout>
-      <PageHero 
+      <PageHero
         title={t.contactUs}
         subtitle={t.contactSubtitle}
         backgroundImage={contactBanner}
         backgroundImageMobile={contactBannerMobile}
       />
-      
-      <div className="container mx-auto max-w-7xl px-4 py-16">
 
+      <div className="container mx-auto max-w-7xl px-4 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           {/* Contact Form */}
           <div>
             <h2 className="text-2xl font-semibold mb-8">{t.sendMessage}</h2>
-            <form onSubmit={handleSubmit} className="space-y-6">
+
+            <form onSubmit={handleSubmit} className="space-y-6" id="sincevaContactForm">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium mb-2">
@@ -113,7 +147,6 @@ const Contact: React.FC = () => {
                     placeholder={t.enterFullName}
                   />
                 </div>
-                
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium mb-2">
                     {t.emailAddress} *
@@ -160,8 +193,14 @@ const Contact: React.FC = () => {
                 />
               </div>
 
-              <Button type="submit" className="w-full">
-                {t.sendMessageBtn}
+              {/* Invisible Turnstile mount noktası */}
+              <div ref={turnstileMountRef} />
+
+              {/* Honeypot (gizli) – botlar doldurursa sunucu reddeder */}
+              <input type="text" name="website" className="hidden" tabIndex={-1} autoComplete="off" />
+
+              <Button type="submit" className="w-full" disabled={loading}>
+                {loading ? 'Gönderiliyor…' : t.sendMessageBtn}
               </Button>
             </form>
           </div>
@@ -169,7 +208,6 @@ const Contact: React.FC = () => {
           {/* Contact Information */}
           <div className="space-y-8">
             <h2 className="text-2xl font-semibold">{t.getInTouch}</h2>
-            
             <div className="space-y-6">
               {contactInfo.map((info, index) => {
                 const Icon = info.icon;
