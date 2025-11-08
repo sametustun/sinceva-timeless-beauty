@@ -32,7 +32,7 @@ const Contact: React.FC = () => {
 
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
   const [loading, setLoading] = useState(false);
-  const [visibleMode, setVisibleMode] = useState(false); // fallback için
+  const [visibleMode, setVisibleMode] = useState(true); // fallback için
 
   const mountRef = useRef<HTMLDivElement | null>(null);
   const widgetIdRef = useRef<string | null>(null);
