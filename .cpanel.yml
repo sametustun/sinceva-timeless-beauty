@@ -1,8 +1,5 @@
 ---
 deployment:
   tasks:
-    - /bin/find /home/sin66vacom/public_html -mindepth 1 -maxdepth 1 ! -name ".well-known" ! -name "api" -exec /bin/rm -rf {} \;
-    - /bin/cp -R public/* /home/sin66vacom/public_html/
-    - /bin/cp index.html /home/sin66vacom/public_html/
-    - /bin/mkdir -p /home/sin66vacom/public_html/api
-    - /bin/cp -R backend/* /home/sin66vacom/public_html/api/
+    - /bin/find /home/sin66vacom/public_html -mindepth 1 -maxdepth 1 ! -name ".well-known" -exec /bin/rm -rf {} \;
+    - /bin/cp -R ./ /home/sin66vacom/public_html/
