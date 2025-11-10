@@ -53,16 +53,7 @@ if (!is_dir(RATE_LIMIT_DIR)) mkdir(RATE_LIMIT_DIR, 0755, true);
 // CORS Headers
 header('Content-Type: application/json; charset=utf-8');
 $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
-
-// Allow sinceva.com and Lovable preview domains
-$allowedOrigins = [
-    ALLOWED_ORIGIN,
-    'https://sinceva.com',
-    'https://www.sinceva.com'
-];
-$isLovablePreview = strpos($origin, '.lovableproject.com') !== false;
-
-if (in_array($origin, $allowedOrigins) || $isLovablePreview) {
+if ($origin === ALLOWED_ORIGIN) {
     header("Access-Control-Allow-Origin: $origin");
     header('Access-Control-Allow-Methods: POST, OPTIONS');
     header('Access-Control-Allow-Headers: Content-Type');
@@ -81,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 // Verify origin
-if (!in_array($origin, $allowedOrigins) && !$isLovablePreview) {
+if ($origin !== ALLOWED_ORIGIN) {
     logRequest('ORIGIN_DENIED', ['origin' => $origin]);
     respondError('FORBIDDEN', 403);
 }
@@ -129,14 +120,14 @@ $phone = htmlspecialchars($phone, ENT_QUOTES, 'UTF-8');
 $subject = htmlspecialchars($subject, ENT_QUOTES, 'UTF-8');
 $message = htmlspecialchars($message, ENT_QUOTES, 'UTF-8');
 
-// Check configuration (TURNSTILE_SECRET is optional for Turnstile)
-if (empty(SMTP_HOST) || empty(SMTP_USER)) {
+// Check configuration
+if (empty(TURNSTILE_SECRET) || empty(SMTP_HOST) || empty(SMTP_USER)) {
     logRequest('SERVER_MISCONFIGURED', ['ip' => $clientIP]);
     respondError('SERVER_MISCONFIGURED', 500);
 }
 
-// Verify Turnstile token (optional - skip if token not provided)
-if (!empty($cfToken) && !verifyTurnstile($cfToken, $clientIP)) {
+// Verify Turnstile token
+if (!verifyTurnstile($cfToken, $clientIP)) {
     logRequest('TURNSTILE_FAILED', ['ip' => $clientIP, 'email' => $email]);
     respondError('TURNSTILE_FAILED', 403);
 }

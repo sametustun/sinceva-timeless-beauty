@@ -23,29 +23,7 @@ Production-ready contact form backend with Cloudflare Turnstile verification, SM
 
 ## 🛠️ Installation
 
-### Method 1: Automated Script (Recommended)
-
-```bash
-# SSH into your server
-ssh user@your-server
-
-# Navigate to backend directory
-cd /path/to/api.sinceva.com/contact
-
-# Run installation script
-bash install.sh
-
-# Edit .env with your credentials
-nano .env
-
-# Test installation
-php test.php
-# Or visit: https://api.sinceva.com/contact/test.php
-```
-
-### Method 2: Manual Installation
-
-#### 1. Upload Files to Server
+### 1. Upload Files to Server
 
 Upload all files from `backend/` directory to `api.sinceva.com/contact/`:
 
@@ -53,50 +31,51 @@ Upload all files from `backend/` directory to `api.sinceva.com/contact/`:
 api.sinceva.com/
 └── contact/
     ├── contact.php
-    ├── test.php           # NEW: Test endpoint
-    ├── install.sh         # NEW: Installation script
     ├── .env
     ├── .htaccess
-    ├── .gitignore         # NEW: Git ignore rules
     ├── composer.json
-    ├── logs/              (created automatically)
-    └── rate-limit/        (created automatically)
+    ├── logs/         (will be created automatically)
+    └── rate-limit/   (will be created automatically)
 ```
 
-#### 2. Install Dependencies
+### 2. Install Dependencies
+
+SSH into your server and run:
 
 ```bash
 cd /path/to/api.sinceva.com/contact
 composer install --no-dev --optimize-autoloader
 ```
 
-#### 3. Configure Environment
+### 3. Configure Environment
+
+Copy `.env.example` to `.env`:
 
 ```bash
 cp .env.example .env
-nano .env  # Edit with your settings
 ```
 
-Required `.env` configuration:
+Edit `.env` with your settings:
 
 ```env
-TURNSTILE_SECRET=0x4AAAAAAB_0P2gH5fLlUL60qpbr39j14yc
+TURNSTILE_SECRET=your_turnstile_secret_key
 ALLOWED_ORIGIN=https://sinceva.com
 MAIL_TO=destek@sinceva.com
 MAIL_TO_NAME=SincEva Destek
-SMTP_HOST=smtp.turkticaret.net
+SMTP_HOST=smtp.yourhost.com
 SMTP_PORT=587
-SMTP_USER=info@sinceva.com
-SMTP_PASS=Unuttumx2.
+SMTP_USER=no-reply@sinceva.com
+SMTP_PASS=your_smtp_password
 SMTP_SECURE=tls
 ```
 
-#### 4. Set Permissions
+### 4. Set Permissions
 
 ```bash
-chmod 755 contact.php test.php install.sh
-chmod 644 .env .htaccess
-chmod 755 logs rate-limit
+chmod 755 contact.php
+chmod 600 .env
+chmod 755 logs
+chmod 755 rate-limit
 ```
 
 ### 5. Configure Cloudflare
@@ -131,25 +110,6 @@ fetch('https://api.sinceva.com/contact/contact.php', {
 ```
 
 ## 🧪 Testing
-
-### Quick Test (Recommended):
-```bash
-# Command line test
-php test.php
-
-# Or visit in browser
-https://api.sinceva.com/contact/test.php
-```
-
-Expected output:
-```json
-{
-  "overall": {
-    "status": "READY",
-    "message": "Backend is ready to use"
-  }
-}
-```
 
 ### Test Contact Form:
 1. Visit https://sinceva.com/contact
