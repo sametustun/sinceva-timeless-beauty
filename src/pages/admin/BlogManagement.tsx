@@ -36,6 +36,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
 import { FileText, Search, Trash2, Loader2, Plus, Edit, Eye, EyeOff, Upload } from 'lucide-react';
 import ImageUpload from '@/components/admin/ImageUpload';
+import SeoFields from '@/components/admin/SeoFields';
 
 interface BlogPost {
   id: string;
@@ -480,6 +481,15 @@ export default function AdminBlogManagement() {
                   placeholder="https://..."
                 />
               </div>
+
+              <SeoFields
+                seo={editingPost.seo || {
+                  title: { tr: '', en: '', ar: '' },
+                  description: { tr: '', en: '', ar: '' },
+                  keywords: { tr: '', en: '', ar: '' },
+                }}
+                onChange={(seo) => setEditingPost({ ...editingPost, seo })}
+              />
 
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
