@@ -299,6 +299,18 @@ export const translations = {
         description: 'Essential daily skincare products for healthy, protected, and nourished skin every day.',
       },
     },
+
+    // Newsletter
+    newsletter: {
+      successTitle: 'Success!',
+      successDesc: 'Confirmation email sent. Please check your inbox.',
+      errorTitle: 'Error',
+      errorGeneric: 'An error occurred. Please try again.',
+      errorAlreadySubscribed: 'This email address is already subscribed.',
+      errorInvalidEmail: 'Invalid email address.',
+      errorRateLimited: 'Too many requests. Please wait a moment.',
+      sending: 'Sending...',
+    },
   },
   tr: {
     // Product Page
@@ -600,6 +612,18 @@ export const translations = {
         description: 'Her gün sağlıklı, korunaklı ve beslenmiş cilt için vazgeçilmez günlük cilt bakım ürünleri.',
       },
     },
+
+    // Newsletter
+    newsletter: {
+      successTitle: 'Başarılı!',
+      successDesc: 'Onay e-postası gönderildi. Lütfen e-postanızı kontrol edin.',
+      errorTitle: 'Hata',
+      errorGeneric: 'Bir hata oluştu. Lütfen tekrar deneyin.',
+      errorAlreadySubscribed: 'Bu e-posta adresi zaten abone.',
+      errorInvalidEmail: 'Geçersiz e-posta adresi.',
+      errorRateLimited: 'Çok fazla istek. Lütfen biraz bekleyin.',
+      sending: 'Gönderiliyor...',
+    },
   },
   ar: {
     // Product Page
@@ -900,6 +924,18 @@ export const translations = {
         title: 'العناية اليومية',
         description: 'منتجات العناية بالبشرة اليومية الأساسية لبشرة صحية ومحمية ومغذية كل يوم.',
       },
+    },
+
+    // Newsletter
+    newsletter: {
+      successTitle: 'نجاح!',
+      successDesc: 'تم إرسال بريد التأكيد. يرجى التحقق من بريدك الإلكتروني.',
+      errorTitle: 'خطأ',
+      errorGeneric: 'حدث خطأ. يرجى المحاولة مرة أخرى.',
+      errorAlreadySubscribed: 'هذا البريد الإلكتروني مشترك بالفعل.',
+      errorInvalidEmail: 'عنوان بريد إلكتروني غير صالح.',
+      errorRateLimited: 'طلبات كثيرة جداً. يرجى الانتظار قليلاً.',
+      sending: 'جاري الإرسال...',
     },
   },
 };

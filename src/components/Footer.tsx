@@ -1,23 +1,72 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Instagram, Facebook, Twitter, Mail } from 'lucide-react';
+import { Instagram, Facebook, Twitter, Mail, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { logoContent, footerContent } from '@/data/content';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { translations } from '@/data/translations';
+import { useToast } from '@/hooks/use-toast';
 
 const Footer: React.FC = () => {
   const { language } = useLanguage();
   const t = translations[language];
   const [email, setEmail] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
 
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email.trim()) {
-      // Handle newsletter signup
-      console.log('Newsletter signup:', email);
-      setEmail('');
+    if (!email.trim() || isLoading) return;
+
+    setIsLoading(true);
+
+    try {
+      const response = await fetch('https://sinceva.com/api/subscribe.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email.trim(),
+          language: language,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.ok) {
+        toast({
+          title: t.newsletter?.successTitle || 'Başarılı!',
+          description: t.newsletter?.successDesc || 'Onay e-postası gönderildi. Lütfen e-postanızı kontrol edin.',
+        });
+        setEmail('');
+      } else {
+        let errorMessage = t.newsletter?.errorGeneric || 'Bir hata oluştu. Lütfen tekrar deneyin.';
+        
+        if (data.error === 'ALREADY_SUBSCRIBED') {
+          errorMessage = t.newsletter?.errorAlreadySubscribed || 'Bu e-posta adresi zaten abone.';
+        } else if (data.error === 'INVALID_EMAIL') {
+          errorMessage = t.newsletter?.errorInvalidEmail || 'Geçersiz e-posta adresi.';
+        } else if (data.error === 'RATE_LIMITED') {
+          errorMessage = t.newsletter?.errorRateLimited || 'Çok fazla istek. Lütfen biraz bekleyin.';
+        }
+
+        toast({
+          title: t.newsletter?.errorTitle || 'Hata',
+          description: errorMessage,
+          variant: 'destructive',
+        });
+      }
+    } catch (error) {
+      console.error('Newsletter subscription error:', error);
+      toast({
+        title: t.newsletter?.errorTitle || 'Hata',
+        description: t.newsletter?.errorGeneric || 'Bir hata oluştu. Lütfen tekrar deneyin.',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -103,14 +152,20 @@ const Footer: React.FC = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 className="bg-background/10 border-background/20 text-background placeholder:text-background/60"
                 required
+                disabled={isLoading}
               />
               <Button 
                 type="submit" 
                 variant="default"
                 className="w-full bg-primary hover:bg-primary-dark"
+                disabled={isLoading}
               >
-                <Mail className="w-4 h-4 mr-2" />
-                {t.subscribe}
+                {isLoading ? (
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                ) : (
+                  <Mail className="w-4 h-4 mr-2" />
+                )}
+                {isLoading ? (t.newsletter?.sending || 'Gönderiliyor...') : t.subscribe}
               </Button>
             </form>
           </div>
