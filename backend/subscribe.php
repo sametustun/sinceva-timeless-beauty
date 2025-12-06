@@ -290,24 +290,23 @@ function sendConfirmationEmail($email, $token, $language) {
             <head>
                 <style>
                     body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; background-color: #f4f4f4; margin: 0; padding: 20px; }
-                    .container { max-width: 600px; margin: 0 auto; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-                    .header { background: linear-gradient(135deg, #2c3e50, #3498db); color: white; padding: 30px; text-align: center; }
-                    .header h1 { margin: 0; font-size: 28px; }
-                    .content { padding: 30px; text-align: center; }
-                    .content p { font-size: 16px; color: #555; margin-bottom: 25px; }
-                    .button { display: inline-block; background: #D4AF37; color: white; padding: 15px 40px; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 16px; }
-                    .button:hover { background: #b8962e; }
-                    .footer { text-align: center; padding: 20px; color: #999; font-size: 12px; background: #f9f9f9; }
+                    .container { max-width: 600px; margin: 0 auto; background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+                    .header { background: linear-gradient(135deg, #E84C3D, #C0392B); padding: 40px 30px; text-align: center; }
+                    .header img { max-height: 80px; width: auto; }
+                    .content { padding: 40px 30px; text-align: center; }
+                    .content h2 { color: #E84C3D; font-size: 24px; margin-bottom: 20px; }
+                    .content p { font-size: 16px; color: #555; margin-bottom: 30px; line-height: 1.8; }
+                    .button { display: inline-block; background: linear-gradient(135deg, #E84C3D, #C0392B); color: white; padding: 16px 45px; text-decoration: none; border-radius: 30px; font-weight: bold; font-size: 16px; box-shadow: 0 4px 15px rgba(232, 76, 61, 0.3); }
+                    .footer { text-align: center; padding: 25px; color: #999; font-size: 12px; background: #fafafa; border-top: 1px solid #eee; }
                 </style>
             </head>
             <body>
                 <div class='container'>
                     <div class='header'>
-                        <h1>SINCEVA</h1>
-                        <p style='margin: 10px 0 0 0; opacity: 0.9;'>The Origin of Beauty</p>
+                        <img src='" . ALLOWED_ORIGIN . "/src/assets/sinceva_white_logo_for_mobile.png' alt='Sinceva' style='max-height: 80px;' />
                     </div>
                     <div class='content'>
-                        <h2 style='color: #2c3e50;'>{$greetings[$lang]}</h2>
+                        <h2>{$greetings[$lang]}</h2>
                         <p>{$messages[$lang]}</p>
                         <a href='$confirmUrl' class='button'>{$buttonTexts[$lang]}</a>
                     </div>
