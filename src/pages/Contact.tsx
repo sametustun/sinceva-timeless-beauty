@@ -32,7 +32,6 @@ const Contact: React.FC = () => {
 
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', subject: '', message: '', website: '' });
   const [loading, setLoading] = useState(false);
-  const [visibleMode, setVisibleMode] = useState(false); // invisible mode başlat
 
   const mountRef = useRef<HTMLDivElement | null>(null);
   const widgetIdRef = useRef<string | null>(null);
@@ -44,32 +43,44 @@ const Contact: React.FC = () => {
       if (!window.turnstile || !mountRef.current) return;
       // mount'ı temizle ve yeniden render et
       mountRef.current.innerHTML = '';
-      widgetIdRef.current = window.turnstile.render(mountRef.current, {
-        sitekey: SITE_KEY,
-        // invisible; fallback'ta visible'a geçiyoruz
-        ...(visibleMode ? {} : { size: 'invisible' }),
-        callback: (token: string) => {
-          console.log('turnstile callback token:', token);
-          submitWithToken(token);
-        },
-      });
-      console.log('turnstile rendered, mode =', visibleMode ? 'visible' : 'invisible');
+      try {
+        widgetIdRef.current = window.turnstile.render(mountRef.current, {
+          sitekey: SITE_KEY,
+          size: 'normal', // Her zaman görünür mod
+          callback: (token: string) => {
+            console.log('turnstile callback token:', token);
+            // Token'ı sakla, form gönderildiğinde kullan
+            (window as any).__turnstileToken = token;
+          },
+          'error-callback': () => {
+            console.log('turnstile error callback');
+            // Hata gösterme, widget yeniden denenecek
+          },
+          'expired-callback': () => {
+            console.log('turnstile expired');
+            (window as any).__turnstileToken = null;
+          },
+        });
+        console.log('turnstile rendered successfully');
+      } catch (err) {
+        console.error('turnstile render error:', err);
+      }
     };
 
     const existing = document.getElementById(scriptId) as HTMLScriptElement | null;
     if (existing) {
       console.log('turnstile script already loaded');
-      init();
+      setTimeout(init, 100);
     } else {
       const s = document.createElement('script');
       s.id = scriptId;
-      s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+      s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
       s.async = true;
       s.defer = true;
-      s.onload = () => { console.log('turnstile script loaded'); init(); };
+      s.onload = () => { console.log('turnstile script loaded'); setTimeout(init, 100); };
       document.body.appendChild(s);
     }
-  }, [visibleMode]);
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -77,31 +88,23 @@ const Contact: React.FC = () => {
   };
 
   // --- Submit ---
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!window.turnstile || !widgetIdRef.current) {
-      toast({ title: 'Hata', description: 'Güvenlik doğrulaması yüklenemedi.', variant: 'destructive' });
+    
+    // Token'ı al
+    const token = (window as any).__turnstileToken || window.turnstile?.getResponse?.(widgetIdRef.current!);
+    
+    if (!token) {
+      toast({ 
+        title: 'Doğrulama gerekli', 
+        description: 'Lütfen güvenlik doğrulamasını tamamlayın.', 
+        variant: 'destructive' 
+      });
       return;
     }
+    
     setLoading(true);
-    console.log('turnstile execute');
-    window.turnstile.execute(widgetIdRef.current);
-
-    // Fallback: 1.5sn sonra token gelmediyse getResponse dene,
-    // yine yoksa görünür moda geçip kullanıcıdan onay iste.
-    setTimeout(() => {
-      const token = window.turnstile?.getResponse?.(widgetIdRef.current!);
-      console.log('turnstile getResponse token:', token);
-      if (token) submitWithToken(token);
-      else {
-        setVisibleMode(true); // visible'a geç
-        setLoading(false);
-        toast({
-          title: 'Doğrulama gerekli',
-          description: 'Lütfen aşağıdaki doğrulamayı tamamlayıp yeniden gönderin.',
-        });
-      }
-    }, 1500);
+    await submitWithToken(token);
   };
 
   // --- Token geldikten sonra API'ye gönder ---
@@ -121,7 +124,7 @@ const Contact: React.FC = () => {
       if (data.ok) {
         toast({ title: t.messageSentSuccess, description: t.messageSentDesc });
         setFormData({ name: '', email: '', phone: '', subject: '', message: '', website: '' });
-        setVisibleMode(false);
+        (window as any).__turnstileToken = null;
       } else {
         const errorMessages: Record<string, string> = {
           'VALIDATION_ERROR': 'Lütfen tüm zorunlu alanları doldurun.',
