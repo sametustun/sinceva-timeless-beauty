@@ -110,7 +110,7 @@ const Contact: React.FC = () => {
       const { website, ...cleanData } = formData;
       const payload = { ...cleanData, cf_turnstile_token: token };
       
-      const res = await fetch('https://api.sinceva.com/contact/contact.php', {
+      const res = await fetch('https://sinceva.com/api/contact.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
