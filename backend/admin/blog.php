@@ -73,6 +73,23 @@ switch ($method) {
             'category' => $input['category'] ?? '',
             'tags' => $input['tags'] ?? [],
             'published' => $input['published'] ?? false,
+            'seo' => [
+                'title' => [
+                    'tr' => sanitizeInput($input['seo']['title']['tr'] ?? ''),
+                    'en' => sanitizeInput($input['seo']['title']['en'] ?? ''),
+                    'ar' => sanitizeInput($input['seo']['title']['ar'] ?? ''),
+                ],
+                'description' => [
+                    'tr' => sanitizeInput($input['seo']['description']['tr'] ?? ''),
+                    'en' => sanitizeInput($input['seo']['description']['en'] ?? ''),
+                    'ar' => sanitizeInput($input['seo']['description']['ar'] ?? ''),
+                ],
+                'keywords' => [
+                    'tr' => sanitizeInput($input['seo']['keywords']['tr'] ?? ''),
+                    'en' => sanitizeInput($input['seo']['keywords']['en'] ?? ''),
+                    'ar' => sanitizeInput($input['seo']['keywords']['ar'] ?? ''),
+                ],
+            ],
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
         ];
@@ -125,6 +142,25 @@ switch ($method) {
                 if (isset($input['category'])) $post['category'] = $input['category'];
                 if (isset($input['tags'])) $post['tags'] = $input['tags'];
                 if (isset($input['published'])) $post['published'] = $input['published'];
+                if (isset($input['seo'])) {
+                    $post['seo'] = [
+                        'title' => [
+                            'tr' => sanitizeInput($input['seo']['title']['tr'] ?? ''),
+                            'en' => sanitizeInput($input['seo']['title']['en'] ?? ''),
+                            'ar' => sanitizeInput($input['seo']['title']['ar'] ?? ''),
+                        ],
+                        'description' => [
+                            'tr' => sanitizeInput($input['seo']['description']['tr'] ?? ''),
+                            'en' => sanitizeInput($input['seo']['description']['en'] ?? ''),
+                            'ar' => sanitizeInput($input['seo']['description']['ar'] ?? ''),
+                        ],
+                        'keywords' => [
+                            'tr' => sanitizeInput($input['seo']['keywords']['tr'] ?? ''),
+                            'en' => sanitizeInput($input['seo']['keywords']['en'] ?? ''),
+                            'ar' => sanitizeInput($input['seo']['keywords']['ar'] ?? ''),
+                        ],
+                    ];
+                }
                 $post['updated_at'] = date('Y-m-d H:i:s');
                 $found = true;
                 break;
