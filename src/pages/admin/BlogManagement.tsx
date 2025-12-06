@@ -46,6 +46,11 @@ interface BlogPost {
   image: string;
   category: string;
   published: boolean;
+  seo?: {
+    title: { tr: string; en: string; ar: string };
+    description: { tr: string; en: string; ar: string };
+    keywords: { tr: string; en: string; ar: string };
+  };
   created_at: string;
   updated_at: string;
 }
@@ -60,6 +65,11 @@ const emptyPost: Partial<BlogPost> = {
   image: '',
   category: '',
   published: false,
+  seo: {
+    title: { tr: '', en: '', ar: '' },
+    description: { tr: '', en: '', ar: '' },
+    keywords: { tr: '', en: '', ar: '' },
+  },
 };
 
 export default function AdminBlogManagement() {

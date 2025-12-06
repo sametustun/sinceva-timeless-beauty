@@ -80,6 +80,23 @@ switch ($method) {
             'active' => $input['active'] ?? true,
             'featured' => $input['featured'] ?? false,
             'order' => $input['order'] ?? 0,
+            'seo' => [
+                'title' => [
+                    'tr' => sanitizeInput($input['seo']['title']['tr'] ?? ''),
+                    'en' => sanitizeInput($input['seo']['title']['en'] ?? ''),
+                    'ar' => sanitizeInput($input['seo']['title']['ar'] ?? ''),
+                ],
+                'description' => [
+                    'tr' => sanitizeInput($input['seo']['description']['tr'] ?? ''),
+                    'en' => sanitizeInput($input['seo']['description']['en'] ?? ''),
+                    'ar' => sanitizeInput($input['seo']['description']['ar'] ?? ''),
+                ],
+                'keywords' => [
+                    'tr' => sanitizeInput($input['seo']['keywords']['tr'] ?? ''),
+                    'en' => sanitizeInput($input['seo']['keywords']['en'] ?? ''),
+                    'ar' => sanitizeInput($input['seo']['keywords']['ar'] ?? ''),
+                ],
+            ],
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
         ];
@@ -112,7 +129,7 @@ switch ($method) {
                 // Update fields
                 $updateableFields = ['name', 'slug', 'description', 'short_description', 'category', 
                                      'images', 'ingredients', 'usage', 'benefits', 'volume', 
-                                     'price', 'active', 'featured', 'order'];
+                                     'price', 'active', 'featured', 'order', 'seo'];
                 
                 foreach ($updateableFields as $field) {
                     if (isset($input[$field])) {

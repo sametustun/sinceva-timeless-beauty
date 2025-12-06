@@ -27,6 +27,7 @@ import AdminContacts from "./pages/admin/Contacts";
 import AdminBlogManagement from "./pages/admin/BlogManagement";
 import AdminProductManagement from "./pages/admin/ProductManagement";
 import AdminSettings from "./pages/admin/Settings";
+import AdminCampaign from "./pages/admin/Campaign";
 
 console.log('App component loading...');
 
@@ -74,6 +75,7 @@ const App = () => {
               <Route path="contacts" element={<AdminContacts />} />
               <Route path="blog" element={<AdminBlogManagement />} />
               <Route path="products" element={<AdminProductManagement />} />
+              <Route path="campaign" element={<AdminCampaign />} />
               <Route path="settings" element={<AdminSettings />} />
             </Route>
             
