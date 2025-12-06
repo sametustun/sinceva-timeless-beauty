@@ -1,7 +1,11 @@
 ---
 deployment:
   tasks:
-    # API dizinini oluştur ve koru
+    # public_html'ı temizle (SSL doğrulaması ve api için koruma)
+    - /bin/find /home/sin66vacom/public_html -mindepth 1 -maxdepth 1 ! -name ".well-known" ! -name "api" -exec /bin/rm -rf {} \;
+    # Frontend dosyalarını kopyala
+    - /bin/cp -R dist/* /home/sin66vacom/public_html/
+    # API dizinini oluştur
     - /bin/mkdir -p /home/sin66vacom/public_html/api
     # Backend dosyalarını kopyala
     - /bin/cp -R backend/* /home/sin66vacom/public_html/api/
