@@ -140,7 +140,7 @@ function showPage($status, $language) {
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            background: linear-gradient(135deg, #fef2f2, #fee2e2);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -149,12 +149,19 @@ function showPage($status, $language) {
         }
         .container {
             background: white;
-            border-radius: 16px;
+            border-radius: 20px;
             padding: 50px 40px;
             text-align: center;
             max-width: 500px;
             width: 100%;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            box-shadow: 0 25px 80px rgba(232, 76, 61, 0.15);
+        }
+        .logo {
+            margin-bottom: 30px;
+        }
+        .logo img {
+            max-height: 70px;
+            width: auto;
         }
         .icon {
             width: 80px;
@@ -169,42 +176,39 @@ function showPage($status, $language) {
             margin: 0 auto 25px;
         }
         h1 {
-            color: #2c3e50;
+            color: #E84C3D;
             font-size: 28px;
             margin-bottom: 15px;
         }
         p {
             color: #666;
             font-size: 16px;
-            line-height: 1.6;
+            line-height: 1.8;
             margin-bottom: 30px;
         }
         .button {
             display: inline-block;
-            background: #D4AF37;
+            background: linear-gradient(135deg, #E84C3D, #C0392B);
             color: white;
-            padding: 15px 35px;
+            padding: 16px 40px;
             text-decoration: none;
-            border-radius: 8px;
+            border-radius: 30px;
             font-weight: bold;
             font-size: 16px;
-            transition: background 0.3s;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(232, 76, 61, 0.3);
         }
         .button:hover {
-            background: #b8962e;
-        }
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #D4AF37;
-            margin-bottom: 30px;
-            letter-spacing: 3px;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(232, 76, 61, 0.4);
         }
     </style>
 </head>
 <body>
     <div class='container'>
-        <div class='logo'>SINCEVA</div>
+        <div class='logo'>
+            <img src='" . ALLOWED_ORIGIN . "/src/assets/sinceva_black_logo_for_mobile.png' alt='Sinceva' />
+        </div>
         <div class='icon'>$icon</div>
         <h1>$title</h1>
         <p>$message</p>
