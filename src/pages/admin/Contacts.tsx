@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import {
   Table,
@@ -30,7 +32,7 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { useToast } from '@/hooks/use-toast';
-import { Mail, Search, Trash2, Loader2, Eye, MailOpen, Clock } from 'lucide-react';
+import { Mail, Search, Trash2, Loader2, Eye, MailOpen, Send, CheckCircle } from 'lucide-react';
 
 interface Contact {
   id: string;
@@ -39,6 +41,9 @@ interface Contact {
   phone?: string;
   message: string;
   read: boolean;
+  replied?: boolean;
+  replied_at?: string;
+  reply_subject?: string;
   created_at: string;
   read_at?: string;
 }
@@ -52,6 +57,10 @@ export default function AdminContacts() {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [isReplyDialogOpen, setIsReplyDialogOpen] = useState(false);
+  const [replySubject, setReplySubject] = useState('');
+  const [replyMessage, setReplyMessage] = useState('');
+  const [isSendingReply, setIsSendingReply] = useState(false);
   const { toast } = useToast();
 
   const fetchContacts = async () => {
@@ -151,6 +160,65 @@ export default function AdminContacts() {
     }
   };
 
+  const handleOpenReply = (contact: Contact) => {
+    setSelectedContact(contact);
+    setReplySubject(`Re: SincEva İletişim Formu - ${contact.name}`);
+    setReplyMessage(`Merhaba ${contact.name},\n\n\n\nSaygılarımızla,\nSincEva Ekibi`);
+    setIsReplyDialogOpen(true);
+  };
+
+  const handleSendReply = async () => {
+    if (!selectedContact || !replySubject.trim() || !replyMessage.trim()) {
+      toast({
+        title: 'Hata',
+        description: 'Lütfen tüm alanları doldurun.',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    setIsSendingReply(true);
+
+    try {
+      const response = await fetch(`${API_BASE}/reply.php`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({
+          contact_id: selectedContact.id,
+          to: selectedContact.email,
+          subject: replySubject,
+          message: replyMessage,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        toast({
+          title: 'Başarılı',
+          description: 'E-posta başarıyla gönderildi.',
+        });
+        setIsReplyDialogOpen(false);
+        setSelectedContact(null);
+        setReplySubject('');
+        setReplyMessage('');
+        fetchContacts();
+      } else {
+        throw new Error(data.error || 'Send failed');
+      }
+    } catch (error) {
+      console.error('Reply error:', error);
+      toast({
+        title: 'Hata',
+        description: 'E-posta gönderilirken bir hata oluştu.',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsSendingReply(false);
+    }
+  };
+
   const unreadCount = contacts.filter((c) => !c.read).length;
 
   return (
@@ -163,7 +231,7 @@ export default function AdminContacts() {
             İletişim Mesajları
           </h1>
           <p className="text-muted-foreground mt-1">
-            İletişim formu mesajlarını görüntüleyin
+            İletişim formu mesajlarını görüntüleyin ve yanıtlayın
           </p>
         </div>
         <Badge variant={unreadCount > 0 ? 'destructive' : 'secondary'} className="py-1.5">
@@ -204,6 +272,7 @@ export default function AdminContacts() {
                     <TableHead>İsim</TableHead>
                     <TableHead>E-posta</TableHead>
                     <TableHead className="hidden md:table-cell">Mesaj</TableHead>
+                    <TableHead>Yanıt</TableHead>
                     <TableHead>Tarih</TableHead>
                     <TableHead className="text-right">İşlemler</TableHead>
                   </TableRow>
@@ -228,6 +297,18 @@ export default function AdminContacts() {
                       <TableCell className="hidden md:table-cell max-w-[200px] truncate text-muted-foreground">
                         {contact.message}
                       </TableCell>
+                      <TableCell>
+                        {contact.replied ? (
+                          <Badge variant="outline" className="text-green-600 border-green-600">
+                            <CheckCircle className="h-3 w-3 mr-1" />
+                            Yanıtlandı
+                          </Badge>
+                        ) : (
+                          <Badge variant="outline" className="text-muted-foreground">
+                            Bekliyor
+                          </Badge>
+                        )}
+                      </TableCell>
                       <TableCell className="text-muted-foreground">
                         {new Date(contact.created_at).toLocaleDateString('tr-TR', {
                           day: 'numeric',
@@ -242,6 +323,14 @@ export default function AdminContacts() {
                             onClick={() => handleViewContact(contact)}
                           >
                             <Eye className="h-4 w-4" />
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => handleOpenReply(contact)}
+                            className="text-primary"
+                          >
+                            <Send className="h-4 w-4" />
                           </Button>
                           <AlertDialog>
                             <AlertDialogTrigger asChild>
@@ -288,7 +377,7 @@ export default function AdminContacts() {
       </Card>
 
       {/* Message Detail Dialog */}
-      <Dialog open={!!selectedContact} onOpenChange={() => setSelectedContact(null)}>
+      <Dialog open={!!selectedContact && !isReplyDialogOpen} onOpenChange={() => setSelectedContact(null)}>
         <DialogContent className="max-w-lg">
           <DialogHeader>
             <DialogTitle>Mesaj Detayı</DialogTitle>
@@ -326,6 +415,14 @@ export default function AdminContacts() {
                   {selectedContact.message}
                 </p>
               </div>
+              {selectedContact.replied && (
+                <div className="p-3 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                  <p className="text-sm text-green-700 dark:text-green-400 flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4" />
+                    {selectedContact.replied_at && new Date(selectedContact.replied_at).toLocaleString('tr-TR')} tarihinde yanıtlandı
+                  </p>
+                </div>
+              )}
               <div className="flex gap-2 pt-4">
                 <Button
                   variant="outline"
@@ -335,16 +432,78 @@ export default function AdminContacts() {
                   {selectedContact.read ? 'Okunmadı Olarak İşaretle' : 'Okundu Olarak İşaretle'}
                 </Button>
                 <Button
-                  asChild
                   className="flex-1 bg-gradient-to-r from-primary to-[#FF6B6B]"
+                  onClick={() => {
+                    setSelectedContact(null);
+                    handleOpenReply(selectedContact);
+                  }}
                 >
-                  <a href={`mailto:${selectedContact.email}`}>
-                    Yanıtla
-                  </a>
+                  <Send className="h-4 w-4 mr-2" />
+                  E-posta Gönder
                 </Button>
               </div>
             </div>
           )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Reply Dialog */}
+      <Dialog open={isReplyDialogOpen} onOpenChange={setIsReplyDialogOpen}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Send className="h-5 w-5 text-primary" />
+              E-posta Yanıtla
+            </DialogTitle>
+            <DialogDescription>
+              {selectedContact?.name} ({selectedContact?.email}) adresine e-posta gönder
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label>Konu</Label>
+              <Input
+                value={replySubject}
+                onChange={(e) => setReplySubject(e.target.value)}
+                placeholder="E-posta konusu"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label>Mesaj</Label>
+              <Textarea
+                value={replyMessage}
+                onChange={(e) => setReplyMessage(e.target.value)}
+                placeholder="E-posta içeriği..."
+                rows={10}
+              />
+            </div>
+            <div className="flex gap-2 pt-4">
+              <Button
+                variant="outline"
+                className="flex-1"
+                onClick={() => setIsReplyDialogOpen(false)}
+              >
+                İptal
+              </Button>
+              <Button
+                className="flex-1 bg-gradient-to-r from-primary to-[#FF6B6B]"
+                onClick={handleSendReply}
+                disabled={isSendingReply}
+              >
+                {isSendingReply ? (
+                  <>
+                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                    Gönderiliyor...
+                  </>
+                ) : (
+                  <>
+                    <Send className="h-4 w-4 mr-2" />
+                    Gönder
+                  </>
+                )}
+              </Button>
+            </div>
+          </div>
         </DialogContent>
       </Dialog>
     </div>

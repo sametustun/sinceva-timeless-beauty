@@ -34,8 +34,8 @@ import {
 } from '@/components/ui/alert-dialog';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
-import { Package, Search, Trash2, Loader2, Plus, Edit, Star, StarOff } from 'lucide-react';
-
+import { Package, Search, Trash2, Loader2, Plus, Edit, Star, StarOff, Upload, X } from 'lucide-react';
+import ImageUpload from '@/components/admin/ImageUpload';
 interface Product {
   id: string;
   name: { tr: string; en: string; ar: string };
@@ -486,33 +486,51 @@ export default function AdminProductManagement() {
                 />
               </div>
 
-              <div className="space-y-2">
-                <Label>Görseller</Label>
+              <div className="space-y-4">
+                <Label>Ürün Görselleri</Label>
+                
+                {/* Image Upload Component */}
+                <ImageUpload
+                  category="product"
+                  label="Görsel Yükle"
+                  onUpload={(url) => {
+                    if (url && editingProduct) {
+                      setEditingProduct({
+                        ...editingProduct,
+                        images: [...(editingProduct.images || []), url],
+                      });
+                    }
+                  }}
+                />
+                
+                {/* Manual URL Input */}
                 <div className="flex gap-2">
                   <Input
                     value={imageInput}
                     onChange={(e) => setImageInput(e.target.value)}
-                    placeholder="Görsel URL'i ekle"
+                    placeholder="veya URL ile ekle"
                   />
                   <Button type="button" variant="outline" onClick={handleAddImage}>
                     Ekle
                   </Button>
                 </div>
+                
+                {/* Image Grid */}
                 {editingProduct.images && editingProduct.images.length > 0 && (
-                  <div className="flex flex-wrap gap-2 mt-2">
+                  <div className="flex flex-wrap gap-2">
                     {editingProduct.images.map((img, index) => (
                       <div key={index} className="relative group">
                         <img
                           src={img}
                           alt={`Görsel ${index + 1}`}
-                          className="w-16 h-16 object-cover rounded border"
+                          className="w-20 h-20 object-cover rounded-lg border"
                         />
                         <button
                           type="button"
                           onClick={() => handleRemoveImage(index)}
-                          className="absolute -top-1 -right-1 bg-destructive text-destructive-foreground rounded-full w-5 h-5 text-xs opacity-0 group-hover:opacity-100 transition-opacity"
+                          className="absolute -top-2 -right-2 bg-destructive text-destructive-foreground rounded-full w-6 h-6 flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity"
                         >
-                          ×
+                          <X className="h-3 w-3" />
                         </button>
                       </div>
                     ))}

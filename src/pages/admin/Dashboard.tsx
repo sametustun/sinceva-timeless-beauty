@@ -1,12 +1,31 @@
 import { useEffect, useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Users, Mail, FileText, Package, TrendingUp, Clock } from 'lucide-react';
+import { Users, Mail, FileText, Package, TrendingUp, Clock, Send, Eye } from 'lucide-react';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area, BarChart, Bar } from 'recharts';
 
 interface Stats {
-  subscribers: { total: number; confirmed: number; pending: number };
-  contacts: { total: number; unread: number };
-  blog: { total: number; published: number; draft: number };
-  products: { total: number; active: number; inactive: number };
+  summary: {
+    subscribers: { total: number; confirmed: number; pending: number; new_this_week: number };
+    contacts: { total: number; unread: number; replied: number; new_this_week: number };
+    blog: { total: number; published: number; draft: number };
+    products: { total: number; active: number; featured: number };
+  };
+  charts: {
+    labels: string[];
+    subscribers: number[];
+    contacts: number[];
+    cumulative_subscribers: number[];
+  };
+  featured_products: Array<{
+    id: string;
+    name: string;
+    category: string;
+    image: string;
+  }>;
+  recent_activity: {
+    subscribers: Array<{ email: string; confirmed: boolean; created_at: string }>;
+    contacts: Array<{ name: string; email: string; read: boolean; created_at: string }>;
+  };
 }
 
 const API_BASE = 'https://sinceva.com/api/admin';
@@ -18,26 +37,14 @@ export default function AdminDashboard() {
   useEffect(() => {
     async function fetchStats() {
       try {
-        const [subscribersRes, contactsRes, blogRes, productsRes] = await Promise.all([
-          fetch(`${API_BASE}/subscribers.php`, { credentials: 'include' }),
-          fetch(`${API_BASE}/contacts.php`, { credentials: 'include' }),
-          fetch(`${API_BASE}/blog.php`, { credentials: 'include' }),
-          fetch(`${API_BASE}/products.php`, { credentials: 'include' }),
-        ]);
-
-        const [subscribersData, contactsData, blogData, productsData] = await Promise.all([
-          subscribersRes.json(),
-          contactsRes.json(),
-          blogRes.json(),
-          productsRes.json(),
-        ]);
-
-        setStats({
-          subscribers: subscribersData.stats || { total: 0, confirmed: 0, pending: 0 },
-          contacts: contactsData.stats || { total: 0, unread: 0 },
-          blog: blogData.stats || { total: 0, published: 0, draft: 0 },
-          products: productsData.stats || { total: 0, active: 0, inactive: 0 },
+        const response = await fetch(`${API_BASE}/stats.php?days=7`, {
+          credentials: 'include',
         });
+        const data = await response.json();
+
+        if (data.success) {
+          setStats(data);
+        }
       } catch (error) {
         console.error('Failed to fetch stats:', error);
       } finally {
@@ -48,35 +55,43 @@ export default function AdminDashboard() {
     fetchStats();
   }, []);
 
+  // Prepare chart data
+  const chartData = stats?.charts.labels.map((label, index) => ({
+    name: label,
+    subscribers: stats.charts.subscribers[index] || 0,
+    contacts: stats.charts.contacts[index] || 0,
+    total: stats.charts.cumulative_subscribers[index] || 0,
+  })) || [];
+
   const statCards = [
     {
-      title: 'Aboneler',
-      value: stats?.subscribers.total || 0,
-      description: `${stats?.subscribers.confirmed || 0} onaylı, ${stats?.subscribers.pending || 0} bekleyen`,
+      title: 'Toplam Abone',
+      value: stats?.summary.subscribers.total || 0,
+      description: `+${stats?.summary.subscribers.new_this_week || 0} bu hafta`,
       icon: Users,
       color: 'text-blue-500',
       bgColor: 'bg-blue-500/10',
     },
     {
       title: 'İletişim Mesajları',
-      value: stats?.contacts.total || 0,
-      description: `${stats?.contacts.unread || 0} okunmamış`,
+      value: stats?.summary.contacts.total || 0,
+      description: `${stats?.summary.contacts.unread || 0} okunmamış`,
       icon: Mail,
       color: 'text-green-500',
       bgColor: 'bg-green-500/10',
     },
     {
       title: 'Blog Yazıları',
-      value: stats?.blog.total || 0,
-      description: `${stats?.blog.published || 0} yayında, ${stats?.blog.draft || 0} taslak`,
+      value: stats?.summary.blog.total || 0,
+      description: `${stats?.summary.blog.published || 0} yayında`,
       icon: FileText,
       color: 'text-purple-500',
       bgColor: 'bg-purple-500/10',
     },
     {
       title: 'Ürünler',
-      value: stats?.products.total || 0,
-      description: `${stats?.products.active || 0} aktif, ${stats?.products.inactive || 0} pasif`,
+      value: stats?.summary.products.total || 0,
+      description: `${stats?.summary.products.featured || 0} öne çıkan`,
       icon: Package,
       color: 'text-orange-500',
       bgColor: 'bg-orange-500/10',
@@ -117,36 +132,171 @@ export default function AdminDashboard() {
         ))}
       </div>
 
-      {/* Quick Actions */}
+      {/* Charts Row */}
       <div className="grid gap-4 md:grid-cols-2">
+        {/* Subscriber Growth Chart */}
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <TrendingUp className="h-5 w-5 text-primary" />
-              Hızlı İstatistikler
+              Abone Artışı
             </CardTitle>
             <CardDescription>
-              Son 30 günlük özet
+              Son 7 günlük abone sayısı
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-muted-foreground">Yeni Aboneler</span>
-                <span className="font-medium">{stats?.subscribers.total || 0}</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-muted-foreground">İletişim Formları</span>
-                <span className="font-medium">{stats?.contacts.total || 0}</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-muted-foreground">Yayındaki Yazılar</span>
-                <span className="font-medium">{stats?.blog.published || 0}</span>
-              </div>
+            <div className="h-[250px]">
+              {isLoading ? (
+                <div className="flex items-center justify-center h-full text-muted-foreground">
+                  Yükleniyor...
+                </div>
+              ) : (
+                <ResponsiveContainer width="100%" height="100%">
+                  <AreaChart data={chartData}>
+                    <defs>
+                      <linearGradient id="subscriberGradient" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.3}/>
+                        <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
+                      </linearGradient>
+                    </defs>
+                    <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                    <XAxis 
+                      dataKey="name" 
+                      className="text-xs fill-muted-foreground"
+                      tick={{ fontSize: 12 }}
+                    />
+                    <YAxis 
+                      className="text-xs fill-muted-foreground"
+                      tick={{ fontSize: 12 }}
+                    />
+                    <Tooltip 
+                      contentStyle={{ 
+                        backgroundColor: 'hsl(var(--background))',
+                        border: '1px solid hsl(var(--border))',
+                        borderRadius: '8px',
+                      }}
+                    />
+                    <Area 
+                      type="monotone" 
+                      dataKey="total" 
+                      stroke="hsl(var(--primary))" 
+                      fill="url(#subscriberGradient)"
+                      strokeWidth={2}
+                      name="Toplam Abone"
+                    />
+                  </AreaChart>
+                </ResponsiveContainer>
+              )}
             </div>
           </CardContent>
         </Card>
 
+        {/* Daily Activity Chart */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Mail className="h-5 w-5 text-green-500" />
+              Günlük Aktivite
+            </CardTitle>
+            <CardDescription>
+              Yeni aboneler ve iletişim mesajları
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="h-[250px]">
+              {isLoading ? (
+                <div className="flex items-center justify-center h-full text-muted-foreground">
+                  Yükleniyor...
+                </div>
+              ) : (
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={chartData}>
+                    <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                    <XAxis 
+                      dataKey="name" 
+                      className="text-xs fill-muted-foreground"
+                      tick={{ fontSize: 12 }}
+                    />
+                    <YAxis 
+                      className="text-xs fill-muted-foreground"
+                      tick={{ fontSize: 12 }}
+                    />
+                    <Tooltip 
+                      contentStyle={{ 
+                        backgroundColor: 'hsl(var(--background))',
+                        border: '1px solid hsl(var(--border))',
+                        borderRadius: '8px',
+                      }}
+                    />
+                    <Bar 
+                      dataKey="subscribers" 
+                      fill="hsl(var(--primary))" 
+                      name="Yeni Aboneler"
+                      radius={[4, 4, 0, 0]}
+                    />
+                    <Bar 
+                      dataKey="contacts" 
+                      fill="#22c55e" 
+                      name="İletişim Mesajları"
+                      radius={[4, 4, 0, 0]}
+                    />
+                  </BarChart>
+                </ResponsiveContainer>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Bottom Row */}
+      <div className="grid gap-4 md:grid-cols-2">
+        {/* Featured Products */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Eye className="h-5 w-5 text-orange-500" />
+              Öne Çıkan Ürünler
+            </CardTitle>
+            <CardDescription>
+              En çok ilgi gören ürünler
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {isLoading ? (
+                <div className="text-center py-4 text-muted-foreground">Yükleniyor...</div>
+              ) : stats?.featured_products && stats.featured_products.length > 0 ? (
+                stats.featured_products.map((product, index) => (
+                  <div key={product.id} className="flex items-center gap-4">
+                    <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 text-primary font-semibold text-sm">
+                      {index + 1}
+                    </div>
+                    {product.image && (
+                      <div className="w-12 h-12 rounded-lg overflow-hidden bg-muted">
+                        <img 
+                          src={product.image} 
+                          alt={product.name} 
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    )}
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium truncate">{product.name}</p>
+                      <p className="text-sm text-muted-foreground">{product.category}</p>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div className="text-center py-4 text-muted-foreground">
+                  Öne çıkan ürün yok
+                </div>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* System Status */}
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -178,6 +328,12 @@ export default function AdminDashboard() {
                 <span className="flex items-center gap-2">
                   <span className="h-2 w-2 rounded-full bg-green-500"></span>
                   <span className="text-sm font-medium text-green-600">Çalışıyor</span>
+                </span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-muted-foreground">Yanıtlanan Mesajlar</span>
+                <span className="font-medium">
+                  {stats?.summary.contacts.replied || 0} / {stats?.summary.contacts.total || 0}
                 </span>
               </div>
             </div>

@@ -34,7 +34,8 @@ import {
 } from '@/components/ui/alert-dialog';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
-import { FileText, Search, Trash2, Loader2, Plus, Edit, Eye, EyeOff } from 'lucide-react';
+import { FileText, Search, Trash2, Loader2, Plus, Edit, Eye, EyeOff, Upload } from 'lucide-react';
+import ImageUpload from '@/components/admin/ImageUpload';
 
 interface BlogPost {
   id: string;
@@ -454,8 +455,15 @@ export default function AdminBlogManagement() {
                 </div>
               </div>
 
+              <ImageUpload
+                category="blog"
+                label="Blog Görseli"
+                currentImage={editingPost.image}
+                onUpload={(url) => setEditingPost({ ...editingPost, image: url })}
+              />
+
               <div className="space-y-2">
-                <Label>Görsel URL</Label>
+                <Label>veya Görsel URL</Label>
                 <Input
                   value={editingPost.image || ''}
                   onChange={(e) => setEditingPost({ ...editingPost, image: e.target.value })}
