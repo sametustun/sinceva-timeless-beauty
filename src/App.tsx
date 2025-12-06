@@ -18,6 +18,14 @@ import CookiePolicyPage from "./pages/CookiePolicyPage";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsAndConditions from "./pages/TermsAndConditions";
 import ConsumerReviewRules from "./pages/ConsumerReviewRules";
+import { AdminAuthProvider } from "./contexts/AdminAuthContext";
+import AdminLayout from "./components/admin/AdminLayout";
+import AdminLogin from "./pages/admin/Login";
+import AdminDashboard from "./pages/admin/Dashboard";
+import AdminSubscribers from "./pages/admin/Subscribers";
+import AdminContacts from "./pages/admin/Contacts";
+import AdminBlogManagement from "./pages/admin/BlogManagement";
+import AdminProductManagement from "./pages/admin/ProductManagement";
 
 console.log('App component loading...');
 
@@ -48,6 +56,25 @@ const App = () => {
             <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="/terms" element={<TermsAndConditions />} />
             <Route path="/consumer-ratings" element={<ConsumerReviewRules />} />
+            
+            {/* Admin Routes */}
+            <Route path="/admin/login" element={
+              <AdminAuthProvider>
+                <AdminLogin />
+              </AdminAuthProvider>
+            } />
+            <Route path="/admin" element={
+              <AdminAuthProvider>
+                <AdminLayout />
+              </AdminAuthProvider>
+            }>
+              <Route index element={<AdminDashboard />} />
+              <Route path="subscribers" element={<AdminSubscribers />} />
+              <Route path="contacts" element={<AdminContacts />} />
+              <Route path="blog" element={<AdminBlogManagement />} />
+              <Route path="products" element={<AdminProductManagement />} />
+            </Route>
+            
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
