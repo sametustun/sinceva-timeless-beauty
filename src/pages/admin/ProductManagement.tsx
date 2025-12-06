@@ -36,6 +36,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
 import { Package, Search, Trash2, Loader2, Plus, Edit, Star, StarOff, Upload, X } from 'lucide-react';
 import ImageUpload from '@/components/admin/ImageUpload';
+import SeoFields from '@/components/admin/SeoFields';
 interface Product {
   id: string;
   name: { tr: string; en: string; ar: string };
@@ -47,6 +48,11 @@ interface Product {
   volume: string;
   active: boolean;
   featured: boolean;
+  seo?: {
+    title: { tr: string; en: string; ar: string };
+    description: { tr: string; en: string; ar: string };
+    keywords: { tr: string; en: string; ar: string };
+  };
   created_at: string;
   updated_at: string;
 }
@@ -63,6 +69,11 @@ const emptyProduct: Partial<Product> = {
   volume: '',
   active: true,
   featured: false,
+  seo: {
+    title: { tr: '', en: '', ar: '' },
+    description: { tr: '', en: '', ar: '' },
+    keywords: { tr: '', en: '', ar: '' },
+  },
 };
 
 export default function AdminProductManagement() {
@@ -537,6 +548,15 @@ export default function AdminProductManagement() {
                   </div>
                 )}
               </div>
+
+              <SeoFields
+                seo={editingProduct.seo || {
+                  title: { tr: '', en: '', ar: '' },
+                  description: { tr: '', en: '', ar: '' },
+                  keywords: { tr: '', en: '', ar: '' },
+                }}
+                onChange={(seo) => setEditingProduct({ ...editingProduct, seo })}
+              />
 
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-6">
