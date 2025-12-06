@@ -26,6 +26,7 @@ import AdminSubscribers from "./pages/admin/Subscribers";
 import AdminContacts from "./pages/admin/Contacts";
 import AdminBlogManagement from "./pages/admin/BlogManagement";
 import AdminProductManagement from "./pages/admin/ProductManagement";
+import AdminSettings from "./pages/admin/Settings";
 
 console.log('App component loading...');
 
@@ -73,6 +74,7 @@ const App = () => {
               <Route path="contacts" element={<AdminContacts />} />
               <Route path="blog" element={<AdminBlogManagement />} />
               <Route path="products" element={<AdminProductManagement />} />
+              <Route path="settings" element={<AdminSettings />} />
             </Route>
             
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
