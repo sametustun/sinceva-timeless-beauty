@@ -13,6 +13,7 @@ import {
   LogOut,
   Menu,
   Home,
+  Settings,
 } from 'lucide-react';
 import logoBlack from '@/assets/sinceva_black_logo_for_mobile.png';
 
@@ -22,6 +23,7 @@ const navigation = [
   { name: 'İletişim Mesajları', href: '/admin/contacts', icon: Mail },
   { name: 'Blog Yazıları', href: '/admin/blog', icon: FileText },
   { name: 'Ürünler', href: '/admin/products', icon: Package },
+  { name: 'Ayarlar', href: '/admin/settings', icon: Settings },
 ];
 
 function NavItems({ onItemClick }: { onItemClick?: () => void }) {

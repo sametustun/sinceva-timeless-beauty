@@ -1,0 +1,23 @@
+# Allow direct access to images
+<IfModule mod_rewrite.c>
+    RewriteEngine Off
+</IfModule>
+
+# Disable PHP execution in uploads
+<FilesMatch "\.(php|phtml|php3|php4|php5|php7|phps)$">
+    Deny from all
+</FilesMatch>
+
+# Allow image files
+<FilesMatch "\.(jpg|jpeg|png|gif|webp)$">
+    Allow from all
+</FilesMatch>
+
+# Cache control for images
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+</IfModule>

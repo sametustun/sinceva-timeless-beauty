@@ -141,6 +141,9 @@ if (!checkRateLimit($clientIP, $email)) {
 // Send email
 $emailSent = sendEmail($name, $email, $phone, $subject, $message);
 
+// Save to contacts.json for admin panel
+saveContactMessage($name, $email, $phone, $subject, $message);
+
 if ($emailSent) {
     logRequest('SUCCESS', ['ip' => $clientIP, 'email' => $email, 'name' => $name]);
     respondSuccess();
@@ -310,6 +313,40 @@ function logRequest($status, $data = []) {
     $logData = array_merge(['timestamp' => $timestamp, 'status' => $status], $data);
     $logLine = json_encode($logData, JSON_UNESCAPED_UNICODE) . "\n";
     @file_put_contents(LOG_FILE, $logLine, FILE_APPEND | LOCK_EX);
+}
+
+/**
+ * Save contact message to contacts.json for admin panel
+ */
+function saveContactMessage($name, $email, $phone, $subject, $message) {
+    $contactsFile = __DIR__ . '/data/contacts.json';
+    
+    // Ensure data directory exists
+    if (!is_dir(__DIR__ . '/data')) {
+        mkdir(__DIR__ . '/data', 0755, true);
+    }
+    
+    // Read existing contacts
+    $contacts = [];
+    if (file_exists($contactsFile)) {
+        $content = file_get_contents($contactsFile);
+        $contacts = json_decode($content, true) ?? [];
+    }
+    
+    // Add new contact
+    $contacts[] = [
+        'id' => uniqid() . bin2hex(random_bytes(4)),
+        'name' => $name,
+        'email' => $email,
+        'phone' => $phone,
+        'subject' => $subject,
+        'message' => $message,
+        'read' => false,
+        'created_at' => date('Y-m-d H:i:s')
+    ];
+    
+    // Save contacts
+    file_put_contents($contactsFile, json_encode($contacts, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
 }
 
 /**
