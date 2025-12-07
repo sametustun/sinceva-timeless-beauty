@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
-import { Download, Package, FileText, Loader2, CheckCircle, AlertCircle, FolderTree } from 'lucide-react';
+import { Download, Package, FileText, Loader2, CheckCircle, AlertCircle, FolderTree, Image } from 'lucide-react';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -14,6 +14,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
+import { Checkbox } from '@/components/ui/checkbox';
 
 // Import static data
 import { categoryStructure } from '@/data/content';
@@ -25,15 +26,126 @@ import { productDetailsTR } from '@/data/productDetails/tr';
 import { productDetailsEN } from '@/data/productDetails/en';
 import { productDetailsAR } from '@/data/productDetails/ar';
 
+// Import all media assets
+import arbutin01 from '@/assets/arbutin-01.png';
+import arbutinDiv from '@/assets/arbutin_div.png';
+import cvit01 from '@/assets/cvit-01.png';
+import cvitDiv from '@/assets/cvit_div.png';
+import goz01 from '@/assets/göz-01.png';
+import gozDiv from '@/assets/göz_div.png';
+import gunes01 from '@/assets/güneş-01.png';
+import gunesDiv from '@/assets/güneş_div.png';
+import nemlendirici01 from '@/assets/nemlendirici-01.png';
+import nemlendiriciDiv from '@/assets/nemlendirici_div.png';
+import nightCream01 from '@/assets/night_cream-01.png';
+import geceDiv from '@/assets/gece_div.png';
+import peeling01 from '@/assets/peeling-01.png';
+import peelingDiv from '@/assets/peeling_div.png';
+import tonik01 from '@/assets/tonik-01.png';
+import tonikDiv from '@/assets/tonik_div.png';
+import yuz01 from '@/assets/yüz-01.png';
+import yuzDiv from '@/assets/yüz_div.png';
+import heroSkincare from '@/assets/hero-skincare.jpg';
+import contactBanner from '@/assets/contact_banner.jpg';
+import contactBannerMobile from '@/assets/contact_banner_mobile.jpg';
+import searchBanner from '@/assets/search_banner.jpg';
+import searchBannerMobile from '@/assets/search_banner_mobile.jpg';
+import shopBanner from '@/assets/shop_banner.jpg';
+import shopBannerMobile from '@/assets/shop_banner_mobile.jpg';
+import tipsBanner from '@/assets/tips_banner.jpg';
+import tipsBannerMobile from '@/assets/tips_banner_mobile.jpg';
+import gozKremiBanner from '@/assets/göz_kremi_banner.jpg';
+import gozKremiBannerMobile from '@/assets/göz_kremi_banner_mobile.jpg';
+import toobBanner from '@/assets/toob_banner.jpg';
+import toobBannerMobile from '@/assets/toob_banner_mobile.jpg';
+import antiagingKategori from '@/assets/anti aging kategori.jpg';
+import antiagingCart from '@/assets/antiagingcart.png';
+import cleansingKategori from '@/assets/cleansing kategori.jpg';
+import cleansingCart from '@/assets/cleansingcart.png';
+import dailyKategori from '@/assets/daily kategori.jpg';
+import dailycareCart from '@/assets/dailycarecart.png';
+import logoBlackMobile from '@/assets/sinceva_black_logo_for_mobile.png';
+import logoBlackWeb from '@/assets/sinceva_black_logo_for_web.png';
+import logoWhiteMobile from '@/assets/sinceva_white_logo_for_mobile.png';
+import logoWhiteWeb from '@/assets/sinceva_white_logo_for_web.png';
+
 const API_BASE = 'https://sinceva.com/api/admin';
+
+// Media categories for import
+const mediaCategories = {
+  product: {
+    name: 'Ürün Görselleri',
+    items: [
+      { name: 'arbutin-01.png', url: arbutin01 },
+      { name: 'arbutin_div.png', url: arbutinDiv },
+      { name: 'cvit-01.png', url: cvit01 },
+      { name: 'cvit_div.png', url: cvitDiv },
+      { name: 'goz-01.png', url: goz01 },
+      { name: 'goz_div.png', url: gozDiv },
+      { name: 'gunes-01.png', url: gunes01 },
+      { name: 'gunes_div.png', url: gunesDiv },
+      { name: 'nemlendirici-01.png', url: nemlendirici01 },
+      { name: 'nemlendirici_div.png', url: nemlendiriciDiv },
+      { name: 'night_cream-01.png', url: nightCream01 },
+      { name: 'gece_div.png', url: geceDiv },
+      { name: 'peeling-01.png', url: peeling01 },
+      { name: 'peeling_div.png', url: peelingDiv },
+      { name: 'tonik-01.png', url: tonik01 },
+      { name: 'tonik_div.png', url: tonikDiv },
+      { name: 'yuz-01.png', url: yuz01 },
+      { name: 'yuz_div.png', url: yuzDiv },
+    ],
+  },
+  banner: {
+    name: 'Banner Görselleri',
+    items: [
+      { name: 'hero-skincare.jpg', url: heroSkincare },
+      { name: 'contact_banner.jpg', url: contactBanner },
+      { name: 'contact_banner_mobile.jpg', url: contactBannerMobile },
+      { name: 'search_banner.jpg', url: searchBanner },
+      { name: 'search_banner_mobile.jpg', url: searchBannerMobile },
+      { name: 'shop_banner.jpg', url: shopBanner },
+      { name: 'shop_banner_mobile.jpg', url: shopBannerMobile },
+      { name: 'tips_banner.jpg', url: tipsBanner },
+      { name: 'tips_banner_mobile.jpg', url: tipsBannerMobile },
+      { name: 'goz_kremi_banner.jpg', url: gozKremiBanner },
+      { name: 'goz_kremi_banner_mobile.jpg', url: gozKremiBannerMobile },
+      { name: 'toob_banner.jpg', url: toobBanner },
+      { name: 'toob_banner_mobile.jpg', url: toobBannerMobile },
+    ],
+  },
+  category: {
+    name: 'Kategori Görselleri',
+    items: [
+      { name: 'anti_aging_kategori.jpg', url: antiagingKategori },
+      { name: 'antiagingcart.png', url: antiagingCart },
+      { name: 'cleansing_kategori.jpg', url: cleansingKategori },
+      { name: 'cleansingcart.png', url: cleansingCart },
+      { name: 'daily_kategori.jpg', url: dailyKategori },
+      { name: 'dailycarecart.png', url: dailycareCart },
+    ],
+  },
+  logo: {
+    name: 'Logo Dosyaları',
+    items: [
+      { name: 'sinceva_black_logo_mobile.png', url: logoBlackMobile },
+      { name: 'sinceva_black_logo_web.png', url: logoBlackWeb },
+      { name: 'sinceva_white_logo_mobile.png', url: logoWhiteMobile },
+      { name: 'sinceva_white_logo_web.png', url: logoWhiteWeb },
+    ],
+  },
+};
 
 export default function AdminImportData() {
   const [isImportingProducts, setIsImportingProducts] = useState(false);
   const [isImportingBlog, setIsImportingBlog] = useState(false);
   const [isImportingCategories, setIsImportingCategories] = useState(false);
+  const [isImportingMedia, setIsImportingMedia] = useState(false);
   const [showProductDialog, setShowProductDialog] = useState(false);
   const [showBlogDialog, setShowBlogDialog] = useState(false);
   const [showCategoryDialog, setShowCategoryDialog] = useState(false);
+  const [showMediaDialog, setShowMediaDialog] = useState(false);
+  const [selectedMediaCategories, setSelectedMediaCategories] = useState<string[]>(Object.keys(mediaCategories));
   const [results, setResults] = useState<Array<{ type: string; message: string; success: boolean }>>([]);
   const { toast } = useToast();
 
@@ -316,6 +428,76 @@ export default function AdminImportData() {
     (acc, cat) => acc + Object.keys(cat.subcategories).length, 0
   );
 
+  const handleImportMedia = async () => {
+    setShowMediaDialog(false);
+    setIsImportingMedia(true);
+
+    let successCount = 0;
+    let failCount = 0;
+
+    for (const categoryKey of selectedMediaCategories) {
+      const category = mediaCategories[categoryKey as keyof typeof mediaCategories];
+      
+      for (const item of category.items) {
+        try {
+          // Fetch the image as blob
+          const response = await fetch(item.url);
+          const blob = await response.blob();
+          
+          // Create form data
+          const formData = new FormData();
+          formData.append('image', blob, item.name);
+          formData.append('category', categoryKey);
+          
+          // Upload to backend
+          const uploadResponse = await fetch(`${API_BASE}/upload.php`, {
+            method: 'POST',
+            credentials: 'include',
+            body: formData,
+          });
+          
+          const uploadData = await uploadResponse.json();
+          
+          if (uploadData.success) {
+            successCount++;
+          } else {
+            failCount++;
+          }
+        } catch (error) {
+          console.error(`Failed to upload ${item.name}:`, error);
+          failCount++;
+        }
+      }
+    }
+
+    const message = `${successCount} dosya yüklendi${failCount > 0 ? `, ${failCount} başarısız` : ''}`;
+    addResult('media', message, failCount === 0);
+    
+    toast({
+      title: failCount === 0 ? 'Başarılı' : 'Tamamlandı',
+      description: message,
+      variant: failCount > 0 ? 'destructive' : 'default',
+    });
+
+    setIsImportingMedia(false);
+  };
+
+  const toggleMediaCategory = (key: string) => {
+    setSelectedMediaCategories(prev =>
+      prev.includes(key)
+        ? prev.filter(k => k !== key)
+        : [...prev, key]
+    );
+  };
+
+  const totalMediaCount = Object.values(mediaCategories).reduce(
+    (acc, cat) => acc + cat.items.length, 0
+  );
+
+  const selectedMediaCount = selectedMediaCategories.reduce(
+    (acc, key) => acc + (mediaCategories[key as keyof typeof mediaCategories]?.items.length || 0), 0
+  );
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -351,7 +533,7 @@ export default function AdminImportData() {
         </Card>
       )}
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 md:grid-cols-2">
         {/* Products Import */}
         <Card>
           <CardHeader>
@@ -471,6 +653,46 @@ export default function AdminImportData() {
             </Button>
           </CardContent>
         </Card>
+
+        {/* Media Import */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Image className="h-5 w-5 text-blue-500" />
+              Medya Dosyalarını Import Et
+            </CardTitle>
+            <CardDescription>
+              Mevcut {totalMediaCount} görsel dosyasını backend'e aktarın
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="flex flex-wrap gap-2">
+              <Badge variant="outline">{totalMediaCount} Dosya</Badge>
+              <Badge variant="outline">{Object.keys(mediaCategories).length} Kategori</Badge>
+              <Badge variant="outline">PNG/JPG</Badge>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              src/assets klasöründeki görseller backend uploads klasörüne aktarılacak.
+            </p>
+            <Button
+              onClick={() => setShowMediaDialog(true)}
+              disabled={isImportingMedia}
+              className="w-full"
+            >
+              {isImportingMedia ? (
+                <>
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  Import Ediliyor...
+                </>
+              ) : (
+                <>
+                  <Image className="h-4 w-4 mr-2" />
+                  Medya Import Et
+                </>
+              )}
+            </Button>
+          </CardContent>
+        </Card>
       </div>
 
       {/* Product Import Dialog */}
@@ -521,6 +743,53 @@ export default function AdminImportData() {
           <AlertDialogFooter>
             <AlertDialogCancel>İptal</AlertDialogCancel>
             <AlertDialogAction onClick={handleImportCategories}>
+              Import Et
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      {/* Media Import Dialog */}
+      <AlertDialog open={showMediaDialog} onOpenChange={setShowMediaDialog}>
+        <AlertDialogContent className="max-w-md">
+          <AlertDialogHeader>
+            <AlertDialogTitle>Medya Dosyalarını Import Et</AlertDialogTitle>
+            <AlertDialogDescription>
+              Hangi kategorilerdeki dosyaları import etmek istiyorsunuz?
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          
+          <div className="space-y-3 py-4">
+            {Object.entries(mediaCategories).map(([key, category]) => (
+              <div key={key} className="flex items-center space-x-3">
+                <Checkbox
+                  id={key}
+                  checked={selectedMediaCategories.includes(key)}
+                  onCheckedChange={() => toggleMediaCategory(key)}
+                />
+                <label
+                  htmlFor={key}
+                  className="flex-1 text-sm font-medium cursor-pointer"
+                >
+                  {category.name}
+                  <span className="text-muted-foreground ml-2">
+                    ({category.items.length} dosya)
+                  </span>
+                </label>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-sm text-muted-foreground">
+            Toplam {selectedMediaCount} dosya yüklenecek.
+          </div>
+
+          <AlertDialogFooter>
+            <AlertDialogCancel>İptal</AlertDialogCancel>
+            <AlertDialogAction 
+              onClick={handleImportMedia}
+              disabled={selectedMediaCategories.length === 0}
+            >
               Import Et
             </AlertDialogAction>
           </AlertDialogFooter>
