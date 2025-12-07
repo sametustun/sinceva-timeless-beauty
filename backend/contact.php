@@ -319,10 +319,11 @@ function logRequest($status, $data = []) {
  * Save contact message to contacts.json for admin panel
  */
 function saveContactMessage($name, $email, $phone, $subject, $message) {
-    $contactsFile = dirname(__DIR__) . '/api/admin/data/contacts.json';
+    // Use the same path as admin config - relative to backend directory
+    $contactsFile = __DIR__ . '/data/contacts.json';
     
     // Ensure data directory exists
-    $dataDir = dirname(__DIR__) . '/api/admin/data';
+    $dataDir = __DIR__ . '/data';
     if (!is_dir($dataDir)) {
         mkdir($dataDir, 0755, true);
     }
