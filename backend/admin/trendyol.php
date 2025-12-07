@@ -74,6 +74,12 @@ switch ($method) {
             case 'brands':
                 handleGetBrands();
                 break;
+            case 'analytics':
+                handleGetAnalytics();
+                break;
+            case 'invoiceable-orders':
+                handleGetInvoiceableOrders();
+                break;
             default:
                 respondError('Unknown action', 400);
         }
@@ -98,6 +104,12 @@ switch ($method) {
                 break;
             case 'upload-product':
                 handleUploadProduct();
+                break;
+            case 'send-einvoice':
+                handleSendEInvoice();
+                break;
+            case 'bulk-einvoice':
+                handleBulkEInvoice();
                 break;
             default:
                 respondError('Unknown action', 400);
@@ -533,4 +545,144 @@ function handleUploadProduct() {
     } else {
         respondError('Ürün yüklenemedi: ' . $result['error']);
     }
+}
+
+// ========== ANALYTICS HANDLERS ==========
+
+function handleGetAnalytics() {
+    $api = getTrendyolAPI();
+    if (!$api) {
+        respondError('Trendyol API ayarları yapılandırılmamış');
+    }
+    
+    $days = (int)($_GET['days'] ?? 30);
+    
+    $result = $api->getOrderAnalytics($days);
+    
+    if ($result['success']) {
+        respondSuccess($result['data']);
+    } else {
+        respondError($result['error']);
+    }
+}
+
+function handleGetInvoiceableOrders() {
+    $api = getTrendyolAPI();
+    if (!$api) {
+        respondError('Trendyol API ayarları yapılandırılmamış');
+    }
+    
+    $days = (int)($_GET['days'] ?? 7);
+    
+    $result = $api->getInvoiceableOrders($days);
+    
+    if ($result['success']) {
+        respondSuccess($result['data']);
+    } else {
+        respondError($result['error']);
+    }
+}
+
+// ========== E-INVOICE HANDLERS ==========
+
+function handleSendEInvoice() {
+    $api = getTrendyolAPI();
+    if (!$api) {
+        respondError('Trendyol API ayarları yapılandırılmamış');
+    }
+    
+    $input = json_decode(file_get_contents('php://input'), true);
+    $packageId = (int)($input['packageId'] ?? 0);
+    $invoiceNumber = trim($input['invoiceNumber'] ?? '');
+    $invoiceDate = $input['invoiceDate'] ?? null;
+    $invoiceLink = trim($input['invoiceLink'] ?? '');
+    
+    if (!$packageId || !$invoiceNumber) {
+        respondError('Paket ID ve fatura numarası gerekli');
+    }
+    
+    $invoiceData = [
+        'invoiceNumber' => $invoiceNumber,
+        'invoiceDate' => $invoiceDate ? strtotime($invoiceDate) * 1000 : time() * 1000,
+        'invoiceLink' => $invoiceLink
+    ];
+    
+    $result = $api->sendEInvoice($packageId, $invoiceData);
+    
+    if ($result['success']) {
+        logAdminAction('trendyol_einvoice_sent', ['packageId' => $packageId, 'invoiceNumber' => $invoiceNumber]);
+        
+        // Update local order if exists
+        $ordersFile = DATA_DIR . '/orders.json';
+        if (file_exists($ordersFile)) {
+            $orders = readJsonFile($ordersFile);
+            foreach ($orders as &$order) {
+                if (($order['trendyol_package_id'] ?? null) == $packageId) {
+                    $order['invoice_number'] = $invoiceNumber;
+                    $order['invoice_date'] = date('Y-m-d', $invoiceData['invoiceDate'] / 1000);
+                    $order['invoice_link'] = $invoiceLink;
+                    $order['updated_at'] = date('c');
+                    break;
+                }
+            }
+            writeJsonFile($ordersFile, $orders);
+        }
+        
+        respondSuccess(['message' => 'E-Fatura bilgisi gönderildi']);
+    } else {
+        respondError('E-Fatura gönderilemedi: ' . $result['error']);
+    }
+}
+
+function handleBulkEInvoice() {
+    $api = getTrendyolAPI();
+    if (!$api) {
+        respondError('Trendyol API ayarları yapılandırılmamış');
+    }
+    
+    $input = json_decode(file_get_contents('php://input'), true);
+    $invoices = $input['invoices'] ?? [];
+    
+    if (empty($invoices)) {
+        respondError('Fatura listesi boş');
+    }
+    
+    $success = 0;
+    $failed = 0;
+    $errors = [];
+    
+    foreach ($invoices as $invoice) {
+        $packageId = (int)($invoice['packageId'] ?? 0);
+        $invoiceNumber = trim($invoice['invoiceNumber'] ?? '');
+        
+        if (!$packageId || !$invoiceNumber) {
+            $failed++;
+            $errors[] = "Eksik veri: packageId=$packageId";
+            continue;
+        }
+        
+        $invoiceData = [
+            'invoiceNumber' => $invoiceNumber,
+            'invoiceDate' => isset($invoice['invoiceDate']) ? strtotime($invoice['invoiceDate']) * 1000 : time() * 1000,
+            'invoiceLink' => trim($invoice['invoiceLink'] ?? '')
+        ];
+        
+        $result = $api->sendEInvoice($packageId, $invoiceData);
+        
+        if ($result['success']) {
+            $success++;
+        } else {
+            $failed++;
+            $errors[] = "Package $packageId: " . ($result['error'] ?? 'Unknown error');
+        }
+    }
+    
+    logAdminAction('trendyol_bulk_einvoice', ['success' => $success, 'failed' => $failed]);
+    
+    respondSuccess([
+        'message' => "$success fatura gönderildi, $failed başarısız",
+        'success' => $success,
+        'failed' => $failed,
+        'errors' => $errors
+    ]);
 }
