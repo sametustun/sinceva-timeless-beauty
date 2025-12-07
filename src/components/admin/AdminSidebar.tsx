@@ -16,6 +16,7 @@ import {
   Settings,
   Send,
   Download,
+  FolderTree,
 } from 'lucide-react';
 import logoBlack from '@/assets/sinceva_black_logo_for_mobile.png';
 
@@ -26,6 +27,7 @@ const navigation = [
   { name: 'E-posta Kampanyası', href: '/admin/campaign', icon: Send },
   { name: 'Blog Yazıları', href: '/admin/blog', icon: FileText },
   { name: 'Ürünler', href: '/admin/products', icon: Package },
+  { name: 'Kategoriler', href: '/admin/categories', icon: FolderTree },
   { name: 'Veri Import', href: '/admin/import', icon: Download },
   { name: 'Ayarlar', href: '/admin/settings', icon: Settings },
 ];
