@@ -6,7 +6,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Upload, X, Loader2, Image as ImageIcon } from 'lucide-react';
 
 interface ImageUploadProps {
-  category: 'product' | 'blog' | 'general';
+  category: 'product' | 'blog' | 'general' | 'category';
   onUpload: (url: string) => void;
   currentImage?: string;
   label?: string;

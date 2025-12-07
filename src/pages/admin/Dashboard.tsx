@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Users, Mail, FileText, Package, TrendingUp, Clock, Send, Eye } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Users, Mail, FileText, Package, TrendingUp, Clock, Eye, ArrowRight, Image as ImageIcon } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area, BarChart, Bar } from 'recharts';
+import { Link } from 'react-router-dom';
 
 interface Stats {
   summary: {
@@ -26,6 +29,21 @@ interface Stats {
     subscribers: Array<{ email: string; confirmed: boolean; created_at: string }>;
     contacts: Array<{ name: string; email: string; read: boolean; created_at: string }>;
   };
+  recent_products?: Array<{
+    id: string;
+    name: { tr: string; en: string; ar: string };
+    category: string;
+    images: string[];
+    created_at: string;
+  }>;
+  recent_posts?: Array<{
+    id: string;
+    title: { tr: string; en: string; ar: string };
+    category: string;
+    image: string;
+    published: boolean;
+    created_at: string;
+  }>;
 }
 
 const API_BASE = 'https://sinceva.com/api/admin';
@@ -33,26 +51,52 @@ const API_BASE = 'https://sinceva.com/api/admin';
 export default function AdminDashboard() {
   const [stats, setStats] = useState<Stats | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [recentProducts, setRecentProducts] = useState<any[]>([]);
+  const [recentPosts, setRecentPosts] = useState<any[]>([]);
 
   useEffect(() => {
-    async function fetchStats() {
+    async function fetchData() {
       try {
-        const response = await fetch(`${API_BASE}/stats.php?days=7`, {
-          credentials: 'include',
-        });
-        const data = await response.json();
+        // Fetch stats, products, and blog posts in parallel
+        const [statsRes, productsRes, postsRes] = await Promise.all([
+          fetch(`${API_BASE}/stats.php?days=7`, { credentials: 'include' }),
+          fetch(`${API_BASE}/products.php`, { credentials: 'include' }),
+          fetch(`${API_BASE}/blog.php`, { credentials: 'include' }),
+        ]);
 
-        if (data.success) {
-          setStats(data);
+        const [statsData, productsData, postsData] = await Promise.all([
+          statsRes.json(),
+          productsRes.json(),
+          postsRes.json(),
+        ]);
+
+        if (statsData.success) {
+          setStats(statsData);
+        }
+
+        if (productsData.success && productsData.products) {
+          // Get last 5 products sorted by created_at
+          const sorted = [...productsData.products]
+            .sort((a: any, b: any) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+            .slice(0, 5);
+          setRecentProducts(sorted);
+        }
+
+        if (postsData.success && postsData.posts) {
+          // Get last 5 posts sorted by created_at
+          const sorted = [...postsData.posts]
+            .sort((a: any, b: any) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+            .slice(0, 5);
+          setRecentPosts(sorted);
         }
       } catch (error) {
-        console.error('Failed to fetch stats:', error);
+        console.error('Failed to fetch data:', error);
       } finally {
         setIsLoading(false);
       }
     }
 
-    fetchStats();
+    fetchData();
   }, []);
 
   // Prepare chart data
@@ -249,6 +293,134 @@ export default function AdminDashboard() {
         </Card>
       </div>
 
+      {/* Recent Items Row */}
+      <div className="grid gap-4 md:grid-cols-2">
+        {/* Recent Products */}
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between">
+            <div>
+              <CardTitle className="flex items-center gap-2">
+                <Package className="h-5 w-5 text-orange-500" />
+                Son Eklenen Ürünler
+              </CardTitle>
+              <CardDescription>
+                En son eklenen 5 ürün
+              </CardDescription>
+            </div>
+            <Button variant="ghost" size="sm" asChild>
+              <Link to="/admin/products" className="flex items-center gap-1">
+                Tümünü Gör
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </Button>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {isLoading ? (
+                <div className="text-center py-4 text-muted-foreground">Yükleniyor...</div>
+              ) : recentProducts.length > 0 ? (
+                recentProducts.map((product) => (
+                  <div key={product.id} className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-lg overflow-hidden bg-muted flex-shrink-0">
+                      {product.images && product.images.length > 0 ? (
+                        <img
+                          src={product.images[0]}
+                          alt={product.name?.tr || product.name?.en}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center">
+                          <ImageIcon className="h-5 w-5 text-muted-foreground" />
+                        </div>
+                      )}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium truncate">{product.name?.tr || product.name?.en}</p>
+                      <div className="flex items-center gap-2">
+                        {product.category && (
+                          <Badge variant="outline" className="text-xs">{product.category}</Badge>
+                        )}
+                        <span className="text-xs text-muted-foreground">
+                          {new Date(product.created_at).toLocaleDateString('tr-TR')}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div className="text-center py-4 text-muted-foreground">
+                  Henüz ürün yok
+                </div>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Recent Blog Posts */}
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between">
+            <div>
+              <CardTitle className="flex items-center gap-2">
+                <FileText className="h-5 w-5 text-purple-500" />
+                Son Blog Yazıları
+              </CardTitle>
+              <CardDescription>
+                En son eklenen 5 blog yazısı
+              </CardDescription>
+            </div>
+            <Button variant="ghost" size="sm" asChild>
+              <Link to="/admin/blog" className="flex items-center gap-1">
+                Tümünü Gör
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </Button>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {isLoading ? (
+                <div className="text-center py-4 text-muted-foreground">Yükleniyor...</div>
+              ) : recentPosts.length > 0 ? (
+                recentPosts.map((post) => (
+                  <div key={post.id} className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-lg overflow-hidden bg-muted flex-shrink-0">
+                      {post.image ? (
+                        <img
+                          src={post.image}
+                          alt={post.title?.tr || post.title?.en}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center">
+                          <FileText className="h-5 w-5 text-muted-foreground" />
+                        </div>
+                      )}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium truncate">{post.title?.tr || post.title?.en}</p>
+                      <div className="flex items-center gap-2">
+                        <Badge 
+                          variant={post.published ? 'default' : 'secondary'} 
+                          className="text-xs"
+                        >
+                          {post.published ? 'Yayında' : 'Taslak'}
+                        </Badge>
+                        <span className="text-xs text-muted-foreground">
+                          {new Date(post.created_at).toLocaleDateString('tr-TR')}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div className="text-center py-4 text-muted-foreground">
+                  Henüz yazı yok
+                </div>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
       {/* Bottom Row */}
       <div className="grid gap-4 md:grid-cols-2">
         {/* Featured Products */}
@@ -259,7 +431,7 @@ export default function AdminDashboard() {
               Öne Çıkan Ürünler
             </CardTitle>
             <CardDescription>
-              En çok ilgi gören ürünler
+              Öne çıkarılmış ürünler
             </CardDescription>
           </CardHeader>
           <CardContent>
