@@ -1,15 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Search, Menu, X } from 'lucide-react';
+import { Search, Menu, X, ShoppingBag } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import MegaMenu from './MegaMenu';
 import SearchDropdown from './SearchDropdown';
 import LanguageSelector from './LanguageSelector';
+import CartDrawer from './CartDrawer';
 import { useLogos } from '../hooks/useLogo';
 import { logoContent } from '../data/content';
 import useSearch from '../hooks/useSearch';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { translations } from '@/data/translations';
+import { useCart } from '@/contexts/CartContext';
 
 const Header: React.FC = () => {
   const { language } = useLanguage();
@@ -28,7 +30,7 @@ const Header: React.FC = () => {
   const searchInputRef = useRef<HTMLInputElement>(null);
   const { searchResults, isLoading, error } = useSearch();
   const [searchSuggestions, setSearchSuggestions] = useState<any[]>([]);
-
+  const { totalItems, setIsOpen: setCartOpen } = useCart();
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
@@ -253,6 +255,23 @@ const Header: React.FC = () => {
           <div className="ltr:ml-2 rtl:mr-2">
             <LanguageSelector isScrolled={isScrolled} />
           </div>
+
+          {/* Cart Button */}
+          <button
+            onClick={() => setCartOpen(true)}
+            className={`p-2 transition-all duration-500 relative ${
+              !isScrolled 
+                ? 'text-white hover:text-[hsl(var(--hover))]' 
+                : 'text-[#191919] hover:text-[hsl(var(--hover))]'
+            }`}
+          >
+            <ShoppingBag className="w-4 md:w-5 h-4 md:h-5" />
+            {totalItems > 0 && (
+              <span className="absolute -top-1 -right-1 bg-[#ef2b2d] text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
+                {totalItems}
+              </span>
+            )}
+          </button>
             
             <div className="search-container relative flex items-center">
               <button
@@ -319,9 +338,25 @@ const Header: React.FC = () => {
             {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
           
-          {/* Mobile Language Selector and Search */}
+          {/* Mobile Language Selector, Cart and Search */}
           <div className="flex items-center gap-1">
             <LanguageSelector isScrolled={isScrolled} />
+            {/* Mobile Cart Button */}
+            <button
+              onClick={() => setCartOpen(true)}
+              className={`p-2 transition-all duration-500 relative ${
+                !isScrolled 
+                  ? 'text-white hover:text-[hsl(var(--hover))]' 
+                  : 'text-[#191919] hover:text-[hsl(var(--hover))]'
+              }`}
+            >
+              <ShoppingBag className="w-5 h-5" />
+              {totalItems > 0 && (
+                <span className="absolute -top-1 -right-1 bg-[#ef2b2d] text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
+                  {totalItems}
+                </span>
+              )}
+            </button>
             <div className="search-container relative flex items-center">
               <button
                 onClick={() => setShowSearch(!showSearch)}
@@ -416,6 +451,9 @@ const Header: React.FC = () => {
       <div data-mega-menu>
         <MegaMenu isVisible={showMegaMenu} />
       </div>
+
+      {/* Cart Drawer */}
+      <CartDrawer />
 
     </header>
   );

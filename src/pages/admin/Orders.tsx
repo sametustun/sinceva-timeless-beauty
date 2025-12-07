@@ -35,8 +35,9 @@ interface Order {
   id: string;
   order_number: string;
   marketplace_order_number?: string;
-  source: 'manual' | 'trendyol';
+  source: 'manual' | 'trendyol' | 'website_paytr' | 'website_iyzico';
   status: string;
+  payment_status?: string;
   customer_name: string;
   customer_email: string;
   customer_phone: string;
@@ -73,20 +74,31 @@ interface Shipment {
 
 const statusLabels: Record<string, string> = {
   pending: 'Bekliyor',
+  pending_payment: 'Ödeme Bekliyor',
   processing: 'Hazırlanıyor',
   shipped: 'Kargoya Verildi',
   delivered: 'Teslim Edildi',
   cancelled: 'İptal',
   returned: 'İade',
+  payment_failed: 'Ödeme Başarısız',
 };
 
 const statusColors: Record<string, string> = {
   pending: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300',
+  pending_payment: 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-300',
   processing: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300',
   shipped: 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300',
   delivered: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300',
   cancelled: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300',
   returned: 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-300',
+  payment_failed: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300',
+};
+
+const sourceLabels: Record<string, string> = {
+  manual: 'Manuel',
+  trendyol: 'Trendyol',
+  website_paytr: 'Website (PayTR)',
+  website_iyzico: 'Website (iyzico)',
 };
 
 export default function Orders() {
@@ -382,13 +394,15 @@ export default function Orders() {
                 </SelectContent>
               </Select>
               <Select value={sourceFilter} onValueChange={setSourceFilter}>
-                <SelectTrigger className="w-full sm:w-40">
+                <SelectTrigger className="w-full sm:w-48">
                   <SelectValue placeholder="Tüm Kaynaklar" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="">Tüm Kaynaklar</SelectItem>
                   <SelectItem value="manual">Manuel</SelectItem>
                   <SelectItem value="trendyol">Trendyol</SelectItem>
+                  <SelectItem value="website_paytr">Website (PayTR)</SelectItem>
+                  <SelectItem value="website_iyzico">Website (iyzico)</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -428,8 +442,8 @@ export default function Orders() {
                         </div>
                       </TableCell>
                       <TableCell>
-                        <Badge variant={order.source === 'trendyol' ? 'default' : 'secondary'}>
-                          {order.source === 'trendyol' ? 'Trendyol' : 'Manuel'}
+                        <Badge variant={order.source === 'trendyol' ? 'default' : order.source.startsWith('website') ? 'outline' : 'secondary'}>
+                          {sourceLabels[order.source] || order.source}
                         </Badge>
                       </TableCell>
                       <TableCell>₺{order.total_amount.toLocaleString('tr-TR')}</TableCell>
