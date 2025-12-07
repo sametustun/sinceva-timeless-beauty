@@ -7,8 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
-import { Lock, Eye, EyeOff, Shield, BarChart3, Search, Globe, CheckCircle, Loader2, ExternalLink, ShoppingBag, Key, Store, AlertCircle } from "lucide-react";
-
+import { Lock, Eye, EyeOff, Shield, BarChart3, Search, Globe, CheckCircle, Loader2, ExternalLink, ShoppingBag, Key, Store, AlertCircle, CreditCard } from "lucide-react";
 const API_URL = import.meta.env.VITE_API_URL || "https://sinceva.com/api";
 
 interface IntegrationSettings {
@@ -25,6 +24,22 @@ interface TrendyolSettings {
   apiSecret: string;
   sellerId: string;
 }
+
+interface PaymentSettings {
+  paytr: {
+    merchantId: string;
+    merchantKey: string;
+    merchantSalt: string;
+    testMode: boolean;
+  };
+  iyzico: {
+    apiKey: string;
+    secretKey: string;
+    testMode: boolean;
+  };
+}
+
+
 
 export default function Settings() {
   const { toast } = useToast();
@@ -57,6 +72,15 @@ export default function Settings() {
     sellerId: "",
   });
 
+  const [payment, setPayment] = useState<PaymentSettings>({
+    paytr: { merchantId: "", merchantKey: "", merchantSalt: "", testMode: true },
+    iyzico: { apiKey: "", secretKey: "", testMode: true },
+  });
+  const [savingPayment, setSavingPayment] = useState(false);
+  const [showPaytrKey, setShowPaytrKey] = useState(false);
+  const [showPaytrSalt, setShowPaytrSalt] = useState(false);
+  const [showIyzicoSecret, setShowIyzicoSecret] = useState(false);
+
   useEffect(() => {
     // Load saved integrations from localStorage (these are public keys)
     const saved = localStorage.getItem('sinceva_integrations');
@@ -69,24 +93,43 @@ export default function Settings() {
     }
 
     // Load Trendyol settings from backend
-    const loadTrendyolSettings = async () => {
+    const loadSettings = async () => {
       try {
-        const response = await fetch(`${API_URL}/admin/settings.php?type=trendyol`, {
-          credentials: 'include',
-        });
-        const data = await response.json();
-        if (data.success && data.data) {
+        const [trendyolRes, paymentRes] = await Promise.all([
+          fetch(`${API_URL}/admin/settings.php?type=trendyol`, { credentials: 'include' }),
+          fetch(`${API_URL}/admin/settings.php?type=payment`, { credentials: 'include' }),
+        ]);
+        
+        const trendyolData = await trendyolRes.json();
+        if (trendyolData.success && trendyolData.data) {
           setTrendyol({
-            apiKey: data.data.apiKey || "",
-            apiSecret: data.data.apiSecret || "",
-            sellerId: data.data.sellerId || "",
+            apiKey: trendyolData.data.apiKey || "",
+            apiSecret: trendyolData.data.apiSecret || "",
+            sellerId: trendyolData.data.sellerId || "",
+          });
+        }
+
+        const paymentData = await paymentRes.json();
+        if (paymentData.success && paymentData.data) {
+          setPayment({
+            paytr: {
+              merchantId: paymentData.data.paytr?.merchantId || "",
+              merchantKey: paymentData.data.paytr?.merchantKey || "",
+              merchantSalt: paymentData.data.paytr?.merchantSalt || "",
+              testMode: paymentData.data.paytr?.testMode ?? true,
+            },
+            iyzico: {
+              apiKey: paymentData.data.iyzico?.apiKey || "",
+              secretKey: paymentData.data.iyzico?.secretKey || "",
+              testMode: paymentData.data.iyzico?.testMode ?? true,
+            },
           });
         }
       } catch (error) {
-        console.error('Failed to load Trendyol settings:', error);
+        console.error('Failed to load settings:', error);
       }
     };
-    loadTrendyolSettings();
+    loadSettings();
   }, []);
 
   const handlePasswordChange = async (e: React.FormEvent) => {
@@ -222,6 +265,38 @@ export default function Settings() {
     }
   };
 
+  const handleSavePayment = async () => {
+    setSavingPayment(true);
+    
+    try {
+      const response = await fetch(`${API_URL}/admin/settings.php`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ type: 'payment', data: payment }),
+      });
+
+      const data = await response.json();
+      
+      if (data.success) {
+        toast({
+          title: "Başarılı",
+          description: "Ödeme entegrasyonu ayarları kaydedildi.",
+        });
+      } else {
+        throw new Error(data.error || 'Save failed');
+      }
+    } catch (error) {
+      toast({
+        title: "Hata",
+        description: "Ödeme ayarları kaydedilemedi.",
+        variant: "destructive",
+      });
+    } finally {
+      setSavingPayment(false);
+    }
+  };
+
   const integrationCards = [
     {
       id: 'googleAnalyticsId',
@@ -293,8 +368,9 @@ export default function Settings() {
       </div>
 
       <Tabs defaultValue="integrations" className="space-y-6">
-        <TabsList>
+        <TabsList className="flex flex-wrap h-auto gap-1">
           <TabsTrigger value="integrations">Entegrasyonlar</TabsTrigger>
+          <TabsTrigger value="payment">Ödeme Sistemleri</TabsTrigger>
           <TabsTrigger value="trendyol">Trendyol API</TabsTrigger>
           <TabsTrigger value="security">Güvenlik</TabsTrigger>
         </TabsList>
@@ -449,6 +525,196 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
                   )}
                 </CardContent>
               </Card>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="payment" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <CreditCard className="h-5 w-5 text-green-600" />
+                Ödeme Entegrasyonları
+              </CardTitle>
+              <CardDescription>
+                PayTR ve iyzico ödeme sistemlerini yapılandırarak web sitenizden ödeme alın.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-8">
+              {/* PayTR Section */}
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-lg bg-blue-500/10">
+                      <CreditCard className="h-5 w-5 text-blue-500" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold">PayTR</h3>
+                      <p className="text-sm text-muted-foreground">Türkiye'nin önde gelen ödeme altyapısı</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Label htmlFor="paytr-test" className="text-sm">Test Modu</Label>
+                    <Switch 
+                      id="paytr-test"
+                      checked={payment.paytr.testMode}
+                      onCheckedChange={(checked) => setPayment(prev => ({ 
+                        ...prev, 
+                        paytr: { ...prev.paytr, testMode: checked }
+                      }))}
+                    />
+                  </div>
+                </div>
+                
+                <div className="grid gap-4 md:grid-cols-3">
+                  <div className="space-y-2">
+                    <Label>Merchant ID</Label>
+                    <Input
+                      value={payment.paytr.merchantId}
+                      onChange={(e) => setPayment(prev => ({ 
+                        ...prev, 
+                        paytr: { ...prev.paytr, merchantId: e.target.value }
+                      }))}
+                      placeholder="Merchant ID"
+                      className="font-mono text-sm"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Merchant Key</Label>
+                    <div className="relative">
+                      <Input
+                        type={showPaytrKey ? "text" : "password"}
+                        value={payment.paytr.merchantKey}
+                        onChange={(e) => setPayment(prev => ({ 
+                          ...prev, 
+                          paytr: { ...prev.paytr, merchantKey: e.target.value }
+                        }))}
+                        placeholder="Merchant Key"
+                        className="font-mono text-sm pr-10"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPaytrKey(!showPaytrKey)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                      >
+                        {showPaytrKey ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                      </button>
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Merchant Salt</Label>
+                    <div className="relative">
+                      <Input
+                        type={showPaytrSalt ? "text" : "password"}
+                        value={payment.paytr.merchantSalt}
+                        onChange={(e) => setPayment(prev => ({ 
+                          ...prev, 
+                          paytr: { ...prev.paytr, merchantSalt: e.target.value }
+                        }))}
+                        placeholder="Merchant Salt"
+                        className="font-mono text-sm pr-10"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPaytrSalt(!showPaytrSalt)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                      >
+                        {showPaytrSalt ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                {payment.paytr.merchantId && (
+                  <div className="flex items-center gap-1 text-xs text-green-600">
+                    <CheckCircle className="h-3 w-3" />
+                    PayTR yapılandırıldı
+                  </div>
+                )}
+              </div>
+
+              <div className="border-t pt-6" />
+
+              {/* iyzico Section */}
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-lg bg-purple-500/10">
+                      <CreditCard className="h-5 w-5 text-purple-500" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold">iyzico</h3>
+                      <p className="text-sm text-muted-foreground">Kolay ve güvenli ödeme çözümü</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Label htmlFor="iyzico-test" className="text-sm">Test Modu</Label>
+                    <Switch 
+                      id="iyzico-test"
+                      checked={payment.iyzico.testMode}
+                      onCheckedChange={(checked) => setPayment(prev => ({ 
+                        ...prev, 
+                        iyzico: { ...prev.iyzico, testMode: checked }
+                      }))}
+                    />
+                  </div>
+                </div>
+                
+                <div className="grid gap-4 md:grid-cols-2">
+                  <div className="space-y-2">
+                    <Label>API Key</Label>
+                    <Input
+                      value={payment.iyzico.apiKey}
+                      onChange={(e) => setPayment(prev => ({ 
+                        ...prev, 
+                        iyzico: { ...prev.iyzico, apiKey: e.target.value }
+                      }))}
+                      placeholder="API Key"
+                      className="font-mono text-sm"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Secret Key</Label>
+                    <div className="relative">
+                      <Input
+                        type={showIyzicoSecret ? "text" : "password"}
+                        value={payment.iyzico.secretKey}
+                        onChange={(e) => setPayment(prev => ({ 
+                          ...prev, 
+                          iyzico: { ...prev.iyzico, secretKey: e.target.value }
+                        }))}
+                        placeholder="Secret Key"
+                        className="font-mono text-sm pr-10"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowIyzicoSecret(!showIyzicoSecret)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                      >
+                        {showIyzicoSecret ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                {payment.iyzico.apiKey && (
+                  <div className="flex items-center gap-1 text-xs text-green-600">
+                    <CheckCircle className="h-3 w-3" />
+                    iyzico yapılandırıldı
+                  </div>
+                )}
+              </div>
+
+              <div className="flex justify-end pt-4 border-t">
+                <Button onClick={handleSavePayment} disabled={savingPayment}>
+                  {savingPayment ? (
+                    <>
+                      <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                      Kaydediliyor...
+                    </>
+                  ) : (
+                    'Ödeme Ayarlarını Kaydet'
+                  )}
+                </Button>
+              </div>
             </CardContent>
           </Card>
         </TabsContent>
