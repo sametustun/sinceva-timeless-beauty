@@ -1,8 +1,9 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useToast } from '@/hooks/use-toast';
@@ -24,12 +25,16 @@ import {
   MoreVertical,
   Eye,
   X,
+  CheckSquare,
+  Square,
+  XCircle,
 } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
 import {
   AlertDialog,
@@ -53,7 +58,7 @@ interface MediaFile {
   created_at: string;
 }
 
-interface Folder {
+interface FolderType {
   name: string;
   path: string;
   count: number;
@@ -63,21 +68,32 @@ export default function MediaManager() {
   const { toast } = useToast();
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [currentFolder, setCurrentFolder] = useState('');
-  const [folders, setFolders] = useState<Folder[]>([]);
+  const [folders, setFolders] = useState<FolderType[]>([]);
   const [files, setFiles] = useState<MediaFile[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isUploading, setIsUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState({ current: 0, total: 0 });
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedFile, setSelectedFile] = useState<MediaFile | null>(null);
+  const [selectedFiles, setSelectedFiles] = useState<Set<string>>(new Set());
   const [previewFile, setPreviewFile] = useState<MediaFile | null>(null);
   const [newFolderName, setNewFolderName] = useState('');
   const [showNewFolderDialog, setShowNewFolderDialog] = useState(false);
-  const [fileToDelete, setFileToDelete] = useState<MediaFile | null>(null);
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [filesToDelete, setFilesToDelete] = useState<string[]>([]);
   const [copiedUrl, setCopiedUrl] = useState<string | null>(null);
+  const [isDragOver, setIsDragOver] = useState(false);
+  const [isSelectionMode, setIsSelectionMode] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const dropZoneRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     fetchMedia();
+  }, [currentFolder]);
+
+  // Reset selection when folder changes
+  useEffect(() => {
+    setSelectedFiles(new Set());
+    setIsSelectionMode(false);
   }, [currentFolder]);
 
   const fetchMedia = async () => {
@@ -106,14 +122,28 @@ export default function MediaManager() {
     }
   };
 
-  const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFiles = e.target.files;
-    if (!selectedFiles || selectedFiles.length === 0) return;
+  const uploadFiles = async (fileList: FileList | File[]) => {
+    const filesToUpload = Array.from(fileList).filter(file => 
+      file.type.startsWith('image/')
+    );
+    
+    if (filesToUpload.length === 0) {
+      toast({
+        title: 'Hata',
+        description: 'Yalnızca görsel dosyaları yüklenebilir.',
+        variant: 'destructive',
+      });
+      return;
+    }
 
     setIsUploading(true);
+    setUploadProgress({ current: 0, total: filesToUpload.length });
     const uploadedCount = { success: 0, failed: 0 };
 
-    for (const file of Array.from(selectedFiles)) {
+    for (let i = 0; i < filesToUpload.length; i++) {
+      const file = filesToUpload[i];
+      setUploadProgress({ current: i + 1, total: filesToUpload.length });
+      
       const formData = new FormData();
       formData.append('image', file);
       formData.append('category', currentFolder || 'general');
@@ -137,6 +167,7 @@ export default function MediaManager() {
     }
 
     setIsUploading(false);
+    setUploadProgress({ current: 0, total: 0 });
     
     toast({
       title: 'Yükleme Tamamlandı',
@@ -144,10 +175,48 @@ export default function MediaManager() {
     });
 
     fetchMedia();
+  };
+
+  const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFilesList = e.target.files;
+    if (!selectedFilesList || selectedFilesList.length === 0) return;
+    await uploadFiles(selectedFilesList);
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
   };
+
+  // Drag and Drop handlers
+  const handleDragEnter = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragOver(true);
+  }, []);
+
+  const handleDragLeave = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    // Only set to false if we're leaving the drop zone entirely
+    if (e.currentTarget === dropZoneRef.current && !dropZoneRef.current?.contains(e.relatedTarget as Node)) {
+      setIsDragOver(false);
+    }
+  }, []);
+
+  const handleDragOver = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+  }, []);
+
+  const handleDrop = useCallback(async (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragOver(false);
+
+    const droppedFiles = e.dataTransfer.files;
+    if (droppedFiles && droppedFiles.length > 0) {
+      await uploadFiles(droppedFiles);
+    }
+  }, [currentFolder]);
 
   const handleCreateFolder = async () => {
     if (!newFolderName.trim()) return;
@@ -173,27 +242,42 @@ export default function MediaManager() {
     setShowNewFolderDialog(false);
   };
 
-  const handleDeleteFile = async () => {
-    if (!fileToDelete) return;
+  const handleDeleteFiles = async () => {
+    if (filesToDelete.length === 0) return;
 
-    try {
-      const response = await fetch(`${API_BASE}/media.php`, {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify({ file: fileToDelete.name, folder: currentFolder }),
-      });
-      const data = await response.json();
-      
-      if (data.success) {
-        toast({ title: 'Başarılı', description: 'Dosya silindi' });
-        fetchMedia();
+    let successCount = 0;
+    let failCount = 0;
+
+    for (const fileName of filesToDelete) {
+      try {
+        const response = await fetch(`${API_BASE}/media.php`, {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({ file: fileName, folder: currentFolder }),
+        });
+        const data = await response.json();
+        
+        if (data.success) {
+          successCount++;
+        } else {
+          failCount++;
+        }
+      } catch (error) {
+        failCount++;
       }
-    } catch (error) {
-      toast({ title: 'Hata', description: 'Dosya silinemedi', variant: 'destructive' });
     }
 
-    setFileToDelete(null);
+    toast({ 
+      title: 'Silme Tamamlandı', 
+      description: `${successCount} dosya silindi${failCount > 0 ? `, ${failCount} başarısız` : ''}` 
+    });
+    
+    setFilesToDelete([]);
+    setShowDeleteDialog(false);
+    setSelectedFiles(new Set());
+    setIsSelectionMode(false);
+    fetchMedia();
   };
 
   const copyToClipboard = async (url: string) => {
@@ -207,12 +291,54 @@ export default function MediaManager() {
     }
   };
 
+  const copySelectedUrls = async () => {
+    const urls = files
+      .filter(f => selectedFiles.has(f.name))
+      .map(f => f.url)
+      .join('\n');
+    
+    try {
+      await navigator.clipboard.writeText(urls);
+      toast({ title: 'Kopyalandı', description: `${selectedFiles.size} URL panoya kopyalandı` });
+    } catch (error) {
+      toast({ title: 'Hata', description: 'URL\'ler kopyalanamadı', variant: 'destructive' });
+    }
+  };
+
   const formatFileSize = (bytes: number) => {
     if (bytes === 0) return '0 B';
     const k = 1024;
     const sizes = ['B', 'KB', 'MB', 'GB'];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+  };
+
+  const toggleFileSelection = (fileName: string) => {
+    const newSelection = new Set(selectedFiles);
+    if (newSelection.has(fileName)) {
+      newSelection.delete(fileName);
+    } else {
+      newSelection.add(fileName);
+    }
+    setSelectedFiles(newSelection);
+    
+    // Auto-enable selection mode when selecting files
+    if (newSelection.size > 0 && !isSelectionMode) {
+      setIsSelectionMode(true);
+    }
+  };
+
+  const selectAllFiles = () => {
+    if (selectedFiles.size === filteredFiles.length) {
+      setSelectedFiles(new Set());
+    } else {
+      setSelectedFiles(new Set(filteredFiles.map(f => f.name)));
+    }
+  };
+
+  const clearSelection = () => {
+    setSelectedFiles(new Set());
+    setIsSelectionMode(false);
   };
 
   const filteredFiles = files.filter(file =>
@@ -222,7 +348,50 @@ export default function MediaManager() {
   const breadcrumbs = currentFolder ? currentFolder.split('/').filter(Boolean) : [];
 
   return (
-    <div className="space-y-6">
+    <div 
+      ref={dropZoneRef}
+      className="space-y-6 relative"
+      onDragEnter={handleDragEnter}
+      onDragLeave={handleDragLeave}
+      onDragOver={handleDragOver}
+      onDrop={handleDrop}
+    >
+      {/* Drag Overlay */}
+      {isDragOver && (
+        <div className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm flex items-center justify-center">
+          <div className="border-4 border-dashed border-primary rounded-2xl p-12 bg-primary/5 animate-pulse">
+            <div className="text-center">
+              <Upload className="h-16 w-16 mx-auto text-primary mb-4" />
+              <p className="text-xl font-semibold text-primary">Dosyaları buraya bırakın</p>
+              <p className="text-muted-foreground mt-2">Görsel dosyalarını yüklemek için bırakın</p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Upload Progress Overlay */}
+      {isUploading && (
+        <div className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm flex items-center justify-center">
+          <Card className="w-80">
+            <CardContent className="pt-6">
+              <div className="text-center">
+                <Loader2 className="h-12 w-12 mx-auto text-primary animate-spin mb-4" />
+                <p className="font-semibold">Yükleniyor...</p>
+                <p className="text-sm text-muted-foreground mt-1">
+                  {uploadProgress.current} / {uploadProgress.total} dosya
+                </p>
+                <div className="w-full bg-muted rounded-full h-2 mt-4">
+                  <div 
+                    className="bg-primary h-2 rounded-full transition-all duration-300"
+                    style={{ width: `${(uploadProgress.current / uploadProgress.total) * 100}%` }}
+                  />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      )}
+
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
@@ -257,11 +426,7 @@ export default function MediaManager() {
           </Dialog>
 
           <Button size="sm" onClick={() => fileInputRef.current?.click()} disabled={isUploading}>
-            {isUploading ? (
-              <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-            ) : (
-              <Upload className="h-4 w-4 mr-2" />
-            )}
+            <Upload className="h-4 w-4 mr-2" />
             Yükle
           </Button>
           <input
@@ -274,6 +439,65 @@ export default function MediaManager() {
           />
         </div>
       </div>
+
+      {/* Selection Toolbar */}
+      {isSelectionMode && (
+        <Card className="border-primary bg-primary/5 animate-fade-in">
+          <CardContent className="p-3">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <Button variant="ghost" size="sm" onClick={clearSelection}>
+                  <XCircle className="h-4 w-4 mr-2" />
+                  Seçimi Temizle
+                </Button>
+                <span className="text-sm font-medium">
+                  {selectedFiles.size} dosya seçildi
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={selectAllFiles}
+                >
+                  {selectedFiles.size === filteredFiles.length ? (
+                    <>
+                      <Square className="h-4 w-4 mr-2" />
+                      Seçimi Kaldır
+                    </>
+                  ) : (
+                    <>
+                      <CheckSquare className="h-4 w-4 mr-2" />
+                      Tümünü Seç
+                    </>
+                  )}
+                </Button>
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={copySelectedUrls}
+                  disabled={selectedFiles.size === 0}
+                >
+                  <Copy className="h-4 w-4 mr-2" />
+                  URL Kopyala
+                </Button>
+                <Button 
+                  variant="destructive" 
+                  size="sm"
+                  onClick={() => {
+                    setFilesToDelete(Array.from(selectedFiles));
+                    setShowDeleteDialog(true);
+                  }}
+                  disabled={selectedFiles.size === 0}
+                >
+                  <Trash2 className="h-4 w-4 mr-2" />
+                  Sil ({selectedFiles.size})
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Toolbar */}
       <Card>
@@ -314,6 +538,19 @@ export default function MediaManager() {
                   className="pl-9"
                 />
               </div>
+              <Button
+                variant={isSelectionMode ? 'secondary' : 'ghost'}
+                size="icon"
+                className="h-9 w-9"
+                onClick={() => {
+                  setIsSelectionMode(!isSelectionMode);
+                  if (isSelectionMode) {
+                    setSelectedFiles(new Set());
+                  }
+                }}
+              >
+                <CheckSquare className="h-4 w-4" />
+              </Button>
               <div className="flex border rounded-lg">
                 <Button
                   variant={viewMode === 'grid' ? 'secondary' : 'ghost'}
@@ -368,151 +605,188 @@ export default function MediaManager() {
             </div>
           )}
 
-          {/* Files */}
-          <div>
-            <h3 className="text-sm font-medium text-muted-foreground mb-3">
-              Dosyalar {filteredFiles.length > 0 && `(${filteredFiles.length})`}
-            </h3>
-            
-            {filteredFiles.length === 0 ? (
-              <Card>
-                <CardContent className="py-12 text-center">
-                  <ImageIcon className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                  <p className="text-muted-foreground">Bu klasörde dosya yok</p>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="mt-4"
-                    onClick={() => fileInputRef.current?.click()}
-                  >
-                    <Upload className="h-4 w-4 mr-2" />
-                    Dosya Yükle
-                  </Button>
-                </CardContent>
-              </Card>
-            ) : viewMode === 'grid' ? (
-              <div className="grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
-                {filteredFiles.map((file) => (
-                  <Card
-                    key={file.name}
-                    className={`group cursor-pointer transition-all hover:shadow-md ${
-                      selectedFile?.name === file.name ? 'ring-2 ring-primary' : ''
-                    }`}
-                    onClick={() => setSelectedFile(file)}
-                  >
-                    <CardContent className="p-2">
-                      <div className="relative aspect-square rounded-lg overflow-hidden bg-muted mb-2">
-                        <img
-                          src={file.url}
-                          alt={file.name}
-                          className="w-full h-full object-cover"
-                          loading="lazy"
-                        />
-                        <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
-                          <Button
-                            size="icon"
-                            variant="secondary"
-                            className="h-8 w-8"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setPreviewFile(file);
-                            }}
-                          >
-                            <Eye className="h-4 w-4" />
-                          </Button>
-                          <Button
-                            size="icon"
-                            variant="secondary"
-                            className="h-8 w-8"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              copyToClipboard(file.url);
-                            }}
-                          >
-                            {copiedUrl === file.url ? (
-                              <Check className="h-4 w-4" />
-                            ) : (
-                              <Copy className="h-4 w-4" />
-                            )}
-                          </Button>
-                          <Button
-                            size="icon"
-                            variant="destructive"
-                            className="h-8 w-8"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setFileToDelete(file);
-                            }}
-                          >
-                            <Trash2 className="h-4 w-4" />
-                          </Button>
-                        </div>
-                      </div>
-                      <p className="text-xs font-medium truncate">{file.name}</p>
-                      <p className="text-xs text-muted-foreground">{formatFileSize(file.size)}</p>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            ) : (
-              <Card>
-                <ScrollArea className="h-[500px]">
-                  <div className="divide-y">
-                    {filteredFiles.map((file) => (
-                      <div
-                        key={file.name}
-                        className={`flex items-center gap-4 p-4 hover:bg-muted/50 cursor-pointer ${
-                          selectedFile?.name === file.name ? 'bg-muted' : ''
-                        }`}
-                        onClick={() => setSelectedFile(file)}
-                      >
-                        <div className="w-12 h-12 rounded-lg overflow-hidden bg-muted flex-shrink-0">
+          {/* Empty state with drag & drop */}
+          {filteredFiles.length === 0 ? (
+            <Card 
+              className={`border-2 border-dashed transition-colors ${
+                isDragOver ? 'border-primary bg-primary/5' : 'border-muted'
+              }`}
+            >
+              <CardContent className="py-12 text-center">
+                <div className="w-16 h-16 mx-auto rounded-full bg-muted flex items-center justify-center mb-4">
+                  <Upload className="h-8 w-8 text-muted-foreground" />
+                </div>
+                <p className="text-lg font-medium mb-2">Dosya yükleyin</p>
+                <p className="text-muted-foreground mb-4">
+                  Dosyaları sürükleyip bırakın veya seçmek için tıklayın
+                </p>
+                <Button onClick={() => fileInputRef.current?.click()}>
+                  <Upload className="h-4 w-4 mr-2" />
+                  Dosya Seç
+                </Button>
+              </CardContent>
+            </Card>
+          ) : (
+            <div>
+              <h3 className="text-sm font-medium text-muted-foreground mb-3">
+                Dosyalar ({filteredFiles.length})
+              </h3>
+              
+              {viewMode === 'grid' ? (
+                <div className="grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
+                  {filteredFiles.map((file) => (
+                    <Card
+                      key={file.name}
+                      className={`group cursor-pointer transition-all hover:shadow-md ${
+                        selectedFiles.has(file.name) ? 'ring-2 ring-primary bg-primary/5' : ''
+                      }`}
+                      onClick={() => isSelectionMode ? toggleFileSelection(file.name) : setPreviewFile(file)}
+                    >
+                      <CardContent className="p-2">
+                        <div className="relative aspect-square rounded-lg overflow-hidden bg-muted mb-2">
                           <img
                             src={file.url}
                             alt={file.name}
                             className="w-full h-full object-cover"
                             loading="lazy"
                           />
+                          
+                          {/* Selection checkbox */}
+                          {isSelectionMode && (
+                            <div className="absolute top-2 left-2">
+                              <div className={`w-6 h-6 rounded-md border-2 flex items-center justify-center transition-colors ${
+                                selectedFiles.has(file.name) 
+                                  ? 'bg-primary border-primary text-primary-foreground' 
+                                  : 'bg-background/80 border-muted-foreground/50'
+                              }`}>
+                                {selectedFiles.has(file.name) && <Check className="h-4 w-4" />}
+                              </div>
+                            </div>
+                          )}
+                          
+                          {/* Hover actions */}
+                          {!isSelectionMode && (
+                            <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                              <Button
+                                size="icon"
+                                variant="secondary"
+                                className="h-8 w-8"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setPreviewFile(file);
+                                }}
+                              >
+                                <Eye className="h-4 w-4" />
+                              </Button>
+                              <Button
+                                size="icon"
+                                variant="secondary"
+                                className="h-8 w-8"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  copyToClipboard(file.url);
+                                }}
+                              >
+                                {copiedUrl === file.url ? (
+                                  <Check className="h-4 w-4" />
+                                ) : (
+                                  <Copy className="h-4 w-4" />
+                                )}
+                              </Button>
+                              <Button
+                                size="icon"
+                                variant="destructive"
+                                className="h-8 w-8"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setFilesToDelete([file.name]);
+                                  setShowDeleteDialog(true);
+                                }}
+                              >
+                                <Trash2 className="h-4 w-4" />
+                              </Button>
+                            </div>
+                          )}
                         </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="font-medium truncate">{file.name}</p>
-                          <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                            <span>{formatFileSize(file.size)}</span>
-                            <span>•</span>
-                            <span>{new Date(file.created_at).toLocaleDateString('tr-TR')}</span>
+                        <p className="text-xs font-medium truncate">{file.name}</p>
+                        <p className="text-xs text-muted-foreground">{formatFileSize(file.size)}</p>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              ) : (
+                <Card>
+                  <ScrollArea className="h-[500px]">
+                    <div className="divide-y">
+                      {filteredFiles.map((file) => (
+                        <div
+                          key={file.name}
+                          className={`flex items-center gap-4 p-4 hover:bg-muted/50 cursor-pointer ${
+                            selectedFiles.has(file.name) ? 'bg-primary/5' : ''
+                          }`}
+                          onClick={() => isSelectionMode ? toggleFileSelection(file.name) : setPreviewFile(file)}
+                        >
+                          {isSelectionMode && (
+                            <Checkbox
+                              checked={selectedFiles.has(file.name)}
+                              onCheckedChange={() => toggleFileSelection(file.name)}
+                              onClick={(e) => e.stopPropagation()}
+                            />
+                          )}
+                          <div className="w-12 h-12 rounded-lg overflow-hidden bg-muted flex-shrink-0">
+                            <img
+                              src={file.url}
+                              alt={file.name}
+                              className="w-full h-full object-cover"
+                              loading="lazy"
+                            />
                           </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="font-medium truncate">{file.name}</p>
+                            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                              <span>{formatFileSize(file.size)}</span>
+                              <span>•</span>
+                              <span>{new Date(file.created_at).toLocaleDateString('tr-TR')}</span>
+                            </div>
+                          </div>
+                          {!isSelectionMode && (
+                            <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                <Button variant="ghost" size="icon" className="h-8 w-8" onClick={(e) => e.stopPropagation()}>
+                                  <MoreVertical className="h-4 w-4" />
+                                </Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent align="end">
+                                <DropdownMenuItem onClick={() => setPreviewFile(file)}>
+                                  <Eye className="h-4 w-4 mr-2" />
+                                  Önizle
+                                </DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => copyToClipboard(file.url)}>
+                                  <Copy className="h-4 w-4 mr-2" />
+                                  URL Kopyala
+                                </DropdownMenuItem>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuItem
+                                  className="text-destructive"
+                                  onClick={() => {
+                                    setFilesToDelete([file.name]);
+                                    setShowDeleteDialog(true);
+                                  }}
+                                >
+                                  <Trash2 className="h-4 w-4 mr-2" />
+                                  Sil
+                                </DropdownMenuItem>
+                              </DropdownMenuContent>
+                            </DropdownMenu>
+                          )}
                         </div>
-                        <DropdownMenu>
-                          <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" size="icon" className="h-8 w-8">
-                              <MoreVertical className="h-4 w-4" />
-                            </Button>
-                          </DropdownMenuTrigger>
-                          <DropdownMenuContent align="end">
-                            <DropdownMenuItem onClick={() => setPreviewFile(file)}>
-                              <Eye className="h-4 w-4 mr-2" />
-                              Önizle
-                            </DropdownMenuItem>
-                            <DropdownMenuItem onClick={() => copyToClipboard(file.url)}>
-                              <Copy className="h-4 w-4 mr-2" />
-                              URL Kopyala
-                            </DropdownMenuItem>
-                            <DropdownMenuItem
-                              className="text-destructive"
-                              onClick={() => setFileToDelete(file)}
-                            >
-                              <Trash2 className="h-4 w-4 mr-2" />
-                              Sil
-                            </DropdownMenuItem>
-                          </DropdownMenuContent>
-                        </DropdownMenu>
-                      </div>
-                    ))}
-                  </div>
-                </ScrollArea>
-              </Card>
-            )}
-          </div>
+                      ))}
+                    </div>
+                  </ScrollArea>
+                </Card>
+              )}
+            </div>
+          )}
         </div>
       )}
 
@@ -543,7 +817,8 @@ export default function MediaManager() {
                     URL Kopyala
                   </Button>
                   <Button variant="destructive" size="sm" onClick={() => {
-                    setFileToDelete(previewFile);
+                    setFilesToDelete([previewFile.name]);
+                    setShowDeleteDialog(true);
                     setPreviewFile(null);
                   }}>
                     <Trash2 className="h-4 w-4 mr-2" />
@@ -557,17 +832,25 @@ export default function MediaManager() {
       </Dialog>
 
       {/* Delete Confirmation */}
-      <AlertDialog open={!!fileToDelete} onOpenChange={() => setFileToDelete(null)}>
+      <AlertDialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Dosyayı Sil</AlertDialogTitle>
+            <AlertDialogTitle>
+              {filesToDelete.length > 1 ? `${filesToDelete.length} Dosyayı Sil` : 'Dosyayı Sil'}
+            </AlertDialogTitle>
             <AlertDialogDescription>
-              "{fileToDelete?.name}" dosyasını silmek istediğinize emin misiniz? Bu işlem geri alınamaz.
+              {filesToDelete.length > 1 
+                ? `${filesToDelete.length} dosyayı silmek istediğinize emin misiniz? Bu işlem geri alınamaz.`
+                : `"${filesToDelete[0]}" dosyasını silmek istediğinize emin misiniz? Bu işlem geri alınamaz.`
+              }
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>İptal</AlertDialogCancel>
-            <AlertDialogAction onClick={handleDeleteFile} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+            <AlertDialogCancel onClick={() => setFilesToDelete([])}>İptal</AlertDialogCancel>
+            <AlertDialogAction 
+              onClick={handleDeleteFiles} 
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            >
               Sil
             </AlertDialogAction>
           </AlertDialogFooter>
