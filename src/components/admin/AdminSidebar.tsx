@@ -18,11 +18,15 @@ import {
   Download,
   FolderTree,
   Image,
+  Truck,
+  ShoppingCart,
 } from 'lucide-react';
 import logoBlack from '@/assets/sinceva_black_logo_for_mobile.png';
 
 const navigation = [
   { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
+  { name: 'Siparişler', href: '/admin/orders', icon: ShoppingCart },
+  { name: 'Kargo Entegrasyonları', href: '/admin/shipping', icon: Truck },
   { name: 'Aboneler', href: '/admin/subscribers', icon: Users },
   { name: 'İletişim Mesajları', href: '/admin/contacts', icon: Mail },
   { name: 'E-posta Kampanyası', href: '/admin/campaign', icon: Send },
@@ -53,7 +57,7 @@ function NavItems({ onItemClick }: { onItemClick?: () => void }) {
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 p-4 space-y-1">
+      <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
         {navigation.map((item) => {
           const isActive = location.pathname === item.href;
           return (
