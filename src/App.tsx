@@ -37,6 +37,7 @@ import AdminCategories from "./pages/admin/Categories";
 import AdminMediaManager from "./pages/admin/MediaManager";
 import AdminOrders from "./pages/admin/Orders";
 import AdminShippingProviders from "./pages/admin/ShippingProviders";
+import AdminTrendyol from "./pages/admin/Trendyol";
 
 console.log('App component loading...');
 
@@ -86,6 +87,7 @@ const App = () => {
                 <Route index element={<AdminDashboard />} />
                 <Route path="orders" element={<AdminOrders />} />
                 <Route path="shipping" element={<AdminShippingProviders />} />
+                <Route path="trendyol" element={<AdminTrendyol />} />
                 <Route path="subscribers" element={<AdminSubscribers />} />
                 <Route path="contacts" element={<AdminContacts />} />
                 <Route path="blog" element={<AdminBlogManagement />} />
