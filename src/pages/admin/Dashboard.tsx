@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Users, Mail, FileText, Package, TrendingUp, Clock, Eye, ArrowRight, Image as ImageIcon } from 'lucide-react';
+import { Users, Mail, FileText, Package, TrendingUp, Clock, Eye, ArrowRight, Image as ImageIcon, BarChart3, CheckCircle, XCircle, ExternalLink } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area, BarChart, Bar } from 'recharts';
 import { Link } from 'react-router-dom';
 
@@ -468,6 +468,30 @@ export default function AdminDashboard() {
           </CardContent>
         </Card>
 
+        {/* Analytics Integrations */}
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between">
+            <div>
+              <CardTitle className="flex items-center gap-2">
+                <BarChart3 className="h-5 w-5 text-orange-500" />
+                Analitik Entegrasyonları
+              </CardTitle>
+              <CardDescription>
+                Takip ve analiz araçları durumu
+              </CardDescription>
+            </div>
+            <Button variant="ghost" size="sm" asChild>
+              <Link to="/admin/settings" className="flex items-center gap-1">
+                Ayarlar
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </Button>
+          </CardHeader>
+          <CardContent>
+            <IntegrationStatus />
+          </CardContent>
+        </Card>
+
         {/* System Status */}
         <Card>
           <CardHeader>
@@ -512,6 +536,57 @@ export default function AdminDashboard() {
           </CardContent>
         </Card>
       </div>
+    </div>
+  );
+}
+
+// Integration Status Component
+function IntegrationStatus() {
+  const [integrations, setIntegrations] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    const saved = localStorage.getItem('sinceva_integrations');
+    if (saved) {
+      try {
+        setIntegrations(JSON.parse(saved));
+      } catch (e) {
+        console.error('Failed to load integrations:', e);
+      }
+    }
+  }, []);
+
+  const integrationItems = [
+    { key: 'googleAnalyticsId', name: 'Google Analytics', icon: BarChart3, color: 'text-orange-500' },
+    { key: 'googleTagManagerId', name: 'Tag Manager', icon: BarChart3, color: 'text-blue-600' },
+    { key: 'facebookPixelId', name: 'Facebook Pixel', icon: BarChart3, color: 'text-blue-700' },
+    { key: 'hotjarId', name: 'Hotjar', icon: BarChart3, color: 'text-red-500' },
+    { key: 'clarityId', name: 'Clarity', icon: BarChart3, color: 'text-purple-500' },
+  ];
+
+  return (
+    <div className="space-y-3">
+      {integrationItems.map((item) => {
+        const isConfigured = !!integrations[item.key] && integrations[item.key] !== '';
+        return (
+          <div key={item.key} className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <item.icon className={`h-4 w-4 ${item.color}`} />
+              <span className="text-sm">{item.name}</span>
+            </div>
+            {isConfigured ? (
+              <span className="flex items-center gap-1 text-xs text-green-600">
+                <CheckCircle className="h-3 w-3" />
+                Aktif
+              </span>
+            ) : (
+              <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                <XCircle className="h-3 w-3" />
+                Yapılandırılmadı
+              </span>
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 }
