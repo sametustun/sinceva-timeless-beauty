@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
-import { Download, Package, FileText, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
+import { Download, Package, FileText, Loader2, CheckCircle, AlertCircle, FolderTree } from 'lucide-react';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -30,9 +30,11 @@ const API_BASE = 'https://sinceva.com/api/admin';
 export default function AdminImportData() {
   const [isImportingProducts, setIsImportingProducts] = useState(false);
   const [isImportingBlog, setIsImportingBlog] = useState(false);
+  const [isImportingCategories, setIsImportingCategories] = useState(false);
   const [showProductDialog, setShowProductDialog] = useState(false);
   const [showBlogDialog, setShowBlogDialog] = useState(false);
-  const [result, setResult] = useState<{ type: string; message: string; success: boolean } | null>(null);
+  const [showCategoryDialog, setShowCategoryDialog] = useState(false);
+  const [results, setResults] = useState<Array<{ type: string; message: string; success: boolean }>>([]);
   const { toast } = useToast();
 
   // Prepare products data from static content
@@ -145,10 +147,46 @@ export default function AdminImportData() {
     });
   };
 
+  // Prepare categories data from static content
+  const prepareCategoriesData = () => {
+    return Object.entries(categoryStructure).map(([key, category]) => ({
+      id: `cat_${key}`,
+      title: {
+        tr: category.title,
+        en: category.title,
+        ar: category.title,
+      },
+      slug: key,
+      description: {
+        tr: category.description,
+        en: category.description,
+        ar: category.description,
+      },
+      bannerImage: typeof category.bannerImage === 'string' ? category.bannerImage : '',
+      subcategories: Object.entries(category.subcategories).map(([subKey, sub]) => ({
+        id: `sub_${subKey}`,
+        title: {
+          tr: sub.title,
+          en: sub.title,
+          ar: sub.title,
+        },
+        slug: subKey,
+        description: {
+          tr: '',
+          en: '',
+          ar: '',
+        },
+      })),
+    }));
+  };
+
+  const addResult = (type: string, message: string, success: boolean) => {
+    setResults(prev => [...prev, { type, message, success }]);
+  };
+
   const handleImportProducts = async () => {
     setShowProductDialog(false);
     setIsImportingProducts(true);
-    setResult(null);
 
     try {
       const products = prepareProductsData();
@@ -166,11 +204,7 @@ export default function AdminImportData() {
       const data = await response.json();
 
       if (data.success) {
-        setResult({
-          type: 'products',
-          message: data.message,
-          success: true,
-        });
+        addResult('products', data.message, true);
         toast({
           title: 'Başarılı',
           description: data.message,
@@ -180,11 +214,7 @@ export default function AdminImportData() {
       }
     } catch (error) {
       console.error('Import error:', error);
-      setResult({
-        type: 'products',
-        message: 'Import sırasında bir hata oluştu',
-        success: false,
-      });
+      addResult('products', 'Import sırasında bir hata oluştu', false);
       toast({
         title: 'Hata',
         description: 'Import sırasında bir hata oluştu.',
@@ -198,7 +228,6 @@ export default function AdminImportData() {
   const handleImportBlog = async () => {
     setShowBlogDialog(false);
     setIsImportingBlog(true);
-    setResult(null);
 
     try {
       const posts = prepareBlogData();
@@ -216,11 +245,7 @@ export default function AdminImportData() {
       const data = await response.json();
 
       if (data.success) {
-        setResult({
-          type: 'blog',
-          message: data.message,
-          success: true,
-        });
+        addResult('blog', data.message, true);
         toast({
           title: 'Başarılı',
           description: data.message,
@@ -230,11 +255,7 @@ export default function AdminImportData() {
       }
     } catch (error) {
       console.error('Import error:', error);
-      setResult({
-        type: 'blog',
-        message: 'Import sırasında bir hata oluştu',
-        success: false,
-      });
+      addResult('blog', 'Import sırasında bir hata oluştu', false);
       toast({
         title: 'Hata',
         description: 'Import sırasında bir hata oluştu.',
@@ -245,8 +266,54 @@ export default function AdminImportData() {
     }
   };
 
+  const handleImportCategories = async () => {
+    setShowCategoryDialog(false);
+    setIsImportingCategories(true);
+
+    try {
+      const categories = prepareCategoriesData();
+      
+      const response = await fetch(`${API_BASE}/import.php`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({
+          type: 'categories',
+          data: categories,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        addResult('categories', data.message, true);
+        toast({
+          title: 'Başarılı',
+          description: data.message,
+        });
+      } else {
+        throw new Error(data.error);
+      }
+    } catch (error) {
+      console.error('Import error:', error);
+      addResult('categories', 'Import sırasında bir hata oluştu', false);
+      toast({
+        title: 'Hata',
+        description: 'Import sırasında bir hata oluştu.',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsImportingCategories(false);
+    }
+  };
+
   const productCount = Object.values(categoryStructure).reduce((acc, cat) => 
     acc + Object.values(cat.subcategories).reduce((subAcc, sub) => subAcc + sub.products.length, 0), 0
+  );
+
+  const categoryCount = Object.keys(categoryStructure).length;
+  const subcategoryCount = Object.values(categoryStructure).reduce(
+    (acc, cat) => acc + Object.keys(cat.subcategories).length, 0
   );
 
   return (
@@ -262,24 +329,29 @@ export default function AdminImportData() {
         </p>
       </div>
 
-      {result && (
-        <Card className={result.success ? 'border-green-500' : 'border-red-500'}>
-          <CardContent className="py-4">
-            <div className="flex items-center gap-3">
-              {result.success ? (
-                <CheckCircle className="h-5 w-5 text-green-600" />
-              ) : (
-                <AlertCircle className="h-5 w-5 text-red-600" />
-              )}
-              <span className={result.success ? 'text-green-700' : 'text-red-700'}>
-                {result.message}
-              </span>
-            </div>
+      {results.length > 0 && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">Import Sonuçları</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-2">
+            {results.map((result, index) => (
+              <div key={index} className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
+                {result.success ? (
+                  <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0" />
+                ) : (
+                  <AlertCircle className="h-5 w-5 text-red-600 flex-shrink-0" />
+                )}
+                <span className={result.success ? 'text-green-700' : 'text-red-700'}>
+                  {result.message}
+                </span>
+              </div>
+            ))}
           </CardContent>
         </Card>
       )}
 
-      <div className="grid gap-6 md:grid-cols-2">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {/* Products Import */}
         <Card>
           <CardHeader>
@@ -293,12 +365,12 @@ export default function AdminImportData() {
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex flex-wrap gap-2">
-              <Badge variant="outline">9 Ürün</Badge>
-              <Badge variant="outline">3 Kategori</Badge>
-              <Badge variant="outline">Çok dilli içerik</Badge>
+              <Badge variant="outline">{productCount} Ürün</Badge>
+              <Badge variant="outline">{categoryCount} Kategori</Badge>
+              <Badge variant="outline">Çok dilli</Badge>
             </div>
             <p className="text-sm text-muted-foreground">
-              Bu işlem, content.ts ve productDetails dosyalarındaki tüm ürün verilerini admin panelinin veritabanına aktaracaktır. Mevcut ürünler üzerine yazılmaz, yalnızca yeni ürünler eklenir.
+              content.ts ve productDetails dosyalarındaki ürün verileri aktarılacak.
             </p>
             <Button
               onClick={() => setShowProductDialog(true)}
@@ -335,10 +407,10 @@ export default function AdminImportData() {
             <div className="flex flex-wrap gap-2">
               <Badge variant="outline">{blogPosts.length} Yazı</Badge>
               <Badge variant="outline">TR/EN/AR</Badge>
-              <Badge variant="outline">Çok dilli içerik</Badge>
+              <Badge variant="outline">Çok dilli</Badge>
             </div>
             <p className="text-sm text-muted-foreground">
-              Bu işlem, blogPosts.ts ve blogContent dosyalarındaki tüm blog yazılarını admin panelinin veritabanına aktaracaktır. Mevcut yazılar üzerine yazılmaz, yalnızca yeni yazılar eklenir.
+              blogPosts.ts ve blogContent dosyalarındaki yazılar aktarılacak.
             </p>
             <Button
               onClick={() => setShowBlogDialog(true)}
@@ -354,6 +426,46 @@ export default function AdminImportData() {
                 <>
                   <FileText className="h-4 w-4 mr-2" />
                   Blog Yazılarını Import Et
+                </>
+              )}
+            </Button>
+          </CardContent>
+        </Card>
+
+        {/* Categories Import */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <FolderTree className="h-5 w-5 text-green-500" />
+              Kategorileri Import Et
+            </CardTitle>
+            <CardDescription>
+              Mevcut {categoryCount} kategori ve {subcategoryCount} alt kategoriyi aktarın
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="flex flex-wrap gap-2">
+              <Badge variant="outline">{categoryCount} Kategori</Badge>
+              <Badge variant="outline">{subcategoryCount} Alt Kategori</Badge>
+              <Badge variant="outline">Çok dilli</Badge>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              categoryStructure dosyasındaki kategori yapısı aktarılacak.
+            </p>
+            <Button
+              onClick={() => setShowCategoryDialog(true)}
+              disabled={isImportingCategories}
+              className="w-full"
+            >
+              {isImportingCategories ? (
+                <>
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  Import Ediliyor...
+                </>
+              ) : (
+                <>
+                  <FolderTree className="h-4 w-4 mr-2" />
+                  Kategorileri Import Et
                 </>
               )}
             </Button>
@@ -391,6 +503,24 @@ export default function AdminImportData() {
           <AlertDialogFooter>
             <AlertDialogCancel>İptal</AlertDialogCancel>
             <AlertDialogAction onClick={handleImportBlog}>
+              Import Et
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      {/* Category Import Dialog */}
+      <AlertDialog open={showCategoryDialog} onOpenChange={setShowCategoryDialog}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Kategorileri Import Et</AlertDialogTitle>
+            <AlertDialogDescription>
+              {categoryCount} kategori ve {subcategoryCount} alt kategori admin paneline aktarılacak. Bu işlem mevcut kategorileri silmez, yalnızca yeni kategoriler ekler. Devam etmek istiyor musunuz?
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>İptal</AlertDialogCancel>
+            <AlertDialogAction onClick={handleImportCategories}>
               Import Et
             </AlertDialogAction>
           </AlertDialogFooter>
