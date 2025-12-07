@@ -1,15 +1,19 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
+import Papa from "papaparse";
 import { 
   RefreshCw, Package, ShoppingCart, MessageSquare, 
   CheckCircle, XCircle, Loader2, Download, Upload,
-  Send, FileText, AlertCircle, Clock, Settings
+  Send, FileText, AlertCircle, Clock, Settings,
+  Link2, Unlink, FileSpreadsheet, Zap
 } from "lucide-react";
 import {
   Table,
@@ -87,13 +91,40 @@ interface TrendyolQuestion {
   customerId: number;
 }
 
+interface ProductMapping {
+  id: string;
+  local_product_id: string;
+  trendyol_barcode: string;
+  local_product?: {
+    id: string;
+    name: string;
+    barcode?: string;
+  };
+  trendyol_product?: {
+    barcode: string;
+    title: string;
+    quantity: number;
+    salePrice: number;
+  };
+  created_at: string;
+}
+
+interface CSVItem {
+  barcode: string;
+  quantity: number | null;
+  salePrice: number | null;
+  listPrice: number | null;
+}
+
 export default function Trendyol() {
   const { toast } = useToast();
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState(true);
   const [syncStatus, setSyncStatus] = useState<SyncStatus | null>(null);
   const [products, setProducts] = useState<TrendyolProduct[]>([]);
   const [orders, setOrders] = useState<TrendyolOrder[]>([]);
   const [questions, setQuestions] = useState<TrendyolQuestion[]>([]);
+  const [mappings, setMappings] = useState<ProductMapping[]>([]);
   const [actionLoading, setActionLoading] = useState<string | null>(null);
   
   // Stock update dialog
@@ -109,6 +140,12 @@ export default function Trendyol() {
   const [answerDialog, setAnswerDialog] = useState(false);
   const [selectedQuestion, setSelectedQuestion] = useState<TrendyolQuestion | null>(null);
   const [answerText, setAnswerText] = useState("");
+  
+  // CSV Import
+  const [csvDialog, setCsvDialog] = useState(false);
+  const [csvData, setCsvData] = useState<CSVItem[]>([]);
+  const [csvErrors, setCsvErrors] = useState<string[]>([]);
+  const [updateTrendyol, setUpdateTrendyol] = useState(true);
   
   // Filters
   const [orderStatus, setOrderStatus] = useState("");
@@ -198,7 +235,7 @@ export default function Trendyol() {
         days: orderDays,
         size: '100'
       });
-      if (orderStatus) {
+      if (orderStatus && orderStatus !== 'all') {
         params.append('status', orderStatus);
       }
       
@@ -291,6 +328,80 @@ export default function Trendyol() {
       });
     } finally {
       setActionLoading(null);
+    }
+  };
+
+  const loadMappings = async () => {
+    setActionLoading('mappings');
+    try {
+      const res = await fetch(`${API_URL}/admin/trendyol-products.php?action=mappings`, {
+        credentials: 'include'
+      });
+      const data = await res.json();
+      
+      if (data.success) {
+        setMappings(data.data.mappings || []);
+      }
+    } catch (error) {
+      console.error('Failed to load mappings:', error);
+    } finally {
+      setActionLoading(null);
+    }
+  };
+
+  const handleAutoMatch = async () => {
+    setActionLoading('auto-match');
+    try {
+      // First sync products from Trendyol
+      await fetch(`${API_URL}/admin/trendyol-products.php?action=sync-products`, {
+        credentials: 'include'
+      });
+      
+      // Then run auto-match
+      const res = await fetch(`${API_URL}/admin/trendyol-products.php?action=auto-match`, {
+        method: 'POST',
+        credentials: 'include'
+      });
+      const data = await res.json();
+      
+      toast({
+        title: data.success ? "Otomatik Eşleştirme" : "Hata",
+        description: data.message || data.error,
+        variant: data.success ? "default" : "destructive"
+      });
+      
+      if (data.success) {
+        loadMappings();
+      }
+    } catch (error) {
+      toast({
+        title: "Hata",
+        description: "Otomatik eşleştirme başarısız",
+        variant: "destructive"
+      });
+    } finally {
+      setActionLoading(null);
+    }
+  };
+
+  const handleUnmatch = async (mappingId: string) => {
+    try {
+      const res = await fetch(`${API_URL}/admin/trendyol-products.php?action=unmatch&id=${mappingId}`, {
+        method: 'DELETE',
+        credentials: 'include'
+      });
+      const data = await res.json();
+      
+      if (data.success) {
+        setMappings(mappings.filter(m => m.id !== mappingId));
+        toast({ title: "Eşleştirme kaldırıldı" });
+      }
+    } catch (error) {
+      toast({
+        title: "Hata",
+        description: "Eşleştirme kaldırılamadı",
+        variant: "destructive"
+      });
     }
   };
 
@@ -399,6 +510,131 @@ export default function Trendyol() {
     }
   };
 
+  // CSV Import Functions
+  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    Papa.parse(file, {
+      header: true,
+      skipEmptyLines: true,
+      complete: (results) => {
+        const items: CSVItem[] = [];
+        const errors: string[] = [];
+
+        results.data.forEach((row: any, index: number) => {
+          const barcode = String(row.barcode || row.Barkod || row.BARKOD || '').trim();
+          const quantity = row.quantity ?? row.stock ?? row.Stok ?? row.STOK ?? row.miktar ?? row.Miktar;
+          const salePrice = row.sale_price ?? row.salePrice ?? row.price ?? row.Fiyat ?? row.FİYAT ?? row.fiyat;
+          const listPrice = row.list_price ?? row.listPrice ?? row['Liste Fiyatı'] ?? salePrice;
+
+          if (!barcode) {
+            errors.push(`Satır ${index + 2}: Barkod eksik`);
+            return;
+          }
+
+          if (quantity === undefined && salePrice === undefined) {
+            errors.push(`Satır ${index + 2}: Stok veya fiyat bilgisi eksik`);
+            return;
+          }
+
+          items.push({
+            barcode,
+            quantity: quantity !== undefined ? parseInt(quantity) : null,
+            salePrice: salePrice !== undefined ? parseFloat(salePrice) : null,
+            listPrice: listPrice !== undefined ? parseFloat(listPrice) : null
+          });
+        });
+
+        setCsvData(items);
+        setCsvErrors(errors);
+        setCsvDialog(true);
+      },
+      error: (error) => {
+        toast({
+          title: "Hata",
+          description: "CSV dosyası okunamadı: " + error.message,
+          variant: "destructive"
+        });
+      }
+    });
+
+    // Reset file input
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
+
+  const handleCSVImport = async () => {
+    if (csvData.length === 0) return;
+
+    setActionLoading('csv-import');
+    try {
+      const res = await fetch(`${API_URL}/admin/trendyol-products.php?action=import-csv`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ data: csvData, update_trendyol: updateTrendyol })
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        let message = `${data.data.parsed} ürün işlendi`;
+        if (data.data.trendyol_update?.success) {
+          message += `. Trendyol güncelleme isteği gönderildi.`;
+        }
+        toast({ title: "Import Başarılı", description: message });
+        setCsvDialog(false);
+        setCsvData([]);
+        setCsvErrors([]);
+      } else {
+        toast({
+          title: "Hata",
+          description: data.error || "Import başarısız",
+          variant: "destructive"
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Hata",
+        description: "CSV import başarısız",
+        variant: "destructive"
+      });
+    } finally {
+      setActionLoading(null);
+    }
+  };
+
+  const runCronJob = async () => {
+    setActionLoading('cron');
+    try {
+      const res = await fetch(`${API_URL}/admin/trendyol-cron.php?key=sinceva_cron_2024`, {
+        credentials: 'include'
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        const message = `Import: ${data.import?.imported || 0} yeni, Sync: ${data.sync?.synced || 0} güncellendi`;
+        toast({ title: "Cron Tamamlandı", description: message });
+        loadSyncStatus();
+      } else {
+        toast({
+          title: "Hata",
+          description: data.error || "Cron çalıştırılamadı",
+          variant: "destructive"
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Hata",
+        description: "Cron çalıştırılamadı",
+        variant: "destructive"
+      });
+    } finally {
+      setActionLoading(null);
+    }
+  };
+
   const formatDate = (timestamp: number | string) => {
     const date = typeof timestamp === 'number' ? new Date(timestamp) : new Date(timestamp);
     return date.toLocaleDateString('tr-TR', { 
@@ -462,23 +698,37 @@ export default function Trendyol() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
           <h1 className="text-3xl font-bold">Trendyol Entegrasyonu</h1>
           <p className="text-muted-foreground">Ürün, sipariş ve müşteri soru yönetimi</p>
         </div>
-        <Button 
-          variant="outline" 
-          onClick={testConnection}
-          disabled={actionLoading === 'test'}
-        >
-          {actionLoading === 'test' ? (
-            <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-          ) : (
-            <RefreshCw className="h-4 w-4 mr-2" />
-          )}
-          Bağlantıyı Test Et
-        </Button>
+        <div className="flex gap-2 flex-wrap">
+          <Button 
+            variant="outline" 
+            onClick={runCronJob}
+            disabled={actionLoading === 'cron'}
+          >
+            {actionLoading === 'cron' ? (
+              <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+            ) : (
+              <Zap className="h-4 w-4 mr-2" />
+            )}
+            Senkronize Et
+          </Button>
+          <Button 
+            variant="outline" 
+            onClick={testConnection}
+            disabled={actionLoading === 'test'}
+          >
+            {actionLoading === 'test' ? (
+              <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+            ) : (
+              <RefreshCw className="h-4 w-4 mr-2" />
+            )}
+            Bağlantıyı Test Et
+          </Button>
+        </div>
       </div>
 
       {/* Status Cards */}
@@ -557,10 +807,18 @@ export default function Trendyol() {
       </div>
 
       <Tabs defaultValue="products" className="space-y-4">
-        <TabsList>
+        <TabsList className="flex-wrap h-auto">
           <TabsTrigger value="products" className="gap-2">
             <Package className="h-4 w-4" />
             Ürünler
+          </TabsTrigger>
+          <TabsTrigger value="stock" className="gap-2">
+            <FileSpreadsheet className="h-4 w-4" />
+            Toplu Stok
+          </TabsTrigger>
+          <TabsTrigger value="matching" className="gap-2">
+            <Link2 className="h-4 w-4" />
+            Eşleştirme
           </TabsTrigger>
           <TabsTrigger value="orders" className="gap-2">
             <ShoppingCart className="h-4 w-4" />
@@ -568,7 +826,7 @@ export default function Trendyol() {
           </TabsTrigger>
           <TabsTrigger value="questions" className="gap-2">
             <MessageSquare className="h-4 w-4" />
-            Müşteri Soruları
+            Sorular
           </TabsTrigger>
         </TabsList>
 
@@ -576,7 +834,7 @@ export default function Trendyol() {
         <TabsContent value="products" className="space-y-4">
           <Card>
             <CardHeader>
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between flex-wrap gap-4">
                 <div>
                   <CardTitle>Trendyol Ürünleri</CardTitle>
                   <CardDescription>Trendyol'daki ürünlerinizi görüntüleyin ve yönetin</CardDescription>
@@ -656,16 +914,174 @@ export default function Trendyol() {
           </Card>
         </TabsContent>
 
+        {/* Bulk Stock Tab */}
+        <TabsContent value="stock" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <div className="flex items-center justify-between flex-wrap gap-4">
+                <div>
+                  <CardTitle>Toplu Stok ve Fiyat Güncelleme</CardTitle>
+                  <CardDescription>
+                    CSV dosyası ile toplu stok ve fiyat güncellemesi yapın
+                  </CardDescription>
+                </div>
+                <div className="flex gap-2">
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept=".csv,.txt"
+                    onChange={handleFileSelect}
+                    className="hidden"
+                  />
+                  <Button onClick={() => fileInputRef.current?.click()}>
+                    <FileSpreadsheet className="h-4 w-4 mr-2" />
+                    CSV Yükle
+                  </Button>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div className="p-4 bg-muted rounded-lg">
+                  <h4 className="font-semibold mb-2">CSV Format Bilgisi</h4>
+                  <p className="text-sm text-muted-foreground mb-3">
+                    CSV dosyanızda aşağıdaki sütunlar bulunmalıdır:
+                  </p>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <h5 className="font-medium text-sm mb-1">Desteklenen Sütun İsimleri:</h5>
+                      <ul className="text-xs text-muted-foreground space-y-1">
+                        <li>• Barkod: <code>barcode, Barkod, BARKOD</code></li>
+                        <li>• Stok: <code>quantity, stock, Stok, STOK, miktar</code></li>
+                        <li>• Satış Fiyatı: <code>sale_price, salePrice, price, Fiyat</code></li>
+                        <li>• Liste Fiyatı: <code>list_price, listPrice</code></li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h5 className="font-medium text-sm mb-1">Örnek CSV:</h5>
+                      <pre className="text-xs bg-background p-2 rounded">
+{`barcode,quantity,sale_price
+8680001234567,50,199.90
+8680001234568,100,249.90`}
+                      </pre>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="p-4 border rounded-lg">
+                  <h4 className="font-semibold mb-2">Otomatik Senkronizasyon (Cron Job)</h4>
+                  <p className="text-sm text-muted-foreground mb-3">
+                    Sipariş durumlarını otomatik olarak güncellemek için aşağıdaki URL'yi cron job olarak ekleyin:
+                  </p>
+                  <code className="text-xs bg-muted p-2 rounded block break-all">
+                    {API_URL}/admin/trendyol-cron.php?key=sinceva_cron_2024
+                  </code>
+                  <p className="text-xs text-muted-foreground mt-2">
+                    Önerilen: Her 5 dakikada bir çalıştırın (*/5 * * * *)
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Product Matching Tab */}
+        <TabsContent value="matching" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <div className="flex items-center justify-between flex-wrap gap-4">
+                <div>
+                  <CardTitle>Ürün Eşleştirme</CardTitle>
+                  <CardDescription>Lokal ürünleri Trendyol ürünleriyle barkod bazlı eşleştirin</CardDescription>
+                </div>
+                <div className="flex gap-2">
+                  <Button 
+                    variant="outline"
+                    onClick={loadMappings}
+                    disabled={actionLoading === 'mappings'}
+                  >
+                    {actionLoading === 'mappings' ? (
+                      <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                    ) : (
+                      <RefreshCw className="h-4 w-4 mr-2" />
+                    )}
+                    Yenile
+                  </Button>
+                  <Button 
+                    onClick={handleAutoMatch}
+                    disabled={actionLoading === 'auto-match'}
+                  >
+                    {actionLoading === 'auto-match' ? (
+                      <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                    ) : (
+                      <Link2 className="h-4 w-4 mr-2" />
+                    )}
+                    Otomatik Eşleştir
+                  </Button>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent>
+              {mappings.length === 0 ? (
+                <div className="text-center py-8 text-muted-foreground">
+                  <Link2 className="h-12 w-12 mx-auto mb-4 opacity-50" />
+                  <p className="mb-2">Henüz eşleştirme yok</p>
+                  <p className="text-sm">
+                    "Otomatik Eşleştir" butonuna tıklayarak barkod bazlı eşleştirme yapabilirsiniz
+                  </p>
+                </div>
+              ) : (
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Lokal Ürün</TableHead>
+                      <TableHead>Trendyol Barkod</TableHead>
+                      <TableHead>Trendyol Ürün</TableHead>
+                      <TableHead>Stok</TableHead>
+                      <TableHead>Fiyat</TableHead>
+                      <TableHead>İşlem</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {mappings.map((mapping) => (
+                      <TableRow key={mapping.id}>
+                        <TableCell>{mapping.local_product?.name || '-'}</TableCell>
+                        <TableCell className="font-mono text-sm">{mapping.trendyol_barcode}</TableCell>
+                        <TableCell className="max-w-xs truncate">
+                          {mapping.trendyol_product?.title || '-'}
+                        </TableCell>
+                        <TableCell>{mapping.trendyol_product?.quantity ?? '-'}</TableCell>
+                        <TableCell>
+                          {mapping.trendyol_product?.salePrice?.toFixed(2) ?? '-'} ₺
+                        </TableCell>
+                        <TableCell>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => handleUnmatch(mapping.id)}
+                          >
+                            <Unlink className="h-4 w-4" />
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
         {/* Orders Tab */}
         <TabsContent value="orders" className="space-y-4">
           <Card>
             <CardHeader>
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between flex-wrap gap-4">
                 <div>
                   <CardTitle>Trendyol Siparişleri</CardTitle>
                   <CardDescription>Trendyol siparişlerini görüntüleyin ve sisteme aktarın</CardDescription>
                 </div>
-                <div className="flex gap-2">
+                <div className="flex gap-2 flex-wrap">
                   <Select value={orderDays} onValueChange={setOrderDays}>
                     <SelectTrigger className="w-32">
                       <SelectValue />
@@ -986,6 +1402,87 @@ export default function Trendyol() {
             >
               {actionLoading === 'answer' && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
               Cevabı Gönder
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* CSV Import Dialog */}
+      <Dialog open={csvDialog} onOpenChange={setCsvDialog}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle>CSV Import Önizleme</DialogTitle>
+            <DialogDescription>
+              {csvData.length} ürün bulundu
+              {csvErrors.length > 0 && `, ${csvErrors.length} hata`}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-4 max-h-96 overflow-auto">
+            {csvErrors.length > 0 && (
+              <div className="p-3 bg-destructive/10 rounded-lg">
+                <h4 className="font-semibold text-destructive mb-2">Hatalar:</h4>
+                <ul className="text-sm text-destructive space-y-1">
+                  {csvErrors.slice(0, 5).map((err, i) => (
+                    <li key={i}>{err}</li>
+                  ))}
+                  {csvErrors.length > 5 && (
+                    <li>... ve {csvErrors.length - 5} hata daha</li>
+                  )}
+                </ul>
+              </div>
+            )}
+            
+            {csvData.length > 0 && (
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Barkod</TableHead>
+                    <TableHead>Stok</TableHead>
+                    <TableHead>Satış Fiyatı</TableHead>
+                    <TableHead>Liste Fiyatı</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {csvData.slice(0, 10).map((item, i) => (
+                    <TableRow key={i}>
+                      <TableCell className="font-mono text-sm">{item.barcode}</TableCell>
+                      <TableCell>{item.quantity ?? '-'}</TableCell>
+                      <TableCell>{item.salePrice?.toFixed(2) ?? '-'} ₺</TableCell>
+                      <TableCell>{item.listPrice?.toFixed(2) ?? '-'} ₺</TableCell>
+                    </TableRow>
+                  ))}
+                  {csvData.length > 10 && (
+                    <TableRow>
+                      <TableCell colSpan={4} className="text-center text-muted-foreground">
+                        ... ve {csvData.length - 10} ürün daha
+                      </TableCell>
+                    </TableRow>
+                  )}
+                </TableBody>
+              </Table>
+            )}
+
+            <div className="flex items-center space-x-2 pt-4 border-t">
+              <Switch
+                id="update-trendyol"
+                checked={updateTrendyol}
+                onCheckedChange={setUpdateTrendyol}
+              />
+              <Label htmlFor="update-trendyol">
+                Trendyol'a otomatik gönder
+              </Label>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setCsvDialog(false)}>
+              İptal
+            </Button>
+            <Button 
+              onClick={handleCSVImport}
+              disabled={csvData.length === 0 || actionLoading === 'csv-import'}
+            >
+              {actionLoading === 'csv-import' && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
+              {updateTrendyol ? 'Import & Trendyol Güncelle' : 'Sadece Import'}
             </Button>
           </DialogFooter>
         </DialogContent>
