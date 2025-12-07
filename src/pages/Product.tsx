@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import Layout from '@/components/Layout';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { ChevronLeft, ChevronRight, Home } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Home, ShoppingCart } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { Separator } from '@/components/ui/separator';
@@ -17,6 +17,8 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { productDetails } from '@/data/productDetails';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { translations } from '@/data/translations';
+import { useCart } from '@/contexts/CartContext';
+import { useToast } from '@/hooks/use-toast';
 
 // Import hero images
 import cvitHero from '@/assets/cvit-01.png';
@@ -75,6 +77,8 @@ const Product: React.FC = () => {
   const [zoomImageIndex, setZoomImageIndex] = useState<number | null>(null);
   const footerRef = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile();
+  const { addItem } = useCart();
+  const { toast } = useToast();
 
   // Find product by id
   const product = allProductsContent.products.find(p => p.id.toString() === id);
@@ -149,6 +153,35 @@ const Product: React.FC = () => {
     }
   ];
 
+  // Get product price (örnek fiyat - gerçek fiyat veritabanından gelmeli)
+  const productPrices: { [key: number]: number } = {
+    1: 299, // Vitamin C Serum
+    2: 329, // Arbutin Serum
+    3: 249, // Eye Cream
+    4: 379, // Night Cream
+    5: 199, // Tonic
+    6: 179, // Peeling
+    7: 159, // Face Cleansing Foam
+    8: 229, // Suncare Cream
+    9: 289, // Moisturizing Cream
+  };
+
+  const productPrice = productPrices[product?.id || 0] || 199;
+
+  const handleAddToCart = () => {
+    if (product) {
+      addItem({
+        id: product.id.toString(),
+        name: product.name,
+        price: productPrice,
+        image: heroImage,
+      });
+      toast({
+        title: 'Sepete Eklendi',
+        description: `${product.name} sepetinize eklendi.`,
+      });
+    }
+  };
   // Get current language from context
   const { language } = useLanguage();
   const t = translations[language];
@@ -239,11 +272,17 @@ const Product: React.FC = () => {
             />
             
             {/* Static Buy Button - Overlaid on hero image */}
-            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-10">
+            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-10 flex gap-2">
+              <Button 
+                onClick={handleAddToCart}
+                className="py-2 text-lg font-semibold bg-white text-[#191919] hover:bg-white/90 rounded-full px-6"
+              >
+                <ShoppingCart className="w-5 h-5 mr-2" />
+                Sepete Ekle
+              </Button>
               <Button 
                 onClick={() => setIsStorePopupOpen(true)}
                 className="py-2 text-lg font-semibold bg-[#ef2b2d] text-white hover:bg-[#ef2b2d]/90 rounded-full px-6"
-                style={{ width: 'clamp(150px, 15vw, 200px)' }}
               >
                 {t.buy}
               </Button>
@@ -255,10 +294,10 @@ const Product: React.FC = () => {
       <div className="container mx-auto max-w-7xl px-4 py-8">
         {/* Product Header Info */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-[#191919] mb-4">
+          <h1 className="text-3xl font-bold text-[#191919] mb-2">
             {t.productNames?.[product.id as keyof typeof t.productNames] || product.name}
           </h1>
-          
+          <p className="text-2xl font-semibold text-[#ef2b2d] mb-4">₺{productPrice.toLocaleString('tr-TR')}</p>
         </div>
 
         {/* Photo Gallery */}
@@ -334,10 +373,17 @@ const Product: React.FC = () => {
       {/* Floating Buy Button */}
       {showFloatingButton && (
         <div className="fixed bottom-4 left-4 right-4 z-40">
-          <div className="container mx-auto max-w-7xl">
+          <div className="container mx-auto max-w-7xl flex gap-2">
+            <button
+              onClick={handleAddToCart}
+              className="flex-1 py-2 bg-white/80 backdrop-blur-md border border-gray-200 rounded-full text-[#191919] text-lg font-semibold transition-all hover:bg-white flex items-center justify-center gap-2"
+            >
+              <ShoppingCart className="w-5 h-5" />
+              Sepete Ekle
+            </button>
             <button
               onClick={() => setIsStorePopupOpen(true)}
-              className="w-full py-2 bg-white/20 backdrop-blur-md border border-white/30 rounded-full text-[#191919] text-lg font-semibold transition-all hover:bg-white/30"
+              className="py-2 px-6 bg-[#ef2b2d] rounded-full text-white text-lg font-semibold transition-all hover:bg-[#ef2b2d]/90"
             >
               {t.buy}
             </button>
