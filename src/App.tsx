@@ -38,6 +38,7 @@ import AdminMediaManager from "./pages/admin/MediaManager";
 import AdminOrders from "./pages/admin/Orders";
 import AdminShippingProviders from "./pages/admin/ShippingProviders";
 import AdminTrendyol from "./pages/admin/Trendyol";
+import AdminFinancialReports from "./pages/admin/FinancialReports";
 
 console.log('App component loading...');
 
@@ -85,6 +86,7 @@ const App = () => {
                 </AdminAuthProvider>
               }>
                 <Route index element={<AdminDashboard />} />
+                <Route path="reports" element={<AdminFinancialReports />} />
                 <Route path="orders" element={<AdminOrders />} />
                 <Route path="shipping" element={<AdminShippingProviders />} />
                 <Route path="trendyol" element={<AdminTrendyol />} />

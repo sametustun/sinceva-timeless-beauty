@@ -21,11 +21,13 @@ import {
   Truck,
   ShoppingCart,
   Store,
+  TrendingUp,
 } from 'lucide-react';
 import logoBlack from '@/assets/sinceva_black_logo_for_mobile.png';
 
 const navigation = [
   { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
+  { name: 'Finansal Raporlar', href: '/admin/reports', icon: TrendingUp },
   { name: 'Siparişler', href: '/admin/orders', icon: ShoppingCart },
   { name: 'Kargo Entegrasyonları', href: '/admin/shipping', icon: Truck },
   { name: 'Trendyol', href: '/admin/trendyol', icon: Store },
