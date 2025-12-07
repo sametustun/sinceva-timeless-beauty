@@ -182,6 +182,7 @@ const Product: React.FC = () => {
       });
     }
   };
+
   // Get current language from context
   const { language } = useLanguage();
   const t = translations[language];
