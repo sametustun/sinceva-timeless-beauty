@@ -29,6 +29,7 @@ import AdminProductManagement from "./pages/admin/ProductManagement";
 import AdminSettings from "./pages/admin/Settings";
 import AdminCampaign from "./pages/admin/Campaign";
 import AdminImportData from "./pages/admin/ImportData";
+import AdminCategories from "./pages/admin/Categories";
 
 console.log('App component loading...');
 
@@ -77,6 +78,7 @@ const App = () => {
               <Route path="blog" element={<AdminBlogManagement />} />
               <Route path="products" element={<AdminProductManagement />} />
               <Route path="campaign" element={<AdminCampaign />} />
+              <Route path="categories" element={<AdminCategories />} />
               <Route path="import" element={<AdminImportData />} />
               <Route path="settings" element={<AdminSettings />} />
             </Route>
