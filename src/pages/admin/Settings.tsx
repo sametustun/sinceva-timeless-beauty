@@ -7,7 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
-import { Lock, Eye, EyeOff, Shield, BarChart3, Search, Globe, CheckCircle, Loader2, ExternalLink, ShoppingBag, Key, Store, AlertCircle, CreditCard } from "lucide-react";
+import { Lock, Eye, EyeOff, Shield, BarChart3, Search, Globe, CheckCircle, Loader2, ExternalLink, ShoppingBag, Key, Store, AlertCircle, CreditCard, Zap, XCircle } from "lucide-react";
 const API_URL = import.meta.env.VITE_API_URL || "https://sinceva.com/api";
 
 interface IntegrationSettings {
@@ -80,6 +80,10 @@ export default function Settings() {
   const [showPaytrKey, setShowPaytrKey] = useState(false);
   const [showPaytrSalt, setShowPaytrSalt] = useState(false);
   const [showIyzicoSecret, setShowIyzicoSecret] = useState(false);
+  const [testingPaytr, setTestingPaytr] = useState(false);
+  const [testingIyzico, setTestingIyzico] = useState(false);
+  const [paytrTestResult, setPaytrTestResult] = useState<{ success: boolean; message: string } | null>(null);
+  const [iyzicoTestResult, setIyzicoTestResult] = useState<{ success: boolean; message: string } | null>(null);
 
   useEffect(() => {
     // Load saved integrations from localStorage (these are public keys)
@@ -294,6 +298,84 @@ export default function Settings() {
       });
     } finally {
       setSavingPayment(false);
+    }
+  };
+
+  const handleTestPaytr = async () => {
+    setTestingPaytr(true);
+    setPaytrTestResult(null);
+    
+    try {
+      const response = await fetch(`${API_URL}/admin/payment-test.php`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ provider: 'paytr' }),
+      });
+
+      const data = await response.json();
+      
+      setPaytrTestResult({
+        success: data.success,
+        message: data.success ? data.message : (data.details || data.error),
+      });
+
+      toast({
+        title: data.success ? "Başarılı" : "Hata",
+        description: data.success ? data.message : (data.details || data.error),
+        variant: data.success ? "default" : "destructive",
+      });
+    } catch (error) {
+      setPaytrTestResult({
+        success: false,
+        message: 'Bağlantı hatası',
+      });
+      toast({
+        title: "Hata",
+        description: "Sunucuya bağlanılamadı.",
+        variant: "destructive",
+      });
+    } finally {
+      setTestingPaytr(false);
+    }
+  };
+
+  const handleTestIyzico = async () => {
+    setTestingIyzico(true);
+    setIyzicoTestResult(null);
+    
+    try {
+      const response = await fetch(`${API_URL}/admin/payment-test.php`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ provider: 'iyzico' }),
+      });
+
+      const data = await response.json();
+      
+      setIyzicoTestResult({
+        success: data.success,
+        message: data.success ? data.message : (data.details || data.error),
+      });
+
+      toast({
+        title: data.success ? "Başarılı" : "Hata",
+        description: data.success ? data.message : (data.details || data.error),
+        variant: data.success ? "default" : "destructive",
+      });
+    } catch (error) {
+      setIyzicoTestResult({
+        success: false,
+        message: 'Bağlantı hatası',
+      });
+      toast({
+        title: "Hata",
+        description: "Sunucuya bağlanılamadı.",
+        variant: "destructive",
+      });
+    } finally {
+      setTestingIyzico(false);
     }
   };
 
@@ -624,12 +706,40 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
                     </div>
                   </div>
                 </div>
-                {payment.paytr.merchantId && (
-                  <div className="flex items-center gap-1 text-xs text-green-600">
-                    <CheckCircle className="h-3 w-3" />
-                    PayTR yapılandırıldı
+                <div className="flex items-center justify-between flex-wrap gap-2">
+                  {payment.paytr.merchantId && (
+                    <div className="flex items-center gap-1 text-xs text-green-600">
+                      <CheckCircle className="h-3 w-3" />
+                      PayTR yapılandırıldı
+                    </div>
+                  )}
+                  <div className="flex items-center gap-2 flex-wrap">
+                    {paytrTestResult && (
+                      <div className={`flex items-center gap-1 text-xs ${paytrTestResult.success ? 'text-green-600' : 'text-red-600'}`}>
+                        {paytrTestResult.success ? <CheckCircle className="h-3 w-3" /> : <XCircle className="h-3 w-3" />}
+                        {paytrTestResult.message}
+                      </div>
+                    )}
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      onClick={handleTestPaytr}
+                      disabled={testingPaytr || !payment.paytr.merchantId}
+                    >
+                      {testingPaytr ? (
+                        <>
+                          <Loader2 className="h-3 w-3 mr-1 animate-spin" />
+                          Test Ediliyor...
+                        </>
+                      ) : (
+                        <>
+                          <Zap className="h-3 w-3 mr-1" />
+                          Bağlantıyı Test Et
+                        </>
+                      )}
+                    </Button>
                   </div>
-                )}
+                </div>
               </div>
 
               <div className="border-t pt-6" />
@@ -695,12 +805,40 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
                     </div>
                   </div>
                 </div>
-                {payment.iyzico.apiKey && (
-                  <div className="flex items-center gap-1 text-xs text-green-600">
-                    <CheckCircle className="h-3 w-3" />
-                    iyzico yapılandırıldı
+                <div className="flex items-center justify-between flex-wrap gap-2">
+                  {payment.iyzico.apiKey && (
+                    <div className="flex items-center gap-1 text-xs text-green-600">
+                      <CheckCircle className="h-3 w-3" />
+                      iyzico yapılandırıldı
+                    </div>
+                  )}
+                  <div className="flex items-center gap-2 flex-wrap">
+                    {iyzicoTestResult && (
+                      <div className={`flex items-center gap-1 text-xs ${iyzicoTestResult.success ? 'text-green-600' : 'text-red-600'}`}>
+                        {iyzicoTestResult.success ? <CheckCircle className="h-3 w-3" /> : <XCircle className="h-3 w-3" />}
+                        {iyzicoTestResult.message}
+                      </div>
+                    )}
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      onClick={handleTestIyzico}
+                      disabled={testingIyzico || !payment.iyzico.apiKey}
+                    >
+                      {testingIyzico ? (
+                        <>
+                          <Loader2 className="h-3 w-3 mr-1 animate-spin" />
+                          Test Ediliyor...
+                        </>
+                      ) : (
+                        <>
+                          <Zap className="h-3 w-3 mr-1" />
+                          Bağlantıyı Test Et
+                        </>
+                      )}
+                    </Button>
                   </div>
-                )}
+                </div>
               </div>
 
               <div className="flex justify-end pt-4 border-t">
