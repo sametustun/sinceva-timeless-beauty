@@ -54,6 +54,43 @@ if ($method === 'GET') {
             respondSuccess(['data' => $trendyolSettings]);
             break;
             
+        case 'payment':
+            // Return payment settings with masked secrets
+            $paytrSettings = $settings['paytr'] ?? [];
+            $iyzicoSettings = $settings['iyzico'] ?? [];
+            
+            // Mask PayTR secrets
+            if (!empty($paytrSettings['merchant_key'])) {
+                $key = $paytrSettings['merchant_key'];
+                $paytrSettings['merchantKey'] = strlen($key) > 8 
+                    ? substr($key, 0, 4) . str_repeat('*', strlen($key) - 8) . substr($key, -4)
+                    : str_repeat('*', strlen($key));
+            }
+            if (!empty($paytrSettings['merchant_salt'])) {
+                $salt = $paytrSettings['merchant_salt'];
+                $paytrSettings['merchantSalt'] = strlen($salt) > 8 
+                    ? substr($salt, 0, 4) . str_repeat('*', strlen($salt) - 8) . substr($salt, -4)
+                    : str_repeat('*', strlen($salt));
+            }
+            $paytrSettings['merchantId'] = $paytrSettings['merchant_id'] ?? '';
+            $paytrSettings['testMode'] = $paytrSettings['test_mode'] ?? true;
+            
+            // Mask iyzico secrets
+            if (!empty($iyzicoSettings['secret_key'])) {
+                $secret = $iyzicoSettings['secret_key'];
+                $iyzicoSettings['secretKey'] = strlen($secret) > 8 
+                    ? substr($secret, 0, 4) . str_repeat('*', strlen($secret) - 8) . substr($secret, -4)
+                    : str_repeat('*', strlen($secret));
+            }
+            $iyzicoSettings['apiKey'] = $iyzicoSettings['api_key'] ?? '';
+            $iyzicoSettings['testMode'] = $iyzicoSettings['test_mode'] ?? true;
+            
+            respondSuccess(['data' => [
+                'paytr' => $paytrSettings,
+                'iyzico' => $iyzicoSettings
+            ]]);
+            break;
+            
         case 'paytr':
             // Return PayTR settings with masked secrets
             $paytrSettings = $settings['paytr'] ?? [];
@@ -128,6 +165,50 @@ if ($method === 'POST') {
                 'sellerId' => $trendyolSettings['sellerId'],
                 'hasApiKey' => !empty($trendyolSettings['apiKey']),
                 'hasApiSecret' => !empty($trendyolSettings['apiSecret'])
+            ]);
+            break;
+            
+        case 'payment':
+            // Handle combined payment settings
+            $paytrData = $data['paytr'] ?? [];
+            $iyzicoData = $data['iyzico'] ?? [];
+            
+            $paytrSettings = [
+                'merchant_id' => sanitizeInput($paytrData['merchantId'] ?? ''),
+                'merchant_key' => $paytrData['merchantKey'] ?? '',
+                'merchant_salt' => $paytrData['merchantSalt'] ?? '',
+                'test_mode' => (bool)($paytrData['testMode'] ?? true),
+                'updatedAt' => date('c')
+            ];
+            
+            // If secrets are masked, keep the old ones
+            if (!empty($settings['paytr']['merchant_key']) && strpos($paytrData['merchantKey'] ?? '', '*') !== false) {
+                $paytrSettings['merchant_key'] = $settings['paytr']['merchant_key'];
+            }
+            if (!empty($settings['paytr']['merchant_salt']) && strpos($paytrData['merchantSalt'] ?? '', '*') !== false) {
+                $paytrSettings['merchant_salt'] = $settings['paytr']['merchant_salt'];
+            }
+            
+            $iyzicoSettings = [
+                'api_key' => sanitizeInput($iyzicoData['apiKey'] ?? ''),
+                'secret_key' => $iyzicoData['secretKey'] ?? '',
+                'test_mode' => (bool)($iyzicoData['testMode'] ?? true),
+                'updatedAt' => date('c')
+            ];
+            
+            // If secret is masked, keep the old one
+            if (!empty($settings['iyzico']['secret_key']) && strpos($iyzicoData['secretKey'] ?? '', '*') !== false) {
+                $iyzicoSettings['secret_key'] = $settings['iyzico']['secret_key'];
+            }
+            
+            $settings['paytr'] = $paytrSettings;
+            $settings['iyzico'] = $iyzicoSettings;
+            
+            logAdminAction('payment_settings_updated', [
+                'paytr_merchant_id' => $paytrSettings['merchant_id'],
+                'paytr_test_mode' => $paytrSettings['test_mode'],
+                'iyzico_api_key' => $iyzicoSettings['api_key'],
+                'iyzico_test_mode' => $iyzicoSettings['test_mode']
             ]);
             break;
             
