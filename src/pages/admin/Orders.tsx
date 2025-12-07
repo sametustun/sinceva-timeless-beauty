@@ -271,11 +271,11 @@ export default function Orders() {
 
     setCreatingShipment(true);
     try {
-      const response = await fetch(`${API_BASE}/admin/orders/${selectedOrder.id}/shipments.php`, {
+      const response = await fetch(`${API_BASE}/admin/shipments.php`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
-        body: JSON.stringify({ provider_code: selectedProvider }),
+        body: JSON.stringify({ order_id: selectedOrder.id, provider_code: selectedProvider }),
       });
       const data = await response.json();
       if (data.success) {
@@ -297,6 +297,31 @@ export default function Orders() {
       });
     } finally {
       setCreatingShipment(false);
+    }
+  };
+
+  const handleUpdateOrderStatus = async (orderId: string, newStatus: string) => {
+    try {
+      const response = await fetch(`${API_BASE}/admin/orders.php?id=${orderId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ status: newStatus }),
+      });
+      const data = await response.json();
+      if (data.success) {
+        toast({ title: 'Başarılı', description: 'Sipariş durumu güncellendi' });
+        setSelectedOrder(prev => prev ? { ...prev, status: newStatus } : null);
+        fetchOrders();
+      } else {
+        throw new Error(data.error);
+      }
+    } catch (error: any) {
+      toast({
+        title: 'Hata',
+        description: error.message || 'Durum güncellenemedi',
+        variant: 'destructive',
+      });
     }
   };
 
@@ -487,11 +512,28 @@ export default function Orders() {
 
           {selectedOrder && (
             <div className="space-y-6">
-              {/* Status */}
-              <div className="flex items-center gap-4">
-                <Badge className={statusColors[selectedOrder.status] || ''}>
-                  {statusLabels[selectedOrder.status] || selectedOrder.status}
-                </Badge>
+              {/* Status Change */}
+              <div className="flex items-center gap-4 flex-wrap">
+                <div className="flex items-center gap-2">
+                  <Label className="text-sm font-medium">Durum:</Label>
+                  <Select 
+                    value={selectedOrder.status} 
+                    onValueChange={(value) => handleUpdateOrderStatus(selectedOrder.id, value)}
+                  >
+                    <SelectTrigger className="w-40">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="pending">Bekliyor</SelectItem>
+                      <SelectItem value="pending_payment">Ödeme Bekliyor</SelectItem>
+                      <SelectItem value="processing">Hazırlanıyor</SelectItem>
+                      <SelectItem value="shipped">Kargoya Verildi</SelectItem>
+                      <SelectItem value="delivered">Teslim Edildi</SelectItem>
+                      <SelectItem value="cancelled">İptal</SelectItem>
+                      <SelectItem value="returned">İade</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
                 {selectedOrder.tracking_number && (
                   <span className="text-sm text-muted-foreground">
                     Takip No: <strong>{selectedOrder.tracking_number}</strong>
