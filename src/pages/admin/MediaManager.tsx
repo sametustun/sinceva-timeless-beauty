@@ -7,6 +7,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useToast } from '@/hooks/use-toast';
+import ImageOptimizer from '@/components/admin/ImageOptimizer';
 import {
   Folder,
   FolderPlus,
@@ -28,6 +29,7 @@ import {
   CheckSquare,
   Square,
   XCircle,
+  Settings2,
 } from 'lucide-react';
 import {
   DropdownMenu,
@@ -83,6 +85,7 @@ export default function MediaManager() {
   const [copiedUrl, setCopiedUrl] = useState<string | null>(null);
   const [isDragOver, setIsDragOver] = useState(false);
   const [isSelectionMode, setIsSelectionMode] = useState(false);
+  const [optimizeFile, setOptimizeFile] = useState<MediaFile | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const dropZoneRef = useRef<HTMLDivElement>(null);
 
@@ -303,6 +306,25 @@ export default function MediaManager() {
     } catch (error) {
       toast({ title: 'Hata', description: 'URL\'ler kopyalanamadı', variant: 'destructive' });
     }
+  };
+
+  const handleOptimizedSave = async (blob: Blob, filename: string) => {
+    const formData = new FormData();
+    formData.append('image', blob, filename);
+    formData.append('category', currentFolder || 'general');
+
+    const response = await fetch(`${API_BASE}/upload.php`, {
+      method: 'POST',
+      credentials: 'include',
+      body: formData,
+    });
+    
+    const data = await response.json();
+    if (!data.success) {
+      throw new Error(data.error || 'Upload failed');
+    }
+    
+    fetchMedia();
   };
 
   const formatFileSize = (bytes: number) => {
@@ -705,6 +727,17 @@ export default function MediaManager() {
                               >
                                 <Trash2 className="h-4 w-4" />
                               </Button>
+                              <Button
+                                size="icon"
+                                variant="secondary"
+                                className="h-8 w-8"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setOptimizeFile(file);
+                                }}
+                              >
+                                <Settings2 className="h-4 w-4" />
+                              </Button>
                             </div>
                           )}
                         </div>
@@ -757,9 +790,13 @@ export default function MediaManager() {
                                 </Button>
                               </DropdownMenuTrigger>
                               <DropdownMenuContent align="end">
-                                <DropdownMenuItem onClick={() => setPreviewFile(file)}>
+                              <DropdownMenuItem onClick={() => setPreviewFile(file)}>
                                   <Eye className="h-4 w-4 mr-2" />
                                   Önizle
+                                </DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => setOptimizeFile(file)}>
+                                  <Settings2 className="h-4 w-4 mr-2" />
+                                  Boyutlandır / Optimize
                                 </DropdownMenuItem>
                                 <DropdownMenuItem onClick={() => copyToClipboard(file.url)}>
                                   <Copy className="h-4 w-4 mr-2" />
@@ -805,13 +842,20 @@ export default function MediaManager() {
                   className="w-full h-full object-contain"
                 />
               </div>
-              <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between">
                 <div className="text-sm text-muted-foreground">
                   <span>{formatFileSize(previewFile.size)}</span>
                   <span className="mx-2">•</span>
                   <span>{new Date(previewFile.created_at).toLocaleDateString('tr-TR')}</span>
                 </div>
                 <div className="flex gap-2">
+                  <Button variant="outline" size="sm" onClick={() => {
+                    setOptimizeFile(previewFile);
+                    setPreviewFile(null);
+                  }}>
+                    <Settings2 className="h-4 w-4 mr-2" />
+                    Boyutlandır
+                  </Button>
                   <Button variant="outline" size="sm" onClick={() => copyToClipboard(previewFile.url)}>
                     <Copy className="h-4 w-4 mr-2" />
                     URL Kopyala
@@ -856,6 +900,17 @@ export default function MediaManager() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      {/* Image Optimizer */}
+      {optimizeFile && (
+        <ImageOptimizer
+          open={!!optimizeFile}
+          onOpenChange={(open) => !open && setOptimizeFile(null)}
+          imageUrl={optimizeFile.url}
+          imageName={optimizeFile.name}
+          onSave={handleOptimizedSave}
+        />
+      )}
     </div>
   );
 }
