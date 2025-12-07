@@ -7,14 +7,6 @@ import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
-import {
   Dialog,
   DialogContent,
   DialogDescription,
@@ -34,9 +26,27 @@ import {
 } from '@/components/ui/alert-dialog';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
-import { FileText, Search, Trash2, Loader2, Plus, Edit, Eye, EyeOff, Upload } from 'lucide-react';
+import { FileText, Search, Trash2, Loader2, Plus, Edit, Eye, EyeOff, GripVertical, Grid3X3, List, Image as ImageIcon, Calendar } from 'lucide-react';
 import ImageUpload from '@/components/admin/ImageUpload';
 import SeoFields from '@/components/admin/SeoFields';
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+} from '@dnd-kit/core';
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  useSortable,
+  verticalListSortingStrategy,
+  rectSortingStrategy,
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 
 interface BlogPost {
   id: string;
@@ -73,6 +83,254 @@ const emptyPost: Partial<BlogPost> = {
   },
 };
 
+// Sortable Blog Card Component
+function SortableBlogCard({
+  post,
+  onEdit,
+  onDelete,
+  onTogglePublish,
+  deletingId,
+  onPreview,
+}: {
+  post: BlogPost;
+  onEdit: (post: BlogPost) => void;
+  onDelete: (id: string) => void;
+  onTogglePublish: (post: BlogPost) => void;
+  deletingId: string | null;
+  onPreview: (post: BlogPost) => void;
+}) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: post.id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+  };
+
+  return (
+    <Card
+      ref={setNodeRef}
+      style={style}
+      className={`group relative overflow-hidden transition-all hover:shadow-lg ${isDragging ? 'z-50 shadow-xl' : ''}`}
+    >
+      {/* Drag Handle */}
+      <div
+        {...attributes}
+        {...listeners}
+        className="absolute top-2 left-2 z-10 p-1.5 bg-background/80 backdrop-blur rounded cursor-grab active:cursor-grabbing opacity-0 group-hover:opacity-100 transition-opacity"
+      >
+        <GripVertical className="h-4 w-4 text-muted-foreground" />
+      </div>
+
+      {/* Status Badge */}
+      <div className="absolute top-2 right-2 z-10">
+        <Badge className={post.published ? 'bg-green-500' : 'bg-gray-500'}>
+          {post.published ? 'Yayında' : 'Taslak'}
+        </Badge>
+      </div>
+
+      {/* Blog Image */}
+      <div className="relative aspect-video bg-muted overflow-hidden">
+        {post.image ? (
+          <img
+            src={post.image}
+            alt={post.title.tr || post.title.en}
+            className="w-full h-full object-cover transition-transform group-hover:scale-105"
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center text-muted-foreground">
+            <ImageIcon className="h-12 w-12" />
+          </div>
+        )}
+      </div>
+
+      {/* Blog Info */}
+      <CardContent className="p-4 space-y-3">
+        <div>
+          <h3 className="font-semibold line-clamp-2">{post.title.tr || post.title.en}</h3>
+          <p className="text-sm text-muted-foreground line-clamp-2 mt-1">
+            {post.excerpt?.tr || post.excerpt?.en || '-'}
+          </p>
+        </div>
+
+        <div className="flex items-center gap-2 flex-wrap">
+          {post.category && (
+            <Badge variant="outline" className="text-xs">{post.category}</Badge>
+          )}
+          <div className="flex items-center gap-1 text-xs text-muted-foreground">
+            <Calendar className="h-3 w-3" />
+            {new Date(post.created_at).toLocaleDateString('tr-TR')}
+          </div>
+        </div>
+
+        {/* Actions */}
+        <div className="flex items-center justify-between pt-2 border-t">
+          <div className="flex items-center gap-1">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => onPreview(post)}
+              className="h-8 w-8 p-0"
+            >
+              <Eye className="h-4 w-4" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => onEdit(post)}
+              className="h-8 w-8 p-0"
+            >
+              <Edit className="h-4 w-4" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => onTogglePublish(post)}
+              className={`h-8 w-8 p-0 ${post.published ? 'text-green-600' : 'text-muted-foreground'}`}
+            >
+              {post.published ? (
+                <Eye className="h-4 w-4" />
+              ) : (
+                <EyeOff className="h-4 w-4" />
+              )}
+            </Button>
+          </div>
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-8 w-8 p-0 text-destructive hover:text-destructive"
+                disabled={deletingId === post.id}
+              >
+                {deletingId === post.id ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  <Trash2 className="h-4 w-4" />
+                )}
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Yazıyı Sil</AlertDialogTitle>
+                <AlertDialogDescription>
+                  "{post.title.tr || post.title.en}" yazısını silmek istediğinize emin misiniz? Bu işlem geri alınamaz.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>İptal</AlertDialogCancel>
+                <AlertDialogAction
+                  onClick={() => onDelete(post.id)}
+                  className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                >
+                  Sil
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
+// Preview Dialog Component
+function BlogPreviewDialog({
+  post,
+  open,
+  onOpenChange,
+}: {
+  post: BlogPost | null;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}) {
+  if (!post) return null;
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+        <DialogHeader>
+          <DialogTitle>Blog Yazısı Önizleme</DialogTitle>
+          <DialogDescription>
+            Yazının sitede nasıl görüneceğini inceleyin
+          </DialogDescription>
+        </DialogHeader>
+
+        <div className="space-y-6">
+          {/* Image */}
+          {post.image && (
+            <div className="aspect-video bg-muted rounded-lg overflow-hidden">
+              <img
+                src={post.image}
+                alt={post.title.tr}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          )}
+
+          {/* Meta */}
+          <div className="flex items-center gap-2 flex-wrap">
+            <Badge className={post.published ? 'bg-green-500' : 'bg-gray-500'}>
+              {post.published ? 'Yayında' : 'Taslak'}
+            </Badge>
+            {post.category && (
+              <Badge variant="outline">{post.category}</Badge>
+            )}
+            <span className="text-sm text-muted-foreground">
+              {new Date(post.created_at).toLocaleDateString('tr-TR', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+              })}
+            </span>
+          </div>
+
+          {/* Title */}
+          <h1 className="text-3xl font-bold">{post.title.tr || post.title.en}</h1>
+
+          {/* Excerpt */}
+          {post.excerpt?.tr && (
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              {post.excerpt.tr}
+            </p>
+          )}
+
+          {/* Content */}
+          {post.content?.tr && (
+            <div className="pt-4 border-t prose prose-sm max-w-none">
+              <div className="whitespace-pre-wrap">{post.content.tr}</div>
+            </div>
+          )}
+
+          {/* SEO Info */}
+          {post.seo && (
+            <div className="pt-4 border-t space-y-2">
+              <h4 className="font-semibold">SEO Bilgileri</h4>
+              <div className="text-sm space-y-1">
+                <p><span className="text-muted-foreground">Title:</span> {post.seo.title?.tr || '-'}</p>
+                <p><span className="text-muted-foreground">Description:</span> {post.seo.description?.tr || '-'}</p>
+                <p><span className="text-muted-foreground">Keywords:</span> {post.seo.keywords?.tr || '-'}</p>
+              </div>
+            </div>
+          )}
+
+          <div className="pt-4 border-t text-xs text-muted-foreground">
+            <p>Slug: {post.slug || '-'}</p>
+            <p>Güncellenme: {post.updated_at ? new Date(post.updated_at).toLocaleDateString('tr') : '-'}</p>
+          </div>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
 export default function AdminBlogManagement() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>([]);
@@ -82,7 +340,21 @@ export default function AdminBlogManagement() {
   const [editingPost, setEditingPost] = useState<Partial<BlogPost> | null>(null);
   const [isSaving, setIsSaving] = useState(false);
   const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [previewPost, setPreviewPost] = useState<BlogPost | null>(null);
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const { toast } = useToast();
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8,
+      },
+    }),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
 
   const fetchPosts = async () => {
     try {
@@ -90,7 +362,7 @@ export default function AdminBlogManagement() {
         credentials: 'include',
       });
       const data = await response.json();
-      
+
       if (data.success) {
         setPosts(data.posts || []);
         setFilteredPosts(data.posts || []);
@@ -112,12 +384,37 @@ export default function AdminBlogManagement() {
   }, []);
 
   useEffect(() => {
-    const filtered = posts.filter((post) =>
-      post.title.tr.toLowerCase().includes(search.toLowerCase()) ||
-      post.title.en.toLowerCase().includes(search.toLowerCase())
+    const filtered = posts.filter(
+      (post) =>
+        post.title.tr.toLowerCase().includes(search.toLowerCase()) ||
+        post.title.en.toLowerCase().includes(search.toLowerCase()) ||
+        (post.category || '').toLowerCase().includes(search.toLowerCase())
     );
     setFilteredPosts(filtered);
   }, [search, posts]);
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+
+    if (over && active.id !== over.id) {
+      setFilteredPosts((items) => {
+        const oldIndex = items.findIndex((item) => item.id === active.id);
+        const newIndex = items.findIndex((item) => item.id === over.id);
+        return arrayMove(items, oldIndex, newIndex);
+      });
+
+      setPosts((items) => {
+        const oldIndex = items.findIndex((item) => item.id === active.id);
+        const newIndex = items.findIndex((item) => item.id === over.id);
+        return arrayMove(items, oldIndex, newIndex);
+      });
+
+      toast({
+        title: 'Sıralama güncellendi',
+        description: 'Blog yazısı sıralaması değiştirildi.',
+      });
+    }
+  };
 
   const handleCreate = () => {
     setEditingPost({ ...emptyPost });
@@ -127,6 +424,11 @@ export default function AdminBlogManagement() {
   const handleEdit = (post: BlogPost) => {
     setEditingPost({ ...post });
     setIsDialogOpen(true);
+  };
+
+  const handlePreview = (post: BlogPost) => {
+    setPreviewPost(post);
+    setIsPreviewOpen(true);
   };
 
   const handleSave = async () => {
@@ -243,7 +545,7 @@ export default function AdminBlogManagement() {
             Blog Yönetimi
           </h1>
           <p className="text-muted-foreground mt-1">
-            Blog yazılarını oluşturun ve düzenleyin
+            Blog yazılarını oluşturun, düzenleyin ve sıralayın
           </p>
         </div>
         <div className="flex items-center gap-4">
@@ -257,18 +559,36 @@ export default function AdminBlogManagement() {
         </div>
       </div>
 
-      {/* Search */}
+      {/* Filters & View Toggle */}
       <Card>
         <CardHeader>
           <div className="flex items-center gap-4">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
-                placeholder="Başlık ara..."
+                placeholder="Başlık veya kategori ara..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 className="pl-10"
               />
+            </div>
+            <div className="flex items-center border rounded-lg p-1">
+              <Button
+                variant={viewMode === 'grid' ? 'default' : 'ghost'}
+                size="sm"
+                onClick={() => setViewMode('grid')}
+                className="h-8 w-8 p-0"
+              >
+                <Grid3X3 className="h-4 w-4" />
+              </Button>
+              <Button
+                variant={viewMode === 'list' ? 'default' : 'ghost'}
+                size="sm"
+                onClick={() => setViewMode('list')}
+                className="h-8 w-8 p-0"
+              >
+                <List className="h-4 w-4" />
+              </Button>
             </div>
           </div>
         </CardHeader>
@@ -279,104 +599,49 @@ export default function AdminBlogManagement() {
             </div>
           ) : filteredPosts.length === 0 ? (
             <div className="text-center py-8 text-muted-foreground">
-              {search ? 'Arama sonucu bulunamadı.' : 'Henüz yazı yok.'}
+              {search ? 'Arama sonucu bulunamadı.' : 'Henüz yazı yok. Veri Import sayfasından mevcut yazıları aktarabilirsiniz.'}
             </div>
           ) : (
-            <div className="rounded-md border">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Başlık</TableHead>
-                    <TableHead>Kategori</TableHead>
-                    <TableHead>Durum</TableHead>
-                    <TableHead>Tarih</TableHead>
-                    <TableHead className="text-right">İşlemler</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
+            <DndContext
+              sensors={sensors}
+              collisionDetection={closestCenter}
+              onDragEnd={handleDragEnd}
+            >
+              <SortableContext
+                items={filteredPosts.map((p) => p.id)}
+                strategy={viewMode === 'grid' ? rectSortingStrategy : verticalListSortingStrategy}
+              >
+                <div
+                  className={
+                    viewMode === 'grid'
+                      ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'
+                      : 'space-y-4'
+                  }
+                >
                   {filteredPosts.map((post) => (
-                    <TableRow key={post.id}>
-                      <TableCell className="font-medium max-w-[200px] truncate">
-                        {post.title.tr || post.title.en}
-                      </TableCell>
-                      <TableCell>
-                        <Badge variant="outline">{post.category || '-'}</Badge>
-                      </TableCell>
-                      <TableCell>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => handleTogglePublish(post)}
-                          className={post.published ? 'text-green-600' : 'text-muted-foreground'}
-                        >
-                          {post.published ? (
-                            <>
-                              <Eye className="h-4 w-4 mr-1" />
-                              Yayında
-                            </>
-                          ) : (
-                            <>
-                              <EyeOff className="h-4 w-4 mr-1" />
-                              Taslak
-                            </>
-                          )}
-                        </Button>
-                      </TableCell>
-                      <TableCell className="text-muted-foreground">
-                        {new Date(post.created_at).toLocaleDateString('tr-TR')}
-                      </TableCell>
-                      <TableCell className="text-right">
-                        <div className="flex items-center justify-end gap-2">
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            onClick={() => handleEdit(post)}
-                          >
-                            <Edit className="h-4 w-4" />
-                          </Button>
-                          <AlertDialog>
-                            <AlertDialogTrigger asChild>
-                              <Button
-                                variant="ghost"
-                                size="icon"
-                                className="text-destructive hover:text-destructive"
-                                disabled={deletingId === post.id}
-                              >
-                                {deletingId === post.id ? (
-                                  <Loader2 className="h-4 w-4 animate-spin" />
-                                ) : (
-                                  <Trash2 className="h-4 w-4" />
-                                )}
-                              </Button>
-                            </AlertDialogTrigger>
-                            <AlertDialogContent>
-                              <AlertDialogHeader>
-                                <AlertDialogTitle>Yazıyı Sil</AlertDialogTitle>
-                                <AlertDialogDescription>
-                                  Bu yazıyı silmek istediğinize emin misiniz? Bu işlem geri alınamaz.
-                                </AlertDialogDescription>
-                              </AlertDialogHeader>
-                              <AlertDialogFooter>
-                                <AlertDialogCancel>İptal</AlertDialogCancel>
-                                <AlertDialogAction
-                                  onClick={() => handleDelete(post.id)}
-                                  className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-                                >
-                                  Sil
-                                </AlertDialogAction>
-                              </AlertDialogFooter>
-                            </AlertDialogContent>
-                          </AlertDialog>
-                        </div>
-                      </TableCell>
-                    </TableRow>
+                    <SortableBlogCard
+                      key={post.id}
+                      post={post}
+                      onEdit={handleEdit}
+                      onDelete={handleDelete}
+                      onTogglePublish={handleTogglePublish}
+                      deletingId={deletingId}
+                      onPreview={handlePreview}
+                    />
                   ))}
-                </TableBody>
-              </Table>
-            </div>
+                </div>
+              </SortableContext>
+            </DndContext>
           )}
         </CardContent>
       </Card>
+
+      {/* Preview Dialog */}
+      <BlogPreviewDialog
+        post={previewPost}
+        open={isPreviewOpen}
+        onOpenChange={setIsPreviewOpen}
+      />
 
       {/* Edit/Create Dialog */}
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -483,11 +748,13 @@ export default function AdminBlogManagement() {
               </div>
 
               <SeoFields
-                seo={editingPost.seo || {
-                  title: { tr: '', en: '', ar: '' },
-                  description: { tr: '', en: '', ar: '' },
-                  keywords: { tr: '', en: '', ar: '' },
-                }}
+                seo={
+                  editingPost.seo || {
+                    title: { tr: '', en: '', ar: '' },
+                    description: { tr: '', en: '', ar: '' },
+                    keywords: { tr: '', en: '', ar: '' },
+                  }
+                }
                 onChange={(seo) => setEditingPost({ ...editingPost, seo })}
               />
 
