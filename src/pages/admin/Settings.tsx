@@ -7,7 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
-import { Lock, Eye, EyeOff, Shield, BarChart3, Search, Globe, CheckCircle, Loader2, ExternalLink } from "lucide-react";
+import { Lock, Eye, EyeOff, Shield, BarChart3, Search, Globe, CheckCircle, Loader2, ExternalLink, ShoppingBag, Key, Store, AlertCircle } from "lucide-react";
 
 const API_URL = import.meta.env.VITE_API_URL || "https://sinceva.com/api";
 
@@ -20,13 +20,21 @@ interface IntegrationSettings {
   clarityId: string;
 }
 
+interface TrendyolSettings {
+  apiKey: string;
+  apiSecret: string;
+  sellerId: string;
+}
+
 export default function Settings() {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const [savingIntegrations, setSavingIntegrations] = useState(false);
+  const [savingTrendyol, setSavingTrendyol] = useState(false);
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [showApiSecret, setShowApiSecret] = useState(false);
   
   const [passwordForm, setPasswordForm] = useState({
     currentPassword: "",
@@ -43,6 +51,12 @@ export default function Settings() {
     clarityId: "",
   });
 
+  const [trendyol, setTrendyol] = useState<TrendyolSettings>({
+    apiKey: "",
+    apiSecret: "",
+    sellerId: "",
+  });
+
   useEffect(() => {
     // Load saved integrations from localStorage (these are public keys)
     const saved = localStorage.getItem('sinceva_integrations');
@@ -53,6 +67,26 @@ export default function Settings() {
         console.error('Failed to load integrations:', e);
       }
     }
+
+    // Load Trendyol settings from backend
+    const loadTrendyolSettings = async () => {
+      try {
+        const response = await fetch(`${API_URL}/admin/settings.php?type=trendyol`, {
+          credentials: 'include',
+        });
+        const data = await response.json();
+        if (data.success && data.data) {
+          setTrendyol({
+            apiKey: data.data.apiKey || "",
+            apiSecret: data.data.apiSecret || "",
+            sellerId: data.data.sellerId || "",
+          });
+        }
+      } catch (error) {
+        console.error('Failed to load Trendyol settings:', error);
+      }
+    };
+    loadTrendyolSettings();
   }, []);
 
   const handlePasswordChange = async (e: React.FormEvent) => {
@@ -123,6 +157,38 @@ export default function Settings() {
       });
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleSaveTrendyol = async () => {
+    setSavingTrendyol(true);
+    
+    try {
+      const response = await fetch(`${API_URL}/admin/settings.php`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ type: 'trendyol', data: trendyol }),
+      });
+
+      const data = await response.json();
+      
+      if (data.success) {
+        toast({
+          title: "Başarılı",
+          description: "Trendyol API ayarları kaydedildi.",
+        });
+      } else {
+        throw new Error(data.error || 'Save failed');
+      }
+    } catch (error) {
+      toast({
+        title: "Hata",
+        description: "Trendyol ayarları kaydedilemedi.",
+        variant: "destructive",
+      });
+    } finally {
+      setSavingTrendyol(false);
     }
   };
 
@@ -229,6 +295,7 @@ export default function Settings() {
       <Tabs defaultValue="integrations" className="space-y-6">
         <TabsList>
           <TabsTrigger value="integrations">Entegrasyonlar</TabsTrigger>
+          <TabsTrigger value="trendyol">Trendyol API</TabsTrigger>
           <TabsTrigger value="security">Güvenlik</TabsTrigger>
         </TabsList>
 
@@ -380,6 +447,200 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
                       </pre>
                     </div>
                   )}
+                </CardContent>
+              </Card>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="trendyol" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <ShoppingBag className="h-5 w-5 text-orange-500" />
+                Trendyol Marketplace Entegrasyonu
+              </CardTitle>
+              <CardDescription>
+                Trendyol Partner Programı API bilgilerinizi buradan yönetin. 
+                Bu bilgiler ileride ürün aktarımı, stok/fiyat güncellemesi ve sipariş işlemleri için kullanılacaktır.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <Card className="border-amber-200 bg-amber-50/50 dark:bg-amber-950/20 dark:border-amber-800">
+                <CardContent className="pt-4">
+                  <div className="flex items-start gap-3">
+                    <AlertCircle className="h-5 w-5 text-amber-600 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <h4 className="font-semibold text-amber-800 dark:text-amber-200">API Altyapısı Hazır</h4>
+                      <p className="text-sm text-amber-700 dark:text-amber-300 mt-1">
+                        Şu anda sadece API bilgilerini saklama altyapısı aktiftir. 
+                        Stok, fiyat ve sipariş senkronizasyonu gibi tam entegrasyon özellikleri ileride eklenecektir.
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <div className="grid gap-4 md:grid-cols-3">
+                <Card className="border-dashed">
+                  <CardHeader className="pb-3">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2 rounded-lg bg-orange-500/10">
+                        <Key className="h-4 w-4 text-orange-500" />
+                      </div>
+                      <div>
+                        <CardTitle className="text-base">API Key</CardTitle>
+                        <CardDescription className="text-xs">
+                          Trendyol Seller Center'dan alınır
+                        </CardDescription>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="pt-0">
+                    <Input
+                      value={trendyol.apiKey}
+                      onChange={(e) => setTrendyol(prev => ({ ...prev, apiKey: e.target.value }))}
+                      placeholder="API Key giriniz"
+                      className="font-mono text-sm"
+                    />
+                    {trendyol.apiKey && (
+                      <div className="flex items-center gap-1 mt-2 text-xs text-green-600">
+                        <CheckCircle className="h-3 w-3" />
+                        Yapılandırıldı
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+
+                <Card className="border-dashed">
+                  <CardHeader className="pb-3">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2 rounded-lg bg-orange-500/10">
+                        <Lock className="h-4 w-4 text-orange-500" />
+                      </div>
+                      <div>
+                        <CardTitle className="text-base">API Secret</CardTitle>
+                        <CardDescription className="text-xs">
+                          Gizli anahtar - güvenle saklanır
+                        </CardDescription>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="pt-0">
+                    <div className="relative">
+                      <Input
+                        type={showApiSecret ? "text" : "password"}
+                        value={trendyol.apiSecret}
+                        onChange={(e) => setTrendyol(prev => ({ ...prev, apiSecret: e.target.value }))}
+                        placeholder="API Secret giriniz"
+                        className="font-mono text-sm pr-10"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowApiSecret(!showApiSecret)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                      >
+                        {showApiSecret ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                      </button>
+                    </div>
+                    {trendyol.apiSecret && (
+                      <div className="flex items-center gap-1 mt-2 text-xs text-green-600">
+                        <CheckCircle className="h-3 w-3" />
+                        Yapılandırıldı
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+
+                <Card className="border-dashed">
+                  <CardHeader className="pb-3">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2 rounded-lg bg-orange-500/10">
+                        <Store className="h-4 w-4 text-orange-500" />
+                      </div>
+                      <div>
+                        <CardTitle className="text-base">Seller ID</CardTitle>
+                        <CardDescription className="text-xs">
+                          Mağaza/Satıcı kimlik numarası
+                        </CardDescription>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="pt-0">
+                    <Input
+                      value={trendyol.sellerId}
+                      onChange={(e) => setTrendyol(prev => ({ ...prev, sellerId: e.target.value }))}
+                      placeholder="Seller ID giriniz"
+                      className="font-mono text-sm"
+                    />
+                    {trendyol.sellerId && (
+                      <div className="flex items-center gap-1 mt-2 text-xs text-green-600">
+                        <CheckCircle className="h-3 w-3" />
+                        Yapılandırıldı
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+              </div>
+
+              <div className="flex justify-end pt-4 border-t">
+                <Button onClick={handleSaveTrendyol} disabled={savingTrendyol}>
+                  {savingTrendyol ? (
+                    <>
+                      <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                      Kaydediliyor...
+                    </>
+                  ) : (
+                    'Trendyol Ayarlarını Kaydet'
+                  )}
+                </Button>
+              </div>
+
+              <Card className="bg-muted/50">
+                <CardContent className="pt-6">
+                  <h4 className="font-semibold mb-2">API Bilgilerine Nasıl Ulaşılır?</h4>
+                  <ol className="list-decimal list-inside text-sm text-muted-foreground space-y-2">
+                    <li>
+                      <a 
+                        href="https://partner.trendyol.com" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-primary hover:underline inline-flex items-center gap-1"
+                      >
+                        Trendyol Seller Center <ExternalLink className="h-3 w-3" />
+                      </a>
+                      {" "}adresine giriş yapın
+                    </li>
+                    <li>Sol menüden <strong>Entegrasyon</strong> → <strong>API Entegrasyonları</strong> bölümüne gidin</li>
+                    <li>API Key ve API Secret bilgilerinizi kopyalayın</li>
+                    <li>Seller ID'nizi profil sayfanızdan veya entegrasyon ayarlarından bulabilirsiniz</li>
+                  </ol>
+                  
+                  <div className="mt-4 pt-4 border-t">
+                    <h5 className="font-medium text-sm mb-2">İleride Aktif Olacak Özellikler:</h5>
+                    <ul className="text-xs text-muted-foreground space-y-1">
+                      <li className="flex items-center gap-2">
+                        <Badge variant="outline" className="text-xs">Yakında</Badge>
+                        Ürün aktarımı ve senkronizasyonu
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <Badge variant="outline" className="text-xs">Yakında</Badge>
+                        Stok ve fiyat güncellemesi
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <Badge variant="outline" className="text-xs">Yakında</Badge>
+                        Sipariş yönetimi ve takibi
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <Badge variant="outline" className="text-xs">Yakında</Badge>
+                        Fatura gönderimi
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <Badge variant="outline" className="text-xs">Yakında</Badge>
+                        Müşteri soruları yönetimi
+                      </li>
+                    </ul>
+                  </div>
                 </CardContent>
               </Card>
             </CardContent>
