@@ -20,6 +20,10 @@ import {
   Truck,
   ExternalLink,
   RefreshCw,
+  CreditCard,
+  CheckCircle2,
+  XCircle,
+  Clock,
 } from 'lucide-react';
 
 const API_BASE = import.meta.env.VITE_API_URL || 'https://sinceva.com/api';
@@ -99,6 +103,30 @@ const sourceLabels: Record<string, string> = {
   trendyol: 'Trendyol',
   website_paytr: 'Website (PayTR)',
   website_iyzico: 'Website (iyzico)',
+};
+
+const paymentStatusLabels: Record<string, string> = {
+  pending: 'Bekliyor',
+  completed: 'Tamamlandı',
+  failed: 'Başarısız',
+  refunded: 'İade Edildi',
+  cancelled: 'İptal',
+};
+
+const paymentStatusColors: Record<string, string> = {
+  pending: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300',
+  completed: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300',
+  failed: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300',
+  refunded: 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300',
+  cancelled: 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300',
+};
+
+const paymentStatusIcons: Record<string, typeof CheckCircle2> = {
+  pending: Clock,
+  completed: CheckCircle2,
+  failed: XCircle,
+  refunded: RefreshCw,
+  cancelled: XCircle,
 };
 
 export default function Orders() {
@@ -540,6 +568,51 @@ export default function Orders() {
                   </span>
                 )}
               </div>
+
+              {/* Payment Info - Only for website orders */}
+              {(selectedOrder.source === 'website_paytr' || selectedOrder.source === 'website_iyzico') && (
+                <Card className="border-primary/20 bg-primary/5">
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-sm flex items-center gap-2">
+                      <CreditCard className="h-4 w-4" />
+                      Ödeme Bilgileri
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex items-center justify-between flex-wrap gap-4">
+                      <div className="space-y-2">
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm font-medium">Ödeme Yöntemi:</span>
+                          <Badge variant="outline" className="font-medium">
+                            {selectedOrder.source === 'website_paytr' ? 'PayTR' : 'iyzico'}
+                          </Badge>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm font-medium">Ödeme Durumu:</span>
+                          {(() => {
+                            const status = selectedOrder.payment_status || 'completed';
+                            const StatusIcon = paymentStatusIcons[status] || CheckCircle2;
+                            return (
+                              <Badge className={paymentStatusColors[status] || paymentStatusColors.completed}>
+                                <StatusIcon className="h-3 w-3 mr-1" />
+                                {paymentStatusLabels[status] || 'Tamamlandı'}
+                              </Badge>
+                            );
+                          })()}
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-2xl font-bold text-primary">
+                          ₺{selectedOrder.total_amount.toLocaleString('tr-TR')}
+                        </div>
+                        <div className="text-xs text-muted-foreground">
+                          {new Date(selectedOrder.created_at).toLocaleString('tr-TR')}
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
 
               {/* Customer Info */}
               <div className="grid gap-4 md:grid-cols-2">
