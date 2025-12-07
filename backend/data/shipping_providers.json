@@ -1,0 +1,54 @@
+[
+  {
+    "id": "yurtici",
+    "name": "Yurtiçi Kargo",
+    "code": "yurtici",
+    "is_active": false,
+    "settings": {
+      "api_url": "",
+      "username": "",
+      "password": "",
+      "customer_code": "",
+      "sender_name": "",
+      "sender_address": "",
+      "sender_city": "",
+      "sender_district": "",
+      "sender_phone": ""
+    },
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "id": "hepsijet",
+    "name": "HepsiJet",
+    "code": "hepsijet",
+    "is_active": false,
+    "settings": {
+      "api_url": "",
+      "api_key": "",
+      "api_secret": "",
+      "merchant_id": "",
+      "sender_name": "",
+      "sender_address": "",
+      "sender_city": "",
+      "sender_district": "",
+      "sender_phone": ""
+    },
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "id": "trendyol_express",
+    "name": "Trendyol Express",
+    "code": "trendyol_express",
+    "is_active": false,
+    "settings": {
+      "api_url": "https://api.trendyol.com/sapigw",
+      "api_key": "",
+      "api_secret": "",
+      "seller_id": ""
+    },
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  }
+]
