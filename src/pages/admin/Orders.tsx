@@ -381,12 +381,12 @@ export default function Orders() {
                   />
                 </div>
               </div>
-              <Select value={statusFilter} onValueChange={setStatusFilter}>
+              <Select value={statusFilter || 'all'} onValueChange={(v) => setStatusFilter(v === 'all' ? '' : v)}>
                 <SelectTrigger className="w-full sm:w-40">
                   <SelectValue placeholder="Tüm Durumlar" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">Tüm Durumlar</SelectItem>
+                  <SelectItem value="all">Tüm Durumlar</SelectItem>
                   <SelectItem value="pending">Bekliyor</SelectItem>
                   <SelectItem value="processing">Hazırlanıyor</SelectItem>
                   <SelectItem value="shipped">Kargoda</SelectItem>
@@ -394,12 +394,12 @@ export default function Orders() {
                   <SelectItem value="cancelled">İptal</SelectItem>
                 </SelectContent>
               </Select>
-              <Select value={sourceFilter} onValueChange={setSourceFilter}>
+              <Select value={sourceFilter || 'all'} onValueChange={(v) => setSourceFilter(v === 'all' ? '' : v)}>
                 <SelectTrigger className="w-full sm:w-48">
                   <SelectValue placeholder="Tüm Kaynaklar" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">Tüm Kaynaklar</SelectItem>
+                  <SelectItem value="all">Tüm Kaynaklar</SelectItem>
                   <SelectItem value="manual">Manuel</SelectItem>
                   <SelectItem value="trendyol">Trendyol</SelectItem>
                   <SelectItem value="website_paytr">Website (PayTR)</SelectItem>
