@@ -31,6 +31,7 @@ const Header: React.FC = () => {
   const { searchResults, isLoading, error } = useSearch();
   const [searchSuggestions, setSearchSuggestions] = useState<any[]>([]);
   const { totalItems, setIsOpen: setCartOpen } = useCart();
+
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
