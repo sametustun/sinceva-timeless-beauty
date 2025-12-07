@@ -298,4 +298,234 @@ class TrendyolAPI {
         }
         return ['success' => false, 'message' => $result['error'] ?? 'Bağlantı başarısız'];
     }
+
+    // ========== ANALYTICS & FINANCE METHODS ==========
+
+    /**
+     * Get sales statistics for analytics
+     */
+    public function getSettlements(int $page = 0, int $size = 50, ?int $startDate = null, ?int $endDate = null): array {
+        $params = [
+            'page' => $page,
+            'size' => $size
+        ];
+        if ($startDate) $params['startDate'] = $startDate;
+        if ($endDate) $params['endDate'] = $endDate;
+        
+        $query = http_build_query($params);
+        return $this->request('GET', "/sapigw/suppliers/{$this->sellerId}/finance/settlements?" . $query);
+    }
+
+    /**
+     * Get order analytics - computed from orders
+     */
+    public function getOrderAnalytics(int $days = 30): array {
+        $startDate = (time() - ($days * 24 * 60 * 60)) * 1000;
+        $endDate = time() * 1000;
+        
+        $allOrders = [];
+        $page = 0;
+        $size = 200;
+        
+        do {
+            $result = $this->getOrders([
+                'page' => $page,
+                'size' => $size,
+                'startDate' => $startDate,
+                'endDate' => $endDate
+            ]);
+            
+            if (!$result['success']) {
+                return $result;
+            }
+            
+            $content = $result['data']['content'] ?? [];
+            $allOrders = array_merge($allOrders, $content);
+            $totalPages = $result['data']['totalPages'] ?? 0;
+            $page++;
+        } while ($page < $totalPages && $page < 5);
+        
+        // Compute analytics
+        $totalRevenue = 0;
+        $totalOrders = count($allOrders);
+        $statusCounts = [];
+        $dailyRevenue = [];
+        $productSales = [];
+        $topProducts = [];
+        
+        foreach ($allOrders as $order) {
+            $totalRevenue += (float)($order['totalPrice'] ?? 0);
+            
+            // Status counts
+            $status = $order['status'] ?? 'Unknown';
+            $statusCounts[$status] = ($statusCounts[$status] ?? 0) + 1;
+            
+            // Daily revenue
+            $date = date('Y-m-d', ($order['orderDate'] ?? time() * 1000) / 1000);
+            $dailyRevenue[$date] = ($dailyRevenue[$date] ?? 0) + (float)($order['totalPrice'] ?? 0);
+            
+            // Product sales
+            foreach ($order['lines'] ?? [] as $line) {
+                $barcode = $line['barcode'] ?? '';
+                $productName = $line['productName'] ?? 'Unknown';
+                $quantity = (int)($line['quantity'] ?? 1);
+                $price = (float)($line['price'] ?? 0);
+                
+                if (!isset($productSales[$barcode])) {
+                    $productSales[$barcode] = [
+                        'barcode' => $barcode,
+                        'name' => $productName,
+                        'quantity' => 0,
+                        'revenue' => 0
+                    ];
+                }
+                $productSales[$barcode]['quantity'] += $quantity;
+                $productSales[$barcode]['revenue'] += $price * $quantity;
+            }
+        }
+        
+        // Sort products by revenue
+        usort($productSales, fn($a, $b) => $b['revenue'] <=> $a['revenue']);
+        $topProducts = array_slice($productSales, 0, 10);
+        
+        // Sort daily revenue
+        ksort($dailyRevenue);
+        
+        return [
+            'success' => true,
+            'data' => [
+                'totalOrders' => $totalOrders,
+                'totalRevenue' => $totalRevenue,
+                'averageOrderValue' => $totalOrders > 0 ? $totalRevenue / $totalOrders : 0,
+                'statusCounts' => $statusCounts,
+                'dailyRevenue' => $dailyRevenue,
+                'topProducts' => $topProducts,
+                'period' => $days . ' days'
+            ]
+        ];
+    }
+
+    /**
+     * Get product performance
+     */
+    public function getProductPerformance(string $barcode, int $days = 30): array {
+        $startDate = (time() - ($days * 24 * 60 * 60)) * 1000;
+        $endDate = time() * 1000;
+        
+        $allOrders = [];
+        $page = 0;
+        
+        do {
+            $result = $this->getOrders([
+                'page' => $page,
+                'size' => 200,
+                'startDate' => $startDate,
+                'endDate' => $endDate
+            ]);
+            
+            if (!$result['success']) {
+                return $result;
+            }
+            
+            $content = $result['data']['content'] ?? [];
+            $allOrders = array_merge($allOrders, $content);
+            $totalPages = $result['data']['totalPages'] ?? 0;
+            $page++;
+        } while ($page < $totalPages && $page < 5);
+        
+        $totalQuantity = 0;
+        $totalRevenue = 0;
+        $dailySales = [];
+        
+        foreach ($allOrders as $order) {
+            foreach ($order['lines'] ?? [] as $line) {
+                if (($line['barcode'] ?? '') === $barcode) {
+                    $quantity = (int)($line['quantity'] ?? 1);
+                    $price = (float)($line['price'] ?? 0);
+                    
+                    $totalQuantity += $quantity;
+                    $totalRevenue += $price * $quantity;
+                    
+                    $date = date('Y-m-d', ($order['orderDate'] ?? time() * 1000) / 1000);
+                    $dailySales[$date] = ($dailySales[$date] ?? 0) + $quantity;
+                }
+            }
+        }
+        
+        ksort($dailySales);
+        
+        return [
+            'success' => true,
+            'data' => [
+                'barcode' => $barcode,
+                'totalQuantity' => $totalQuantity,
+                'totalRevenue' => $totalRevenue,
+                'dailySales' => $dailySales,
+                'period' => $days . ' days'
+            ]
+        ];
+    }
+
+    // ========== E-INVOICE METHODS ==========
+
+    /**
+     * Update package with e-invoice info
+     */
+    public function updatePackageWithInvoice(int $shipmentPackageId, array $invoiceData): array {
+        return $this->request('PUT', "/sapigw/suppliers/{$this->sellerId}/shipment-packages/{$shipmentPackageId}", [
+            'invoiceNumber' => $invoiceData['invoiceNumber'],
+            'invoiceDate' => $invoiceData['invoiceDate'] ?? time() * 1000
+        ]);
+    }
+
+    /**
+     * Mark package as invoiced with full details
+     */
+    public function markAsInvoiced(int $shipmentPackageId, string $invoiceNumber, int $invoiceDate): array {
+        return $this->request('PUT', "/sapigw/suppliers/{$this->sellerId}/shipment-packages/{$shipmentPackageId}/invoice", [
+            'invoiceNumber' => $invoiceNumber,
+            'invoiceDate' => $invoiceDate
+        ]);
+    }
+
+    /**
+     * Send e-invoice/e-archive document
+     */
+    public function sendEInvoice(int $shipmentPackageId, array $invoiceData): array {
+        $result = $this->markAsInvoiced(
+            $shipmentPackageId,
+            $invoiceData['invoiceNumber'],
+            $invoiceData['invoiceDate'] ?? time() * 1000
+        );
+        
+        if (!$result['success']) {
+            return $result;
+        }
+        
+        // If invoice link provided, send it too
+        if (!empty($invoiceData['invoiceLink'])) {
+            return $this->sendInvoiceLink($shipmentPackageId, $invoiceData['invoiceLink']);
+        }
+        
+        return $result;
+    }
+
+    /**
+     * Get invoiceable orders (status = Picking or Created)
+     */
+    public function getInvoiceableOrders(int $days = 7): array {
+        $orders = [];
+        
+        foreach (['Created', 'Picking'] as $status) {
+            $result = $this->getOrdersByStatus($status, $days);
+            if ($result['success']) {
+                $orders = array_merge($orders, $result['data']['content'] ?? []);
+            }
+        }
+        
+        return [
+            'success' => true,
+            'data' => ['orders' => $orders, 'count' => count($orders)]
+        ];
+    }
 }

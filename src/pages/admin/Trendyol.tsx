@@ -13,7 +13,8 @@ import {
   RefreshCw, Package, ShoppingCart, MessageSquare, 
   CheckCircle, XCircle, Loader2, Download, Upload,
   Send, FileText, AlertCircle, Clock, Settings,
-  Link2, Unlink, FileSpreadsheet, Zap
+  Link2, Unlink, FileSpreadsheet, Zap, BarChart3,
+  TrendingUp, DollarSign, ShoppingBag, Receipt
 } from "lucide-react";
 import {
   Table,
@@ -39,8 +40,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Link } from "react-router-dom";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell, Legend } from "recharts";
 
 const API_URL = import.meta.env.VITE_API_URL || "https://sinceva.com/api";
+
+const CHART_COLORS = ['hsl(var(--primary))', 'hsl(var(--secondary))', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'];
 
 interface SyncStatus {
   configured: boolean;
@@ -116,6 +120,37 @@ interface CSVItem {
   listPrice: number | null;
 }
 
+interface AnalyticsData {
+  totalOrders: number;
+  totalRevenue: number;
+  averageOrderValue: number;
+  statusCounts: Record<string, number>;
+  dailyRevenue: Record<string, number>;
+  topProducts: Array<{
+    barcode: string;
+    name: string;
+    quantity: number;
+    revenue: number;
+  }>;
+  period: string;
+}
+
+interface InvoiceableOrder {
+  id: number;
+  orderNumber: string;
+  status: string;
+  totalPrice: number;
+  shipmentAddress: {
+    firstName: string;
+    lastName: string;
+    city: string;
+  };
+  lines: Array<{
+    productName: string;
+    quantity: number;
+  }>;
+}
+
 export default function Trendyol() {
   const { toast } = useToast();
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -150,6 +185,18 @@ export default function Trendyol() {
   // Filters
   const [orderStatus, setOrderStatus] = useState("");
   const [orderDays, setOrderDays] = useState("7");
+  
+  // Analytics
+  const [analytics, setAnalytics] = useState<AnalyticsData | null>(null);
+  const [analyticsDays, setAnalyticsDays] = useState("30");
+  
+  // E-Invoice
+  const [invoiceableOrders, setInvoiceableOrders] = useState<InvoiceableOrder[]>([]);
+  const [eInvoiceDialog, setEInvoiceDialog] = useState(false);
+  const [selectedEInvoiceOrder, setSelectedEInvoiceOrder] = useState<InvoiceableOrder | null>(null);
+  const [eInvoiceNumber, setEInvoiceNumber] = useState("");
+  const [eInvoiceDate, setEInvoiceDate] = useState(new Date().toISOString().split('T')[0]);
+  const [eInvoiceLink, setEInvoiceLink] = useState("");
 
   useEffect(() => {
     loadSyncStatus();
@@ -635,6 +682,137 @@ export default function Trendyol() {
     }
   };
 
+  // Analytics Functions
+  const loadAnalytics = async () => {
+    setActionLoading('analytics');
+    try {
+      const res = await fetch(`${API_URL}/admin/trendyol.php?action=analytics&days=${analyticsDays}`, {
+        credentials: 'include'
+      });
+      const data = await res.json();
+      
+      if (data.success) {
+        setAnalytics(data.data);
+        toast({ title: "Analitik Yüklendi" });
+      } else {
+        toast({
+          title: "Hata",
+          description: data.error || "Analitik yüklenemedi",
+          variant: "destructive"
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Hata",
+        description: "Analitik yüklenemedi",
+        variant: "destructive"
+      });
+    } finally {
+      setActionLoading(null);
+    }
+  };
+
+  // E-Invoice Functions
+  const loadInvoiceableOrders = async () => {
+    setActionLoading('invoiceable');
+    try {
+      const res = await fetch(`${API_URL}/admin/trendyol.php?action=invoiceable-orders&days=14`, {
+        credentials: 'include'
+      });
+      const data = await res.json();
+      
+      if (data.success) {
+        setInvoiceableOrders(data.data.orders || []);
+        toast({
+          title: "Siparişler Yüklendi",
+          description: `${data.data.count || 0} fatura bekleyen sipariş`
+        });
+      } else {
+        toast({
+          title: "Hata",
+          description: data.error || "Siparişler yüklenemedi",
+          variant: "destructive"
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Hata",
+        description: "Siparişler yüklenemedi",
+        variant: "destructive"
+      });
+    } finally {
+      setActionLoading(null);
+    }
+  };
+
+  const handleSendEInvoice = async () => {
+    if (!selectedEInvoiceOrder || !eInvoiceNumber) return;
+    
+    setActionLoading('einvoice');
+    try {
+      const res = await fetch(`${API_URL}/admin/trendyol.php?action=send-einvoice`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({
+          packageId: selectedEInvoiceOrder.id,
+          invoiceNumber: eInvoiceNumber,
+          invoiceDate: eInvoiceDate,
+          invoiceLink: eInvoiceLink
+        })
+      });
+      const data = await res.json();
+      
+      if (data.success) {
+        toast({ title: "E-Fatura Gönderildi", description: data.message });
+        setEInvoiceDialog(false);
+        setEInvoiceNumber("");
+        setEInvoiceLink("");
+        setSelectedEInvoiceOrder(null);
+        loadInvoiceableOrders();
+      } else {
+        toast({
+          title: "Hata",
+          description: data.error || "E-Fatura gönderilemedi",
+          variant: "destructive"
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Hata",
+        description: "E-Fatura gönderilemedi",
+        variant: "destructive"
+      });
+    } finally {
+      setActionLoading(null);
+    }
+  };
+
+  // Chart data preparation
+  const getDailyRevenueChartData = () => {
+    if (!analytics?.dailyRevenue) return [];
+    return Object.entries(analytics.dailyRevenue).map(([date, revenue]) => ({
+      date: new Date(date).toLocaleDateString('tr-TR', { day: '2-digit', month: '2-digit' }),
+      revenue
+    }));
+  };
+
+  const getStatusChartData = () => {
+    if (!analytics?.statusCounts) return [];
+    const statusLabels: Record<string, string> = {
+      'Created': 'Oluşturuldu',
+      'Picking': 'Hazırlanıyor',
+      'Invoiced': 'Faturalandı',
+      'Shipped': 'Kargoda',
+      'Delivered': 'Teslim Edildi',
+      'Cancelled': 'İptal'
+    };
+    return Object.entries(analytics.statusCounts).map(([status, count]) => ({
+      name: statusLabels[status] || status,
+      value: count
+    }));
+  };
+
   const formatDate = (timestamp: number | string) => {
     const date = typeof timestamp === 'number' ? new Date(timestamp) : new Date(timestamp);
     return date.toLocaleDateString('tr-TR', { 
@@ -806,8 +984,16 @@ export default function Trendyol() {
         </Card>
       </div>
 
-      <Tabs defaultValue="products" className="space-y-4">
+      <Tabs defaultValue="analytics" className="space-y-4">
         <TabsList className="flex-wrap h-auto">
+          <TabsTrigger value="analytics" className="gap-2">
+            <BarChart3 className="h-4 w-4" />
+            Analitik
+          </TabsTrigger>
+          <TabsTrigger value="einvoice" className="gap-2">
+            <Receipt className="h-4 w-4" />
+            E-Fatura
+          </TabsTrigger>
           <TabsTrigger value="products" className="gap-2">
             <Package className="h-4 w-4" />
             Ürünler
@@ -829,6 +1015,291 @@ export default function Trendyol() {
             Sorular
           </TabsTrigger>
         </TabsList>
+
+        {/* Analytics Tab */}
+        <TabsContent value="analytics" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <div className="flex items-center justify-between flex-wrap gap-4">
+                <div>
+                  <CardTitle>Satış Analitikleri</CardTitle>
+                  <CardDescription>Trendyol satış performansınızı analiz edin</CardDescription>
+                </div>
+                <div className="flex gap-2">
+                  <Select value={analyticsDays} onValueChange={setAnalyticsDays}>
+                    <SelectTrigger className="w-36">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="7">Son 7 gün</SelectItem>
+                      <SelectItem value="14">Son 14 gün</SelectItem>
+                      <SelectItem value="30">Son 30 gün</SelectItem>
+                      <SelectItem value="60">Son 60 gün</SelectItem>
+                      <SelectItem value="90">Son 90 gün</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <Button 
+                    onClick={loadAnalytics}
+                    disabled={actionLoading === 'analytics'}
+                  >
+                    {actionLoading === 'analytics' ? (
+                      <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                    ) : (
+                      <BarChart3 className="h-4 w-4 mr-2" />
+                    )}
+                    Verileri Getir
+                  </Button>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent>
+              {!analytics ? (
+                <div className="text-center py-12 text-muted-foreground">
+                  <BarChart3 className="h-16 w-16 mx-auto mb-4 opacity-30" />
+                  <p>Analitik verilerini görüntülemek için "Verileri Getir" butonuna tıklayın</p>
+                </div>
+              ) : (
+                <div className="space-y-8">
+                  {/* Summary Cards */}
+                  <div className="grid gap-4 md:grid-cols-4">
+                    <Card className="bg-gradient-to-br from-primary/10 to-primary/5">
+                      <CardContent className="pt-6">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="text-sm text-muted-foreground">Toplam Sipariş</p>
+                            <p className="text-3xl font-bold">{analytics.totalOrders}</p>
+                          </div>
+                          <ShoppingBag className="h-10 w-10 text-primary opacity-50" />
+                        </div>
+                      </CardContent>
+                    </Card>
+                    <Card className="bg-gradient-to-br from-green-500/10 to-green-500/5">
+                      <CardContent className="pt-6">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="text-sm text-muted-foreground">Toplam Gelir</p>
+                            <p className="text-3xl font-bold">{analytics.totalRevenue.toLocaleString('tr-TR', { maximumFractionDigits: 0 })} ₺</p>
+                          </div>
+                          <DollarSign className="h-10 w-10 text-green-500 opacity-50" />
+                        </div>
+                      </CardContent>
+                    </Card>
+                    <Card className="bg-gradient-to-br from-blue-500/10 to-blue-500/5">
+                      <CardContent className="pt-6">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="text-sm text-muted-foreground">Ortalama Sipariş</p>
+                            <p className="text-3xl font-bold">{analytics.averageOrderValue.toLocaleString('tr-TR', { maximumFractionDigits: 0 })} ₺</p>
+                          </div>
+                          <TrendingUp className="h-10 w-10 text-blue-500 opacity-50" />
+                        </div>
+                      </CardContent>
+                    </Card>
+                    <Card className="bg-gradient-to-br from-purple-500/10 to-purple-500/5">
+                      <CardContent className="pt-6">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="text-sm text-muted-foreground">Dönem</p>
+                            <p className="text-3xl font-bold">{analyticsDays} gün</p>
+                          </div>
+                          <Clock className="h-10 w-10 text-purple-500 opacity-50" />
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+
+                  {/* Charts */}
+                  <div className="grid gap-6 lg:grid-cols-2">
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="text-lg">Günlük Gelir</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="h-64">
+                          <ResponsiveContainer width="100%" height="100%">
+                            <LineChart data={getDailyRevenueChartData()}>
+                              <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                              <XAxis dataKey="date" className="text-xs" />
+                              <YAxis className="text-xs" tickFormatter={(v) => `${(v/1000).toFixed(0)}K`} />
+                              <Tooltip 
+                                formatter={(value: number) => [`${value.toLocaleString('tr-TR')} ₺`, 'Gelir']}
+                                contentStyle={{ backgroundColor: 'hsl(var(--background))', border: '1px solid hsl(var(--border))' }}
+                              />
+                              <Line 
+                                type="monotone" 
+                                dataKey="revenue" 
+                                stroke="hsl(var(--primary))" 
+                                strokeWidth={2}
+                                dot={false}
+                              />
+                            </LineChart>
+                          </ResponsiveContainer>
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="text-lg">Sipariş Durumu Dağılımı</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="h-64">
+                          <ResponsiveContainer width="100%" height="100%">
+                            <PieChart>
+                              <Pie
+                                data={getStatusChartData()}
+                                cx="50%"
+                                cy="50%"
+                                innerRadius={50}
+                                outerRadius={80}
+                                paddingAngle={2}
+                                dataKey="value"
+                              >
+                                {getStatusChartData().map((_, index) => (
+                                  <Cell key={`cell-${index}`} fill={CHART_COLORS[index % CHART_COLORS.length]} />
+                                ))}
+                              </Pie>
+                              <Tooltip />
+                              <Legend />
+                            </PieChart>
+                          </ResponsiveContainer>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+
+                  {/* Top Products */}
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="text-lg">En Çok Satan Ürünler</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      {analytics.topProducts.length === 0 ? (
+                        <p className="text-muted-foreground text-center py-4">Veri bulunamadı</p>
+                      ) : (
+                        <Table>
+                          <TableHeader>
+                            <TableRow>
+                              <TableHead>#</TableHead>
+                              <TableHead>Ürün Adı</TableHead>
+                              <TableHead className="text-right">Adet</TableHead>
+                              <TableHead className="text-right">Gelir</TableHead>
+                            </TableRow>
+                          </TableHeader>
+                          <TableBody>
+                            {analytics.topProducts.map((product, index) => (
+                              <TableRow key={product.barcode}>
+                                <TableCell className="font-medium">{index + 1}</TableCell>
+                                <TableCell className="max-w-xs truncate">{product.name}</TableCell>
+                                <TableCell className="text-right">{product.quantity}</TableCell>
+                                <TableCell className="text-right font-medium">
+                                  {product.revenue.toLocaleString('tr-TR', { maximumFractionDigits: 0 })} ₺
+                                </TableCell>
+                              </TableRow>
+                            ))}
+                          </TableBody>
+                        </Table>
+                      )}
+                    </CardContent>
+                  </Card>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* E-Invoice Tab */}
+        <TabsContent value="einvoice" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <div className="flex items-center justify-between flex-wrap gap-4">
+                <div>
+                  <CardTitle>E-Fatura / E-Arşiv Yönetimi</CardTitle>
+                  <CardDescription>Trendyol siparişlerinize e-fatura bilgilerini gönderin</CardDescription>
+                </div>
+                <Button 
+                  onClick={loadInvoiceableOrders}
+                  disabled={actionLoading === 'invoiceable'}
+                >
+                  {actionLoading === 'invoiceable' ? (
+                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  ) : (
+                    <RefreshCw className="h-4 w-4 mr-2" />
+                  )}
+                  Siparişleri Getir
+                </Button>
+              </div>
+            </CardHeader>
+            <CardContent>
+              {invoiceableOrders.length === 0 ? (
+                <div className="text-center py-12 text-muted-foreground">
+                  <Receipt className="h-16 w-16 mx-auto mb-4 opacity-30" />
+                  <p className="mb-2">Fatura bekleyen siparişleri görüntülemek için butona tıklayın</p>
+                  <p className="text-sm">Son 14 günün "Created" ve "Picking" durumundaki siparişleri listelenir</p>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  <div className="p-4 bg-muted/50 rounded-lg">
+                    <h4 className="font-medium mb-2">E-Fatura/E-Arşiv Entegrasyonu</h4>
+                    <p className="text-sm text-muted-foreground">
+                      Bu bölümde Trendyol'dan gelen siparişlere e-fatura veya e-arşiv fatura bilgilerini gönderebilirsiniz.
+                      Fatura numarası ve tarihi zorunludur. Opsiyonel olarak fatura PDF linki de ekleyebilirsiniz.
+                    </p>
+                  </div>
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Sipariş No</TableHead>
+                        <TableHead>Müşteri</TableHead>
+                        <TableHead>Ürünler</TableHead>
+                        <TableHead>Tutar</TableHead>
+                        <TableHead>Durum</TableHead>
+                        <TableHead>İşlem</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {invoiceableOrders.map((order) => (
+                        <TableRow key={order.id}>
+                          <TableCell className="font-mono">{order.orderNumber}</TableCell>
+                          <TableCell>
+                            {order.shipmentAddress?.firstName} {order.shipmentAddress?.lastName}
+                            <div className="text-xs text-muted-foreground">{order.shipmentAddress?.city}</div>
+                          </TableCell>
+                          <TableCell>
+                            <div className="max-w-xs">
+                              {order.lines?.slice(0, 2).map((line, i) => (
+                                <div key={i} className="text-sm truncate">
+                                  {line.quantity}x {line.productName}
+                                </div>
+                              ))}
+                              {(order.lines?.length || 0) > 2 && (
+                                <div className="text-xs text-muted-foreground">+{order.lines.length - 2} ürün daha</div>
+                              )}
+                            </div>
+                          </TableCell>
+                          <TableCell>{order.totalPrice?.toFixed(2)} ₺</TableCell>
+                          <TableCell>{getStatusBadge(order.status)}</TableCell>
+                          <TableCell>
+                            <Button
+                              size="sm"
+                              onClick={() => {
+                                setSelectedEInvoiceOrder(order);
+                                setEInvoiceDialog(true);
+                              }}
+                            >
+                              <Receipt className="h-4 w-4 mr-2" />
+                              Fatura Gir
+                            </Button>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
 
         {/* Products Tab */}
         <TabsContent value="products" className="space-y-4">
@@ -1483,6 +1954,62 @@ export default function Trendyol() {
             >
               {actionLoading === 'csv-import' && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
               {updateTrendyol ? 'Import & Trendyol Güncelle' : 'Sadece Import'}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* E-Invoice Dialog */}
+      <Dialog open={eInvoiceDialog} onOpenChange={setEInvoiceDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>E-Fatura / E-Arşiv Bilgisi</DialogTitle>
+            <DialogDescription>
+              Sipariş No: {selectedEInvoiceOrder?.orderNumber}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="space-y-2">
+              <Label htmlFor="einvoice-number">Fatura Numarası *</Label>
+              <Input
+                id="einvoice-number"
+                placeholder="ABC2024000001"
+                value={eInvoiceNumber}
+                onChange={(e) => setEInvoiceNumber(e.target.value)}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="einvoice-date">Fatura Tarihi *</Label>
+              <Input
+                id="einvoice-date"
+                type="date"
+                value={eInvoiceDate}
+                onChange={(e) => setEInvoiceDate(e.target.value)}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="einvoice-link">Fatura Linki (Opsiyonel)</Label>
+              <Input
+                id="einvoice-link"
+                placeholder="https://fatura.orneksite.com/fatura.pdf"
+                value={eInvoiceLink}
+                onChange={(e) => setEInvoiceLink(e.target.value)}
+              />
+              <p className="text-xs text-muted-foreground">
+                E-Arşiv fatura PDF'inin erişilebilir URL'si
+              </p>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setEInvoiceDialog(false)}>
+              İptal
+            </Button>
+            <Button 
+              onClick={handleSendEInvoice}
+              disabled={!eInvoiceNumber || actionLoading === 'einvoice'}
+            >
+              {actionLoading === 'einvoice' && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
+              Fatura Gönder
             </Button>
           </DialogFooter>
         </DialogContent>
