@@ -20,6 +20,7 @@ import {
   Image,
   Truck,
   ShoppingCart,
+  Store,
 } from 'lucide-react';
 import logoBlack from '@/assets/sinceva_black_logo_for_mobile.png';
 
@@ -27,6 +28,7 @@ const navigation = [
   { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
   { name: 'Siparişler', href: '/admin/orders', icon: ShoppingCart },
   { name: 'Kargo Entegrasyonları', href: '/admin/shipping', icon: Truck },
+  { name: 'Trendyol', href: '/admin/trendyol', icon: Store },
   { name: 'Aboneler', href: '/admin/subscribers', icon: Users },
   { name: 'İletişim Mesajları', href: '/admin/contacts', icon: Mail },
   { name: 'E-posta Kampanyası', href: '/admin/campaign', icon: Send },
