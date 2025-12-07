@@ -31,6 +31,8 @@ import AdminCampaign from "./pages/admin/Campaign";
 import AdminImportData from "./pages/admin/ImportData";
 import AdminCategories from "./pages/admin/Categories";
 import AdminMediaManager from "./pages/admin/MediaManager";
+import AdminOrders from "./pages/admin/Orders";
+import AdminShippingProviders from "./pages/admin/ShippingProviders";
 
 console.log('App component loading...');
 
@@ -74,6 +76,8 @@ const App = () => {
               </AdminAuthProvider>
             }>
               <Route index element={<AdminDashboard />} />
+              <Route path="orders" element={<AdminOrders />} />
+              <Route path="shipping" element={<AdminShippingProviders />} />
               <Route path="subscribers" element={<AdminSubscribers />} />
               <Route path="contacts" element={<AdminContacts />} />
               <Route path="blog" element={<AdminBlogManagement />} />
