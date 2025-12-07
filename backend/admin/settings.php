@@ -16,7 +16,13 @@ define('SETTINGS_FILE', DATA_DIR . '/settings.json');
 if (!file_exists(SETTINGS_FILE)) {
     writeJsonFile(SETTINGS_FILE, [
         'integrations' => [],
-        'trendyol' => []
+        'trendyol' => [],
+        'paytr' => [
+            'merchant_id' => '',
+            'merchant_key' => '',
+            'merchant_salt' => '',
+            'test_mode' => true
+        ]
     ]);
 }
 
@@ -41,6 +47,24 @@ if ($method === 'GET') {
                     : str_repeat('*', strlen($secret));
             }
             respondSuccess(['data' => $trendyolSettings]);
+            break;
+            
+        case 'paytr':
+            // Return PayTR settings with masked secrets
+            $paytrSettings = $settings['paytr'] ?? [];
+            if (!empty($paytrSettings['merchant_key'])) {
+                $key = $paytrSettings['merchant_key'];
+                $paytrSettings['merchant_key'] = strlen($key) > 8 
+                    ? substr($key, 0, 4) . str_repeat('*', strlen($key) - 8) . substr($key, -4)
+                    : str_repeat('*', strlen($key));
+            }
+            if (!empty($paytrSettings['merchant_salt'])) {
+                $salt = $paytrSettings['merchant_salt'];
+                $paytrSettings['merchant_salt'] = strlen($salt) > 8 
+                    ? substr($salt, 0, 4) . str_repeat('*', strlen($salt) - 8) . substr($salt, -4)
+                    : str_repeat('*', strlen($salt));
+            }
+            respondSuccess(['data' => $paytrSettings]);
             break;
             
         case 'integrations':
@@ -87,6 +111,31 @@ if ($method === 'POST') {
                 'sellerId' => $trendyolSettings['sellerId'],
                 'hasApiKey' => !empty($trendyolSettings['apiKey']),
                 'hasApiSecret' => !empty($trendyolSettings['apiSecret'])
+            ]);
+            break;
+            
+        case 'paytr':
+            $paytrSettings = [
+                'merchant_id' => sanitizeInput($data['merchant_id'] ?? ''),
+                'merchant_key' => $data['merchant_key'] ?? '',
+                'merchant_salt' => $data['merchant_salt'] ?? '',
+                'test_mode' => (bool)($data['test_mode'] ?? true),
+                'updatedAt' => date('c')
+            ];
+            
+            // If secrets are masked, keep the old ones
+            if (!empty($settings['paytr']['merchant_key']) && strpos($data['merchant_key'] ?? '', '*') !== false) {
+                $paytrSettings['merchant_key'] = $settings['paytr']['merchant_key'];
+            }
+            if (!empty($settings['paytr']['merchant_salt']) && strpos($data['merchant_salt'] ?? '', '*') !== false) {
+                $paytrSettings['merchant_salt'] = $settings['paytr']['merchant_salt'];
+            }
+            
+            $settings['paytr'] = $paytrSettings;
+            
+            logAdminAction('paytr_settings_updated', [
+                'merchant_id' => $paytrSettings['merchant_id'],
+                'test_mode' => $paytrSettings['test_mode']
             ]);
             break;
             
