@@ -26,7 +26,7 @@ import { productDetailsTR } from '@/data/productDetails/tr';
 import { productDetailsEN } from '@/data/productDetails/en';
 import { productDetailsAR } from '@/data/productDetails/ar';
 
-// Import all media assets
+// Import all media assets - Product Images
 import arbutin01 from '@/assets/arbutin-01.png';
 import arbutinDiv from '@/assets/arbutin_div.png';
 import cvit01 from '@/assets/cvit-01.png';
@@ -45,11 +45,14 @@ import tonik01 from '@/assets/tonik-01.png';
 import tonikDiv from '@/assets/tonik_div.png';
 import yuz01 from '@/assets/yüz-01.png';
 import yuzDiv from '@/assets/yüz_div.png';
+
+// Banner Images
 import heroSkincare from '@/assets/hero-skincare.jpg';
 import contactBanner from '@/assets/contact_banner.jpg';
 import contactBannerMobile from '@/assets/contact_banner_mobile.jpg';
 import searchBanner from '@/assets/search_banner.jpg';
 import searchBannerMobile from '@/assets/search_banner_mobile.jpg';
+import searchHero from '@/assets/search-hero.jpg';
 import shopBanner from '@/assets/shop_banner.jpg';
 import shopBannerMobile from '@/assets/shop_banner_mobile.jpg';
 import tipsBanner from '@/assets/tips_banner.jpg';
@@ -58,23 +61,84 @@ import gozKremiBanner from '@/assets/göz_kremi_banner.jpg';
 import gozKremiBannerMobile from '@/assets/göz_kremi_banner_mobile.jpg';
 import toobBanner from '@/assets/toob_banner.jpg';
 import toobBannerMobile from '@/assets/toob_banner_mobile.jpg';
+
+// Category Images
 import antiagingKategori from '@/assets/anti aging kategori.jpg';
 import antiagingCart from '@/assets/antiagingcart.png';
 import cleansingKategori from '@/assets/cleansing kategori.jpg';
 import cleansingCart from '@/assets/cleansingcart.png';
 import dailyKategori from '@/assets/daily kategori.jpg';
 import dailycareCart from '@/assets/dailycarecart.png';
+
+// Logo Files
 import logoBlackMobile from '@/assets/sinceva_black_logo_for_mobile.png';
 import logoBlackWeb from '@/assets/sinceva_black_logo_for_web.png';
 import logoWhiteMobile from '@/assets/sinceva_white_logo_for_mobile.png';
 import logoWhiteWeb from '@/assets/sinceva_white_logo_for_web.png';
+
+// Additional Product Gallery Images - Arbutin
+import arbutinUrun2 from '@/assets/ARBUTİNÜRÜN2.png';
+import arbutinUrun3 from '@/assets/ARBUTİNÜRÜN3.png';
+import arbutinUrun5 from '@/assets/ARBUTİNÜRÜN5.png';
+import arbutinUrun6 from '@/assets/ARBUTİNÜRÜN6.png';
+
+// Additional Product Gallery Images - Gece (Night)
+import geceUrun2 from '@/assets/GECEÜRÜN2.png';
+import geceUrun3 from '@/assets/GECEÜRÜN3.png';
+import geceUrun5 from '@/assets/GECEÜRÜN5.png';
+import geceUrun6 from '@/assets/GECEÜRÜN6.png';
+
+// Additional Product Gallery Images - Göz (Eye)
+import gozUrun2 from '@/assets/GÖZÜRÜN2.png';
+import gozUrun3 from '@/assets/GÖZÜRÜN3.png';
+import gozUrun5 from '@/assets/GÖZÜRÜN5.png';
+import gozUrun6 from '@/assets/GÖZÜRÜN6.png';
+
+// Additional Product Gallery Images - Güneş (Sun)
+import gunesUrun2 from '@/assets/GÜNEŞÜRÜN2.png';
+import gunesUrun3 from '@/assets/GÜNEŞÜRÜN3.png';
+import gunesUrun5 from '@/assets/GÜNEŞÜRÜN5.png';
+import gunesUrun6 from '@/assets/GÜNEŞÜRÜN6.png';
+
+// Additional Product Gallery Images - Nemlendirici (Moisturizer)
+import nemlendiriciUrun2 from '@/assets/NEMLENDİRİCİÜRÜN2.png';
+import nemlendiriciUrun3 from '@/assets/NEMLENDİRİCİÜRÜN3.png';
+import nemlendiriciUrun5 from '@/assets/NEMLENDİRİCİÜRÜN5.png';
+import nemlendiriciUrun6 from '@/assets/NEMLENDİRİCİÜRÜN6.png';
+
+// Additional Product Gallery Images - Peeling
+import peelingUrun2 from '@/assets/PEELINGÜRÜN2.png';
+import peelingUrun3 from '@/assets/PEELINGÜRÜN3.png';
+import peelingUrun5 from '@/assets/PEELINGÜRÜN5.png';
+import peelingUrun6 from '@/assets/PEELINGÜRÜN6.png';
+
+// Additional Product Gallery Images - Tonik
+import tonikUrun2 from '@/assets/TONİKÜRÜN2.png';
+import tonikUrun3 from '@/assets/TONİKÜRÜN3.png';
+import tonikUrun5 from '@/assets/TONİKÜRÜN5.png';
+import tonikUrun6 from '@/assets/TONİKÜRÜN6.png';
+
+// Additional Product Gallery Images - Vitamin C
+import vitcUrun2 from '@/assets/VİTCÜRÜN2.png';
+import vitcUrun3 from '@/assets/VİTCÜRÜN3.png';
+import vitcUrun5 from '@/assets/VİTCÜRÜN5.png';
+import vitcUrun6 from '@/assets/VİTCÜRÜN6.png';
+
+// Additional Product Gallery Images - Yüz (Face)
+import yuzUrun2 from '@/assets/YÜZÜRÜN2.png';
+import yuzUrun3 from '@/assets/YÜZÜRÜN3.png';
+import yuzUrun5 from '@/assets/YÜZÜRÜN5.png';
+import yuzUrun6 from '@/assets/YÜZÜRÜN6.png';
+
+// Additional Product Image
+import zherUrun4 from '@/assets/ZHERÜRÜN4.png';
 
 const API_BASE = 'https://sinceva.com/api/admin';
 
 // Media categories for import
 const mediaCategories = {
   product: {
-    name: 'Ürün Görselleri',
+    name: 'Ürün Görselleri (Ana)',
     items: [
       { name: 'arbutin-01.png', url: arbutin01 },
       { name: 'arbutin_div.png', url: arbutinDiv },
@@ -96,10 +160,63 @@ const mediaCategories = {
       { name: 'yuz_div.png', url: yuzDiv },
     ],
   },
+  productGallery: {
+    name: 'Ürün Galeri Görselleri',
+    items: [
+      // Arbutin
+      { name: 'arbutin_urun2.png', url: arbutinUrun2 },
+      { name: 'arbutin_urun3.png', url: arbutinUrun3 },
+      { name: 'arbutin_urun5.png', url: arbutinUrun5 },
+      { name: 'arbutin_urun6.png', url: arbutinUrun6 },
+      // Gece
+      { name: 'gece_urun2.png', url: geceUrun2 },
+      { name: 'gece_urun3.png', url: geceUrun3 },
+      { name: 'gece_urun5.png', url: geceUrun5 },
+      { name: 'gece_urun6.png', url: geceUrun6 },
+      // Göz
+      { name: 'goz_urun2.png', url: gozUrun2 },
+      { name: 'goz_urun3.png', url: gozUrun3 },
+      { name: 'goz_urun5.png', url: gozUrun5 },
+      { name: 'goz_urun6.png', url: gozUrun6 },
+      // Güneş
+      { name: 'gunes_urun2.png', url: gunesUrun2 },
+      { name: 'gunes_urun3.png', url: gunesUrun3 },
+      { name: 'gunes_urun5.png', url: gunesUrun5 },
+      { name: 'gunes_urun6.png', url: gunesUrun6 },
+      // Nemlendirici
+      { name: 'nemlendirici_urun2.png', url: nemlendiriciUrun2 },
+      { name: 'nemlendirici_urun3.png', url: nemlendiriciUrun3 },
+      { name: 'nemlendirici_urun5.png', url: nemlendiriciUrun5 },
+      { name: 'nemlendirici_urun6.png', url: nemlendiriciUrun6 },
+      // Peeling
+      { name: 'peeling_urun2.png', url: peelingUrun2 },
+      { name: 'peeling_urun3.png', url: peelingUrun3 },
+      { name: 'peeling_urun5.png', url: peelingUrun5 },
+      { name: 'peeling_urun6.png', url: peelingUrun6 },
+      // Tonik
+      { name: 'tonik_urun2.png', url: tonikUrun2 },
+      { name: 'tonik_urun3.png', url: tonikUrun3 },
+      { name: 'tonik_urun5.png', url: tonikUrun5 },
+      { name: 'tonik_urun6.png', url: tonikUrun6 },
+      // Vitamin C
+      { name: 'vitc_urun2.png', url: vitcUrun2 },
+      { name: 'vitc_urun3.png', url: vitcUrun3 },
+      { name: 'vitc_urun5.png', url: vitcUrun5 },
+      { name: 'vitc_urun6.png', url: vitcUrun6 },
+      // Yüz
+      { name: 'yuz_urun2.png', url: yuzUrun2 },
+      { name: 'yuz_urun3.png', url: yuzUrun3 },
+      { name: 'yuz_urun5.png', url: yuzUrun5 },
+      { name: 'yuz_urun6.png', url: yuzUrun6 },
+      // Zher
+      { name: 'zher_urun4.png', url: zherUrun4 },
+    ],
+  },
   banner: {
     name: 'Banner Görselleri',
     items: [
       { name: 'hero-skincare.jpg', url: heroSkincare },
+      { name: 'search-hero.jpg', url: searchHero },
       { name: 'contact_banner.jpg', url: contactBanner },
       { name: 'contact_banner_mobile.jpg', url: contactBannerMobile },
       { name: 'search_banner.jpg', url: searchBanner },
