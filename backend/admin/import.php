@@ -122,6 +122,48 @@ switch ($type) {
         }
         break;
         
+    case 'categories':
+        define('CATEGORIES_FILE', DATA_DIR . '/categories.json');
+        $categories = readJsonFile(CATEGORIES_FILE);
+        $imported = 0;
+        
+        foreach ($data as $catData) {
+            // Check if category already exists by ID
+            $exists = false;
+            foreach ($categories as $c) {
+                if (($c['id'] ?? '') === ($catData['id'] ?? '')) {
+                    $exists = true;
+                    break;
+                }
+            }
+            
+            if (!$exists) {
+                $categories[] = [
+                    'id' => $catData['id'] ?? generateId('cat'),
+                    'title' => $catData['title'] ?? ['tr' => '', 'en' => '', 'ar' => ''],
+                    'slug' => $catData['slug'] ?? '',
+                    'description' => $catData['description'] ?? ['tr' => '', 'en' => '', 'ar' => ''],
+                    'bannerImage' => $catData['bannerImage'] ?? '',
+                    'subcategories' => $catData['subcategories'] ?? [],
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ];
+                $imported++;
+            }
+        }
+        
+        if (writeJsonFile(CATEGORIES_FILE, $categories)) {
+            logAdminAction('IMPORT_CATEGORIES', ['imported' => $imported]);
+            respondSuccess([
+                'message' => "$imported kategori import edildi",
+                'imported' => $imported,
+                'total' => count($categories)
+            ]);
+        } else {
+            respondError('WRITE_FAILED', 500);
+        }
+        break;
+        
     default:
         respondError('INVALID_TYPE');
 }
