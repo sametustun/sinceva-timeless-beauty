@@ -102,6 +102,7 @@ const sourceLabels: Record<string, string> = {
 };
 
 export default function Orders() {
+  console.log('Orders component rendering...');
   const [orders, setOrders] = useState<Order[]>([]);
   const [providers, setProviders] = useState<ShippingProvider[]>([]);
   const [loading, setLoading] = useState(true);
