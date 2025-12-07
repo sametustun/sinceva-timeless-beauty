@@ -22,6 +22,11 @@ if (!file_exists(SETTINGS_FILE)) {
             'merchant_key' => '',
             'merchant_salt' => '',
             'test_mode' => true
+        ],
+        'iyzico' => [
+            'api_key' => '',
+            'secret_key' => '',
+            'test_mode' => true
         ]
     ]);
 }
@@ -65,6 +70,18 @@ if ($method === 'GET') {
                     : str_repeat('*', strlen($salt));
             }
             respondSuccess(['data' => $paytrSettings]);
+            break;
+            
+        case 'iyzico':
+            // Return iyzico settings with masked secret
+            $iyzicoSettings = $settings['iyzico'] ?? [];
+            if (!empty($iyzicoSettings['secret_key'])) {
+                $secret = $iyzicoSettings['secret_key'];
+                $iyzicoSettings['secret_key'] = strlen($secret) > 8 
+                    ? substr($secret, 0, 4) . str_repeat('*', strlen($secret) - 8) . substr($secret, -4)
+                    : str_repeat('*', strlen($secret));
+            }
+            respondSuccess(['data' => $iyzicoSettings]);
             break;
             
         case 'integrations':
@@ -136,6 +153,27 @@ if ($method === 'POST') {
             logAdminAction('paytr_settings_updated', [
                 'merchant_id' => $paytrSettings['merchant_id'],
                 'test_mode' => $paytrSettings['test_mode']
+            ]);
+            break;
+            
+        case 'iyzico':
+            $iyzicoSettings = [
+                'api_key' => sanitizeInput($data['api_key'] ?? ''),
+                'secret_key' => $data['secret_key'] ?? '',
+                'test_mode' => (bool)($data['test_mode'] ?? true),
+                'updatedAt' => date('c')
+            ];
+            
+            // If secret is masked, keep the old one
+            if (!empty($settings['iyzico']['secret_key']) && strpos($data['secret_key'] ?? '', '*') !== false) {
+                $iyzicoSettings['secret_key'] = $settings['iyzico']['secret_key'];
+            }
+            
+            $settings['iyzico'] = $iyzicoSettings;
+            
+            logAdminAction('iyzico_settings_updated', [
+                'api_key' => $iyzicoSettings['api_key'],
+                'test_mode' => $iyzicoSettings['test_mode']
             ]);
             break;
             

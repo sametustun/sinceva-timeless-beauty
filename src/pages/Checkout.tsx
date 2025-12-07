@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '@/contexts/CartContext';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -9,8 +9,11 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2, ShoppingBag, CreditCard, Truck, AlertCircle } from 'lucide-react';
+
+type PaymentMethod = 'paytr' | 'iyzico';
 
 const API_BASE = import.meta.env.VITE_API_URL || 'https://sinceva.com/api';
 
@@ -21,7 +24,10 @@ export default function Checkout() {
   const { toast } = useToast();
   
   const [loading, setLoading] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('iyzico');
   const [paymentToken, setPaymentToken] = useState<string | null>(null);
+  const [iyzicoFormContent, setIyzicoFormContent] = useState<string | null>(null);
+  const iyzicoFormRef = useRef<HTMLDivElement>(null);
   const [form, setForm] = useState({
     customer_name: '',
     customer_email: '',
@@ -35,10 +41,28 @@ export default function Checkout() {
 
   // Redirect if cart is empty
   useEffect(() => {
-    if (items.length === 0 && !paymentToken) {
+    if (items.length === 0 && !paymentToken && !iyzicoFormContent) {
       navigate('/shop');
     }
-  }, [items, paymentToken, navigate]);
+  }, [items, paymentToken, iyzicoFormContent, navigate]);
+
+  // Render iyzico form when content is available
+  useEffect(() => {
+    if (iyzicoFormContent && iyzicoFormRef.current) {
+      iyzicoFormRef.current.innerHTML = iyzicoFormContent;
+      // Execute any scripts in the form
+      const scripts = iyzicoFormRef.current.querySelectorAll('script');
+      scripts.forEach((script) => {
+        const newScript = document.createElement('script');
+        if (script.src) {
+          newScript.src = script.src;
+        } else {
+          newScript.textContent = script.textContent;
+        }
+        document.body.appendChild(newScript);
+      });
+    }
+  }, [iyzicoFormContent]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
@@ -60,7 +84,11 @@ export default function Checkout() {
     setLoading(true);
 
     try {
-      const response = await fetch(`${API_BASE}/paytr/initiate.php`, {
+      const endpoint = paymentMethod === 'paytr' 
+        ? `${API_BASE}/paytr/initiate.php`
+        : `${API_BASE}/iyzico/initiate.php`;
+
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -77,7 +105,12 @@ export default function Checkout() {
       const data = await response.json();
 
       if (data.success) {
-        setPaymentToken(data.token);
+        if (paymentMethod === 'paytr') {
+          setPaymentToken(data.token);
+        } else {
+          // iyzico returns checkoutFormContent
+          setIyzicoFormContent(data.checkoutFormContent);
+        }
       } else {
         throw new Error(data.error || 'Ödeme başlatılamadı');
       }
@@ -92,7 +125,7 @@ export default function Checkout() {
     }
   };
 
-  // If we have a payment token, show the PayTR iframe
+  // If we have a payment token (PayTR), show the PayTR iframe
   if (paymentToken) {
     return (
       <Layout>
@@ -101,7 +134,7 @@ export default function Checkout() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <CreditCard className="h-5 w-5" />
-                Güvenli Ödeme
+                Güvenli Ödeme - PayTR
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -114,6 +147,34 @@ export default function Checkout() {
               </div>
               <p className="text-sm text-muted-foreground mt-4 text-center">
                 Ödeme işlemi PayTR güvenli altyapısı üzerinden gerçekleştirilmektedir.
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+      </Layout>
+    );
+  }
+
+  // If we have iyzico form content, show the iyzico checkout
+  if (iyzicoFormContent) {
+    return (
+      <Layout>
+        <div className="container max-w-4xl py-12">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <CreditCard className="h-5 w-5" />
+                Güvenli Ödeme - iyzico
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div 
+                ref={iyzicoFormRef} 
+                id="iyzipay-checkout-form" 
+                className="w-full min-h-[500px]"
+              />
+              <p className="text-sm text-muted-foreground mt-4 text-center">
+                Ödeme işlemi iyzico güvenli altyapısı üzerinden gerçekleştirilmektedir.
               </p>
             </CardContent>
           </Card>
@@ -235,6 +296,38 @@ export default function Checkout() {
                 </CardContent>
               </Card>
 
+              {/* Payment Method Selection */}
+              <Card className="mt-6">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <CreditCard className="h-5 w-5" />
+                    Ödeme Yöntemi
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <RadioGroup 
+                    value={paymentMethod} 
+                    onValueChange={(v) => setPaymentMethod(v as PaymentMethod)}
+                    className="space-y-3"
+                  >
+                    <div className="flex items-center space-x-3 p-3 rounded-lg border hover:bg-muted/50 cursor-pointer">
+                      <RadioGroupItem value="iyzico" id="iyzico" />
+                      <Label htmlFor="iyzico" className="flex-1 cursor-pointer">
+                        <div className="font-medium">iyzico</div>
+                        <p className="text-sm text-muted-foreground">Kredi kartı, banka kartı ile güvenli ödeme</p>
+                      </Label>
+                    </div>
+                    <div className="flex items-center space-x-3 p-3 rounded-lg border hover:bg-muted/50 cursor-pointer">
+                      <RadioGroupItem value="paytr" id="paytr" />
+                      <Label htmlFor="paytr" className="flex-1 cursor-pointer">
+                        <div className="font-medium">PayTR</div>
+                        <p className="text-sm text-muted-foreground">Kredi kartı, banka kartı, havale/EFT</p>
+                      </Label>
+                    </div>
+                  </RadioGroup>
+                </CardContent>
+              </Card>
+
               <Button type="submit" className="w-full mt-6" size="lg" disabled={loading}>
                 {loading ? (
                   <>
@@ -290,7 +383,7 @@ export default function Checkout() {
                 <div className="flex items-start gap-2 p-3 bg-muted rounded-lg text-sm">
                   <AlertCircle className="h-4 w-4 mt-0.5 text-muted-foreground flex-shrink-0" />
                   <p className="text-muted-foreground">
-                    Siparişiniz PayTR güvenli ödeme altyapısı üzerinden işlenecektir.
+                    Siparişiniz {paymentMethod === 'iyzico' ? 'iyzico' : 'PayTR'} güvenli ödeme altyapısı üzerinden işlenecektir.
                   </p>
                 </div>
               </CardContent>
