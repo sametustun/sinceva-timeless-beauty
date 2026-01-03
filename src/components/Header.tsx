@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import MegaMenu from './MegaMenu';
 import SearchDropdown from './SearchDropdown';
 import LanguageSelector from './LanguageSelector';
-import CartDrawer from './CartDrawer';
+
 import { useLogos } from '../hooks/useLogo';
 import { logoContent } from '../data/content';
 import useSearch from '../hooks/useSearch';
@@ -453,8 +453,7 @@ const Header: React.FC = () => {
         <MegaMenu isVisible={showMegaMenu} />
       </div>
 
-      {/* Cart Drawer */}
-      <CartDrawer />
+      {/* Cart Drawer - Controlled by CartContext */}
 
     </header>
   );
