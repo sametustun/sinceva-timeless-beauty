@@ -86,22 +86,13 @@ export default function Settings() {
   const [iyzicoTestResult, setIyzicoTestResult] = useState<{ success: boolean; message: string } | null>(null);
 
   useEffect(() => {
-    // Load saved integrations from localStorage (these are public keys)
-    const saved = localStorage.getItem('sinceva_integrations');
-    if (saved) {
-      try {
-        setIntegrations(JSON.parse(saved));
-      } catch (e) {
-        console.error('Failed to load integrations:', e);
-      }
-    }
-
-    // Load Trendyol settings from backend
+    // Load all settings from backend
     const loadSettings = async () => {
       try {
-        const [trendyolRes, paymentRes] = await Promise.all([
+        const [trendyolRes, paymentRes, integrationsRes] = await Promise.all([
           fetch(`${API_URL}/admin/settings.php?type=trendyol`, { credentials: 'include' }),
           fetch(`${API_URL}/admin/settings.php?type=payment`, { credentials: 'include' }),
+          fetch(`${API_URL}/admin/settings.php?type=integrations`, { credentials: 'include' }),
         ]);
         
         const trendyolData = await trendyolRes.json();
@@ -127,6 +118,18 @@ export default function Settings() {
               secretKey: paymentData.data.iyzico?.secretKey || "",
               testMode: paymentData.data.iyzico?.testMode ?? true,
             },
+          });
+        }
+
+        const integrationsData = await integrationsRes.json();
+        if (integrationsData.success && integrationsData.data) {
+          setIntegrations({
+            googleAnalyticsId: integrationsData.data.googleAnalyticsId || "",
+            googleSearchConsoleId: integrationsData.data.googleSearchConsoleId || "",
+            facebookPixelId: integrationsData.data.facebookPixelId || "",
+            googleTagManagerId: integrationsData.data.googleTagManagerId || "",
+            hotjarId: integrationsData.data.hotjarId || "",
+            clarityId: integrationsData.data.clarityId || "",
           });
         }
       } catch (error) {
@@ -243,21 +246,24 @@ export default function Settings() {
     setSavingIntegrations(true);
     
     try {
-      // Save to localStorage (these are public/measurement IDs)
-      localStorage.setItem('sinceva_integrations', JSON.stringify(integrations));
-      
-      // Also save to backend for persistence
-      await fetch(`${API_URL}/admin/settings.php`, {
+      // Save to backend for cross-device persistence
+      const response = await fetch(`${API_URL}/admin/settings.php`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
         body: JSON.stringify({ type: 'integrations', data: integrations }),
       });
 
-      toast({
-        title: "Başarılı",
-        description: "Entegrasyon ayarları kaydedildi. Değişikliklerin aktif olması için index.html dosyasına script eklenmelidir.",
-      });
+      const data = await response.json();
+      
+      if (data.success) {
+        toast({
+          title: "Başarılı",
+          description: "Entegrasyon ayarları kaydedildi. Değişikliklerin aktif olması için index.html dosyasına script eklenmelidir.",
+        });
+      } else {
+        throw new Error(data.error || 'Save failed');
+      }
     } catch (error) {
       toast({
         title: "Hata",
