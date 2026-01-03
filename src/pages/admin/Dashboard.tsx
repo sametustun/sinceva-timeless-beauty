@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Users, Mail, FileText, Package, TrendingUp, Clock, Eye, ArrowRight, Image as ImageIcon, BarChart3, CheckCircle, XCircle, ExternalLink } from 'lucide-react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area, BarChart, Bar } from 'recharts';
+import { Users, Mail, FileText, Package, TrendingUp, Clock, Eye, ArrowRight, Image as ImageIcon, BarChart3, CheckCircle, XCircle, ExternalLink, Activity, Globe, MousePointer, Target, Zap, Settings } from 'lucide-react';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell } from 'recharts';
 import { Link } from 'react-router-dom';
-
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 interface Stats {
   summary: {
     subscribers: { total: number; confirmed: number; pending: number; new_this_week: number };
@@ -468,27 +468,27 @@ export default function AdminDashboard() {
           </CardContent>
         </Card>
 
-        {/* Analytics Integrations */}
-        <Card>
+        {/* Analytics Dashboard */}
+        <Card className="md:col-span-2">
           <CardHeader className="flex flex-row items-center justify-between">
             <div>
               <CardTitle className="flex items-center gap-2">
-                <BarChart3 className="h-5 w-5 text-orange-500" />
-                Analitik Entegrasyonları
+                <Activity className="h-5 w-5 text-primary" />
+                Analitik & İzleme Paneli
               </CardTitle>
               <CardDescription>
-                Takip ve analiz araçları durumu
+                Tüm izleme araçları ve entegrasyonların durumu
               </CardDescription>
             </div>
             <Button variant="ghost" size="sm" asChild>
               <Link to="/admin/settings" className="flex items-center gap-1">
+                <Settings className="h-4 w-4 mr-1" />
                 Ayarlar
-                <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>
           </CardHeader>
           <CardContent>
-            <IntegrationStatus />
+            <AnalyticsDashboard />
           </CardContent>
         </Card>
 
@@ -540,53 +540,187 @@ export default function AdminDashboard() {
   );
 }
 
-// Integration Status Component
-function IntegrationStatus() {
-  const [integrations, setIntegrations] = useState<Record<string, string>>({});
-
-  useEffect(() => {
-    const saved = localStorage.getItem('sinceva_integrations');
-    if (saved) {
-      try {
-        setIntegrations(JSON.parse(saved));
-      } catch (e) {
-        console.error('Failed to load integrations:', e);
-      }
-    }
-  }, []);
+// Analytics Dashboard Component
+function AnalyticsDashboard() {
+  // Hardcoded values from index.html
+  const analyticsConfig = {
+    googleTagManager: { id: 'GTM-NQH48RDR', active: true },
+    googleAnalytics: { id: 'G-XXXXXXXXXX', active: false }, // Placeholder
+    facebookPixel: { id: 'YOUR_PIXEL_ID', active: false }, // Placeholder
+    hotjar: { id: '0', active: false }, // Placeholder
+    clarity: { id: 'YOUR_CLARITY_ID', active: false }, // Placeholder
+  };
 
   const integrationItems = [
-    { key: 'googleAnalyticsId', name: 'Google Analytics', icon: BarChart3, color: 'text-orange-500' },
-    { key: 'googleTagManagerId', name: 'Tag Manager', icon: BarChart3, color: 'text-blue-600' },
-    { key: 'facebookPixelId', name: 'Facebook Pixel', icon: BarChart3, color: 'text-blue-700' },
-    { key: 'hotjarId', name: 'Hotjar', icon: BarChart3, color: 'text-red-500' },
-    { key: 'clarityId', name: 'Clarity', icon: BarChart3, color: 'text-purple-500' },
+    { 
+      key: 'googleTagManager',
+      name: 'Google Tag Manager', 
+      description: 'Etiket yönetimi ve event tracking',
+      icon: Target, 
+      color: 'text-blue-600',
+      bgColor: 'bg-blue-500/10',
+      id: analyticsConfig.googleTagManager.id,
+      active: analyticsConfig.googleTagManager.active,
+      docsUrl: 'https://tagmanager.google.com'
+    },
+    { 
+      key: 'googleAnalytics',
+      name: 'Google Analytics 4', 
+      description: 'Web trafiği ve kullanıcı davranışı analizi',
+      icon: BarChart3, 
+      color: 'text-orange-500',
+      bgColor: 'bg-orange-500/10',
+      id: analyticsConfig.googleAnalytics.id,
+      active: !analyticsConfig.googleAnalytics.id.includes('XXXXX'),
+      docsUrl: 'https://analytics.google.com'
+    },
+    { 
+      key: 'facebookPixel',
+      name: 'Meta Pixel', 
+      description: 'Facebook/Instagram reklam dönüşüm takibi',
+      icon: Globe, 
+      color: 'text-blue-700',
+      bgColor: 'bg-blue-700/10',
+      id: analyticsConfig.facebookPixel.id,
+      active: !analyticsConfig.facebookPixel.id.includes('YOUR_'),
+      docsUrl: 'https://business.facebook.com/events_manager'
+    },
+    { 
+      key: 'hotjar',
+      name: 'Hotjar', 
+      description: 'Isı haritaları ve kullanıcı kayıtları',
+      icon: MousePointer, 
+      color: 'text-red-500',
+      bgColor: 'bg-red-500/10',
+      id: analyticsConfig.hotjar.id,
+      active: analyticsConfig.hotjar.id !== '0',
+      docsUrl: 'https://hotjar.com'
+    },
+    { 
+      key: 'clarity',
+      name: 'Microsoft Clarity', 
+      description: 'Ücretsiz kullanıcı davranış analizi',
+      icon: Zap, 
+      color: 'text-purple-500',
+      bgColor: 'bg-purple-500/10',
+      id: analyticsConfig.clarity.id,
+      active: !analyticsConfig.clarity.id.includes('YOUR_'),
+      docsUrl: 'https://clarity.microsoft.com'
+    },
+  ];
+
+  const activeCount = integrationItems.filter(i => i.active).length;
+  const totalCount = integrationItems.length;
+
+  const pieData = [
+    { name: 'Aktif', value: activeCount, color: '#22c55e' },
+    { name: 'Yapılandırılmadı', value: totalCount - activeCount, color: '#e5e7eb' },
   ];
 
   return (
-    <div className="space-y-3">
-      {integrationItems.map((item) => {
-        const isConfigured = !!integrations[item.key] && integrations[item.key] !== '';
-        return (
-          <div key={item.key} className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <item.icon className={`h-4 w-4 ${item.color}`} />
-              <span className="text-sm">{item.name}</span>
+    <div className="space-y-6">
+      {/* Summary Stats */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="text-center p-4 rounded-lg bg-green-500/10 border border-green-500/20">
+          <div className="text-2xl font-bold text-green-600">{activeCount}</div>
+          <div className="text-xs text-muted-foreground">Aktif Araç</div>
+        </div>
+        <div className="text-center p-4 rounded-lg bg-muted border border-border">
+          <div className="text-2xl font-bold text-muted-foreground">{totalCount - activeCount}</div>
+          <div className="text-xs text-muted-foreground">Yapılandırılmadı</div>
+        </div>
+        <div className="text-center p-4 rounded-lg bg-primary/10 border border-primary/20">
+          <div className="text-2xl font-bold text-primary">{totalCount}</div>
+          <div className="text-xs text-muted-foreground">Toplam Entegrasyon</div>
+        </div>
+        <div className="text-center p-4 rounded-lg bg-orange-500/10 border border-orange-500/20">
+          <div className="text-2xl font-bold text-orange-600">{Math.round((activeCount / totalCount) * 100)}%</div>
+          <div className="text-xs text-muted-foreground">Tamamlanma</div>
+        </div>
+      </div>
+
+      {/* Integration List */}
+      <div className="space-y-3">
+        {integrationItems.map((item) => (
+          <div 
+            key={item.key} 
+            className={`flex items-center justify-between p-4 rounded-lg border transition-colors ${
+              item.active 
+                ? 'bg-green-500/5 border-green-500/20' 
+                : 'bg-muted/50 border-border'
+            }`}
+          >
+            <div className="flex items-center gap-4">
+              <div className={`p-2 rounded-lg ${item.bgColor}`}>
+                <item.icon className={`h-5 w-5 ${item.color}`} />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="font-medium">{item.name}</span>
+                  {item.active && (
+                    <Badge variant="outline" className="text-green-600 border-green-500/30 bg-green-500/10">
+                      <CheckCircle className="h-3 w-3 mr-1" />
+                      Aktif
+                    </Badge>
+                  )}
+                </div>
+                <p className="text-sm text-muted-foreground">{item.description}</p>
+                {item.active && item.id && (
+                  <code className="text-xs bg-muted px-2 py-0.5 rounded mt-1 inline-block">
+                    {item.id}
+                  </code>
+                )}
+              </div>
             </div>
-            {isConfigured ? (
-              <span className="flex items-center gap-1 text-xs text-green-600">
-                <CheckCircle className="h-3 w-3" />
-                Aktif
-              </span>
-            ) : (
-              <span className="flex items-center gap-1 text-xs text-muted-foreground">
-                <XCircle className="h-3 w-3" />
-                Yapılandırılmadı
-              </span>
-            )}
+            <div className="flex items-center gap-2">
+              {item.active ? (
+                <a 
+                  href={item.docsUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-xs text-primary hover:underline flex items-center gap-1"
+                >
+                  Dashboard
+                  <ExternalLink className="h-3 w-3" />
+                </a>
+              ) : (
+                <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                  <XCircle className="h-4 w-4" />
+                  ID Gerekli
+                </span>
+              )}
+            </div>
           </div>
-        );
-      })}
+        ))}
+      </div>
+
+      {/* Quick Actions */}
+      <div className="flex flex-wrap gap-2 pt-4 border-t">
+        <Button variant="outline" size="sm" asChild>
+          <a href="https://tagmanager.google.com" target="_blank" rel="noopener noreferrer">
+            <Target className="h-4 w-4 mr-2" />
+            GTM Aç
+          </a>
+        </Button>
+        <Button variant="outline" size="sm" asChild>
+          <a href="https://analytics.google.com" target="_blank" rel="noopener noreferrer">
+            <BarChart3 className="h-4 w-4 mr-2" />
+            GA4 Aç
+          </a>
+        </Button>
+        <Button variant="outline" size="sm" asChild>
+          <a href="https://business.facebook.com/events_manager" target="_blank" rel="noopener noreferrer">
+            <Globe className="h-4 w-4 mr-2" />
+            Meta Events
+          </a>
+        </Button>
+        <Button variant="outline" size="sm" asChild>
+          <Link to="/admin/settings">
+            <Settings className="h-4 w-4 mr-2" />
+            ID'leri Düzenle
+          </Link>
+        </Button>
+      </div>
     </div>
   );
 }
