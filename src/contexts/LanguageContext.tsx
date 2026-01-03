@@ -21,6 +21,16 @@ interface LanguageProviderProps {
   children: ReactNode;
 }
 
+const applyLanguageDir = (lang: Language) => {
+  if (lang === 'ar') {
+    document.documentElement.dir = 'rtl';
+    document.documentElement.lang = 'ar';
+  } else {
+    document.documentElement.dir = 'ltr';
+    document.documentElement.lang = lang;
+  }
+};
+
 export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) => {
   const [language, setLanguageState] = useState<Language>(() => {
     // Get saved language from localStorage or default to 'tr'
@@ -31,26 +41,12 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
     localStorage.setItem('language', lang);
-    
-    // Update HTML dir attribute for RTL support
-    if (lang === 'ar') {
-      document.documentElement.dir = 'rtl';
-      document.documentElement.lang = 'ar';
-    } else {
-      document.documentElement.dir = 'ltr';
-      document.documentElement.lang = lang;
-    }
+    applyLanguageDir(lang);
   };
 
   // Set initial dir attribute
   useEffect(() => {
-    if (language === 'ar') {
-      document.documentElement.dir = 'rtl';
-      document.documentElement.lang = 'ar';
-    } else {
-      document.documentElement.dir = 'ltr';
-      document.documentElement.lang = language;
-    }
+    applyLanguageDir(language);
   }, []);
 
   return (

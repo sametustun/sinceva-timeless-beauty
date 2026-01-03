@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, useRef, ReactNode } from 'react';
 import { useToast } from '@/hooks/use-toast';
 
 export interface CartItem {
@@ -20,6 +20,7 @@ interface CartContextType {
   totalAmount: number;
   isOpen: boolean;
   setIsOpen: (open: boolean) => void;
+  mergeServerCart: (serverCart: CartItem[]) => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -29,7 +30,9 @@ const CART_STORAGE_KEY = 'sinceva_cart';
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [initialized, setInitialized] = useState(false);
   const { toast } = useToast();
+  const syncTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Load cart from localStorage on mount
   useEffect(() => {
@@ -41,12 +44,34 @@ export function CartProvider({ children }: { children: ReactNode }) {
         console.error('Failed to load cart:', e);
       }
     }
+    setInitialized(true);
   }, []);
 
   // Save cart to localStorage on change
   useEffect(() => {
+    if (!initialized) return;
     localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
-  }, [items]);
+  }, [items, initialized]);
+
+  // Function to merge server cart (called by AuthContext after login)
+  const mergeServerCart = (serverCart: CartItem[]) => {
+    if (!serverCart || serverCart.length === 0) return;
+    
+    setItems(prev => {
+      if (prev.length === 0) {
+        return serverCart;
+      }
+      // Merge: keep local items, add server items that don't exist locally
+      const merged = [...prev];
+      serverCart.forEach(serverItem => {
+        const existingIndex = merged.findIndex(i => i.id === serverItem.id);
+        if (existingIndex === -1) {
+          merged.push(serverItem);
+        }
+      });
+      return merged;
+    });
+  };
 
   const addItem = (item: Omit<CartItem, 'quantity'> & { quantity?: number }) => {
     const quantity = item.quantity || 1;
@@ -100,6 +125,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         totalAmount,
         isOpen,
         setIsOpen,
+        mergeServerCart,
       }}
     >
       {children}
