@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import MegaMenu from './MegaMenu';
 import SearchDropdown from './SearchDropdown';
 import LanguageSelector from './LanguageSelector';
+import UserMenu from './UserMenu';
 
 import { useLogos } from '../hooks/useLogo';
 import { logoContent } from '../data/content';
@@ -252,6 +253,9 @@ const Header: React.FC = () => {
           
           {/* Search Section */}
           <div className={`flex items-center transition-all duration-300 ${showSearch ? 'ml-2 md:ml-4' : 'ml-4 md:ml-8'}`}>
+          {/* User Menu */}
+          <UserMenu isScrolled={isScrolled} />
+
           {/* Language Selector - Fixed position in both LTR and RTL */}
           <div className="ltr:ml-2 rtl:mr-2">
             <LanguageSelector isScrolled={isScrolled} />
@@ -339,8 +343,9 @@ const Header: React.FC = () => {
             {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
           
-          {/* Mobile Language Selector, Cart and Search */}
+          {/* Mobile Language Selector, User Menu, Cart and Search */}
           <div className="flex items-center gap-1">
+            <UserMenu isScrolled={isScrolled} />
             <LanguageSelector isScrolled={isScrolled} />
             {/* Mobile Cart Button */}
             <button
