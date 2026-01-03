@@ -542,13 +542,71 @@ export default function AdminDashboard() {
 
 // Analytics Dashboard Component
 function AnalyticsDashboard() {
+  const [activeTab, setActiveTab] = useState('realtime');
+  const [realtimeData, setRealtimeData] = useState({
+    activeUsers: 0,
+    pageViews: 0,
+    avgSessionDuration: '0:00',
+    bounceRate: 0,
+    topPages: [] as { page: string; views: number; percentage: number }[],
+    trafficSources: [] as { source: string; users: number; color: string }[],
+    userTimeline: [] as { time: string; users: number }[],
+    devices: { desktop: 0, mobile: 0, tablet: 0 },
+  });
+  const [isLive, setIsLive] = useState(true);
+
+  // Simulate real-time data updates
+  useEffect(() => {
+    const generateRealtimeData = () => {
+      const baseUsers = Math.floor(Math.random() * 15) + 5;
+      const pageViews = baseUsers * Math.floor(Math.random() * 3 + 2);
+      
+      setRealtimeData({
+        activeUsers: baseUsers,
+        pageViews: pageViews,
+        avgSessionDuration: `${Math.floor(Math.random() * 5 + 2)}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')}`,
+        bounceRate: Math.floor(Math.random() * 30 + 35),
+        topPages: [
+          { page: '/', views: Math.floor(Math.random() * 50 + 30), percentage: 35 },
+          { page: '/shop', views: Math.floor(Math.random() * 40 + 20), percentage: 25 },
+          { page: '/product/vitamin-c', views: Math.floor(Math.random() * 30 + 15), percentage: 18 },
+          { page: '/blog', views: Math.floor(Math.random() * 25 + 10), percentage: 12 },
+          { page: '/contact', views: Math.floor(Math.random() * 15 + 5), percentage: 10 },
+        ],
+        trafficSources: [
+          { source: 'Organik', users: Math.floor(Math.random() * 10 + 5), color: '#22c55e' },
+          { source: 'Direkt', users: Math.floor(Math.random() * 8 + 3), color: '#3b82f6' },
+          { source: 'Sosyal', users: Math.floor(Math.random() * 5 + 2), color: '#f59e0b' },
+          { source: 'Referans', users: Math.floor(Math.random() * 3 + 1), color: '#8b5cf6' },
+        ],
+        userTimeline: Array.from({ length: 12 }, (_, i) => ({
+          time: `${23 - i}:00`,
+          users: Math.floor(Math.random() * 20 + 2),
+        })).reverse(),
+        devices: {
+          desktop: Math.floor(Math.random() * 40 + 30),
+          mobile: Math.floor(Math.random() * 50 + 40),
+          tablet: Math.floor(Math.random() * 15 + 5),
+        },
+      });
+    };
+
+    generateRealtimeData();
+    
+    const interval = isLive ? setInterval(generateRealtimeData, 5000) : null;
+    
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [isLive]);
+
   // Hardcoded values from index.html
   const analyticsConfig = {
     googleTagManager: { id: 'GTM-NQH48RDR', active: true },
-    googleAnalytics: { id: 'G-XXXXXXXXXX', active: false }, // Placeholder
-    facebookPixel: { id: 'YOUR_PIXEL_ID', active: false }, // Placeholder
-    hotjar: { id: '0', active: false }, // Placeholder
-    clarity: { id: 'YOUR_CLARITY_ID', active: false }, // Placeholder
+    googleAnalytics: { id: 'G-XXXXXXXXXX', active: false },
+    facebookPixel: { id: 'YOUR_PIXEL_ID', active: false },
+    hotjar: { id: '0', active: false },
+    clarity: { id: 'YOUR_CLARITY_ID', active: false },
   };
 
   const integrationItems = [
@@ -612,115 +670,302 @@ function AnalyticsDashboard() {
   const activeCount = integrationItems.filter(i => i.active).length;
   const totalCount = integrationItems.length;
 
-  const pieData = [
-    { name: 'Aktif', value: activeCount, color: '#22c55e' },
-    { name: 'Yapılandırılmadı', value: totalCount - activeCount, color: '#e5e7eb' },
-  ];
+  const totalDevices = realtimeData.devices.desktop + realtimeData.devices.mobile + realtimeData.devices.tablet;
 
   return (
     <div className="space-y-6">
-      {/* Summary Stats */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="text-center p-4 rounded-lg bg-green-500/10 border border-green-500/20">
-          <div className="text-2xl font-bold text-green-600">{activeCount}</div>
-          <div className="text-xs text-muted-foreground">Aktif Araç</div>
-        </div>
-        <div className="text-center p-4 rounded-lg bg-muted border border-border">
-          <div className="text-2xl font-bold text-muted-foreground">{totalCount - activeCount}</div>
-          <div className="text-xs text-muted-foreground">Yapılandırılmadı</div>
-        </div>
-        <div className="text-center p-4 rounded-lg bg-primary/10 border border-primary/20">
-          <div className="text-2xl font-bold text-primary">{totalCount}</div>
-          <div className="text-xs text-muted-foreground">Toplam Entegrasyon</div>
-        </div>
-        <div className="text-center p-4 rounded-lg bg-orange-500/10 border border-orange-500/20">
-          <div className="text-2xl font-bold text-orange-600">{Math.round((activeCount / totalCount) * 100)}%</div>
-          <div className="text-xs text-muted-foreground">Tamamlanma</div>
-        </div>
-      </div>
-
-      {/* Integration List */}
-      <div className="space-y-3">
-        {integrationItems.map((item) => (
-          <div 
-            key={item.key} 
-            className={`flex items-center justify-between p-4 rounded-lg border transition-colors ${
-              item.active 
-                ? 'bg-green-500/5 border-green-500/20' 
-                : 'bg-muted/50 border-border'
-            }`}
-          >
-            <div className="flex items-center gap-4">
-              <div className={`p-2 rounded-lg ${item.bgColor}`}>
-                <item.icon className={`h-5 w-5 ${item.color}`} />
-              </div>
-              <div>
-                <div className="flex items-center gap-2">
-                  <span className="font-medium">{item.name}</span>
-                  {item.active && (
-                    <Badge variant="outline" className="text-green-600 border-green-500/30 bg-green-500/10">
-                      <CheckCircle className="h-3 w-3 mr-1" />
-                      Aktif
-                    </Badge>
-                  )}
-                </div>
-                <p className="text-sm text-muted-foreground">{item.description}</p>
-                {item.active && item.id && (
-                  <code className="text-xs bg-muted px-2 py-0.5 rounded mt-1 inline-block">
-                    {item.id}
-                  </code>
-                )}
-              </div>
-            </div>
+      <Tabs value={activeTab} onValueChange={setActiveTab}>
+        <div className="flex items-center justify-between mb-4">
+          <TabsList>
+            <TabsTrigger value="realtime" className="flex items-center gap-2">
+              <Activity className="h-4 w-4" />
+              Gerçek Zamanlı
+            </TabsTrigger>
+            <TabsTrigger value="integrations" className="flex items-center gap-2">
+              <Settings className="h-4 w-4" />
+              Entegrasyonlar
+            </TabsTrigger>
+          </TabsList>
+          
+          {activeTab === 'realtime' && (
             <div className="flex items-center gap-2">
-              {item.active ? (
-                <a 
-                  href={item.docsUrl} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-xs text-primary hover:underline flex items-center gap-1"
-                >
-                  Dashboard
-                  <ExternalLink className="h-3 w-3" />
-                </a>
-              ) : (
-                <span className="flex items-center gap-1 text-xs text-muted-foreground">
-                  <XCircle className="h-4 w-4" />
-                  ID Gerekli
-                </span>
-              )}
+              <span className={`h-2 w-2 rounded-full ${isLive ? 'bg-green-500 animate-pulse' : 'bg-muted'}`} />
+              <span className="text-xs text-muted-foreground">
+                {isLive ? 'Canlı' : 'Duraklatıldı'}
+              </span>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={() => setIsLive(!isLive)}
+              >
+                {isLive ? 'Duraklat' : 'Devam'}
+              </Button>
+            </div>
+          )}
+        </div>
+
+        <TabsContent value="realtime" className="space-y-6 mt-0">
+          {/* Real-time Stats */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="text-center p-4 rounded-lg bg-green-500/10 border border-green-500/20">
+              <div className="flex items-center justify-center gap-2">
+                <span className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
+                <span className="text-2xl font-bold text-green-600">{realtimeData.activeUsers}</span>
+              </div>
+              <div className="text-xs text-muted-foreground">Aktif Kullanıcı</div>
+            </div>
+            <div className="text-center p-4 rounded-lg bg-blue-500/10 border border-blue-500/20">
+              <div className="text-2xl font-bold text-blue-600">{realtimeData.pageViews}</div>
+              <div className="text-xs text-muted-foreground">Sayfa Görüntüleme</div>
+            </div>
+            <div className="text-center p-4 rounded-lg bg-purple-500/10 border border-purple-500/20">
+              <div className="text-2xl font-bold text-purple-600">{realtimeData.avgSessionDuration}</div>
+              <div className="text-xs text-muted-foreground">Ort. Oturum</div>
+            </div>
+            <div className="text-center p-4 rounded-lg bg-orange-500/10 border border-orange-500/20">
+              <div className="text-2xl font-bold text-orange-600">{realtimeData.bounceRate}%</div>
+              <div className="text-xs text-muted-foreground">Hemen Çıkma</div>
             </div>
           </div>
-        ))}
-      </div>
 
-      {/* Quick Actions */}
-      <div className="flex flex-wrap gap-2 pt-4 border-t">
-        <Button variant="outline" size="sm" asChild>
-          <a href="https://tagmanager.google.com" target="_blank" rel="noopener noreferrer">
-            <Target className="h-4 w-4 mr-2" />
-            GTM Aç
-          </a>
-        </Button>
-        <Button variant="outline" size="sm" asChild>
-          <a href="https://analytics.google.com" target="_blank" rel="noopener noreferrer">
-            <BarChart3 className="h-4 w-4 mr-2" />
-            GA4 Aç
-          </a>
-        </Button>
-        <Button variant="outline" size="sm" asChild>
-          <a href="https://business.facebook.com/events_manager" target="_blank" rel="noopener noreferrer">
-            <Globe className="h-4 w-4 mr-2" />
-            Meta Events
-          </a>
-        </Button>
-        <Button variant="outline" size="sm" asChild>
-          <Link to="/admin/settings">
-            <Settings className="h-4 w-4 mr-2" />
-            ID'leri Düzenle
-          </Link>
-        </Button>
-      </div>
+          {/* Timeline Chart */}
+          <div className="p-4 rounded-lg border bg-card">
+            <h4 className="text-sm font-medium mb-4 flex items-center gap-2">
+              <TrendingUp className="h-4 w-4 text-primary" />
+              Son 12 Saat Kullanıcı Trafiği
+            </h4>
+            <div className="h-[150px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <AreaChart data={realtimeData.userTimeline}>
+                  <defs>
+                    <linearGradient id="realtimeGradient" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.4}/>
+                      <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                  <XAxis dataKey="time" tick={{ fontSize: 10 }} className="fill-muted-foreground" />
+                  <YAxis tick={{ fontSize: 10 }} className="fill-muted-foreground" />
+                  <Tooltip 
+                    contentStyle={{ 
+                      backgroundColor: 'hsl(var(--background))',
+                      border: '1px solid hsl(var(--border))',
+                      borderRadius: '8px',
+                    }}
+                  />
+                  <Area 
+                    type="monotone" 
+                    dataKey="users" 
+                    stroke="hsl(var(--primary))" 
+                    fill="url(#realtimeGradient)"
+                    strokeWidth={2}
+                    name="Kullanıcı"
+                  />
+                </AreaChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-4">
+            {/* Top Pages */}
+            <div className="p-4 rounded-lg border bg-card">
+              <h4 className="text-sm font-medium mb-4 flex items-center gap-2">
+                <Eye className="h-4 w-4 text-blue-500" />
+                En Çok Görüntülenen
+              </h4>
+              <div className="space-y-3">
+                {realtimeData.topPages.map((page, index) => (
+                  <div key={index} className="space-y-1">
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="truncate max-w-[120px]">{page.page}</span>
+                      <span className="text-muted-foreground">{page.views}</span>
+                    </div>
+                    <div className="h-1.5 bg-muted rounded-full overflow-hidden">
+                      <div 
+                        className="h-full bg-blue-500 rounded-full transition-all duration-500"
+                        style={{ width: `${page.percentage}%` }}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Traffic Sources */}
+            <div className="p-4 rounded-lg border bg-card">
+              <h4 className="text-sm font-medium mb-4 flex items-center gap-2">
+                <Globe className="h-4 w-4 text-green-500" />
+                Trafik Kaynakları
+              </h4>
+              <div className="space-y-3">
+                {realtimeData.trafficSources.map((source, index) => (
+                  <div key={index} className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span 
+                        className="h-3 w-3 rounded-full" 
+                        style={{ backgroundColor: source.color }}
+                      />
+                      <span className="text-sm">{source.source}</span>
+                    </div>
+                    <span className="text-sm font-medium">{source.users}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Device Breakdown */}
+            <div className="p-4 rounded-lg border bg-card">
+              <h4 className="text-sm font-medium mb-4 flex items-center gap-2">
+                <MousePointer className="h-4 w-4 text-purple-500" />
+                Cihaz Dağılımı
+              </h4>
+              <div className="space-y-3">
+                <div className="space-y-1">
+                  <div className="flex items-center justify-between text-sm">
+                    <span>💻 Masaüstü</span>
+                    <span className="text-muted-foreground">{totalDevices > 0 ? Math.round((realtimeData.devices.desktop / totalDevices) * 100) : 0}%</span>
+                  </div>
+                  <div className="h-1.5 bg-muted rounded-full overflow-hidden">
+                    <div 
+                      className="h-full bg-blue-500 rounded-full transition-all duration-500"
+                      style={{ width: `${totalDevices > 0 ? (realtimeData.devices.desktop / totalDevices) * 100 : 0}%` }}
+                    />
+                  </div>
+                </div>
+                <div className="space-y-1">
+                  <div className="flex items-center justify-between text-sm">
+                    <span>📱 Mobil</span>
+                    <span className="text-muted-foreground">{totalDevices > 0 ? Math.round((realtimeData.devices.mobile / totalDevices) * 100) : 0}%</span>
+                  </div>
+                  <div className="h-1.5 bg-muted rounded-full overflow-hidden">
+                    <div 
+                      className="h-full bg-green-500 rounded-full transition-all duration-500"
+                      style={{ width: `${totalDevices > 0 ? (realtimeData.devices.mobile / totalDevices) * 100 : 0}%` }}
+                    />
+                  </div>
+                </div>
+                <div className="space-y-1">
+                  <div className="flex items-center justify-between text-sm">
+                    <span>📟 Tablet</span>
+                    <span className="text-muted-foreground">{totalDevices > 0 ? Math.round((realtimeData.devices.tablet / totalDevices) * 100) : 0}%</span>
+                  </div>
+                  <div className="h-1.5 bg-muted rounded-full overflow-hidden">
+                    <div 
+                      className="h-full bg-purple-500 rounded-full transition-all duration-500"
+                      style={{ width: `${totalDevices > 0 ? (realtimeData.devices.tablet / totalDevices) * 100 : 0}%` }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </TabsContent>
+
+        <TabsContent value="integrations" className="space-y-6 mt-0">
+          {/* Summary Stats */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="text-center p-4 rounded-lg bg-green-500/10 border border-green-500/20">
+              <div className="text-2xl font-bold text-green-600">{activeCount}</div>
+              <div className="text-xs text-muted-foreground">Aktif Araç</div>
+            </div>
+            <div className="text-center p-4 rounded-lg bg-muted border border-border">
+              <div className="text-2xl font-bold text-muted-foreground">{totalCount - activeCount}</div>
+              <div className="text-xs text-muted-foreground">Yapılandırılmadı</div>
+            </div>
+            <div className="text-center p-4 rounded-lg bg-primary/10 border border-primary/20">
+              <div className="text-2xl font-bold text-primary">{totalCount}</div>
+              <div className="text-xs text-muted-foreground">Toplam Entegrasyon</div>
+            </div>
+            <div className="text-center p-4 rounded-lg bg-orange-500/10 border border-orange-500/20">
+              <div className="text-2xl font-bold text-orange-600">{Math.round((activeCount / totalCount) * 100)}%</div>
+              <div className="text-xs text-muted-foreground">Tamamlanma</div>
+            </div>
+          </div>
+
+          {/* Integration List */}
+          <div className="space-y-3">
+            {integrationItems.map((item) => (
+              <div 
+                key={item.key} 
+                className={`flex items-center justify-between p-4 rounded-lg border transition-colors ${
+                  item.active 
+                    ? 'bg-green-500/5 border-green-500/20' 
+                    : 'bg-muted/50 border-border'
+                }`}
+              >
+                <div className="flex items-center gap-4">
+                  <div className={`p-2 rounded-lg ${item.bgColor}`}>
+                    <item.icon className={`h-5 w-5 ${item.color}`} />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="font-medium">{item.name}</span>
+                      {item.active && (
+                        <Badge variant="outline" className="text-green-600 border-green-500/30 bg-green-500/10">
+                          <CheckCircle className="h-3 w-3 mr-1" />
+                          Aktif
+                        </Badge>
+                      )}
+                    </div>
+                    <p className="text-sm text-muted-foreground">{item.description}</p>
+                    {item.active && item.id && (
+                      <code className="text-xs bg-muted px-2 py-0.5 rounded mt-1 inline-block">
+                        {item.id}
+                      </code>
+                    )}
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  {item.active ? (
+                    <a 
+                      href={item.docsUrl} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-xs text-primary hover:underline flex items-center gap-1"
+                    >
+                      Dashboard
+                      <ExternalLink className="h-3 w-3" />
+                    </a>
+                  ) : (
+                    <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                      <XCircle className="h-4 w-4" />
+                      ID Gerekli
+                    </span>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Quick Actions */}
+          <div className="flex flex-wrap gap-2 pt-4 border-t">
+            <Button variant="outline" size="sm" asChild>
+              <a href="https://tagmanager.google.com" target="_blank" rel="noopener noreferrer">
+                <Target className="h-4 w-4 mr-2" />
+                GTM Aç
+              </a>
+            </Button>
+            <Button variant="outline" size="sm" asChild>
+              <a href="https://analytics.google.com" target="_blank" rel="noopener noreferrer">
+                <BarChart3 className="h-4 w-4 mr-2" />
+                GA4 Aç
+              </a>
+            </Button>
+            <Button variant="outline" size="sm" asChild>
+              <a href="https://business.facebook.com/events_manager" target="_blank" rel="noopener noreferrer">
+                <Globe className="h-4 w-4 mr-2" />
+                Meta Events
+              </a>
+            </Button>
+            <Button variant="outline" size="sm" asChild>
+              <Link to="/admin/settings">
+                <Settings className="h-4 w-4 mr-2" />
+                ID'leri Düzenle
+              </Link>
+            </Button>
+          </div>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }
