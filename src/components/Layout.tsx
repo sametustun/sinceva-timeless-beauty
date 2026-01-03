@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './Header';
 import Footer from './Footer';
 import CookieConsent from './CookieConsent';
+import CartDrawer from './CartDrawer';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -18,6 +19,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       </main>
       <Footer />
       <CookieConsent />
+      <CartDrawer />
     </div>
   );
 };
