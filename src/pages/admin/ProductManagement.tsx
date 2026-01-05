@@ -57,6 +57,8 @@ interface Product {
   category: string;
   images: string[];
   volume: string;
+  price?: number | null;
+  sale_price?: number | null;
   active: boolean;
   featured: boolean;
   seo?: {
@@ -78,6 +80,8 @@ const emptyProduct: Partial<Product> = {
   category: '',
   images: [],
   volume: '',
+  price: null,
+  sale_price: null,
   active: true,
   featured: false,
   seo: {
@@ -185,6 +189,22 @@ function SortableProductCard({
             {product.active ? 'Aktif' : 'Pasif'}
           </Badge>
         </div>
+
+        {/* Price Display */}
+        {(product.price || product.sale_price) && (
+          <div className="flex items-center gap-2">
+            {product.price && product.sale_price ? (
+              <>
+                <span className="text-sm text-muted-foreground line-through">₺{product.price.toFixed(2)}</span>
+                <span className="text-sm font-semibold text-green-600">₺{product.sale_price.toFixed(2)}</span>
+              </>
+            ) : product.sale_price ? (
+              <span className="text-sm font-semibold">₺{product.sale_price.toFixed(2)}</span>
+            ) : product.price ? (
+              <span className="text-sm font-semibold">₺{product.price.toFixed(2)}</span>
+            ) : null}
+          </div>
+        )}
 
         {/* Actions */}
         <div className="flex items-center justify-between pt-2 border-t">
@@ -339,6 +359,24 @@ function ProductPreviewDialog({
               <h2 className="text-2xl font-bold">{product.name.tr || product.name.en}</h2>
               {product.volume && (
                 <p className="text-muted-foreground">{product.volume}</p>
+              )}
+              {/* Price Display in Preview */}
+              {(product.price || product.sale_price) && (
+                <div className="flex items-center gap-3 mt-2">
+                  {product.price && product.sale_price ? (
+                    <>
+                      <span className="text-lg text-muted-foreground line-through">₺{product.price.toFixed(2)}</span>
+                      <span className="text-xl font-bold text-green-600">₺{product.sale_price.toFixed(2)}</span>
+                      <Badge variant="destructive" className="text-xs">
+                        %{Math.round((1 - product.sale_price / product.price) * 100)} İndirim
+                      </Badge>
+                    </>
+                  ) : product.sale_price ? (
+                    <span className="text-xl font-bold">₺{product.sale_price.toFixed(2)}</span>
+                  ) : product.price ? (
+                    <span className="text-xl font-bold">₺{product.price.toFixed(2)}</span>
+                  ) : null}
+                </div>
               )}
             </div>
 
@@ -813,13 +851,43 @@ export default function AdminProductManagement() {
                 </div>
               </div>
 
-              <div className="space-y-2">
-                <Label>Hacim</Label>
-                <Input
-                  value={editingProduct.volume || ''}
-                  onChange={(e) => setEditingProduct({ ...editingProduct, volume: e.target.value })}
-                  placeholder="50ml"
-                />
+              <div className="grid gap-4 sm:grid-cols-3">
+                <div className="space-y-2">
+                  <Label>Hacim</Label>
+                  <Input
+                    value={editingProduct.volume || ''}
+                    onChange={(e) => setEditingProduct({ ...editingProduct, volume: e.target.value })}
+                    placeholder="50ml"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label>Normal Fiyat (₺)</Label>
+                  <Input
+                    type="number"
+                    step="0.01"
+                    value={editingProduct.price || ''}
+                    onChange={(e) => setEditingProduct({ 
+                      ...editingProduct, 
+                      price: e.target.value ? parseFloat(e.target.value) : null 
+                    })}
+                    placeholder="199.90"
+                  />
+                  <p className="text-xs text-muted-foreground">Üstü çizili görünür</p>
+                </div>
+                <div className="space-y-2">
+                  <Label>İndirimli Fiyat (₺)</Label>
+                  <Input
+                    type="number"
+                    step="0.01"
+                    value={editingProduct.sale_price || ''}
+                    onChange={(e) => setEditingProduct({ 
+                      ...editingProduct, 
+                      sale_price: e.target.value ? parseFloat(e.target.value) : null 
+                    })}
+                    placeholder="149.90"
+                  />
+                  <p className="text-xs text-muted-foreground">Aktif satış fiyatı</p>
+                </div>
               </div>
 
               <div className="space-y-4">
