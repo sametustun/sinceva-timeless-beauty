@@ -76,7 +76,8 @@ switch ($method) {
             ],
             'benefits' => $input['benefits'] ?? [],
             'volume' => $input['volume'] ?? '',
-            'price' => $input['price'] ?? null,
+            'price' => isset($input['price']) && $input['price'] !== '' ? floatval($input['price']) : null,
+            'sale_price' => isset($input['sale_price']) && $input['sale_price'] !== '' ? floatval($input['sale_price']) : null,
             'active' => $input['active'] ?? true,
             'featured' => $input['featured'] ?? false,
             'order' => $input['order'] ?? 0,
@@ -129,7 +130,7 @@ switch ($method) {
                 // Update fields
                 $updateableFields = ['name', 'slug', 'description', 'short_description', 'category', 
                                      'images', 'ingredients', 'usage', 'benefits', 'volume', 
-                                     'price', 'active', 'featured', 'order', 'seo'];
+                                     'price', 'sale_price', 'active', 'featured', 'order', 'seo'];
                 
                 foreach ($updateableFields as $field) {
                     if (isset($input[$field])) {
