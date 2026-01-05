@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Users, Mail, FileText, Package, TrendingUp, Clock, Eye, ArrowRight, Image as ImageIcon, BarChart3, CheckCircle, XCircle, ExternalLink, Activity, Globe, MousePointer, Target, Zap, Settings } from 'lucide-react';
+import { Users, Mail, FileText, Package, TrendingUp, Clock, Eye, ArrowRight, Image as ImageIcon, BarChart3, CheckCircle, XCircle, ExternalLink, Activity, Globe, MousePointer, Target, Zap, Settings, Search } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell } from 'recharts';
 import { Link } from 'react-router-dom';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -557,6 +557,7 @@ function AnalyticsDashboard() {
   const [analyticsConfig, setAnalyticsConfig] = useState({
     googleTagManager: { id: '', active: false },
     googleAnalytics: { id: '', active: false },
+    googleSearchConsole: { id: '', active: false },
     facebookPixel: { id: '', active: false },
     hotjar: { id: '', active: false },
     clarity: { id: '', active: false },
@@ -572,7 +573,7 @@ function AnalyticsDashboard() {
         const data = await response.json();
         if (data.success && data.data) {
           const s = data.data;
-          // Backend uses: googleTagManagerId, googleAnalyticsId, facebookPixelId, hotjarId, clarityId
+          // Backend uses: googleTagManagerId, googleAnalyticsId, googleSearchConsoleId, facebookPixelId, hotjarId, clarityId
           setAnalyticsConfig({
             googleTagManager: { 
               id: s.googleTagManagerId || '', 
@@ -581,6 +582,10 @@ function AnalyticsDashboard() {
             googleAnalytics: { 
               id: s.googleAnalyticsId || '', 
               active: !!(s.googleAnalyticsId && s.googleAnalyticsId.trim() && !s.googleAnalyticsId.includes('YOUR_') && !s.googleAnalyticsId.includes('XXXXX'))
+            },
+            googleSearchConsole: { 
+              id: s.googleSearchConsoleId || '', 
+              active: !!(s.googleSearchConsoleId && s.googleSearchConsoleId.trim() && !s.googleSearchConsoleId.includes('YOUR_'))
             },
             facebookPixel: { 
               id: s.facebookPixelId || '', 
@@ -668,8 +673,19 @@ function AnalyticsDashboard() {
       color: 'text-orange-500',
       bgColor: 'bg-orange-500/10',
       id: analyticsConfig.googleAnalytics.id,
-      active: !analyticsConfig.googleAnalytics.id.includes('XXXXX'),
+      active: analyticsConfig.googleAnalytics.active,
       docsUrl: 'https://analytics.google.com'
+    },
+    { 
+      key: 'googleSearchConsole',
+      name: 'Google Search Console', 
+      description: 'Arama performansı ve site sağlığı',
+      icon: Search, 
+      color: 'text-blue-500',
+      bgColor: 'bg-blue-500/10',
+      id: analyticsConfig.googleSearchConsole.id,
+      active: analyticsConfig.googleSearchConsole.active,
+      docsUrl: 'https://search.google.com/search-console'
     },
     { 
       key: 'facebookPixel',
@@ -679,7 +695,7 @@ function AnalyticsDashboard() {
       color: 'text-blue-700',
       bgColor: 'bg-blue-700/10',
       id: analyticsConfig.facebookPixel.id,
-      active: !analyticsConfig.facebookPixel.id.includes('YOUR_'),
+      active: analyticsConfig.facebookPixel.active,
       docsUrl: 'https://business.facebook.com/events_manager'
     },
     { 
@@ -690,7 +706,7 @@ function AnalyticsDashboard() {
       color: 'text-red-500',
       bgColor: 'bg-red-500/10',
       id: analyticsConfig.hotjar.id,
-      active: analyticsConfig.hotjar.id !== '0',
+      active: analyticsConfig.hotjar.active,
       docsUrl: 'https://hotjar.com'
     },
     { 
@@ -701,7 +717,7 @@ function AnalyticsDashboard() {
       color: 'text-purple-500',
       bgColor: 'bg-purple-500/10',
       id: analyticsConfig.clarity.id,
-      active: !analyticsConfig.clarity.id.includes('YOUR_'),
+      active: analyticsConfig.clarity.active,
       docsUrl: 'https://clarity.microsoft.com'
     },
   ];
