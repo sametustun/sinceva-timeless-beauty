@@ -261,6 +261,7 @@ if ($method === 'POST') {
         case 'integrations':
             $settings['integrations'] = [
                 'googleAnalyticsId' => sanitizeInput($data['googleAnalyticsId'] ?? ''),
+                'ga4PropertyId' => sanitizeInput($data['ga4PropertyId'] ?? ''),
                 'googleSearchConsoleId' => sanitizeInput($data['googleSearchConsoleId'] ?? ''),
                 'facebookPixelId' => sanitizeInput($data['facebookPixelId'] ?? ''),
                 'googleTagManagerId' => sanitizeInput($data['googleTagManagerId'] ?? ''),

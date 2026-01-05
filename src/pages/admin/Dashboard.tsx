@@ -562,6 +562,9 @@ function AnalyticsDashboard() {
     hotjar: { id: '', active: false },
     clarity: { id: '', active: false },
   });
+  const [ga4Configured, setGa4Configured] = useState<boolean | null>(null);
+  const [ga4Message, setGa4Message] = useState('');
+  const [loadingRealtime, setLoadingRealtime] = useState(false);
 
   // Fetch analytics settings from API
   useEffect(() => {
@@ -608,45 +611,47 @@ function AnalyticsDashboard() {
     fetchSettings();
   }, []);
 
-  // Simulate real-time data updates
-  useEffect(() => {
-    const generateRealtimeData = () => {
-      const baseUsers = Math.floor(Math.random() * 15) + 5;
-      const pageViews = baseUsers * Math.floor(Math.random() * 3 + 2);
-      
-      setRealtimeData({
-        activeUsers: baseUsers,
-        pageViews: pageViews,
-        avgSessionDuration: `${Math.floor(Math.random() * 5 + 2)}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')}`,
-        bounceRate: Math.floor(Math.random() * 30 + 35),
-        topPages: [
-          { page: '/', views: Math.floor(Math.random() * 50 + 30), percentage: 35 },
-          { page: '/shop', views: Math.floor(Math.random() * 40 + 20), percentage: 25 },
-          { page: '/product/vitamin-c', views: Math.floor(Math.random() * 30 + 15), percentage: 18 },
-          { page: '/blog', views: Math.floor(Math.random() * 25 + 10), percentage: 12 },
-          { page: '/contact', views: Math.floor(Math.random() * 15 + 5), percentage: 10 },
-        ],
-        trafficSources: [
-          { source: 'Organik', users: Math.floor(Math.random() * 10 + 5), color: '#22c55e' },
-          { source: 'Direkt', users: Math.floor(Math.random() * 8 + 3), color: '#3b82f6' },
-          { source: 'Sosyal', users: Math.floor(Math.random() * 5 + 2), color: '#f59e0b' },
-          { source: 'Referans', users: Math.floor(Math.random() * 3 + 1), color: '#8b5cf6' },
-        ],
-        userTimeline: Array.from({ length: 12 }, (_, i) => ({
-          time: `${23 - i}:00`,
-          users: Math.floor(Math.random() * 20 + 2),
-        })).reverse(),
-        devices: {
-          desktop: Math.floor(Math.random() * 40 + 30),
-          mobile: Math.floor(Math.random() * 50 + 40),
-          tablet: Math.floor(Math.random() * 15 + 5),
-        },
+  // Fetch real-time data from GA4 API
+  const fetchRealtimeData = async () => {
+    setLoadingRealtime(true);
+    try {
+      const response = await fetch('https://sinceva.com/backend/admin/analytics.php?type=realtime', {
+        credentials: 'include'
       });
-    };
+      const data = await response.json();
+      
+      if (data.success) {
+        if (data.configured === false) {
+          setGa4Configured(false);
+          setGa4Message(data.message || 'GA4 API yapılandırılmamış');
+        } else if (data.data) {
+          setGa4Configured(true);
+          setRealtimeData({
+            activeUsers: data.data.activeUsers || 0,
+            pageViews: data.data.pageViews || 0,
+            avgSessionDuration: data.data.avgSessionDuration || '0:00',
+            bounceRate: data.data.bounceRate || 0,
+            topPages: data.data.topPages || [],
+            trafficSources: data.data.trafficSources || [],
+            userTimeline: [], // Would need separate endpoint
+            devices: data.data.devices || { desktop: 0, mobile: 0, tablet: 0 },
+          });
+        }
+      }
+    } catch (error) {
+      console.error('Failed to fetch realtime data:', error);
+      setGa4Configured(false);
+      setGa4Message('GA4 API bağlantısı kurulamadı');
+    } finally {
+      setLoadingRealtime(false);
+    }
+  };
 
-    generateRealtimeData();
+  // Fetch realtime data on mount and periodically if live
+  useEffect(() => {
+    fetchRealtimeData();
     
-    const interval = isLive ? setInterval(generateRealtimeData, 5000) : null;
+    const interval = isLive ? setInterval(fetchRealtimeData, 30000) : null; // 30 seconds
     
     return () => {
       if (interval) clearInterval(interval);
@@ -760,6 +765,41 @@ function AnalyticsDashboard() {
         </div>
 
         <TabsContent value="realtime" className="space-y-6 mt-0">
+          {/* GA4 Configuration Warning */}
+          {ga4Configured === false && (
+            <div className="p-4 rounded-lg bg-amber-500/10 border border-amber-500/20">
+              <div className="flex items-start gap-3">
+                <BarChart3 className="h-5 w-5 text-amber-500 mt-0.5" />
+                <div>
+                  <h4 className="font-medium text-amber-700 dark:text-amber-400">GA4 API Yapılandırması Gerekli</h4>
+                  <p className="text-sm text-muted-foreground mt-1">{ga4Message}</p>
+                  <div className="mt-3 text-xs text-muted-foreground space-y-1">
+                    <p>Gerçek zamanlı verileri görmek için:</p>
+                    <ol className="list-decimal list-inside space-y-1 ml-2">
+                      <li>Google Cloud Console'da Service Account oluşturun</li>
+                      <li>GA4 property'ye bu hesabı "Görüntüleyici" olarak ekleyin</li>
+                      <li>JSON key dosyasını <code className="bg-muted px-1 rounded">backend/data/ga-credentials.json</code> olarak yükleyin</li>
+                      <li>Ayarlar'dan GA4 Property ID'yi girin (sayısal)</li>
+                    </ol>
+                  </div>
+                  <Button variant="outline" size="sm" className="mt-3" asChild>
+                    <Link to="/admin/settings">
+                      <Settings className="h-4 w-4 mr-2" />
+                      Ayarlara Git
+                    </Link>
+                  </Button>
+                </div>
+              </div>
+            </div>
+          )}
+          
+          {loadingRealtime && ga4Configured === null && (
+            <div className="text-center py-8 text-muted-foreground">
+              <div className="animate-spin h-6 w-6 border-2 border-primary border-t-transparent rounded-full mx-auto mb-2" />
+              GA4 verileri yükleniyor...
+            </div>
+          )}
+
           {/* Real-time Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="text-center p-4 rounded-lg bg-green-500/10 border border-green-500/20">
