@@ -14,23 +14,19 @@ error_reporting(E_ALL);
 ini_set('display_errors', '0');
 ini_set('log_errors', '1');
 
-// Load environment variables
-$envFile = dirname(__DIR__) . '/.env';
-if (file_exists($envFile)) {
-    $lines = file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-    foreach ($lines as $line) {
-        if (strpos($line, '#') === 0) continue;
-        if (strpos($line, '=') !== false) {
-            list($key, $value) = explode('=', $line, 2);
-            $_ENV[trim($key)] = trim($value);
-            putenv(trim($key) . '=' . trim($value));
-        }
-    }
-}
+// Load environment variables using vlucas/phpdotenv
+require_once dirname(__DIR__) . '/vendor/autoload.php';
 
-// Configuration constants
-define('ALLOWED_ORIGIN', $_ENV['ALLOWED_ORIGIN'] ?? 'https://sinceva.com');
+$dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
+$dotenv->safeLoad();
+
+// Configuration constants - ALLOWED_ORIGINS for CORS
+define('ALLOWED_ORIGINS', [
+    'https://sinceva.com',
+    'https://www.sinceva.com'
+]);
 define('DATA_DIR', dirname(__DIR__) . '/data/');
+define('LOG_DIR', dirname(__DIR__) . '/logs/');
 define('LOG_DIR', dirname(__DIR__) . '/logs/');
 
 // Admin credentials (should be in .env in production)
@@ -69,11 +65,10 @@ foreach ($dataFiles as $file => $defaultData) {
 // CORS headers
 function setCorsHeaders() {
     $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
-    $allowedOrigins = [
-        ALLOWED_ORIGIN, 
-        'http://localhost:5173', 
-        'http://localhost:8080'
-    ];
+    $allowedOrigins = array_merge(
+        ALLOWED_ORIGINS, 
+        ['http://localhost:5173', 'http://localhost:8080']
+    );
     
     // Allow Lovable preview domains (both .lovable.app and .lovableproject.com)
     $isLovablePreview = preg_match('/^https:\/\/[a-z0-9-]+\.lovable\.app$/', $origin) ||
