@@ -20,6 +20,7 @@ declare global {
       reset: (id: string) => void;
       getResponse?: (id?: string) => string;
     };
+    dataLayer?: Record<string, any>[];
   }
 }
 
@@ -122,6 +123,10 @@ const Contact: React.FC = () => {
       const data = await res.json();
 
       if (data.ok) {
+        // GA4 conversion tracking - only on successful submission
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event: "generate_lead" });
+        
         toast({ title: t.messageSentSuccess, description: t.messageSentDesc });
         setFormData({ name: '', email: '', phone: '', subject: '', message: '', website: '' });
         (window as any).__turnstileToken = null;
