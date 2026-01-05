@@ -75,9 +75,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, className = "" }) =>
                         {product.name}
                       </h3>
                       {/* Price Display */}
-                      {(product.price || product.sale_price) && (
+                      {(product.price && product.price > 0) || (product.sale_price && product.sale_price > 0) ? (
                         <div className="flex items-center gap-2">
-                          {product.price && product.sale_price ? (
+                          {product.price && product.price > 0 && product.sale_price && product.sale_price > 0 ? (
                             <>
                               <span className="text-xs text-gray-500 line-through">
                                 {product.price.toLocaleString('tr-TR')} ₺
@@ -86,17 +86,17 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, className = "" }) =>
                                 {product.sale_price.toLocaleString('tr-TR')} ₺
                               </span>
                             </>
-                          ) : product.sale_price ? (
+                          ) : product.sale_price && product.sale_price > 0 ? (
                             <span className="text-sm font-bold text-black">
                               {product.sale_price.toLocaleString('tr-TR')} ₺
                             </span>
-                          ) : product.price ? (
+                          ) : product.price && product.price > 0 ? (
                             <span className="text-sm font-bold text-black">
                               {product.price.toLocaleString('tr-TR')} ₺
                             </span>
                           ) : null}
                         </div>
-                      )}
+                      ) : null}
                     </div>
 
                     {/* Buy Button */}
