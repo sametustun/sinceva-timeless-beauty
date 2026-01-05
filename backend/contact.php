@@ -18,15 +18,24 @@ ini_set('display_errors', '0');
 ini_set('log_errors', '1');
 
 // Load environment variables
-require_once __DIR__ . '/vendor/autoload.php';
+$vendorAutoload = __DIR__ . '/vendor/autoload.php';
+if (file_exists($vendorAutoload)) {
+    require_once $vendorAutoload;
+    
+    // Load .env file using vlucas/phpdotenv
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+    $dotenv->safeLoad();
+} else {
+    // Log error if composer not installed
+    error_log('Composer autoload not found. Run: composer install');
+    http_response_code(500);
+    echo json_encode(['ok' => false, 'error' => 'SERVER_CONFIG_ERROR']);
+    exit;
+}
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
-
-// Load .env file using vlucas/phpdotenv
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-$dotenv->safeLoad();
 
 // Configuration
 define('TURNSTILE_SECRET', $_ENV['TURNSTILE_SECRET'] ?? '');
