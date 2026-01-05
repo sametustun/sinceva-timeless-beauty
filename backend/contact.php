@@ -307,24 +307,38 @@ function sendEmail($name, $email, $phone, $subject, $message) {
     $mail = new PHPMailer(true);
     
     try {
-        // SMTP settings - Turkticaret SMTP
-        $mail->isSMTP();
-        $mail->Host = SMTP_HOST;
-        $mail->SMTPAuth = true;
-        $mail->Username = SMTP_USER;
-        $mail->Password = SMTP_PASS;
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // SSL for port 465
-        $mail->Port = SMTP_PORT;
-        $mail->CharSet = 'UTF-8';
-        $mail->Timeout = 30; // 30 second timeout
+        // Try cPanel localhost SMTP first (most reliable for shared hosting)
+        $useLocalhost = ($_ENV['SMTP_HOST'] ?? '') === 'localhost' || 
+                        ($_ENV['USE_LOCALHOST_SMTP'] ?? '') === 'true';
         
-        // Enable debug output for troubleshooting (logs to error_log)
-        $mail->SMTPDebug = SMTP::DEBUG_SERVER; // TEMPORARY: Enable for debugging
+        if ($useLocalhost) {
+            // cPanel localhost - no authentication needed
+            $mail->isSMTP();
+            $mail->Host = 'localhost';
+            $mail->Port = 25;
+            $mail->SMTPAuth = false;
+            $mail->SMTPSecure = false;
+        } else {
+            // External SMTP (Turkticaret, Gmail, etc.)
+            $mail->isSMTP();
+            $mail->Host = SMTP_HOST;
+            $mail->SMTPAuth = true;
+            $mail->Username = SMTP_USER;
+            $mail->Password = SMTP_PASS;
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+            $mail->Port = SMTP_PORT;
+        }
+        
+        $mail->CharSet = 'UTF-8';
+        $mail->Timeout = 30;
+        
+        // Debug mode (disable in production)
+        $mail->SMTPDebug = SMTP::DEBUG_OFF;
         $mail->Debugoutput = function($str, $level) {
             error_log("SMTP DEBUG [$level]: $str");
         };
         
-        // From address MUST match SMTP_USER
+        // From address
         $mail->setFrom(SMTP_USER, 'SincEva');
         $mail->addAddress(MAIL_TO, MAIL_TO_NAME);
         $mail->addReplyTo($email, $name);
@@ -373,7 +387,6 @@ function sendEmail($name, $email, $phone, $subject, $message) {
         return ['success' => true, 'error' => null];
         
     } catch (Exception $e) {
-        // Log SMTP errors to error_log for debugging
         $errorInfo = $mail->ErrorInfo;
         error_log("SMTP Error: " . $errorInfo);
         logRequest('PHPMAILER_ERROR', ['error' => $errorInfo]);
