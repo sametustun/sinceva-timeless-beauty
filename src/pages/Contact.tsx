@@ -120,7 +120,20 @@ const Contact: React.FC = () => {
         body: JSON.stringify(payload),
       });
       
-      const data = await res.json();
+      // Handle non-JSON responses
+      const text = await res.text();
+      let data;
+      try {
+        data = JSON.parse(text);
+      } catch {
+        console.error('Invalid JSON response:', text);
+        toast({ 
+          title: 'Sunucu Hatası', 
+          description: `Sunucu geçersiz yanıt döndü. Status: ${res.status}`, 
+          variant: 'destructive' 
+        });
+        return;
+      }
 
       if (data.ok) {
         // GA4 conversion tracking - only on successful submission
@@ -137,11 +150,21 @@ const Contact: React.FC = () => {
           'TURNSTILE_FAILED': 'Güvenlik doğrulaması başarısız.',
           'RATE_LIMITED': 'Çok fazla deneme. Lütfen daha sonra tekrar deneyin.',
           'MAIL_SEND_FAILED': 'E-posta gönderilemedi. Lütfen tekrar deneyin.',
+          'SERVER_ERROR': 'Sunucu hatası oluştu.',
+          'FATAL_ERROR': 'Kritik sunucu hatası.',
+          'ENV_FILE_MISSING': '.env dosyası bulunamadı.',
+          'COMPOSER_NOT_INSTALLED': 'Composer kurulmamış.',
+          'DOTENV_NOT_INSTALLED': 'PHP Dotenv kurulmamış.',
+          'PHPMAILER_NOT_INSTALLED': 'PHPMailer kurulmamış.',
         };
-        const errorMsg = errorMessages[data.error] || data.error || 'Bir hata oluştu.';
+        // Show debug info if available
+        const debugInfo = data.debug ? ` (${data.debug})` : '';
+        const errorMsg = (errorMessages[data.error] || data.error || 'Bir hata oluştu.') + debugInfo;
+        console.error('Contact form error:', data);
         toast({ title: 'Hata', description: errorMsg, variant: 'destructive' });
       }
     } catch (err) {
+      console.error('Contact form exception:', err);
       toast({ title: 'Hata', description: 'Bağlantı hatası. Lütfen tekrar deneyin.', variant: 'destructive' });
     } finally {
       setLoading(false);
