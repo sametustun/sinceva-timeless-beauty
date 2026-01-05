@@ -303,8 +303,9 @@ function sendConfirmationEmail($email, $token, $language) {
             $mail->Port = SMTP_PORT;
         }
         
-        // Recipients
-        $mail->setFrom(SMTP_USER, 'Sinceva');
+        // Recipients - use SMTP_USER or default email for localhost
+        $fromEmail = !empty(SMTP_USER) ? SMTP_USER : 'info@sinceva.com';
+        $mail->setFrom($fromEmail, 'Sinceva');
         $mail->addAddress($email);
         
         // Content
