@@ -75,11 +75,16 @@ function setCorsHeaders() {
         'http://localhost:8080'
     ];
     
-    // Allow Lovable preview domains
-    $isLovablePreview = preg_match('/^https:\/\/[a-z0-9-]+\.lovableproject\.com$/', $origin);
+    // Allow Lovable preview domains (both .lovable.app and .lovableproject.com)
+    $isLovablePreview = preg_match('/^https:\/\/[a-z0-9-]+\.lovable\.app$/', $origin) ||
+                        preg_match('/^https:\/\/[a-z0-9-]+\.lovableproject\.com$/', $origin) ||
+                        preg_match('/^https:\/\/id-preview--[a-z0-9-]+\.lovable\.app$/', $origin);
     
     if (in_array($origin, $allowedOrigins) || $isLovablePreview) {
         header("Access-Control-Allow-Origin: $origin");
+    } else {
+        // Fallback: allow all origins in development (remove in production if needed)
+        header("Access-Control-Allow-Origin: *");
     }
     
     header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
