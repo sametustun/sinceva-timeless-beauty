@@ -46,7 +46,7 @@ interface Stats {
   }>;
 }
 
-const API_BASE = 'https://sinceva.com/api/admin';
+const API_BASE = 'https://sinceva.com/backend/admin';
 
 export default function AdminDashboard() {
   const [stats, setStats] = useState<Stats | null>(null);

@@ -66,7 +66,7 @@ interface BlogPost {
   updated_at: string;
 }
 
-const API_BASE = 'https://sinceva.com/api/admin';
+const API_BASE = 'https://sinceva.com/backend/admin';
 
 const emptyPost: Partial<BlogPost> = {
   title: { tr: '', en: '', ar: '' },

@@ -33,7 +33,7 @@ import {
   Legend
 } from 'recharts';
 
-const API_BASE = 'https://sinceva.com/api/admin';
+const API_BASE = 'https://sinceva.com/backend/admin';
 
 interface Summary {
   total_revenue: number;

@@ -20,7 +20,7 @@ interface Notification {
   icon: string;
 }
 
-const API_BASE = 'https://sinceva.com/api/admin';
+const API_BASE = 'https://sinceva.com/backend/admin';
 
 export default function NotificationBell() {
   const [notifications, setNotifications] = useState<Notification[]>([]);

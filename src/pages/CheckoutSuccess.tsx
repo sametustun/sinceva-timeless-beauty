@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { CheckCircle, Package, Loader2 } from 'lucide-react';
 
-const API_BASE = import.meta.env.VITE_API_URL || 'https://sinceva.com/api';
+const API_BASE = import.meta.env.VITE_API_URL || 'https://sinceva.com/backend';
 
 export default function CheckoutSuccess() {
   const [searchParams] = useSearchParams();

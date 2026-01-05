@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
 import { Lock, Eye, EyeOff, Shield, BarChart3, Search, Globe, CheckCircle, Loader2, ExternalLink, ShoppingBag, Key, Store, AlertCircle, CreditCard, Zap, XCircle } from "lucide-react";
-const API_URL = import.meta.env.VITE_API_URL || "https://sinceva.com/api";
+const API_URL = import.meta.env.VITE_API_URL || "https://sinceva.com/backend";
 
 interface IntegrationSettings {
   googleAnalyticsId: string;

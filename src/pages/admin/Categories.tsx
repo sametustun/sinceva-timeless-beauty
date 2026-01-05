@@ -73,7 +73,7 @@ interface Category {
   subcategories: Subcategory[];
 }
 
-const API_BASE = 'https://sinceva.com/api/admin';
+const API_BASE = 'https://sinceva.com/backend/admin';
 
 const emptyMultiLang: MultiLangText = { tr: '', en: '', ar: '' };
 

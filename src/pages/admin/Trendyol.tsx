@@ -42,7 +42,7 @@ import {
 import { Link } from "react-router-dom";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell, Legend } from "recharts";
 
-const API_URL = import.meta.env.VITE_API_URL || "https://sinceva.com/api";
+const API_URL = import.meta.env.VITE_API_URL || "https://sinceva.com/backend";
 
 const CHART_COLORS = ['hsl(var(--primary))', 'hsl(var(--secondary))', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'];
 

@@ -48,7 +48,7 @@ interface Contact {
   read_at?: string;
 }
 
-const API_BASE = 'https://sinceva.com/api/admin';
+const API_BASE = 'https://sinceva.com/backend/admin';
 
 export default function AdminContacts() {
   const [contacts, setContacts] = useState<Contact[]>([]);
