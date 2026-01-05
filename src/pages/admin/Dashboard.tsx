@@ -554,6 +554,53 @@ function AnalyticsDashboard() {
     devices: { desktop: 0, mobile: 0, tablet: 0 },
   });
   const [isLive, setIsLive] = useState(true);
+  const [analyticsConfig, setAnalyticsConfig] = useState({
+    googleTagManager: { id: '', active: false },
+    googleAnalytics: { id: '', active: false },
+    facebookPixel: { id: '', active: false },
+    hotjar: { id: '', active: false },
+    clarity: { id: '', active: false },
+  });
+
+  // Fetch analytics settings from API
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const response = await fetch('https://sinceva.com/backend/admin/settings.php?type=integrations', {
+          credentials: 'include'
+        });
+        const data = await response.json();
+        if (data.success && data.settings) {
+          const s = data.settings;
+          setAnalyticsConfig({
+            googleTagManager: { 
+              id: s.gtm_id || '', 
+              active: !!(s.gtm_id && s.gtm_id.trim() && !s.gtm_id.includes('YOUR_'))
+            },
+            googleAnalytics: { 
+              id: s.ga4_id || '', 
+              active: !!(s.ga4_id && s.ga4_id.trim() && !s.ga4_id.includes('YOUR_') && !s.ga4_id.includes('XXXXX'))
+            },
+            facebookPixel: { 
+              id: s.meta_pixel_id || '', 
+              active: !!(s.meta_pixel_id && s.meta_pixel_id.trim() && !s.meta_pixel_id.includes('YOUR_'))
+            },
+            hotjar: { 
+              id: s.hotjar_id || '', 
+              active: !!(s.hotjar_id && s.hotjar_id.trim() && s.hotjar_id !== '0')
+            },
+            clarity: { 
+              id: s.clarity_id || '', 
+              active: !!(s.clarity_id && s.clarity_id.trim() && !s.clarity_id.includes('YOUR_'))
+            },
+          });
+        }
+      } catch (error) {
+        console.error('Failed to fetch analytics settings:', error);
+      }
+    };
+    fetchSettings();
+  }, []);
 
   // Simulate real-time data updates
   useEffect(() => {
@@ -599,15 +646,6 @@ function AnalyticsDashboard() {
       if (interval) clearInterval(interval);
     };
   }, [isLive]);
-
-  // Hardcoded values from index.html
-  const analyticsConfig = {
-    googleTagManager: { id: 'GTM-NQH48RDR', active: true },
-    googleAnalytics: { id: 'G-XXXXXXXXXX', active: false },
-    facebookPixel: { id: 'YOUR_PIXEL_ID', active: false },
-    hotjar: { id: '0', active: false },
-    clarity: { id: 'YOUR_CLARITY_ID', active: false },
-  };
 
   const integrationItems = [
     { 
