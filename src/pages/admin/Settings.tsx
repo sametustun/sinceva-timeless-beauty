@@ -12,6 +12,7 @@ const API_URL = import.meta.env.VITE_API_URL || "https://sinceva.com/backend";
 
 interface IntegrationSettings {
   googleAnalyticsId: string;
+  ga4PropertyId: string;
   googleSearchConsoleId: string;
   facebookPixelId: string;
   googleTagManagerId: string;
@@ -59,6 +60,7 @@ export default function Settings() {
 
   const [integrations, setIntegrations] = useState<IntegrationSettings>({
     googleAnalyticsId: "",
+    ga4PropertyId: "",
     googleSearchConsoleId: "",
     facebookPixelId: "",
     googleTagManagerId: "",
@@ -125,6 +127,7 @@ export default function Settings() {
         if (integrationsData.success && integrationsData.data) {
           setIntegrations({
             googleAnalyticsId: integrationsData.data.googleAnalyticsId || "",
+            ga4PropertyId: integrationsData.data.ga4PropertyId || "",
             googleSearchConsoleId: integrationsData.data.googleSearchConsoleId || "",
             facebookPixelId: integrationsData.data.facebookPixelId || "",
             googleTagManagerId: integrationsData.data.googleTagManagerId || "",
@@ -388,13 +391,23 @@ export default function Settings() {
   const integrationCards = [
     {
       id: 'googleAnalyticsId',
-      name: 'Google Analytics 4',
+      name: 'Google Analytics 4 (Measurement ID)',
       description: 'Site trafiğini ve kullanıcı davranışlarını takip edin',
       icon: BarChart3,
       color: 'text-orange-500',
       bgColor: 'bg-orange-500/10',
       placeholder: 'G-XXXXXXXXXX',
       helpUrl: 'https://analytics.google.com/',
+    },
+    {
+      id: 'ga4PropertyId',
+      name: 'GA4 Property ID (API için)',
+      description: 'Gerçek zamanlı veriler için sayısal property ID',
+      icon: BarChart3,
+      color: 'text-orange-600',
+      bgColor: 'bg-orange-600/10',
+      placeholder: '123456789',
+      helpUrl: 'https://analytics.google.com/analytics/web/',
     },
     {
       id: 'googleSearchConsoleId',
