@@ -15,10 +15,12 @@ ini_set('display_errors', '0');
 ini_set('log_errors', '1');
 
 // Load environment variables using vlucas/phpdotenv
-require_once dirname(__DIR__) . '/vendor/autoload.php';
-
-$dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
-$dotenv->safeLoad();
+$vendorAutoload = dirname(__DIR__) . '/vendor/autoload.php';
+if (file_exists($vendorAutoload)) {
+    require_once $vendorAutoload;
+    $dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
+    $dotenv->safeLoad();
+}
 
 // Configuration constants - ALLOWED_ORIGINS for CORS
 define('ALLOWED_ORIGINS', [
@@ -26,7 +28,6 @@ define('ALLOWED_ORIGINS', [
     'https://www.sinceva.com'
 ]);
 define('DATA_DIR', dirname(__DIR__) . '/data/');
-define('LOG_DIR', dirname(__DIR__) . '/logs/');
 define('LOG_DIR', dirname(__DIR__) . '/logs/');
 
 // Admin credentials (should be in .env in production)
