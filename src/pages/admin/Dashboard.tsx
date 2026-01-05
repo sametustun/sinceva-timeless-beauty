@@ -570,28 +570,29 @@ function AnalyticsDashboard() {
           credentials: 'include'
         });
         const data = await response.json();
-        if (data.success && data.settings) {
-          const s = data.settings;
+        if (data.success && data.data) {
+          const s = data.data;
+          // Backend uses: googleTagManagerId, googleAnalyticsId, facebookPixelId, hotjarId, clarityId
           setAnalyticsConfig({
             googleTagManager: { 
-              id: s.gtm_id || '', 
-              active: !!(s.gtm_id && s.gtm_id.trim() && !s.gtm_id.includes('YOUR_'))
+              id: s.googleTagManagerId || '', 
+              active: !!(s.googleTagManagerId && s.googleTagManagerId.trim() && !s.googleTagManagerId.includes('YOUR_'))
             },
             googleAnalytics: { 
-              id: s.ga4_id || '', 
-              active: !!(s.ga4_id && s.ga4_id.trim() && !s.ga4_id.includes('YOUR_') && !s.ga4_id.includes('XXXXX'))
+              id: s.googleAnalyticsId || '', 
+              active: !!(s.googleAnalyticsId && s.googleAnalyticsId.trim() && !s.googleAnalyticsId.includes('YOUR_') && !s.googleAnalyticsId.includes('XXXXX'))
             },
             facebookPixel: { 
-              id: s.meta_pixel_id || '', 
-              active: !!(s.meta_pixel_id && s.meta_pixel_id.trim() && !s.meta_pixel_id.includes('YOUR_'))
+              id: s.facebookPixelId || '', 
+              active: !!(s.facebookPixelId && s.facebookPixelId.trim() && !s.facebookPixelId.includes('YOUR_'))
             },
             hotjar: { 
-              id: s.hotjar_id || '', 
-              active: !!(s.hotjar_id && s.hotjar_id.trim() && s.hotjar_id !== '0')
+              id: s.hotjarId || '', 
+              active: !!(s.hotjarId && s.hotjarId.trim() && s.hotjarId !== '0')
             },
             clarity: { 
-              id: s.clarity_id || '', 
-              active: !!(s.clarity_id && s.clarity_id.trim() && !s.clarity_id.includes('YOUR_'))
+              id: s.clarityId || '', 
+              active: !!(s.clarityId && s.clarityId.trim() && !s.clarityId.includes('YOUR_'))
             },
           });
         }
