@@ -71,7 +71,18 @@ export function useProducts() {
         console.log('[useProducts] Response status:', response.status, response.ok);
         
         if (response.ok) {
-          const data = await response.json();
+          const text = await response.text();
+          console.log('[useProducts] Raw response:', text.substring(0, 200));
+          
+          // Check if response is valid JSON
+          if (!text.startsWith('{') && !text.startsWith('[')) {
+            console.error('[useProducts] Response is not JSON, got HTML/text instead');
+            setProducts(allProductsContent.products);
+            setLoading(false);
+            return;
+          }
+          
+          const data = JSON.parse(text);
           console.log('[useProducts] Backend data:', data);
           
           if (data.success && data.products) {
