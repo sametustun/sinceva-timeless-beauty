@@ -14,6 +14,8 @@ interface Product {
   badge?: string;
   description?: string;
   image?: string;
+  price?: number | null;
+  sale_price?: number | null;
 }
 
 interface ProductCardProps {
@@ -69,9 +71,32 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, className = "" }) =>
                 <div className="absolute inset-x-0 bottom-0 top-2/3 backdrop-blur-md bg-white/20 border-t border-white/30">
                   <div className="p-4 h-full flex flex-col">
                     <div className="flex-1">
-                      <h3 className="text-lg font-semibold mb-2 text-black group-hover:text-primary transition-colors line-clamp-2">
+                      <h3 className="text-sm font-semibold mb-1 text-black group-hover:text-primary transition-colors line-clamp-2">
                         {product.name}
                       </h3>
+                      {/* Price Display */}
+                      {(product.price || product.sale_price) && (
+                        <div className="flex items-center gap-2">
+                          {product.price && product.sale_price ? (
+                            <>
+                              <span className="text-xs text-gray-500 line-through">
+                                {product.price.toLocaleString('tr-TR')} ₺
+                              </span>
+                              <span className="text-sm font-bold text-[#ef2b2d]">
+                                {product.sale_price.toLocaleString('tr-TR')} ₺
+                              </span>
+                            </>
+                          ) : product.sale_price ? (
+                            <span className="text-sm font-bold text-black">
+                              {product.sale_price.toLocaleString('tr-TR')} ₺
+                            </span>
+                          ) : product.price ? (
+                            <span className="text-sm font-bold text-black">
+                              {product.price.toLocaleString('tr-TR')} ₺
+                            </span>
+                          ) : null}
+                        </div>
+                      )}
                     </div>
 
                     {/* Buy Button */}
