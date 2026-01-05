@@ -69,9 +69,16 @@ foreach ($dataFiles as $file => $defaultData) {
 // CORS headers
 function setCorsHeaders() {
     $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
-    $allowedOrigins = [ALLOWED_ORIGIN, 'http://localhost:5173', 'http://localhost:8080'];
+    $allowedOrigins = [
+        ALLOWED_ORIGIN, 
+        'http://localhost:5173', 
+        'http://localhost:8080'
+    ];
     
-    if (in_array($origin, $allowedOrigins)) {
+    // Allow Lovable preview domains
+    $isLovablePreview = preg_match('/^https:\/\/[a-z0-9-]+\.lovableproject\.com$/', $origin);
+    
+    if (in_array($origin, $allowedOrigins) || $isLovablePreview) {
         header("Access-Control-Allow-Origin: $origin");
     }
     
