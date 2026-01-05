@@ -1,0 +1,254 @@
+[
+  {
+    "id": "product_1",
+    "name": {
+      "tr": "Sinceva Brightening Vitamin C Serum 30 ml",
+      "en": "Sinceva Brightening Vitamin C Serum 30 ml",
+      "ar": "سيروم فيتامين سي المشرق من سينسيفا 30 مل"
+    },
+    "slug": "vitamin-c-serum",
+    "description": {
+      "tr": "Güçlü C vitamini serumu ile cildinizi aydınlatın ve ton eşitlemesi sağlayın.",
+      "en": "Powerful vitamin C serum for radiant, even-toned skin with natural brightening properties.",
+      "ar": "سيروم فيتامين سي القوي لبشرة مشرقة ومتجانسة اللون مع خصائص تفتيح طبيعية."
+    },
+    "short_description": {
+      "tr": "C Vitamini Serumu",
+      "en": "Vitamin C Serum",
+      "ar": "سيروم فيتامين سي"
+    },
+    "category": "anti-aging-care",
+    "images": [],
+    "price": null,
+    "sale_price": null,
+    "active": true,
+    "featured": true,
+    "order": 1,
+    "created_at": "2024-01-01 00:00:00",
+    "updated_at": "2024-01-01 00:00:00"
+  },
+  {
+    "id": "product_2",
+    "name": {
+      "tr": "Sinceva Anti-Spot Arbutin Serum 30 ml",
+      "en": "Sinceva Anti-Spot Arbutin Serum 30 ml",
+      "ar": "سيروم الأربوتين لمكافحة البقع من سينسيفا 30 مل"
+    },
+    "slug": "arbutin-serum",
+    "description": {
+      "tr": "Leke karşıtı arbutin formülü ile koyu lekeleri azaltın ve cilt tonunu eşitleyin.",
+      "en": "Advanced arbutin formula to reduce dark spots and even skin tone.",
+      "ar": "تركيبة الأربوتين المتقدمة لتقليل البقع الداكنة وتوحيد لون البشرة."
+    },
+    "short_description": {
+      "tr": "Arbutin Serumu",
+      "en": "Arbutin Serum",
+      "ar": "سيروم الأربوتين"
+    },
+    "category": "anti-aging-care",
+    "images": [],
+    "price": null,
+    "sale_price": null,
+    "active": true,
+    "featured": true,
+    "order": 2,
+    "created_at": "2024-01-01 00:00:00",
+    "updated_at": "2024-01-01 00:00:00"
+  },
+  {
+    "id": "product_3",
+    "name": {
+      "tr": "Sinceva Anti-Wrinkle Eye Cream 20 ml",
+      "en": "Sinceva Anti-Wrinkle Eye Cream 20 ml",
+      "ar": "كريم العين لمكافحة التجاعيد من سينسيفا 20 مل"
+    },
+    "slug": "eye-cream",
+    "description": {
+      "tr": "Peptitlerle zenginleştirilmiş göz kremi ile ince çizgileri azaltın ve göz çevresini aydınlatın.",
+      "en": "Firming eye cream with peptides to reduce fine lines and brighten the delicate eye area.",
+      "ar": "كريم العين المشدد مع الببتيدات لتقليل الخطوط الدقيقة وتفتيح منطقة العين الرقيقة."
+    },
+    "short_description": {
+      "tr": "Göz Kremi",
+      "en": "Eye Cream",
+      "ar": "كريم العين"
+    },
+    "category": "anti-aging-care",
+    "images": [],
+    "price": null,
+    "sale_price": null,
+    "active": true,
+    "featured": false,
+    "order": 3,
+    "created_at": "2024-01-01 00:00:00",
+    "updated_at": "2024-01-01 00:00:00"
+  },
+  {
+    "id": "product_4",
+    "name": {
+      "tr": "Sinceva Anti-Aging Night Cream 50 ml",
+      "en": "Sinceva Anti-Aging Night Cream 50 ml",
+      "ar": "كريم الليل لمكافحة الشيخوخة من سينسيفا 50 مل"
+    },
+    "slug": "night-cream",
+    "description": {
+      "tr": "Retinol ve peptitler ile zenginleştirilmiş yoğun gece kremi.",
+      "en": "Intensive night cream with retinol and peptides for youthful, rejuvenated skin.",
+      "ar": "كريم ليلي مكثف مع الريتينول والببتيدات لبشرة شابة ومتجددة."
+    },
+    "short_description": {
+      "tr": "Gece Kremi",
+      "en": "Night Cream",
+      "ar": "كريم الليل"
+    },
+    "category": "anti-aging-care",
+    "images": [],
+    "price": null,
+    "sale_price": null,
+    "active": true,
+    "featured": false,
+    "order": 4,
+    "created_at": "2024-01-01 00:00:00",
+    "updated_at": "2024-01-01 00:00:00"
+  },
+  {
+    "id": "product_5",
+    "name": {
+      "tr": "Sinceva Skin Renewing Tonic 200 ml",
+      "en": "Sinceva Balancing Facial Toner 200 ml",
+      "ar": "تونر الوجه المتوازن من سينسيفا 200 مل"
+    },
+    "slug": "facial-toner",
+    "description": {
+      "tr": "pH dengeleyici, alkolsüz tonik ile cildinizi optimal bakıma hazırlayın.",
+      "en": "Alcohol-free toner that balances pH and prepares skin for optimal skincare absorption.",
+      "ar": "تونر خالي من الكحول يوازن درجة الحموضة ويهيئ البشرة لامتصاص مستحضرات العناية بالبشرة."
+    },
+    "short_description": {
+      "tr": "Yüz Toniği",
+      "en": "Facial Toner",
+      "ar": "تونر الوجه"
+    },
+    "category": "face-and-skin-cleansing",
+    "images": [],
+    "price": null,
+    "sale_price": null,
+    "active": true,
+    "featured": false,
+    "order": 5,
+    "created_at": "2024-01-01 00:00:00",
+    "updated_at": "2024-01-01 00:00:00"
+  },
+  {
+    "id": "product_6",
+    "name": {
+      "tr": "Sinceva Purifying Peeling Cream Scrub 200 ml",
+      "en": "Sinceva Gentle Exfoliating Peeling Gel 75 ml",
+      "ar": "جل التقشير اللطيف من سينسيفا 75 مل"
+    },
+    "slug": "peeling-gel",
+    "description": {
+      "tr": "Doğal enzimlerle nazik peeling ile pürüzsüz, parlak bir cilt elde edin.",
+      "en": "Mild exfoliant with natural enzymes to reveal smooth, glowing skin without irritation.",
+      "ar": "مقشر لطيف مع إنزيمات طبيعية للكشف عن بشرة ناعمة ومتألقة دون تهيج."
+    },
+    "short_description": {
+      "tr": "Peeling Jeli",
+      "en": "Peeling Gel",
+      "ar": "جل التقشير"
+    },
+    "category": "face-and-skin-cleansing",
+    "images": [],
+    "price": null,
+    "sale_price": null,
+    "active": true,
+    "featured": false,
+    "order": 6,
+    "created_at": "2024-01-01 00:00:00",
+    "updated_at": "2024-01-01 00:00:00"
+  },
+  {
+    "id": "product_7",
+    "name": {
+      "tr": "Sinceva Purifying Face Cleansing Foam 200 ml",
+      "en": "Sinceva Deep Cleansing Face Wash 150 ml",
+      "ar": "غسول الوجه للتنظيف العميق من سينسيفا 150 مل"
+    },
+    "slug": "face-wash",
+    "description": {
+      "tr": "Cildin doğal nem bariyerini korurken kirlilikları nazikçe temizleyen köpük.",
+      "en": "Gentle foaming cleanser that removes impurities while maintaining skin's natural moisture barrier.",
+      "ar": "منظف رغوي لطيف يزيل الشوائب مع الحفاظ على حاجز الرطوبة الطبيعي للبشرة."
+    },
+    "short_description": {
+      "tr": "Yüz Temizleyici",
+      "en": "Face Wash",
+      "ar": "غسول الوجه"
+    },
+    "category": "face-and-skin-cleansing",
+    "images": [],
+    "price": null,
+    "sale_price": null,
+    "active": true,
+    "featured": false,
+    "order": 7,
+    "created_at": "2024-01-01 00:00:00",
+    "updated_at": "2024-01-01 00:00:00"
+  },
+  {
+    "id": "product_8",
+    "name": {
+      "tr": "Sinceva SPF 50+ Daily SunCare Cream 100 ml",
+      "en": "Sinceva SPF 50+ Daily SunCare Cream 100 ml",
+      "ar": "كريم الحماية من الشمس اليومي SPF 50+ من سينسيفا 100 مل"
+    },
+    "slug": "suncare-cream",
+    "description": {
+      "tr": "Günlük kullanım için hafif, yağsız formülle geniş spektrumlu koruma.",
+      "en": "Broad spectrum protection with lightweight, non-greasy formula perfect for daily use.",
+      "ar": "حماية واسعة الطيف بتركيبة خفيفة وغير دهنية مثالية للاستخدام اليومي."
+    },
+    "short_description": {
+      "tr": "Güneş Kremi",
+      "en": "Suncare Cream",
+      "ar": "كريم الحماية من الشمس"
+    },
+    "category": "daily-care",
+    "images": [],
+    "price": null,
+    "sale_price": null,
+    "active": true,
+    "featured": true,
+    "order": 8,
+    "created_at": "2024-01-01 00:00:00",
+    "updated_at": "2024-01-01 00:00:00"
+  },
+  {
+    "id": "product_9",
+    "name": {
+      "tr": "Sinceva Hyaluronic Acid Moisturizing Cream 50 ml",
+      "en": "Sinceva Hyaluronic Acid Moisturizing Cream 50 ml",
+      "ar": "كريم الترطيب بحمض الهيالورونيك من سينسيفا 50 مل"
+    },
+    "slug": "moisturizing-cream",
+    "description": {
+      "tr": "Hyaluronik asit ile derin nemlendirme - dolgun, pürüzsüz ve esnek cilt için.",
+      "en": "Deep hydration with hyaluronic acid for plump, smooth, and supple skin all day long.",
+      "ar": "ترطيب عميق بحمض الهيالورونيك لبشرة ممتلئة وناعمة ونضرة طوال اليوم."
+    },
+    "short_description": {
+      "tr": "Nemlendirici Krem",
+      "en": "Moisturizing Cream",
+      "ar": "كريم الترطيب"
+    },
+    "category": "daily-care",
+    "images": [],
+    "price": null,
+    "sale_price": null,
+    "active": true,
+    "featured": true,
+    "order": 9,
+    "created_at": "2024-01-01 00:00:00",
+    "updated_at": "2024-01-01 00:00:00"
+  }
+]

@@ -12,7 +12,7 @@ import StorePopup from '@/components/StorePopup';
 import ProductRecommendations from '@/components/ProductRecommendations';
 import Breadcrumb from '@/components/Breadcrumb';
 import ImageZoom from '@/components/ImageZoom';
-import { allProductsContent } from '@/data/content';
+import { useProducts, useProduct } from '@/hooks/useProducts';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { productDetails } from '@/data/productDetails';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -79,9 +79,12 @@ const Product: React.FC = () => {
   const isMobile = useIsMobile();
   const { addItem } = useCart();
   const { toast } = useToast();
+  
+  // Fetch products from backend API (with fallback to static)
+  const { products: allProducts } = useProducts();
 
   // Find product by id
-  const product = allProductsContent.products.find(p => p.id.toString() === id);
+  const product = allProducts.find(p => p.id.toString() === id);
 
   // Product-specific hero images
   const heroImages: { [key: string]: string } = {
@@ -153,20 +156,25 @@ const Product: React.FC = () => {
     }
   ];
 
-  // Get product price (örnek fiyat - gerçek fiyat veritabanından gelmeli)
-  const productPrices: { [key: number]: number } = {
-    1: 299, // Vitamin C Serum
-    2: 329, // Arbutin Serum
-    3: 249, // Eye Cream
-    4: 379, // Night Cream
-    5: 199, // Tonic
-    6: 179, // Peeling
-    7: 159, // Face Cleansing Foam
-    8: 229, // Suncare Cream
-    9: 289, // Moisturizing Cream
+  // Get product price from backend data (or fallback to defaults)
+  const getProductPrice = () => {
+    // If product has sale_price from backend, use it
+    if (product?.sale_price && product.sale_price > 0) {
+      return product.sale_price;
+    }
+    // If product has price from backend, use it
+    if (product?.price && product.price > 0) {
+      return product.price;
+    }
+    // Fallback to static prices
+    const fallbackPrices: { [key: number]: number } = {
+      1: 299, 2: 329, 3: 249, 4: 379, 5: 199, 6: 179, 7: 159, 8: 229, 9: 289,
+    };
+    return fallbackPrices[product?.id || 0] || 199;
   };
 
-  const productPrice = productPrices[product?.id || 0] || 199;
+  const productPrice = getProductPrice();
+  const hasDiscount = product?.price && product.price > 0 && product?.sale_price && product.sale_price > 0;
 
   const handleAddToCart = () => {
     if (product) {
@@ -298,7 +306,22 @@ const Product: React.FC = () => {
           <h1 className="text-3xl font-bold text-[#191919] mb-2">
             {t.productNames?.[product.id as keyof typeof t.productNames] || product.name}
           </h1>
-          <p className="text-2xl font-semibold text-[#ef2b2d] mb-4">₺{productPrice.toLocaleString('tr-TR')}</p>
+          <div className="flex items-center gap-3 mb-4">
+            {hasDiscount ? (
+              <>
+                <span className="text-xl text-gray-500 line-through">
+                  ₺{product.price!.toLocaleString('tr-TR')}
+                </span>
+                <span className="text-2xl font-semibold text-[#ef2b2d]">
+                  ₺{productPrice.toLocaleString('tr-TR')}
+                </span>
+              </>
+            ) : (
+              <span className="text-2xl font-semibold text-[#ef2b2d]">
+                ₺{productPrice.toLocaleString('tr-TR')}
+              </span>
+            )}
+          </div>
         </div>
 
         {/* Photo Gallery */}
@@ -367,7 +390,7 @@ const Product: React.FC = () => {
       {/* Recommendations Section */}
       <ProductRecommendations 
         currentProductId={product.id}
-        products={allProductsContent.products}
+        products={allProducts}
         title={t.discoverProducts}
       />
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import Layout from '@/components/Layout';
 import PageHero from '@/components/sections/PageHero';
 import { Button } from '@/components/ui/button';
@@ -7,7 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Star, ShoppingCart, Filter, Grid, List } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import ProductCard from '@/components/ProductCard';
-import { allProductsContent } from '@/data/content';
+import { useProducts } from '@/hooks/useProducts';
 import shopBanner from '@/assets/shop_banner.jpg';
 import shopBannerMobile from '@/assets/shop_banner_mobile.jpg';
 
@@ -15,6 +15,9 @@ const Shop: React.FC = () => {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [sortBy, setSortBy] = useState('featured');
+  
+  // Fetch products from backend API (with fallback to static)
+  const { products: fetchedProducts, loading } = useProducts();
 
   const categories = [
     { id: 'all', name: 'All Products' },
@@ -25,12 +28,12 @@ const Shop: React.FC = () => {
   ];
 
   // Map content data to shop format with categories
-  const products = allProductsContent.products.map(product => ({
+  const products = useMemo(() => fetchedProducts.map(product => ({
     ...product,
     rating: 4.7 + Math.random() * 0.3, // Generate ratings between 4.7-5.0
     reviews: Math.floor(50 + Math.random() * 150), // Generate review counts 50-200
     category: getCategoryFromId(product.id)
-  }));
+  })), [fetchedProducts]);
 
   function getCategoryFromId(id: number) {
     if ([1, 2].includes(id)) return 'serums';

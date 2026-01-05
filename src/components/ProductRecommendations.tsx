@@ -9,7 +9,8 @@ import { Link } from 'react-router-dom';
 interface Product {
   id: string | number;
   name: string;
-  price: number;
+  price?: number | null;
+  sale_price?: number | null;
   originalPrice?: number;
   badge?: string;
   description: string;
