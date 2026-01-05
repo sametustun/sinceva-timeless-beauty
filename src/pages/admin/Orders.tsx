@@ -26,7 +26,7 @@ import {
   Clock,
 } from 'lucide-react';
 
-const API_BASE = import.meta.env.VITE_API_URL || 'https://sinceva.com/api';
+const API_BASE = import.meta.env.VITE_API_URL || 'https://sinceva.com/backend';
 
 interface OrderItem {
   product_id: string;

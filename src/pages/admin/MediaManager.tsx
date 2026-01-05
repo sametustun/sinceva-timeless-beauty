@@ -49,8 +49,8 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 
-const API_BASE = 'https://sinceva.com/api/admin';
-const UPLOAD_BASE = 'https://sinceva.com/api/uploads';
+const API_BASE = 'https://sinceva.com/backend/admin';
+const UPLOAD_BASE = 'https://sinceva.com/backend/uploads';
 
 interface MediaFile {
   name: string;

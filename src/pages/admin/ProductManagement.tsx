@@ -70,7 +70,7 @@ interface Product {
   updated_at: string;
 }
 
-const API_BASE = 'https://sinceva.com/api/admin';
+const API_BASE = 'https://sinceva.com/backend/admin';
 
 const emptyProduct: Partial<Product> = {
   name: { tr: '', en: '', ar: '' },

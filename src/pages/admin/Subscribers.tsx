@@ -34,7 +34,7 @@ interface Subscriber {
   confirmed_at?: string;
 }
 
-const API_BASE = 'https://sinceva.com/api/admin';
+const API_BASE = 'https://sinceva.com/backend/admin';
 
 export default function AdminSubscribers() {
   const [subscribers, setSubscribers] = useState<Subscriber[]>([]);

@@ -133,7 +133,7 @@ import yuzUrun6 from '@/assets/YÜZÜRÜN6.png';
 // Additional Product Image
 import zherUrun4 from '@/assets/ZHERÜRÜN4.png';
 
-const API_BASE = 'https://sinceva.com/api/admin';
+const API_BASE = 'https://sinceva.com/backend/admin';
 
 // Media categories for import
 const mediaCategories = {

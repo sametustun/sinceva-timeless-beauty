@@ -20,7 +20,7 @@ interface PaymentMethodStatus {
   iyzico: { enabled: boolean; test_mode: boolean };
 }
 
-const API_BASE = import.meta.env.VITE_API_URL || 'https://sinceva.com/api';
+const API_BASE = import.meta.env.VITE_API_URL || 'https://sinceva.com/backend';
 
 export default function Checkout() {
   const { items, totalAmount, clearCart } = useCart();

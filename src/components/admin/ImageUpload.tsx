@@ -13,7 +13,7 @@ interface ImageUploadProps {
   className?: string;
 }
 
-const API_BASE = 'https://sinceva.com/api/admin';
+const API_BASE = 'https://sinceva.com/backend/admin';
 
 export default function ImageUpload({ 
   category, 
