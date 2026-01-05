@@ -364,7 +364,7 @@ function sendConfirmationEmail($email, $token, $language) {
     ];
     
     $lang = in_array($language, ['tr', 'en', 'ar']) ? $language : 'tr';
-    $confirmUrl = BASE_URL . '/api/confirm.php?token=' . $token;
+    $confirmUrl = BASE_URL . '/backend/confirm.php?token=' . $token;
     $dir = $lang === 'ar' ? 'rtl' : 'ltr';
     
     try {
