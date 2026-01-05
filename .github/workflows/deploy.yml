@@ -40,8 +40,8 @@ jobs:
           ---
           deployment:
             tasks:
-              # public_html'ı temizle (SSL ve backend dizinini koru)
-              - /bin/find /home/sin66vacom/public_html -mindepth 1 -maxdepth 1 ! -name ".well-known" ! -name "backend" -exec /bin/rm -rf {} \;
+              # public_html'ı temizle (SSL, api ve backend dizinlerini koru)
+              - /bin/find /home/sin66vacom/public_html -mindepth 1 -maxdepth 1 ! -name ".well-known" ! -name "api" ! -name "backend" -exec /bin/rm -rf {} \;
               # Frontend dosyalarını kopyala
               - /bin/cp -R ./ /home/sin66vacom/public_html/
               # Backend dizinini oluştur
