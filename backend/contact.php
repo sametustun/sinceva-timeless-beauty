@@ -1,7 +1,6 @@
 <?php
 /**
  * SincEva Contact Form Handler
- * API: api.sinceva.com/contact/contact.php
  * 
  * Features:
  * - Cloudflare Turnstile verification
@@ -12,24 +11,76 @@
  * - Input validation & sanitization
  */
 
-// Error reporting (disable in production)
+// CRITICAL: Set JSON header FIRST, before any output
+header('Content-Type: application/json; charset=utf-8');
+
+// Global error handler to always return JSON
+set_error_handler(function($severity, $message, $file, $line) {
+    error_log("PHP Error [$severity]: $message in $file on line $line");
+    throw new ErrorException($message, 0, $severity, $file, $line);
+});
+
+set_exception_handler(function($e) {
+    error_log("Uncaught Exception: " . $e->getMessage() . " in " . $e->getFile() . " on line " . $e->getLine());
+    http_response_code(500);
+    echo json_encode(['ok' => false, 'error' => 'SERVER_ERROR', 'debug' => $e->getMessage()]);
+    exit;
+});
+
+// Shutdown function to catch fatal errors
+register_shutdown_function(function() {
+    $error = error_get_last();
+    if ($error !== null && in_array($error['type'], [E_ERROR, E_CORE_ERROR, E_COMPILE_ERROR, E_PARSE])) {
+        error_log("Fatal Error: " . $error['message'] . " in " . $error['file'] . " on line " . $error['line']);
+        // Clear any previous output
+        if (ob_get_level()) ob_end_clean();
+        header('Content-Type: application/json; charset=utf-8');
+        http_response_code(500);
+        echo json_encode(['ok' => false, 'error' => 'FATAL_ERROR', 'debug' => $error['message']]);
+    }
+});
+
+// Error reporting
 error_reporting(E_ALL);
 ini_set('display_errors', '0');
 ini_set('log_errors', '1');
 
 // Load environment variables
 $vendorAutoload = __DIR__ . '/vendor/autoload.php';
-if (file_exists($vendorAutoload)) {
-    require_once $vendorAutoload;
-    
-    // Load .env file using vlucas/phpdotenv
-    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-    $dotenv->safeLoad();
-} else {
-    // Log error if composer not installed
-    error_log('Composer autoload not found. Run: composer install');
+if (!file_exists($vendorAutoload)) {
+    error_log('Composer autoload not found at: ' . $vendorAutoload);
     http_response_code(500);
-    echo json_encode(['ok' => false, 'error' => 'SERVER_CONFIG_ERROR']);
+    echo json_encode(['ok' => false, 'error' => 'COMPOSER_NOT_INSTALLED', 'path' => $vendorAutoload]);
+    exit;
+}
+
+require_once $vendorAutoload;
+
+// Check if Dotenv class exists
+if (!class_exists('Dotenv\Dotenv')) {
+    error_log('Dotenv class not found. Run: composer require vlucas/phpdotenv');
+    http_response_code(500);
+    echo json_encode(['ok' => false, 'error' => 'DOTENV_NOT_INSTALLED']);
+    exit;
+}
+
+// Load .env file
+$envPath = __DIR__ . '/.env';
+if (!file_exists($envPath)) {
+    error_log('.env file not found at: ' . $envPath);
+    http_response_code(500);
+    echo json_encode(['ok' => false, 'error' => 'ENV_FILE_MISSING', 'path' => $envPath]);
+    exit;
+}
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
+// Check if PHPMailer class exists
+if (!class_exists('PHPMailer\PHPMailer\PHPMailer')) {
+    error_log('PHPMailer class not found. Run: composer require phpmailer/phpmailer');
+    http_response_code(500);
+    echo json_encode(['ok' => false, 'error' => 'PHPMAILER_NOT_INSTALLED']);
     exit;
 }
 
@@ -57,8 +108,8 @@ define('RATE_LIMIT_DIR', __DIR__ . '/rate-limit');
 if (!is_dir(__DIR__ . '/logs')) mkdir(__DIR__ . '/logs', 0755, true);
 if (!is_dir(RATE_LIMIT_DIR)) mkdir(RATE_LIMIT_DIR, 0755, true);
 
-// CORS Headers
-header('Content-Type: application/json; charset=utf-8');
+// CORS Headers (Content-Type already set at top)
+$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
 $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
 $allowedOrigin = in_array($origin, ALLOWED_ORIGINS) ? $origin : '';
 if ($allowedOrigin) {
