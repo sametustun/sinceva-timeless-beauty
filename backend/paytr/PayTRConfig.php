@@ -3,7 +3,7 @@
  * PayTR Configuration and Utilities
  */
 
-require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/../admin/config.php';
 
 define('PAYTR_SETTINGS_FILE', DATA_DIR . '/settings.json');
 
