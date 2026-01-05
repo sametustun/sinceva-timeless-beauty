@@ -205,17 +205,24 @@ if (!checkRateLimit($clientIP, $email)) {
 }
 
 // Send email
-$emailSent = sendEmail($name, $email, $phone, $subject, $message);
+$emailResult = sendEmail($name, $email, $phone, $subject, $message);
 
 // Save to contacts.json for admin panel
 saveContactMessage($name, $email, $phone, $subject, $message);
 
-if ($emailSent) {
+if ($emailResult['success']) {
     logRequest('SUCCESS', ['ip' => $clientIP, 'email' => $email, 'name' => $name]);
     respondSuccess();
 } else {
-    logRequest('MAIL_SEND_FAILED', ['ip' => $clientIP, 'email' => $email]);
-    respondError('MAIL_SEND_FAILED', 500);
+    logRequest('MAIL_SEND_FAILED', ['ip' => $clientIP, 'email' => $email, 'smtp_error' => $emailResult['error']]);
+    // Return SMTP error details for debugging
+    http_response_code(500);
+    echo json_encode([
+        'ok' => false, 
+        'error' => 'MAIL_SEND_FAILED', 
+        'debug' => $emailResult['error']
+    ]);
+    exit;
 }
 
 // ============= FUNCTIONS =============
@@ -294,6 +301,7 @@ function checkRateLimit($ip, $email) {
 
 /**
  * Send email using PHPMailer with SMTP
+ * Returns array with success status and error message if failed
  */
 function sendEmail($name, $email, $phone, $subject, $message) {
     $mail = new PHPMailer(true);
@@ -308,9 +316,10 @@ function sendEmail($name, $email, $phone, $subject, $message) {
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // SSL for port 465
         $mail->Port = SMTP_PORT;
         $mail->CharSet = 'UTF-8';
+        $mail->Timeout = 30; // 30 second timeout
         
         // Enable debug output for troubleshooting (logs to error_log)
-        $mail->SMTPDebug = SMTP::DEBUG_OFF; // Set to DEBUG_SERVER for debugging
+        $mail->SMTPDebug = SMTP::DEBUG_SERVER; // TEMPORARY: Enable for debugging
         $mail->Debugoutput = function($str, $level) {
             error_log("SMTP DEBUG [$level]: $str");
         };
@@ -361,15 +370,15 @@ function sendEmail($name, $email, $phone, $subject, $message) {
         $mail->AltBody = "İsim: $name\nE-posta: $email\nTelefon: $phone\nKonu: $subject\n\nMesaj:\n$message";
         
         $mail->send();
-        return true;
+        return ['success' => true, 'error' => null];
         
     } catch (Exception $e) {
         // Log SMTP errors to error_log for debugging
-        error_log("SMTP Error: " . $mail->ErrorInfo);
-        logRequest('PHPMAILER_ERROR', ['error' => $mail->ErrorInfo]);
+        $errorInfo = $mail->ErrorInfo;
+        error_log("SMTP Error: " . $errorInfo);
+        logRequest('PHPMAILER_ERROR', ['error' => $errorInfo]);
         
-        // No fallback - if SMTP fails, report the error
-        return false;
+        return ['success' => false, 'error' => $errorInfo];
     }
 }
 
