@@ -15,6 +15,11 @@ import { Loader2, ShoppingBag, CreditCard, Truck, AlertCircle } from 'lucide-rea
 
 type PaymentMethod = 'paytr' | 'iyzico';
 
+interface PaymentMethodStatus {
+  paytr: { enabled: boolean; test_mode: boolean };
+  iyzico: { enabled: boolean; test_mode: boolean };
+}
+
 const API_BASE = import.meta.env.VITE_API_URL || 'https://sinceva.com/api';
 
 export default function Checkout() {
@@ -24,7 +29,8 @@ export default function Checkout() {
   const { toast } = useToast();
   
   const [loading, setLoading] = useState(false);
-  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('iyzico');
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('paytr');
+  const [paymentMethods, setPaymentMethods] = useState<PaymentMethodStatus | null>(null);
   const [paymentToken, setPaymentToken] = useState<string | null>(null);
   const [iyzicoFormContent, setIyzicoFormContent] = useState<string | null>(null);
   const iyzicoFormRef = useRef<HTMLDivElement>(null);
@@ -38,6 +44,26 @@ export default function Checkout() {
     customer_postal_code: '',
     notes: '',
   });
+
+  // Fetch available payment methods
+  useEffect(() => {
+    const fetchPaymentMethods = async () => {
+      try {
+        const response = await fetch(`${API_BASE}/payment-status.php`);
+        const data = await response.json();
+        if (data.success) {
+          setPaymentMethods(data);
+          // Default to paytr, or iyzico if only iyzico is available
+          if (!data.paytr.enabled && data.iyzico.enabled) {
+            setPaymentMethod('iyzico');
+          }
+        }
+      } catch (error) {
+        console.error('Failed to fetch payment methods:', error);
+      }
+    };
+    fetchPaymentMethods();
+  }, []);
 
   // Redirect if cart is empty
   useEffect(() => {
@@ -310,25 +336,40 @@ export default function Checkout() {
                     onValueChange={(v) => setPaymentMethod(v as PaymentMethod)}
                     className="space-y-3"
                   >
-                    <div className="flex items-center space-x-3 p-3 rounded-lg border hover:bg-muted/50 cursor-pointer">
-                      <RadioGroupItem value="iyzico" id="iyzico" />
-                      <Label htmlFor="iyzico" className="flex-1 cursor-pointer">
-                        <div className="font-medium">iyzico</div>
-                        <p className="text-sm text-muted-foreground">Kredi kartı, banka kartı ile güvenli ödeme</p>
-                      </Label>
-                    </div>
-                    <div className="flex items-center space-x-3 p-3 rounded-lg border hover:bg-muted/50 cursor-pointer">
-                      <RadioGroupItem value="paytr" id="paytr" />
-                      <Label htmlFor="paytr" className="flex-1 cursor-pointer">
-                        <div className="font-medium">PayTR</div>
-                        <p className="text-sm text-muted-foreground">Kredi kartı, banka kartı, havale/EFT</p>
-                      </Label>
-                    </div>
+                    {paymentMethods?.paytr.enabled && (
+                      <div className="flex items-center space-x-3 p-3 rounded-lg border hover:bg-muted/50 cursor-pointer">
+                        <RadioGroupItem value="paytr" id="paytr" />
+                        <Label htmlFor="paytr" className="flex-1 cursor-pointer">
+                          <div className="font-medium">PayTR</div>
+                          <p className="text-sm text-muted-foreground">Kredi kartı, banka kartı, havale/EFT</p>
+                        </Label>
+                      </div>
+                    )}
+                    {paymentMethods?.iyzico.enabled && (
+                      <div className="flex items-center space-x-3 p-3 rounded-lg border hover:bg-muted/50 cursor-pointer">
+                        <RadioGroupItem value="iyzico" id="iyzico" />
+                        <Label htmlFor="iyzico" className="flex-1 cursor-pointer">
+                          <div className="font-medium">iyzico</div>
+                          <p className="text-sm text-muted-foreground">Kredi kartı, banka kartı ile güvenli ödeme</p>
+                        </Label>
+                      </div>
+                    )}
+                    {!paymentMethods?.paytr.enabled && !paymentMethods?.iyzico.enabled && (
+                      <div className="p-4 bg-destructive/10 text-destructive rounded-lg flex items-center gap-2">
+                        <AlertCircle className="h-5 w-5" />
+                        <span>Ödeme sistemi yapılandırılmamış. Lütfen yönetici ile iletişime geçin.</span>
+                      </div>
+                    )}
                   </RadioGroup>
                 </CardContent>
               </Card>
 
-              <Button type="submit" className="w-full mt-6" size="lg" disabled={loading}>
+              <Button 
+                type="submit" 
+                className="w-full mt-6" 
+                size="lg" 
+                disabled={loading || (!paymentMethods?.paytr.enabled && !paymentMethods?.iyzico.enabled)}
+              >
                 {loading ? (
                   <>
                     <Loader2 className="h-4 w-4 mr-2 animate-spin" />
