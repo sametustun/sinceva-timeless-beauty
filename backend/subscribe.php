@@ -12,13 +12,48 @@
  * - Input validation & sanitization
  */
 
-// Error reporting (disable in production)
+// CRITICAL: Set JSON header FIRST, before any output
+header('Content-Type: application/json; charset=utf-8');
+
+// Global error handler to always return JSON
+set_error_handler(function($severity, $message, $file, $line) {
+    error_log("PHP Error [$severity]: $message in $file on line $line");
+    throw new ErrorException($message, 0, $severity, $file, $line);
+});
+
+set_exception_handler(function($e) {
+    error_log("Uncaught Exception: " . $e->getMessage() . " in " . $e->getFile() . " on line " . $e->getLine());
+    http_response_code(500);
+    echo json_encode(['ok' => false, 'error' => 'SERVER_ERROR', 'debug' => $e->getMessage()]);
+    exit;
+});
+
+// Shutdown function to catch fatal errors
+register_shutdown_function(function() {
+    $error = error_get_last();
+    if ($error !== null && in_array($error['type'], [E_ERROR, E_CORE_ERROR, E_COMPILE_ERROR, E_PARSE])) {
+        error_log("Fatal Error: " . $error['message'] . " in " . $error['file'] . " on line " . $error['line']);
+        if (ob_get_level()) ob_end_clean();
+        header('Content-Type: application/json; charset=utf-8');
+        http_response_code(500);
+        echo json_encode(['ok' => false, 'error' => 'FATAL_ERROR', 'debug' => $error['message']]);
+    }
+});
+
+// Error reporting
 error_reporting(E_ALL);
 ini_set('display_errors', '0');
 ini_set('log_errors', '1');
 
 // Load environment variables
-require_once __DIR__ . '/vendor/autoload.php';
+$vendorAutoload = __DIR__ . '/vendor/autoload.php';
+if (!file_exists($vendorAutoload)) {
+    http_response_code(500);
+    echo json_encode(['ok' => false, 'error' => 'COMPOSER_NOT_INSTALLED']);
+    exit;
+}
+
+require_once $vendorAutoload;
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -28,6 +63,7 @@ if (file_exists(__DIR__ . '/.env')) {
     $lines = file(__DIR__ . '/.env', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
     foreach ($lines as $line) {
         if (strpos(trim($line), '#') === 0) continue;
+        if (strpos($line, '=') === false) continue;
         list($key, $value) = explode('=', $line, 2);
         $_ENV[trim($key)] = trim($value);
     }
@@ -36,9 +72,9 @@ if (file_exists(__DIR__ . '/.env')) {
 // Configuration
 define('ALLOWED_ORIGIN', $_ENV['ALLOWED_ORIGIN'] ?? 'https://sinceva.com');
 define('USE_LOCALHOST_SMTP', filter_var($_ENV['USE_LOCALHOST_SMTP'] ?? false, FILTER_VALIDATE_BOOLEAN));
-define('SMTP_HOST', $_ENV['SMTP_HOST'] ?? '');
+define('SMTP_HOST', $_ENV['SMTP_HOST'] ?? 'smtp.turkticaret.net');
 define('SMTP_PORT', (int)($_ENV['SMTP_PORT'] ?? 587));
-define('SMTP_USER', $_ENV['SMTP_USER'] ?? '');
+define('SMTP_USER', $_ENV['SMTP_USER'] ?? 'info@sinceva.com');
 define('SMTP_PASS', $_ENV['SMTP_PASS'] ?? '');
 define('SMTP_SECURE', strtolower($_ENV['SMTP_SECURE'] ?? 'tls'));
 define('SUBSCRIBERS_FILE', __DIR__ . '/data/subscribers.json');
@@ -46,13 +82,14 @@ define('LOG_FILE', __DIR__ . '/logs/subscribe.log');
 define('RATE_LIMIT_DIR', __DIR__ . '/rate-limit');
 
 // Ensure directories exist
-if (!is_dir(__DIR__ . '/logs')) mkdir(__DIR__ . '/logs', 0755, true);
-if (!is_dir(__DIR__ . '/data')) mkdir(__DIR__ . '/data', 0755, true);
-if (!is_dir(RATE_LIMIT_DIR)) mkdir(RATE_LIMIT_DIR, 0755, true);
+if (!is_dir(__DIR__ . '/logs')) @mkdir(__DIR__ . '/logs', 0755, true);
+if (!is_dir(__DIR__ . '/data')) @mkdir(__DIR__ . '/data', 0755, true);
+if (!is_dir(RATE_LIMIT_DIR)) @mkdir(RATE_LIMIT_DIR, 0755, true);
 
 // Initialize subscribers file if not exists
 if (!file_exists(SUBSCRIBERS_FILE)) {
     file_put_contents(SUBSCRIBERS_FILE, json_encode([]));
+}
 }
 
 // CORS Headers
