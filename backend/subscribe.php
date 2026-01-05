@@ -35,11 +35,12 @@ if (file_exists(__DIR__ . '/.env')) {
 
 // Configuration
 define('ALLOWED_ORIGIN', $_ENV['ALLOWED_ORIGIN'] ?? 'https://sinceva.com');
+define('USE_LOCALHOST_SMTP', filter_var($_ENV['USE_LOCALHOST_SMTP'] ?? false, FILTER_VALIDATE_BOOLEAN));
 define('SMTP_HOST', $_ENV['SMTP_HOST'] ?? '');
 define('SMTP_PORT', (int)($_ENV['SMTP_PORT'] ?? 587));
 define('SMTP_USER', $_ENV['SMTP_USER'] ?? '');
 define('SMTP_PASS', $_ENV['SMTP_PASS'] ?? '');
-define('SMTP_SECURE', $_ENV['SMTP_SECURE'] ?? 'tls');
+define('SMTP_SECURE', strtolower($_ENV['SMTP_SECURE'] ?? 'tls'));
 define('SUBSCRIBERS_FILE', __DIR__ . '/data/subscribers.json');
 define('LOG_FILE', __DIR__ . '/logs/subscribe.log');
 define('RATE_LIMIT_DIR', __DIR__ . '/rate-limit');
@@ -57,7 +58,15 @@ if (!file_exists(SUBSCRIBERS_FILE)) {
 // CORS Headers
 header('Content-Type: application/json; charset=utf-8');
 $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
-if ($origin === ALLOWED_ORIGIN) {
+
+// Allow sinceva.com with or without www
+$allowedOrigins = [
+    'https://sinceva.com',
+    'https://www.sinceva.com',
+    ALLOWED_ORIGIN
+];
+
+if (in_array($origin, $allowedOrigins)) {
     header("Access-Control-Allow-Origin: $origin");
     header('Access-Control-Allow-Methods: POST, OPTIONS');
     header('Access-Control-Allow-Headers: Content-Type');
@@ -76,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 // Verify origin
-if ($origin !== ALLOWED_ORIGIN) {
+if (!in_array($origin, $allowedOrigins)) {
     logRequest('ORIGIN_DENIED', ['origin' => $origin]);
     respondError('FORBIDDEN', 403);
 }
@@ -116,8 +125,8 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 // Sanitize email
 $email = filter_var($email, FILTER_SANITIZE_EMAIL);
 
-// Check configuration
-if (empty(SMTP_HOST) || empty(SMTP_USER)) {
+// Check configuration (skip if using localhost SMTP)
+if (!USE_LOCALHOST_SMTP && (empty(SMTP_HOST) || empty(SMTP_USER))) {
     logRequest('SERVER_MISCONFIGURED', ['ip' => $clientIP]);
     respondError('SERVER_MISCONFIGURED', 500);
 }
@@ -267,15 +276,32 @@ function sendConfirmationEmail($email, $token, $language) {
     $dir = $lang === 'ar' ? 'rtl' : 'ltr';
     
     try {
-        // SMTP settings
-        $mail->isSMTP();
-        $mail->Host = SMTP_HOST;
-        $mail->SMTPAuth = true;
-        $mail->Username = SMTP_USER;
-        $mail->Password = SMTP_PASS;
-        $mail->SMTPSecure = SMTP_SECURE;
-        $mail->Port = SMTP_PORT;
         $mail->CharSet = 'UTF-8';
+        
+        // Check if using localhost SMTP (cPanel's sendmail)
+        if (USE_LOCALHOST_SMTP || SMTP_HOST === 'localhost') {
+            $mail->isSMTP();
+            $mail->Host = 'localhost';
+            $mail->Port = 25;
+            $mail->SMTPAuth = false;
+            $mail->SMTPSecure = false;
+            $mail->SMTPAutoTLS = false;
+        } else {
+            // External SMTP
+            $mail->isSMTP();
+            $mail->Host = SMTP_HOST;
+            $mail->SMTPAuth = true;
+            $mail->Username = SMTP_USER;
+            $mail->Password = SMTP_PASS;
+            
+            // Support both SSL (465) and TLS/STARTTLS (587)
+            if (SMTP_SECURE === 'tls' || SMTP_PORT == 587) {
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            } else {
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+            }
+            $mail->Port = SMTP_PORT;
+        }
         
         // Recipients
         $mail->setFrom(SMTP_USER, 'Sinceva');
