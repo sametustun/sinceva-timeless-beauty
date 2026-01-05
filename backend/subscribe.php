@@ -90,7 +90,6 @@ if (!is_dir(RATE_LIMIT_DIR)) @mkdir(RATE_LIMIT_DIR, 0755, true);
 if (!file_exists(SUBSCRIBERS_FILE)) {
     file_put_contents(SUBSCRIBERS_FILE, json_encode([]));
 }
-}
 
 // CORS Headers
 header('Content-Type: application/json; charset=utf-8');
