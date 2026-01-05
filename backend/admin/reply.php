@@ -36,26 +36,44 @@ if (!filter_var($to, FILTER_VALIDATE_EMAIL)) {
     respondError('INVALID_EMAIL');
 }
 
-// SMTP Configuration - Turkticaret SMTP (SSL/465)
+// SMTP Configuration
+$useLocalhost = filter_var($_ENV['USE_LOCALHOST_SMTP'] ?? false, FILTER_VALIDATE_BOOLEAN);
 $smtpHost = $_ENV['SMTP_HOST'] ?? 'smtp.turkticaret.net';
-$smtpPort = intval($_ENV['SMTP_PORT'] ?? 465);
+$smtpPort = intval($_ENV['SMTP_PORT'] ?? 587);
 $smtpUser = $_ENV['SMTP_USER'] ?? 'info@sinceva.com';
 $smtpPass = $_ENV['SMTP_PASS'] ?? '';
-$fromEmail = $smtpUser; // From MUST match SMTP_USER
+$smtpSecure = strtolower($_ENV['SMTP_SECURE'] ?? 'tls');
+$fromEmail = $smtpUser;
 $fromName = 'SincEva';
 
 try {
     $mail = new PHPMailer(true);
-    
-    // SMTP settings - Turkticaret (SSL/465)
-    $mail->isSMTP();
-    $mail->Host = $smtpHost;
-    $mail->SMTPAuth = true;
-    $mail->Username = $smtpUser;
-    $mail->Password = $smtpPass;
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // SSL for port 465
-    $mail->Port = $smtpPort;
     $mail->CharSet = 'UTF-8';
+    
+    // Check if using localhost SMTP (cPanel's sendmail)
+    if ($useLocalhost || $smtpHost === 'localhost') {
+        $mail->isSMTP();
+        $mail->Host = 'localhost';
+        $mail->Port = 25;
+        $mail->SMTPAuth = false;
+        $mail->SMTPSecure = false;
+        $mail->SMTPAutoTLS = false;
+    } else {
+        // External SMTP (Turkticaret)
+        $mail->isSMTP();
+        $mail->Host = $smtpHost;
+        $mail->SMTPAuth = true;
+        $mail->Username = $smtpUser;
+        $mail->Password = $smtpPass;
+        
+        // Support both SSL (465) and TLS/STARTTLS (587)
+        if ($smtpSecure === 'tls' || $smtpPort == 587) {
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        } else {
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+        }
+        $mail->Port = $smtpPort;
+    }
     
     // Recipients
     $mail->setFrom($fromEmail, $fromName);
