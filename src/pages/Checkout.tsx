@@ -52,10 +52,15 @@ export default function Checkout() {
         const response = await fetch(`${API_BASE}/payment-status.php`);
         const data = await response.json();
         console.log('Payment methods response:', data);
-        if (data.success && data.data) {
-          setPaymentMethods(data.data);
+        if (data.success) {
+          // Response format: { success: true, paytr: {...}, iyzico: {...} }
+          const methods: PaymentMethodStatus = {
+            paytr: data.paytr || { enabled: false, test_mode: true },
+            iyzico: data.iyzico || { enabled: false, test_mode: true }
+          };
+          setPaymentMethods(methods);
           // Default to paytr, or iyzico if only iyzico is available
-          if (!data.data.paytr?.enabled && data.data.iyzico?.enabled) {
+          if (!methods.paytr.enabled && methods.iyzico.enabled) {
             setPaymentMethod('iyzico');
           }
         }
