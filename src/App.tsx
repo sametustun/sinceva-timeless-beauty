@@ -7,6 +7,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import { AuthProvider } from "./contexts/AuthContext";
 import { CartProvider } from "./contexts/CartContext";
 import { LanguageProvider } from "./contexts/LanguageContext";
+import { useAnalytics } from "./hooks/useAnalytics";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Blog from "./pages/Blog";
@@ -49,6 +50,9 @@ const queryClient = new QueryClient();
 
 const App = () => {
   console.log('App component rendering...');
+  
+  // Load analytics from backend settings
+  useAnalytics();
   
   return (
     <QueryClientProvider client={queryClient}>
