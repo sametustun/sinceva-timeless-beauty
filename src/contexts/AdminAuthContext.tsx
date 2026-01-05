@@ -15,7 +15,7 @@ interface AdminAuthContextType {
 
 const AdminAuthContext = createContext<AdminAuthContextType | undefined>(undefined);
 
-const API_BASE = 'https://sinceva.com/api/admin';
+const API_BASE = 'https://sinceva.com/backend/admin';
 
 export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
   const [admin, setAdmin] = useState<Admin | null>(null);
