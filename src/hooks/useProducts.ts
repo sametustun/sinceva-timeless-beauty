@@ -65,17 +65,24 @@ export function useProducts() {
         setLoading(true);
         
         // Try to fetch from backend API (public endpoint)
+        console.log('[useProducts] Fetching from:', `${API_BASE_URL}/products-public.php`);
         const response = await fetch(`${API_BASE_URL}/products-public.php`);
+        
+        console.log('[useProducts] Response status:', response.status, response.ok);
         
         if (response.ok) {
           const data = await response.json();
+          console.log('[useProducts] Backend data:', data);
           
           if (data.success && data.products) {
             // Create a mapping from backend products by slug
             const backendPriceMap: { [key: number]: { price: number | null; sale_price: number | null } } = {};
             
+            console.log('[useProducts] Backend products count:', data.products.length);
+            
             data.products.forEach((bp: BackendProduct) => {
               const staticId = SLUG_TO_ID[bp.slug];
+              console.log('[useProducts] Mapping slug:', bp.slug, '-> id:', staticId, 'price:', bp.price, 'sale_price:', bp.sale_price);
               if (staticId) {
                 backendPriceMap[staticId] = {
                   price: bp.price,
@@ -84,12 +91,15 @@ export function useProducts() {
               }
             });
             
+            console.log('[useProducts] Price map:', backendPriceMap);
+            
             // Merge backend prices with static content
             const mergedProducts = allProductsContent.products.map(staticProduct => {
               const backendPrices = backendPriceMap[staticProduct.id];
               
               // Only override if backend has actual price values
               if (backendPrices && (backendPrices.price !== null || backendPrices.sale_price !== null)) {
+                console.log('[useProducts] Merging product', staticProduct.id, 'with backend prices:', backendPrices);
                 return {
                   ...staticProduct,
                   price: backendPrices.price,
@@ -100,17 +110,20 @@ export function useProducts() {
               return staticProduct;
             });
             
+            console.log('[useProducts] Final merged products:', mergedProducts);
             setProducts(mergedProducts);
           } else {
             // Fallback to static content
+            console.log('[useProducts] No backend data, using static content');
             setProducts(allProductsContent.products);
           }
         } else {
           // Fallback to static content if API fails
+          console.log('[useProducts] API failed, using static content');
           setProducts(allProductsContent.products);
         }
       } catch (err) {
-        console.warn('Could not fetch from backend, using static content:', err);
+        console.warn('[useProducts] Could not fetch from backend, using static content:', err);
         // Fallback to static content
         setProducts(allProductsContent.products);
         setError(null); // Don't show error, just use fallback
