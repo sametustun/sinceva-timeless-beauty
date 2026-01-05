@@ -53,13 +53,13 @@ if (empty($recipients)) {
     respondError('NO_VALID_RECIPIENTS');
 }
 
-// SMTP Configuration
+// SMTP Configuration - Turkticaret SMTP (SSL/465)
 $smtpHost = $_ENV['SMTP_HOST'] ?? 'smtp.turkticaret.net';
-$smtpPort = intval($_ENV['SMTP_PORT'] ?? 587);
+$smtpPort = intval($_ENV['SMTP_PORT'] ?? 465);
 $smtpUser = $_ENV['SMTP_USER'] ?? 'info@sinceva.com';
 $smtpPass = $_ENV['SMTP_PASS'] ?? '';
-$fromEmail = $_ENV['SMTP_FROM'] ?? 'info@sinceva.com';
-$fromName = $_ENV['SMTP_FROM_NAME'] ?? 'SincEva';
+$fromEmail = $smtpUser; // From MUST match SMTP_USER
+$fromName = 'SincEva';
 
 $successCount = 0;
 $failedEmails = [];
@@ -114,13 +114,13 @@ foreach ($recipients as $email) {
     try {
         $mail = new PHPMailer(true);
         
-        // SMTP settings
+        // SMTP settings - Turkticaret (SSL/465)
         $mail->isSMTP();
         $mail->Host = $smtpHost;
         $mail->SMTPAuth = true;
         $mail->Username = $smtpUser;
         $mail->Password = $smtpPass;
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // SSL for port 465
         $mail->Port = $smtpPort;
         $mail->CharSet = 'UTF-8';
         

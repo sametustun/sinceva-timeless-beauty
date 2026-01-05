@@ -21,28 +21,26 @@ ini_set('log_errors', '1');
 require_once __DIR__ . '/vendor/autoload.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-// Load .env file
-if (file_exists(__DIR__ . '/.env')) {
-    $lines = file(__DIR__ . '/.env', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-    foreach ($lines as $line) {
-        if (strpos(trim($line), '#') === 0) continue;
-        list($key, $value) = explode('=', $line, 2);
-        $_ENV[trim($key)] = trim($value);
-    }
-}
+// Load .env file using vlucas/phpdotenv
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->safeLoad();
 
 // Configuration
 define('TURNSTILE_SECRET', $_ENV['TURNSTILE_SECRET'] ?? '');
-define('ALLOWED_ORIGIN', $_ENV['ALLOWED_ORIGIN'] ?? 'https://sinceva.com');
-define('MAIL_TO', $_ENV['MAIL_TO'] ?? 'destek@sinceva.com');
-define('MAIL_TO_NAME', $_ENV['MAIL_TO_NAME'] ?? 'SincEva Destek');
-define('SMTP_HOST', $_ENV['SMTP_HOST'] ?? '');
-define('SMTP_PORT', (int)($_ENV['SMTP_PORT'] ?? 587));
-define('SMTP_USER', $_ENV['SMTP_USER'] ?? '');
+define('ALLOWED_ORIGINS', [
+    'https://sinceva.com',
+    'https://www.sinceva.com'
+]);
+define('MAIL_TO', $_ENV['MAIL_TO'] ?? 'info@sinceva.com');
+define('MAIL_TO_NAME', $_ENV['MAIL_TO_NAME'] ?? 'SincEva İletişim');
+define('SMTP_HOST', $_ENV['SMTP_HOST'] ?? 'smtp.turkticaret.net');
+define('SMTP_PORT', (int)($_ENV['SMTP_PORT'] ?? 465));
+define('SMTP_USER', $_ENV['SMTP_USER'] ?? 'info@sinceva.com');
 define('SMTP_PASS', $_ENV['SMTP_PASS'] ?? '');
-define('SMTP_SECURE', $_ENV['SMTP_SECURE'] ?? 'tls');
+define('SMTP_SECURE', $_ENV['SMTP_SECURE'] ?? 'ssl');
 define('LOG_FILE', __DIR__ . '/logs/contact.log');
 define('RATE_LIMIT_DIR', __DIR__ . '/rate-limit');
 
@@ -53,8 +51,9 @@ if (!is_dir(RATE_LIMIT_DIR)) mkdir(RATE_LIMIT_DIR, 0755, true);
 // CORS Headers
 header('Content-Type: application/json; charset=utf-8');
 $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
-if ($origin === ALLOWED_ORIGIN) {
-    header("Access-Control-Allow-Origin: $origin");
+$allowedOrigin = in_array($origin, ALLOWED_ORIGINS) ? $origin : '';
+if ($allowedOrigin) {
+    header("Access-Control-Allow-Origin: $allowedOrigin");
     header('Access-Control-Allow-Methods: POST, OPTIONS');
     header('Access-Control-Allow-Headers: Content-Type');
     header('Access-Control-Max-Age: 86400');
@@ -72,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 // Verify origin
-if ($origin !== ALLOWED_ORIGIN) {
+if (!in_array($origin, ALLOWED_ORIGINS)) {
     logRequest('ORIGIN_DENIED', ['origin' => $origin]);
     respondError('FORBIDDEN', 403);
 }
@@ -233,18 +232,24 @@ function sendEmail($name, $email, $phone, $subject, $message) {
     $mail = new PHPMailer(true);
     
     try {
-        // SMTP settings
+        // SMTP settings - Turkticaret SMTP
         $mail->isSMTP();
         $mail->Host = SMTP_HOST;
         $mail->SMTPAuth = true;
         $mail->Username = SMTP_USER;
         $mail->Password = SMTP_PASS;
-        $mail->SMTPSecure = SMTP_SECURE;
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // SSL for port 465
         $mail->Port = SMTP_PORT;
         $mail->CharSet = 'UTF-8';
         
-        // Recipients
-        $mail->setFrom(SMTP_USER, 'SincEva İletişim Formu');
+        // Enable debug output for troubleshooting (logs to error_log)
+        $mail->SMTPDebug = SMTP::DEBUG_OFF; // Set to DEBUG_SERVER for debugging
+        $mail->Debugoutput = function($str, $level) {
+            error_log("SMTP DEBUG [$level]: $str");
+        };
+        
+        // From address MUST match SMTP_USER
+        $mail->setFrom(SMTP_USER, 'SincEva');
         $mail->addAddress(MAIL_TO, MAIL_TO_NAME);
         $mail->addReplyTo($email, $name);
         
@@ -292,16 +297,12 @@ function sendEmail($name, $email, $phone, $subject, $message) {
         return true;
         
     } catch (Exception $e) {
+        // Log SMTP errors to error_log for debugging
+        error_log("SMTP Error: " . $mail->ErrorInfo);
         logRequest('PHPMAILER_ERROR', ['error' => $mail->ErrorInfo]);
         
-        // Fallback to mail()
-        $headers = "From: " . SMTP_USER . "\r\n";
-        $headers .= "Reply-To: $email\r\n";
-        $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
-        
-        $body = "İsim: $name\nE-posta: $email\nTelefon: $phone\nKonu: $subject\n\nMesaj:\n$message";
-        
-        return @mail(MAIL_TO, "İletişim Formu: $subject", $body, $headers);
+        // No fallback - if SMTP fails, report the error
+        return false;
     }
 }
 
