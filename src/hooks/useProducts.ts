@@ -41,6 +41,19 @@ export interface MergedProduct {
 // Backend API URL - production domain
 const API_BASE_URL = 'https://sinceva.com/backend';
 
+// Slug to static ID mapping
+const SLUG_TO_ID: { [key: string]: number } = {
+  'vitamin-c-serum': 1,
+  'arbutin-serum': 2,
+  'eye-cream': 3,
+  'night-cream': 4,
+  'facial-toner': 5,
+  'peeling-gel': 6,
+  'face-wash': 7,
+  'suncare-cream': 8,
+  'moisturizing-cream': 9
+};
+
 export function useProducts() {
   const [products, setProducts] = useState<MergedProduct[]>([]);
   const [loading, setLoading] = useState(true);
@@ -58,23 +71,25 @@ export function useProducts() {
           const data = await response.json();
           
           if (data.success && data.products) {
-            // Create a mapping from backend products by order/ID
+            // Create a mapping from backend products by slug
             const backendPriceMap: { [key: number]: { price: number | null; sale_price: number | null } } = {};
             
-            data.products.forEach((bp: BackendProduct, index: number) => {
-              // Map by index+1 since static products use 1-9 IDs
-              const productId = index + 1;
-              backendPriceMap[productId] = {
-                price: bp.price,
-                sale_price: bp.sale_price
-              };
+            data.products.forEach((bp: BackendProduct) => {
+              const staticId = SLUG_TO_ID[bp.slug];
+              if (staticId) {
+                backendPriceMap[staticId] = {
+                  price: bp.price,
+                  sale_price: bp.sale_price
+                };
+              }
             });
             
             // Merge backend prices with static content
             const mergedProducts = allProductsContent.products.map(staticProduct => {
               const backendPrices = backendPriceMap[staticProduct.id];
               
-              if (backendPrices) {
+              // Only override if backend has actual price values
+              if (backendPrices && (backendPrices.price !== null || backendPrices.sale_price !== null)) {
                 return {
                   ...staticProduct,
                   price: backendPrices.price,
