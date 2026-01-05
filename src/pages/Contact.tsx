@@ -160,7 +160,7 @@ const Contact: React.FC = () => {
         // Show debug info if available
         const debugInfo = data.debug ? ` (${data.debug})` : '';
         const errorMsg = (errorMessages[data.error] || data.error || 'Bir hata oluştu.') + debugInfo;
-        console.error('Contact form error:', data);
+        console.error('Contact form error:', JSON.stringify(data, null, 2));
         toast({ title: 'Hata', description: errorMsg, variant: 'destructive' });
       }
     } catch (err) {
