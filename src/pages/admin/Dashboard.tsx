@@ -618,6 +618,16 @@ function AnalyticsDashboard() {
       const response = await fetch('https://sinceva.com/backend/admin/analytics.php?type=realtime', {
         credentials: 'include'
       });
+      
+      // Handle non-OK responses
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({ error: 'Bilinmeyen hata' }));
+        console.error('GA4 API error:', errorData);
+        setGa4Configured(false);
+        setGa4Message(errorData.error || `API hatası: ${response.status}`);
+        return;
+      }
+      
       const data = await response.json();
       
       if (data.success) {
@@ -637,6 +647,9 @@ function AnalyticsDashboard() {
             devices: data.data.devices || { desktop: 0, mobile: 0, tablet: 0 },
           });
         }
+      } else {
+        setGa4Configured(false);
+        setGa4Message(data.error || 'GA4 API hatası');
       }
     } catch (error) {
       console.error('Failed to fetch realtime data:', error);
