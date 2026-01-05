@@ -4,8 +4,16 @@
  * GET /products-public.php - List all active products with prices
  */
 
+// Ensure clean JSON output - no HTML errors
+ob_start();
+error_reporting(0);
+ini_set('display_errors', '0');
+
 // Load config for CORS and file helpers
 require_once __DIR__ . '/admin/config.php';
+
+// Clear any buffered output before sending JSON
+ob_end_clean();
 
 setCorsHeaders();
 handlePreflight();
