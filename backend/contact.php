@@ -101,7 +101,14 @@ $email = trim($input['email'] ?? '');
 $phone = trim($input['phone'] ?? '');
 $subject = trim($input['subject'] ?? '');
 $message = trim($input['message'] ?? '');
-$cfToken = trim($input['cf_turnstile_token'] ?? '');
+// Support multiple Turnstile token field names (frontend compatibility)
+$cfToken = trim(
+    $input['cf_turnstile_token'] ?? 
+    $input['cf-turnstile-response'] ?? 
+    $input['turnstileToken'] ?? 
+    $input['token'] ?? 
+    ''
+);
 
 // Basic validation
 if (empty($name) || empty($email) || empty($subject) || empty($message)) {
