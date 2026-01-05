@@ -58,21 +58,40 @@ require_once $vendorAutoload;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-// Load .env file
+// Load .env file with proper quote handling
 if (file_exists(__DIR__ . '/.env')) {
     $lines = file(__DIR__ . '/.env', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
     foreach ($lines as $line) {
-        if (strpos(trim($line), '#') === 0) continue;
+        $line = trim($line);
+        // Skip comments and empty lines
+        if (empty($line) || strpos($line, '#') === 0) continue;
         if (strpos($line, '=') === false) continue;
+        
         list($key, $value) = explode('=', $line, 2);
-        $_ENV[trim($key)] = trim($value);
+        $key = trim($key);
+        $value = trim($value);
+        
+        // Remove surrounding quotes (single or double)
+        $len = strlen($value);
+        if ($len >= 2) {
+            $firstChar = $value[0];
+            $lastChar = $value[$len - 1];
+            if (($firstChar === '"' && $lastChar === '"') || ($firstChar === "'" && $lastChar === "'")) {
+                $value = substr($value, 1, $len - 2);
+            }
+        }
+        
+        $_ENV[$key] = $value;
     }
 }
 
-// Configuration
-define('ALLOWED_ORIGIN', $_ENV['ALLOWED_ORIGIN'] ?? 'https://sinceva.com');
+// Configuration (after .env is loaded)
+define('ALLOWED_ORIGINS', [
+    'https://sinceva.com',
+    'https://www.sinceva.com'
+]);
 define('USE_LOCALHOST_SMTP', filter_var($_ENV['USE_LOCALHOST_SMTP'] ?? false, FILTER_VALIDATE_BOOLEAN));
-define('SMTP_HOST', $_ENV['SMTP_HOST'] ?? 'smtp.turkticaret.net');
+define('SMTP_HOST', $_ENV['SMTP_HOST'] ?? 'mail.sinceva.com');
 define('SMTP_PORT', (int)($_ENV['SMTP_PORT'] ?? 587));
 define('SMTP_USER', $_ENV['SMTP_USER'] ?? 'info@sinceva.com');
 define('SMTP_PASS', $_ENV['SMTP_PASS'] ?? '');
@@ -80,6 +99,7 @@ define('SMTP_SECURE', strtolower($_ENV['SMTP_SECURE'] ?? 'tls'));
 define('SUBSCRIBERS_FILE', __DIR__ . '/data/subscribers.json');
 define('LOG_FILE', __DIR__ . '/logs/subscribe.log');
 define('RATE_LIMIT_DIR', __DIR__ . '/rate-limit');
+define('BASE_URL', 'https://sinceva.com');
 
 // Ensure directories exist
 if (!is_dir(__DIR__ . '/logs')) @mkdir(__DIR__ . '/logs', 0755, true);
@@ -91,18 +111,37 @@ if (!file_exists(SUBSCRIBERS_FILE)) {
     file_put_contents(SUBSCRIBERS_FILE, json_encode([]));
 }
 
-// CORS Headers
-header('Content-Type: application/json; charset=utf-8');
+// ============= CORS & ORIGIN VERIFICATION =============
+
 $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+$host = $_SERVER['HTTP_HOST'] ?? '';
+$referer = $_SERVER['HTTP_REFERER'] ?? '';
 
-// Allow sinceva.com with or without www
-$allowedOrigins = [
-    'https://sinceva.com',
-    'https://www.sinceva.com',
-    ALLOWED_ORIGIN
-];
+// Helper function to check if origin/host/referer is allowed
+function isAllowedOrigin($origin) {
+    return in_array($origin, ALLOWED_ORIGINS);
+}
 
-if (in_array($origin, $allowedOrigins)) {
+function isSameSite($host, $referer) {
+    $allowedHosts = ['sinceva.com', 'www.sinceva.com'];
+    
+    // Check HTTP_HOST
+    if (in_array($host, $allowedHosts)) {
+        return true;
+    }
+    
+    // Check Referer starts with allowed origins
+    foreach (ALLOWED_ORIGINS as $allowedOrigin) {
+        if (strpos($referer, $allowedOrigin) === 0) {
+            return true;
+        }
+    }
+    
+    return false;
+}
+
+// Set CORS headers only if Origin exists and is allowed
+if (!empty($origin) && isAllowedOrigin($origin)) {
     header("Access-Control-Allow-Origin: $origin");
     header('Access-Control-Allow-Methods: POST, OPTIONS');
     header('Access-Control-Allow-Headers: Content-Type');
@@ -111,7 +150,11 @@ if (in_array($origin, $allowedOrigins)) {
 
 // Handle OPTIONS preflight
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    http_response_code(204);
+    if (!empty($origin) && isAllowedOrigin($origin)) {
+        http_response_code(204);
+    } else {
+        http_response_code(403);
+    }
     exit;
 }
 
@@ -120,10 +163,23 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     respondError('METHOD_NOT_ALLOWED', 405);
 }
 
-// Verify origin
-if (!in_array($origin, $allowedOrigins)) {
-    logRequest('ORIGIN_DENIED', ['origin' => $origin]);
-    respondError('FORBIDDEN', 403);
+// Verify origin/same-site
+if (!empty($origin)) {
+    // Origin header exists - must be in allowed list
+    if (!isAllowedOrigin($origin)) {
+        logRequest('ORIGIN_DENIED', ['origin' => $origin]);
+        respondError('FORBIDDEN', 403);
+    }
+} else {
+    // Origin header missing - verify same-site via Host or Referer
+    if (!isSameSite($host, $referer)) {
+        logRequest('ORIGIN_DENIED', [
+            'origin' => 'MISSING',
+            'host' => $host,
+            'referer' => $referer
+        ]);
+        respondError('FORBIDDEN', 403);
+    }
 }
 
 // Get client IP
@@ -308,11 +364,17 @@ function sendConfirmationEmail($email, $token, $language) {
     ];
     
     $lang = in_array($language, ['tr', 'en', 'ar']) ? $language : 'tr';
-    $confirmUrl = ALLOWED_ORIGIN . '/api/confirm.php?token=' . $token;
+    $confirmUrl = BASE_URL . '/api/confirm.php?token=' . $token;
     $dir = $lang === 'ar' ? 'rtl' : 'ltr';
     
     try {
         $mail->CharSet = 'UTF-8';
+        
+        // TEMPORARY: Enable SMTP debug logging for troubleshooting
+        $mail->SMTPDebug = 2;
+        $mail->Debugoutput = function($str, $level) {
+            logRequest('SMTP_DEBUG', ['level' => $level, 'msg' => trim($str)]);
+        };
         
         // Check if using localhost SMTP (cPanel's sendmail)
         if (USE_LOCALHOST_SMTP || SMTP_HOST === 'localhost') {
@@ -329,6 +391,15 @@ function sendConfirmationEmail($email, $token, $language) {
             $mail->SMTPAuth = true;
             $mail->Username = SMTP_USER;
             $mail->Password = SMTP_PASS;
+            
+            // Log SMTP config for debugging (without password)
+            logRequest('SMTP_CONFIG', [
+                'host' => SMTP_HOST,
+                'port' => SMTP_PORT,
+                'user' => SMTP_USER,
+                'secure' => SMTP_SECURE,
+                'pass_length' => strlen(SMTP_PASS)
+            ]);
             
             // Support both SSL (465) and TLS/STARTTLS (587)
             if (SMTP_SECURE === 'tls' || SMTP_PORT == 587) {
@@ -366,7 +437,7 @@ function sendConfirmationEmail($email, $token, $language) {
             <body>
                 <div class='container'>
                     <div class='header'>
-                        <img src='" . ALLOWED_ORIGIN . "/src/assets/sinceva_white_logo_for_mobile.png' alt='Sinceva' style='max-height: 80px;' />
+                        <img src='" . BASE_URL . "/src/assets/sinceva_white_logo_for_mobile.png' alt='Sinceva' style='max-height: 80px;' />
                     </div>
                     <div class='content'>
                         <h2>{$greetings[$lang]}</h2>
@@ -385,6 +456,7 @@ function sendConfirmationEmail($email, $token, $language) {
         $mail->AltBody = "{$greetings[$lang]}\n\n{$messages[$lang]}\n\n{$buttonTexts[$lang]}: $confirmUrl\n\n{$footerTexts[$lang]}";
         
         $mail->send();
+        logRequest('MAIL_SENT', ['email' => $email]);
         return true;
         
     } catch (Exception $e) {
