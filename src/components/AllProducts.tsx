@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Star } from 'lucide-react';
-import { allProductsContent } from '@/data/content';
+import { useProducts } from '@/hooks/useProducts';
 import ProductCard from './ProductCard';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { translations } from '@/data/translations';
@@ -12,12 +12,15 @@ const AllProducts: React.FC = () => {
   const t = translations[language];
   const [visibleProducts, setVisibleProducts] = useState(6);
   
+  // Fetch products from backend API (with fallback to static)
+  const { products } = useProducts();
+  
   const loadMoreProducts = () => {
     setVisibleProducts(prev => prev + 6);
   };
 
-  const displayedProducts = allProductsContent.products.slice(0, visibleProducts);
-  const hasMoreProducts = visibleProducts < allProductsContent.products.length;
+  const displayedProducts = products.slice(0, visibleProducts);
+  const hasMoreProducts = visibleProducts < products.length;
 
   return (
     <section className="py-20 bg-gray-50">
