@@ -40,16 +40,16 @@ jobs:
           ---
           deployment:
             tasks:
-              # public_html'ı temizle (SSL ve api dizinini koru)
-              - /bin/find /home/sin66vacom/public_html -mindepth 1 -maxdepth 1 ! -name ".well-known" ! -name "api" -exec /bin/rm -rf {} \;
+              # public_html'ı temizle (SSL, api ve backend dizinlerini koru)
+              - /bin/find /home/sin66vacom/public_html -mindepth 1 -maxdepth 1 ! -name ".well-known" ! -name "api" ! -name "backend" -exec /bin/rm -rf {} \;
               # Frontend dosyalarını kopyala
               - /bin/cp -R ./ /home/sin66vacom/public_html/
-              # API dizinini oluştur
-              - /bin/mkdir -p /home/sin66vacom/public_html/api
-              # Backend dosyalarını API dizinine kopyala
-              - /bin/cp -R backend/* /home/sin66vacom/public_html/api/
-              # Backend klasörünü public_html'den sil (gereksiz)
-              - /bin/rm -rf /home/sin66vacom/public_html/backend
+              # Backend dizinini oluştur
+              - /bin/mkdir -p /home/sin66vacom/public_html/backend
+              # Backend dosyalarını kopyala
+              - /bin/cp -R backend/* /home/sin66vacom/public_html/backend/
+              # Eski backend klasörünü dist'ten sil (artık public_html/backend'de)
+              - /bin/rm -rf /home/sin66vacom/public_html/dist
           YAML
 
       # dist klasörünü deploy branch'ine yayınla
