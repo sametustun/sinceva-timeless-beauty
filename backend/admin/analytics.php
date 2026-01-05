@@ -94,8 +94,13 @@ try {
     ]);
     
 } catch (Exception $e) {
-    logRequest('ga4_error', ['error' => $e->getMessage()]);
-    respondError('GA4 API hatası: ' . $e->getMessage(), 500);
+    logRequest('ga4_error', ['error' => $e->getMessage(), 'trace' => $e->getTraceAsString()]);
+    // Return as success with configured=false so frontend can show proper message
+    respondSuccess([
+        'configured' => false,
+        'message' => 'GA4 API hatası: ' . $e->getMessage(),
+        'data' => null
+    ]);
 }
 
 /**
