@@ -20,6 +20,16 @@ interface IntegrationSettings {
   clarityId: string;
 }
 
+interface IntegrationStatus {
+  googleAnalyticsId: 'checking' | 'connected' | 'not_connected';
+  ga4PropertyId: 'checking' | 'connected' | 'not_connected';
+  googleSearchConsoleId: 'checking' | 'connected' | 'not_connected';
+  facebookPixelId: 'checking' | 'connected' | 'not_connected';
+  googleTagManagerId: 'checking' | 'connected' | 'not_connected';
+  hotjarId: 'checking' | 'connected' | 'not_connected';
+  clarityId: 'checking' | 'connected' | 'not_connected';
+}
+
 interface TrendyolSettings {
   apiKey: string;
   apiSecret: string;
@@ -86,6 +96,53 @@ export default function Settings() {
   const [testingIyzico, setTestingIyzico] = useState(false);
   const [paytrTestResult, setPaytrTestResult] = useState<{ success: boolean; message: string } | null>(null);
   const [iyzicoTestResult, setIyzicoTestResult] = useState<{ success: boolean; message: string } | null>(null);
+  const [integrationStatus, setIntegrationStatus] = useState<IntegrationStatus>({
+    googleAnalyticsId: 'not_connected',
+    ga4PropertyId: 'not_connected',
+    googleSearchConsoleId: 'not_connected',
+    facebookPixelId: 'not_connected',
+    googleTagManagerId: 'not_connected',
+    hotjarId: 'not_connected',
+    clarityId: 'not_connected',
+  });
+
+  // Check integration connection status
+  const checkIntegrationStatus = (settings: IntegrationSettings) => {
+    const newStatus: IntegrationStatus = {
+      googleAnalyticsId: 'not_connected',
+      ga4PropertyId: 'not_connected',
+      googleSearchConsoleId: 'not_connected',
+      facebookPixelId: 'not_connected',
+      googleTagManagerId: 'not_connected',
+      hotjarId: 'not_connected',
+      clarityId: 'not_connected',
+    };
+
+    // Check each integration - valid if has proper format
+    if (settings.googleAnalyticsId && settings.googleAnalyticsId.startsWith('G-') && settings.googleAnalyticsId.length > 5) {
+      newStatus.googleAnalyticsId = 'connected';
+    }
+    if (settings.ga4PropertyId && /^\d+$/.test(settings.ga4PropertyId) && settings.ga4PropertyId.length >= 6) {
+      newStatus.ga4PropertyId = 'connected';
+    }
+    if (settings.googleSearchConsoleId && settings.googleSearchConsoleId.length > 10) {
+      newStatus.googleSearchConsoleId = 'connected';
+    }
+    if (settings.facebookPixelId && /^\d+$/.test(settings.facebookPixelId) && settings.facebookPixelId.length >= 10) {
+      newStatus.facebookPixelId = 'connected';
+    }
+    if (settings.googleTagManagerId && settings.googleTagManagerId.startsWith('GTM-') && settings.googleTagManagerId.length > 5) {
+      newStatus.googleTagManagerId = 'connected';
+    }
+    if (settings.hotjarId && /^\d+$/.test(settings.hotjarId) && settings.hotjarId.length >= 6) {
+      newStatus.hotjarId = 'connected';
+    }
+    if (settings.clarityId && settings.clarityId.length >= 8) {
+      newStatus.clarityId = 'connected';
+    }
+
+    setIntegrationStatus(newStatus);
+  };
 
   useEffect(() => {
     // Load all settings from backend
@@ -125,7 +182,7 @@ export default function Settings() {
 
         const integrationsData = await integrationsRes.json();
         if (integrationsData.success && integrationsData.data) {
-          setIntegrations({
+          const loadedIntegrations = {
             googleAnalyticsId: integrationsData.data.googleAnalyticsId || "",
             ga4PropertyId: integrationsData.data.ga4PropertyId || "",
             googleSearchConsoleId: integrationsData.data.googleSearchConsoleId || "",
@@ -133,7 +190,9 @@ export default function Settings() {
             googleTagManagerId: integrationsData.data.googleTagManagerId || "",
             hotjarId: integrationsData.data.hotjarId || "",
             clarityId: integrationsData.data.clarityId || "",
-          });
+          };
+          setIntegrations(loadedIntegrations);
+          checkIntegrationStatus(loadedIntegrations);
         }
       } catch (error) {
         console.error('Failed to load settings:', error);
@@ -260,9 +319,11 @@ export default function Settings() {
       const data = await response.json();
       
       if (data.success) {
+        // Re-check integration status after save
+        checkIntegrationStatus(integrations);
         toast({
           title: "Başarılı",
-          description: "Entegrasyon ayarları kaydedildi. Değişikliklerin aktif olması için index.html dosyasına script eklenmelidir.",
+          description: "Entegrasyon ayarları kaydedildi.",
         });
       } else {
         throw new Error(data.error || 'Save failed');
@@ -527,12 +588,24 @@ export default function Settings() {
                         placeholder={integration.placeholder}
                         className="font-mono text-sm"
                       />
-                      {integrations[integration.id as keyof IntegrationSettings] && (
-                        <div className="flex items-center gap-1 mt-2 text-xs text-green-600">
-                          <CheckCircle className="h-3 w-3" />
-                          Yapılandırıldı
-                        </div>
-                      )}
+                      <div className="mt-2">
+                        {integrationStatus[integration.id as keyof IntegrationStatus] === 'connected' ? (
+                          <Badge variant="default" className="bg-green-600 hover:bg-green-600 text-white gap-1">
+                            <CheckCircle className="h-3 w-3" />
+                            Bağlandı
+                          </Badge>
+                        ) : integrations[integration.id as keyof IntegrationSettings] ? (
+                          <Badge variant="destructive" className="gap-1">
+                            <XCircle className="h-3 w-3" />
+                            Geçersiz Format
+                          </Badge>
+                        ) : (
+                          <Badge variant="secondary" className="gap-1 text-muted-foreground">
+                            <AlertCircle className="h-3 w-3" />
+                            Bağlı Değil
+                          </Badge>
+                        )}
+                      </div>
                     </CardContent>
                   </Card>
                 ))}
