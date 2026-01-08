@@ -1,6 +1,7 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '@/contexts/CartContext';
+import { useProducts } from '@/hooks/useProducts';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Layout from '@/components/Layout';
 import { Button } from '@/components/ui/button';
@@ -23,10 +24,33 @@ interface PaymentMethodStatus {
 const API_BASE = import.meta.env.VITE_API_URL || 'https://sinceva.com/backend';
 
 export default function Checkout() {
-  const { items, totalAmount, clearCart } = useCart();
+  const { items, clearCart } = useCart();
+  const { products } = useProducts();
   const { language } = useLanguage();
   const navigate = useNavigate();
   const { toast } = useToast();
+
+  // Get fresh prices from backend for cart items
+  const itemsWithFreshPrices = useMemo(() => {
+    return items.map(item => {
+      const backendProduct = products.find(p => p.id.toString() === item.id);
+      if (backendProduct) {
+        // Use sale_price if available, otherwise use price
+        const freshPrice = (backendProduct.sale_price && backendProduct.sale_price > 0)
+          ? backendProduct.sale_price
+          : (backendProduct.price && backendProduct.price > 0)
+            ? backendProduct.price
+            : item.price;
+        return { ...item, price: freshPrice };
+      }
+      return item;
+    });
+  }, [items, products]);
+
+  // Calculate total with fresh prices
+  const totalAmount = useMemo(() => {
+    return itemsWithFreshPrices.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  }, [itemsWithFreshPrices]);
   
   const [loading, setLoading] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('paytr');
@@ -125,7 +149,7 @@ export default function Checkout() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...form,
-          items: items.map(item => ({
+          items: itemsWithFreshPrices.map(item => ({
             product_id: item.id,
             name: item.name,
             price: item.price,
@@ -398,7 +422,7 @@ export default function Checkout() {
                 <CardTitle>Sipariş Özeti</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                {items.map(item => (
+                {itemsWithFreshPrices.map(item => (
                   <div key={item.id} className="flex justify-between text-sm">
                     <span className="flex-1">
                       {item.name} <span className="text-muted-foreground">x{item.quantity}</span>

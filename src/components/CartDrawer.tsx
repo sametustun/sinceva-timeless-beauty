@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '@/contexts/CartContext';
+import { useProducts } from '@/hooks/useProducts';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetFooter } from '@/components/ui/sheet';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -8,7 +9,30 @@ import { Separator } from '@/components/ui/separator';
 import { ShoppingCart, Plus, Minus, Trash2, ShoppingBag } from 'lucide-react';
 
 export default function CartDrawer() {
-  const { items, totalItems, totalAmount, updateQuantity, removeItem, isOpen, setIsOpen } = useCart();
+  const { items, totalItems, updateQuantity, removeItem, isOpen, setIsOpen } = useCart();
+  const { products } = useProducts();
+
+  // Get fresh prices from backend for cart items
+  const itemsWithFreshPrices = useMemo(() => {
+    return items.map(item => {
+      const backendProduct = products.find(p => p.id.toString() === item.id);
+      if (backendProduct) {
+        // Use sale_price if available, otherwise use price
+        const freshPrice = (backendProduct.sale_price && backendProduct.sale_price > 0)
+          ? backendProduct.sale_price
+          : (backendProduct.price && backendProduct.price > 0)
+            ? backendProduct.price
+            : item.price;
+        return { ...item, price: freshPrice };
+      }
+      return item;
+    });
+  }, [items, products]);
+
+  // Calculate total with fresh prices
+  const freshTotalAmount = useMemo(() => {
+    return itemsWithFreshPrices.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  }, [itemsWithFreshPrices]);
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -35,7 +59,7 @@ export default function CartDrawer() {
           <>
             <ScrollArea className="flex-1 -mx-6 px-6">
               <div className="space-y-4 py-4">
-                {items.map(item => (
+                {itemsWithFreshPrices.map(item => (
                   <div key={item.id} className="flex gap-4">
                     {item.image && (
                       <div className="w-20 h-20 rounded-lg overflow-hidden bg-muted flex-shrink-0">
@@ -88,7 +112,7 @@ export default function CartDrawer() {
               <Separator />
               <div className="flex items-center justify-between text-lg font-semibold">
                 <span>Toplam</span>
-                <span>₺{totalAmount.toLocaleString('tr-TR')}</span>
+                <span>₺{freshTotalAmount.toLocaleString('tr-TR')}</span>
               </div>
               <Button asChild className="w-full" size="lg" onClick={() => setIsOpen(false)}>
                 <Link to="/checkout">Ödemeye Geç</Link>
